@@ -20,25 +20,18 @@
     line-height: 200%;
 }
 
-.summary {
-    margin-bottom: 2em;
-    margin-top: 2em;
-    color: black;
-}
-
-.summary pre { display: none; }
-
 .article-body {
-    margin-top: 2em;
-    color: black;
+	margin-top: 2em;
 }
 
-.article-title {
-    margin-bottom: 1em;
+.article-body > p {
+	text-align: justify;
 }
 
-.article-header {
-    margin-bottom: 1em;
+.article-body > p > img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 /**
