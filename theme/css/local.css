@@ -1,7 +1,14 @@
-
+/* safetoeat css customizations start here */
 .navbar-brand {
-  font-size: 24px;
+  font-size: 40px;
 }
+
+body {
+  font-family: "Helvetica Neue",Helvetica,"Open Sans",Arial,sans-serif;
+  font-size: 16px;
+}
+
+/* aboutwilson css customizations start here */
 
 .my-list-style {
     margin-left: 0;
@@ -15,7 +22,6 @@
     margin-top: 2em;
     border-top: 2px solid lightgrey;
     border-bottom: 2px solid lightgrey;
-/*    height: 250px;*/
     padding-top: 2em;
     padding-bottom: 2em;
 }
