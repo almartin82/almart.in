@@ -1,0 +1,67 @@
+==================================================================
+https://keybase.io/almartin
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://almart.in
+  * I am almartin (https://keybase.io/almartin) on keybase.
+  * I have a public key with fingerprint 1A92 BDE2 8900 6DF3 E30D  5D80 A130 A35E DF8A C6E2
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "1a92bde289006df3e30d5d80a130a35edf8ac6e2",
+            "host": "keybase.io",
+            "key_id": "a130a35edf8ac6e2",
+            "kid": "0101610f8465e372ca009603c11e1ad1694868544f73b4379a35035015c8cafc38b40a",
+            "uid": "6334b0ff6f463b236ed0fdf1fc0abb00",
+            "username": "almartin"
+        },
+        "service": {
+            "hostname": "almart.in",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1428861126,
+    "expire_in": 157680000,
+    "prev": "275c177a2844a63f2a549a9afc6f4403ed50329d13073a62255d2ca852ffc082",
+    "seqno": 17,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.8
+Comment: https://keybase.io/crypto
+
+yMIZAnicbZJpaBNBFMcT65W2iieK0BZXFI8gM3vMzqaH9BBBsR6xIFIMs7uzyRqz
+m24ua4wfiqVQtWgLoqBUK1UUxICCRoloUcHji8WjInigfhBEtPhFUets0Q+Cw8Aw
+b/7vN+/9ebenlXhKvT96FsbrvrfM9j64VZfytCzP381yqq23c4EsF6Xjh2FaYerE
+HdNKcgEOEoVXdcpjBQCkGwIVgC7pGBAoACJIVDcw0RDlOT8XsRNuBsOoJEFXmjaL
+sUvI1Fn0P/ro+AOAACIIDCwiiQoyrxEAFAQEDUIKiQ6RImKEJVE0ZEEVBVlhFMA2
+lDSsEUMTsCoCwnCpcRwSBFEFhoEMEQkqLyCqA0M3oKEBoqoAuMIEdSwSo25VO2PE
+SZoWl/NzLJo2Nepa4Hbyj2Ilk/i5uGMnbc3eycKRZDIecLOS7XFXlqFq6A8gpJqW
+zjxkCWnqJEzb4gKQKbWk6RKhyGOMIOSRn6O74qZDQ6arkGSEAVvuNzTNkLwsaVCW
+CY9FkSDB4IkkKkRhLbPeRCBQnfnAKzozVhYI4nlJ0pl7WOIN1ix2HU7QNstmbJnV
+ScKMmTDDFkmmHMrlhm62TvR4Sz2TJ01wx8BT6pvxdzhqlCljG3uPfWua2eRPv60d
+m73l5YyG2orM5uu+1mv3Y1fnHvFOPjJ/8HKxMuj7ecXuKz/54Z4251pv9M3xSGxt
+/tzo1krvl5Mtww1SzcvGHWcKgQ+rQsGHLZlXI8WyTbHu7fDAhgWdz5ae+qS/+dz8
+5OnACl/JmuDGRb+cg30Vg5u7+kbsni+dvgf5/iUlXReLN56f9a/u35KlU6vz+Y5C
+s9jvbeOnXMKL3hWKaGnH64vd99Tcoe6z9XvgUPXHbZ4MP5y7nT06T/+5+I5Vv+79
+hn1VcwbOF2a17g2VnbCmX1m/+nD5C8/jUS8ebqx+hM/sr/rasWbkRMPQaDAbSZ0O
+L2vFu6MXfgORFx9z
+=tjpQ
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/almartin
+
+==================================================================
