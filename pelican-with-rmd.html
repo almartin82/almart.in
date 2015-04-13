@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>test post — almart.in</title>
-	<meta name="description" content="Title: test post; Date: 2015-04-10; Author: Andrew Martin">
+	<title>Pelican and R markdown: an update — almart.in</title>
+	<meta name="description" content="Title: Pelican and R markdown: an update; Date: 2015-04-10; Author: Andrew Martin">
 	<meta name="author" content="Andrew Martin">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -53,7 +53,7 @@
 		<div class="col-md-8 col-md-offset-2">
 <div class="article" itemscope itemtype="http://schema.org/BlogPosting">
 	<div class="text-center article-header">
-		<h1 itemprop="name headline" class="article-title">test post</h1>
+		<h1 itemprop="name headline" class="article-title">Pelican and R markdown: an update</h1>
 		<span itemprop="author" itemscope itemtype="http://schema.org/Person">
 			<h4 itemprop="name">Andrew Martin</h4>
 		</span>
@@ -73,8 +73,20 @@
 <li><a href="http://yihui.name/knitr/demo/minimal/">knitr</a> is a report generation package for R (especially <a href="http://www.rstudio.com/">R Studio</a>) that makes it easy to mix words, simple formatting and R code.</li>
 </ul>
 <p>It would be great to be able to write up an .Rmd, run <code>pelican content</code>, and have everything just show up on the web, with syntax highlighting, inline images, etc.</p>
-<p>just a test post to see if pelican works...
-<img src="https://d2x83fpq8bsx3q.cloudfront.net/wp-content/uploads/2012/11/Tom-on-WIB-Set-Promo-Pics-Small-Jun14-12-21.jpg"></p></div>
+<h1>behind the scenes</h1>
+<p>A few quick words about what is happening - the <code>rmd_reader</code> plugin depends on the python <a href="http://rpy.sourceforge.net/rpy2/doc-2.1/html/"><code>rpy2</code></a> package, which exposes an interface from Python into R.  <code>rpy2</code> turns the .Rmd into an <a href="http://tex.stackexchange.com/questions/47943/how-to-use-the-aux-file">.aux file</a> <em>(things get a little hand-wavy for me here - I am team html/markdown/mathjax)</em> and then calls <code>knit()</code> in R to generate a markdown file.</p>
+<h1>this was kind of a pain on Windows</h1>
+<p>Yeah.  Some things that came up:</p>
+<p>1) Make sure you have a [<code>R_HOME</code>] environment variable set up, or else your <code>rpy2</code> install might be pointing at the oldest version of R on your system.  Symptoms that this is happening: you'll get knitr errors when you try to process the .Rmd, because knitr might not be installed.</p>
+<p>2) There was a slight problem with the way <code>rmd_reader</code> was reading pathnames - \Users was getting interpreted as a Unicode character.  I pushed a <a href="https://github.com/getpelican/pelican-plugins/pull/464">patch</a> the plugin library that should address this, if the pull request is accepted.</p>
+<p>3) Graphics drivers were a pain point.  Drivers that were working in RStudio (png, svg) were not working when called via the rpy2 interface.  Not totally sure what the story is here, but I ended up throwing <code>opts_chunk$set(dev='Cairo_svg')</code> into my rmd_reader block -- take a look at the <a href="https://raw.githubusercontent.com/almartin82/almart.in-source/849d26d53631523b10c18bb77c08135ed0d7d6b1/content/sample-rmd.Rmd">example</a> if you want to see it in action.</p>
+<h1>general thoughts</h1>
+<p>1) Pelican does not like the way RStudio sets up the document <a href="http://rmarkdown.rstudio.com/developer_document_templates.html">skeleton</a>.  Specifically, the <code>---</code> characters used to gate the yaml-like metadata from the content appear to be a no-no.  As far as I can tell, this isn't in the docs for rmd_reader - you just kind of figure it out by trial and error.  You'll know that this is your issue if you are seeing errors like <code>ERROR: Skipping .\sample-rmd.Rmd: could not find information about 'title'</code>.  Look at my example in #3 above, or <a href="https://raw.githubusercontent.com/wilsonfreitas/blog.aboutwilson/master/content/bmf-curve-interpolator.Rmd">Wilson's</a> example here. </p>
+<p>2) It took me a second to figure out <a href="https://github.com/getpelican/pelican-plugins/tree/master/rmd_reader#plotting"><code>pelican.publish=TRUE</code></a>.  If you're writing in RStudio and want to see local output, set that to FALSE.  But if you are ready to run pelican content and publish to the web, that should be TRUE.</p>
+<p>3) Rebecca has some great discussion about figure paths, and how to cajole knitr into putting image assets into the right place.  I may go down that road eventually - folder separation between categories might be nice.  For now, though, I am going with the <a href="https://github.com/almartin82/almart.in-source/tree/master/content">One Big Folder</a> strategy, and am throwing a numeric prefix onto the text files so that posts will sort sequentially.  That didn't require any tinkering with <code>fig.path</code> -- so if you are trying to get up and running, my advice would be to start by writing an .Rmd in <code>content/</code>, get the publishing workflow nailed down, and then start to re-organize your content - otherwise it could be tricky to distinguish between a problem with rpy2 and a problem with your <code>fig.path</code>.</p>
+<p>Overall, though, I have to say that I'm thrilled about having a straightforward .Rmd publishing tool.  <a href="https://rpubs.com/">rpubs</a> is great, but having the ability to publish rmds to my own site is exciting.</p>
+<h1>enhancement ideas</h1>
+<p>One thing that would be helpful would be a pelican_rmd template, following the <a href="(http://rmarkdown.rstudio.com/developer_document_templates.html)">tutorials</a> for creating custom knitr templates on RStudio.  That would fix the metadata problem, and it could have a nice block with all the <code>hook_content</code> stuff all ready to go.  If I find some time while this is still fresh, I'd like to add some of this back to Wilson's readme for rmd_reader.  <em>Shiny</em> support is also something to look into.</p></div>
 	<hr>
 
 	
