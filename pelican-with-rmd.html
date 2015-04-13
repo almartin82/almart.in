@@ -42,7 +42,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="http://almart.in/categories.html"><i class="fa fa-archive"></i> categories</a></li>
 					<li><a href="http://almart.in/tags.html"><i class="fa fa-tags"></i> tags</a></li>
-					<li><a href="http://almart.in/feeds/rss.xml"><i class="fa fa-rss"></i> rss</a></li>
+					<li><a href="http://almart.infeeds/all_rss.xml"><i class="fa fa-rss"></i> rss</a></li>
 				</ul>
 			</div>
 		</div>
@@ -66,11 +66,11 @@
 		</span>
 	</div>
 	
-	<div itemprop="articleBody" class="article-body"><p><a href="https://rjweiss.github.io/">Rebecca Weiss</a> asked the great question <a href="https://rjweiss.github.io/articles/2014_08_25/testing-rmarkdown-integration/"><em>"How easy is it to use R markdown and knitr with pelican?"</em></a> in summer of 2014.  Having (successfully!) gotten up and running with the same stack, I thought I would offer some additional thoughts.</p>
-<p>If you're landing here from google, a quick overview &amp; definition of some terms:</p>
+	<div itemprop="articleBody" class="article-body"><p>I leaned heavily on a great post from <a href="https://rjweiss.github.io/">Rebecca Weiss</a> titled <a href="https://rjweiss.github.io/articles/2014_08_25/testing-rmarkdown-integration/"><em>"How easy is it to use R markdown and knitr with pelican?"</em></a> to get Pelican/knitr integration up and running.  Rebecca wrote her post in 2014 in a Mac/Unix environment, so I thought that I would contribute an update, and some errata for Windows users.</p>
+<p>If you're landing here from Google, a quick overview &amp; definition of some terms:</p>
 <ul>
 <li>
-<p><a href="http://docs.getpelican.com/en/3.5.0/">Pelican</a> is a static site generator written in Python.  If you've ever seen the <a href="http://jekyllrb.com/docs/github-pages/">github pages</a> tutorials that use Jekyll, Pelican is a great alternative if you want to stay in the Python universe.</p>
+<p><a href="http://docs.getpelican.com/en/3.5.0/">Pelican</a> is a static site generator written in Python.  If you've ever seen the <a href="http://jekyllrb.com/docs/github-pages/">Github pages</a> tutorials that use Jekyll, Pelican is a great alternative if you want to stay in the Python universe.</p>
 </li>
 <li>
 <p><a href="http://yihui.name/knitr/demo/minimal/">knitr</a> is a report generation package for R (especially <a href="http://www.rstudio.com/">R Studio</a>) that makes it easy to mix words, simple formatting and R code.</p>
@@ -82,7 +82,8 @@
 <h1>general thoughts</h1>
 <p>1) Pelican does not like the way RStudio sets up the document <a href="http://rmarkdown.rstudio.com/developer_document_templates.html">skeleton</a>.  Specifically, the <code>---</code> characters used to gate the yaml-like metadata from the content appear to be a no-no.  As far as I can tell, this isn't in the docs for rmd_reader - you just kind of figure it out by trial and error.  You'll know that this is your issue if you are seeing errors like <code>ERROR: Skipping .\sample-rmd.Rmd: could not find information about 'title'</code>.  Look at my example in #3 above, or <a href="https://raw.githubusercontent.com/wilsonfreitas/blog.aboutwilson/master/content/bmf-curve-interpolator.Rmd">Wilson's</a> example here. </p>
 <p>2) It took me a second to figure out <a href="https://github.com/getpelican/pelican-plugins/tree/master/rmd_reader#plotting"><code>pelican.publish=TRUE</code></a>.  If you're writing in RStudio and want to see local output, set that to FALSE.  But if you are ready to run pelican content and publish to the web, that should be TRUE.</p>
-<p>3) Rebecca has some great discussion about figure paths, and how to cajole knitr into putting image assets into the right place.  I may go down that road eventually - folder separation between categories might be nice.  For now, though, I am going with the <a href="https://github.com/almartin82/almart.in-source/tree/master/content">One Big Folder</a> strategy, and am throwing a numeric prefix onto the text files so that posts will sort sequentially.  That didn't require any tinkering with <code>fig.path</code> -- so if you are trying to get up and running, my advice would be to start by writing an .Rmd in <code>content/</code>, get the publishing workflow nailed down, and then start to re-organize your content - otherwise it could be tricky to distinguish between a problem with rpy2 and a problem with your <code>fig.path</code>.</p>
+<p>3) Rebecca has some great discussion about figure paths, and how to cajole knitr into putting image assets into the right place.  I may go down that road eventually - folder separation between categories might be nice.  For now, though, I am going with the <a href="https://github.com/almartin82/almart.in-source/tree/master/content">One Big Folder</a> strategy, and am throwing a numeric prefix onto the text files so that posts will sort sequentially.  That didn't require any tinkering with <code>fig.path</code> -- so if you are trying to get up and running, my advice would be to start by writing an .Rmd in <code>content/</code> with no special <code>ARTICLE_URL</code> or <code>ARTICLE_SAVE_AS</code> paths, get your publishing workflow nailed down, and then start to re-organize your content - otherwise it could be tricky to identify what's a problem with rpy2/knitr dispatch, and what's simple an issue with filenames/<code>fig.path</code>.</p>
+<p>4) Not strictly .Rmd related, but a note on feed generation.  It's not always immediately clear which <code>pelicanconf.py</code> parameters are True/False, and which ones need a text value.  If you set <code>FEED_ALL_ATOM=True</code>, Pelican will throw a <code>CRITICAL: 'bool' object has no attribute 'lstrip'</code> error.</p>
 <h1>this was kind of a pain on Windows</h1>
 <p>Yeah.  You'll never believe it.  Some things that came up:</p>
 <p>1) Make sure you have a <a href="http://stackoverflow.com/questions/17573988/r-home-error-with-rpy2"><code>R_HOME</code></a> environment variable set up, or else your <code>rpy2</code> install might be pointing at the oldest version of R on your system.  Symptoms that this is happening: you'll get knitr errors when you try to process the .Rmd, because knitr might not be installed.</p>
@@ -129,7 +130,7 @@ jQuery(document).ready(function($) {
 	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-4510606-3', 'aboutwilson.net');
+ga('create', UA-61809650-1, http://almart.in);
 ga('require', 'displayfeatures');
 ga('require', 'linkid', 'linkid.js');
 ga('send', 'pageview');
