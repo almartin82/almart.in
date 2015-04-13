@@ -67,17 +67,21 @@
 	</div>
 	
 	<div itemprop="articleBody" class="article-body"><p><a href="https://rjweiss.github.io/">Rebecca Weiss</a> asked the great question <a href="https://rjweiss.github.io/articles/2014_08_25/testing-rmarkdown-integration/"><em>"How easy is it to use R markdown and knitr with pelican?"</em></a> summer of 2014.  Having (successfully!) gotten up, I thought I would offer some additional thoughts.</p>
-<p>If you're landing here from google, a quick overview:
-* <a href="http://docs.getpelican.com/en/3.5.0/">Pelican</a> is a static site generator written in Python.  If you've ever seen the <a href="http://jekyllrb.com/docs/github-pages/">github pages</a> tutorials that use Jekyll, Pelican is a great alternative if you want to stay in the Python universe.</p>
+<p>If you're landing here from google, a quick overview:</p>
 <ul>
-<li><a href="http://yihui.name/knitr/demo/minimal/">knitr</a> is a report generation package for R (especially <a href="http://www.rstudio.com/">R Studio</a>) that makes it easy to mix words, simple formatting and R code.</li>
+<li>
+<p><a href="http://docs.getpelican.com/en/3.5.0/">Pelican</a> is a static site generator written in Python.  If you've ever seen the <a href="http://jekyllrb.com/docs/github-pages/">github pages</a> tutorials that use Jekyll, Pelican is a great alternative if you want to stay in the Python universe.</p>
+</li>
+<li>
+<p><a href="http://yihui.name/knitr/demo/minimal/">knitr</a> is a report generation package for R (especially <a href="http://www.rstudio.com/">R Studio</a>) that makes it easy to mix words, simple formatting and R code.</p>
+</li>
 </ul>
 <p>It would be great to be able to write up an .Rmd, run <code>pelican content</code>, and have everything just show up on the web, with syntax highlighting, inline images, etc.</p>
 <h1>behind the scenes</h1>
 <p>A few quick words about what is happening - the <code>rmd_reader</code> plugin depends on the python <a href="http://rpy.sourceforge.net/rpy2/doc-2.1/html/"><code>rpy2</code></a> package, which exposes an interface from Python into R.  <code>rpy2</code> turns the .Rmd into an <a href="http://tex.stackexchange.com/questions/47943/how-to-use-the-aux-file">.aux file</a> <em>(things get a little hand-wavy for me here - I am team html/markdown/mathjax)</em> and then calls <code>knit()</code> in R to generate a markdown file.</p>
 <h1>this was kind of a pain on Windows</h1>
 <p>Yeah.  Some things that came up:</p>
-<p>1) Make sure you have a [<code>R_HOME</code>] environment variable set up, or else your <code>rpy2</code> install might be pointing at the oldest version of R on your system.  Symptoms that this is happening: you'll get knitr errors when you try to process the .Rmd, because knitr might not be installed.</p>
+<p>1) Make sure you have a <a href="http://stackoverflow.com/questions/17573988/r-home-error-with-rpy2"><code>R_HOME</code></a> environment variable set up, or else your <code>rpy2</code> install might be pointing at the oldest version of R on your system.  Symptoms that this is happening: you'll get knitr errors when you try to process the .Rmd, because knitr might not be installed.</p>
 <p>2) There was a slight problem with the way <code>rmd_reader</code> was reading pathnames - \Users was getting interpreted as a Unicode character.  I pushed a <a href="https://github.com/getpelican/pelican-plugins/pull/464">patch</a> the plugin library that should address this, if the pull request is accepted.</p>
 <p>3) Graphics drivers were a pain point.  Drivers that were working in RStudio (png, svg) were not working when called via the rpy2 interface.  Not totally sure what the story is here, but I ended up throwing <code>opts_chunk$set(dev='Cairo_svg')</code> into my rmd_reader block -- take a look at the <a href="https://raw.githubusercontent.com/almartin82/almart.in-source/849d26d53631523b10c18bb77c08135ed0d7d6b1/content/sample-rmd.Rmd">example</a> if you want to see it in action.</p>
 <h1>general thoughts</h1>
