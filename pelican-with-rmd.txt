@@ -12,7 +12,7 @@ If you're landing here from Google, a quick overview & definition of some terms:
 
 * [knitr](http://yihui.name/knitr/demo/minimal/) is a report generation package for R (especially [R Studio](http://www.rstudio.com/)) that makes it easy to mix words, simple formatting and R code.
 
-It would be great to be able to write up an .Rmd, run `pelican content`, and have everything just show up on the web, with syntax highlighting, inline images, etc.  That's what Pelican + knitr lets us do!
+It would be great to be able to write up an .Rmd, run `pelican content`, and have everything just show up on the web, with syntax highlighting, inline images, etc.  That's what Pelican + knitr lets us do!<!-- PELICAN_END_SUMMARY -->
 
 # behind the scenes
 

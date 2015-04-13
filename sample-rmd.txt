@@ -16,7 +16,7 @@ knit_hooks$set(plot=function(x, options) {
 opts_chunk$set(dev='Cairo_svg')
 opts_chunk$set(pelican.publish=TRUE)
 ```
-
+<!-- PELICAN_END_SUMMARY -->
 ## an out-of-the-box sample RStudio RMD, to test [`rmd_reader`](https://github.com/getpelican/pelican-plugins/tree/master/rmd_reader)
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
