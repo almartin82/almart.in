@@ -1,0 +1,36 @@
+Title: just a sample rmd
+Date: 2015-04-10
+Category: meta
+Slug: sample-rmd
+Author: Andrew Martin
+
+```{r, echo=FALSE}
+hook_plot <- knit_hooks$get('plot')
+
+knit_hooks$set(plot=function(x, options) {
+    if (!is.null(options$pelican.publish) && options$pelican.publish) {
+        x <- paste0("{filename}", x)
+    }
+    hook_plot(x, options)
+})
+opts_chunk$set(dev='Cairo_svg')
+opts_chunk$set(pelican.publish=TRUE)
+```
+
+## an out-of-the-box sample RStudio RMD, to test [`rmd_reader`](https://github.com/getpelican/pelican-plugins/tree/master/rmd_reader)
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+summary(cars)
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
