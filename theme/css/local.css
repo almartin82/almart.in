@@ -1,4 +1,4 @@
-/* safetoeat css customizations start here */
+/* more_wilson css customizations start here */
 .navbar-brand {
   font-size: 32px;
 }
@@ -12,9 +12,7 @@
   line-height: 18px;
 }
 
-.h5 {
-  line-height: 1.5;
-}
+@headings-line-height:    1.5;
 
 /* aboutwilson css customizations start here */
 
