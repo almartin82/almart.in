@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>almart.in</title><link href="http://almart.in/" rel="alternate"></link><link href="http://almart.in/feeds%5Candrew-martin.atom.xml" rel="self"></link><id>http://almart.in/</id><updated>2015-04-10T00:00:00-04:00</updated><entry><title>sample rmd</title><link href="http://almart.in/sample-rmd.html" rel="alternate"></link><updated>2015-04-10T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-10:sample-rmd.html</id><summary type="html">&lt;p&gt;This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see &lt;a href="http://rmarkdown.rstudio.com"&gt;http://rmarkdown.rstudio.com&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;When you click the &lt;strong&gt;Knit&lt;/strong&gt; button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;summary&lt;span class="p"&gt;(&lt;/span&gt;cars&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
 &lt;div class="highlight"&gt;&lt;pre&gt;##      speed           dist       
 ##  Min.   : 4.0   Min.   :  2.00  
 ##  1st Qu.:12.0   1st Qu.: 26.00  
@@ -16,5 +12,5 @@
 
 
 &lt;p&gt;You can also embed plots, for example:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="plot of chunk unnamed-chunk-3" src="{filename}figure/unnamed-chunk-3-1.svg" /&gt; &lt;/p&gt;</summary><category term="data"></category><category term="maps"></category></entry><entry><title>test post</title><link href="http://almart.in/will-it-blend.html" rel="alternate"></link><updated>2015-04-10T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-10:will-it-blend.html</id><summary type="html">&lt;p&gt;just a test post to see if pelican works...
+&lt;p&gt;&lt;img alt="plot of chunk unnamed-chunk-3" src="{filename}/figure/unnamed-chunk-3-1.svg" /&gt; &lt;/p&gt;</summary><category term="data"></category><category term="maps"></category></entry><entry><title>test post</title><link href="http://almart.in/will-it-blend.html" rel="alternate"></link><updated>2015-04-10T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-10:will-it-blend.html</id><summary type="html">&lt;p&gt;just a test post to see if pelican works...
 &lt;img src="https://d2x83fpq8bsx3q.cloudfront.net/wp-content/uploads/2012/11/Tom-on-WIB-Set-Promo-Pics-Small-Jun14-12-21.jpg"&gt;&lt;/p&gt;</summary><category term="data"></category><category term="maps"></category></entry></feed>
