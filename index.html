@@ -68,6 +68,7 @@
 			</ul>
 		</div>
 		<div class="col-md-8">
+			<!-- ARTICLE CONTENT: edit in index.html template -->
         
 <div class="article" itemscope itemtype="http://schema.org/BlogPosting" style="margin-bottom:2em;">
 	<div class="row">
@@ -82,6 +83,26 @@
 					<time datetime="2015-04-10T00:00:00" itemprop="datePublished">Fri 10 April 2015</time>
 				</small>
 			</h4>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<h5><p>I leaned heavily on a great post from <a href="https://rjweiss.github.io/">Rebecca Weiss</a> titled <a href="https://rjweiss.github.io/articles/2014_08_25/testing-rmarkdown-integration/"><em>"How easy is it to use R markdown and knitr with pelican?"</em></a> to get Pelican/knitr integration up and running.  Rebecca wrote her post in 2014 in a Mac/Unix environment, so I thought that I would contribute an update, and some errata for Windows users.</p>
+<p>If you're landing here from Google, a quick overview &amp; definition of some terms:</p>
+<ul>
+<li>
+<p><a href="http://docs.getpelican.com/en/3.5.0/">Pelican</a> is a static site generator written in Python.  If you've ever seen the <a href="http://jekyllrb.com/docs/github-pages/">Github pages</a> tutorials that use Jekyll, Pelican is a great alternative if you want to stay in the Python universe.</p>
+</li>
+<li>
+<p><a href="http://yihui.name/knitr/demo/minimal/">knitr</a> is a report generation package for R (especially <a href="http://www.rstudio.com/">R Studio</a>) that makes it easy to mix words, simple formatting and R code.</p>
+</li>
+</ul>
+<p>It would be great to be able to write up an .Rmd, run <code>pelican content</code>, and have everything just show up on the web, with syntax highlighting, inline images, etc.  That's what Pelican + knitr lets us do!</p>
+<h1>behind the scenes</h1>
+<p>A few quick words about what is happening - the <code>rmd_reader</code> plugin depends on the python <a href="http://rpy.sourceforge.net/rpy2/doc-2.1/html/"><code>rpy2</code></a> package, which exposes an interface from Python into R.  <code>rpy2</code> turns the .Rmd into an <a href="http://tex.stackexchange.com/questions/47943/how-to-use-the-aux-file">.aux file</a> <em>(things get a little hand-wavy for me here - I am team html/markdown/mathjax)</em> and then calls <code>knit()</code> in R to generate a markdown file.</p>
+<h1>general thoughts</h1>
+<p>1) Pelican does not like the way RStudio sets up the document <a href="http://rmarkdown.rstudio.com/developer_document_templates.html">skeleton</a>.  Specifically, the <code>---</code> characters used to gate the ...</p></h5>
 		</div>
 	</div>
 	<span itemprop="articleSection">
@@ -103,6 +124,31 @@
 			</h4>
 		</div>
 	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<h5><h2>an out-of-the-box sample RStudio RMD, to test <a href="https://github.com/getpelican/pelican-plugins/tree/master/rmd_reader"><code>rmd_reader</code></a></h2>
+<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com">http://rmarkdown.rstudio.com</a>.</p>
+<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
+<div class="highlight"><pre>summary<span class="p">(</span>cars<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00
+</pre></div>
+
+
+<p>You can also embed plots, for example:</p>
+<p><img alt="plot of chunk unnamed-chunk-3" src="http://almart.in/figure/unnamed-chunk-3-1.svg" /> </p>
+<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p></h5>
+		</div>
+	</div>
 	<span itemprop="articleSection">
 		<strong><a href="http://almart.in/category/meta.html" rel="category">meta</a></strong>
 	</span>
@@ -120,6 +166,13 @@
 					<time datetime="2015-04-10T00:00:00" itemprop="datePublished">Fri 10 April 2015</time>
 				</small>
 			</h4>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<h5><p>just a test post to see if pelican works...
+<img src="https://d2x83fpq8bsx3q.cloudfront.net/wp-content/uploads/2012/11/Tom-on-WIB-Set-Promo-Pics-Small-Jun14-12-21.jpg"></p></h5>
 		</div>
 	</div>
 	<span itemprop="articleSection">
