@@ -66,8 +66,8 @@
 		</span>
 	</div>
 	
-	<div itemprop="articleBody" class="article-body"><p><a href="https://rjweiss.github.io/">Rebecca Weiss</a> asked the great question <a href="https://rjweiss.github.io/articles/2014_08_25/testing-rmarkdown-integration/"><em>"How easy is it to use R markdown and knitr with pelican?"</em></a> summer of 2014.  Having (successfully!) gotten up, I thought I would offer some additional thoughts.</p>
-<p>If you're landing here from google, a quick overview:</p>
+	<div itemprop="articleBody" class="article-body"><p><a href="https://rjweiss.github.io/">Rebecca Weiss</a> asked the great question <a href="https://rjweiss.github.io/articles/2014_08_25/testing-rmarkdown-integration/"><em>"How easy is it to use R markdown and knitr with pelican?"</em></a> in summer of 2014.  Having (successfully!) gotten up and running with the same stack, I thought I would offer some additional thoughts.</p>
+<p>If you're landing here from google, a quick overview &amp; definition of some terms:</p>
 <ul>
 <li>
 <p><a href="http://docs.getpelican.com/en/3.5.0/">Pelican</a> is a static site generator written in Python.  If you've ever seen the <a href="http://jekyllrb.com/docs/github-pages/">github pages</a> tutorials that use Jekyll, Pelican is a great alternative if you want to stay in the Python universe.</p>
@@ -76,7 +76,7 @@
 <p><a href="http://yihui.name/knitr/demo/minimal/">knitr</a> is a report generation package for R (especially <a href="http://www.rstudio.com/">R Studio</a>) that makes it easy to mix words, simple formatting and R code.</p>
 </li>
 </ul>
-<p>It would be great to be able to write up an .Rmd, run <code>pelican content</code>, and have everything just show up on the web, with syntax highlighting, inline images, etc.</p>
+<p>It would be great to be able to write up an .Rmd, run <code>pelican content</code>, and have everything just show up on the web, with syntax highlighting, inline images, etc.  That's what Pelican + knitr lets us do!</p>
 <h1>behind the scenes</h1>
 <p>A few quick words about what is happening - the <code>rmd_reader</code> plugin depends on the python <a href="http://rpy.sourceforge.net/rpy2/doc-2.1/html/"><code>rpy2</code></a> package, which exposes an interface from Python into R.  <code>rpy2</code> turns the .Rmd into an <a href="http://tex.stackexchange.com/questions/47943/how-to-use-the-aux-file">.aux file</a> <em>(things get a little hand-wavy for me here - I am team html/markdown/mathjax)</em> and then calls <code>knit()</code> in R to generate a markdown file.</p>
 <h1>general thoughts</h1>
