@@ -9,11 +9,15 @@
 }
 
 li {
-  line-height: 1.6;
+	line-height: 1.6;
 }
 
 h5 {
-  line-height: 1.6;
+	line-height: 1.6;
+}
+
+p {
+	line-height: 1.6;
 }
 
 /* aboutwilson css customizations start here */

@@ -1,0 +1,208 @@
+Title: Working with NJASK data in R: part 1 in a series.
+Date: 2015-04-10
+Category: education
+Tags: NJ, NJASK, data_management, technical
+Slug: reading-njask-data-1
+Author: Andrew Martin
+
+```{r, echo=FALSE}
+library(knitr)
+hook_plot <- knit_hooks$get('plot')
+
+knit_hooks$set(plot=function(x, options) {
+    if (!is.null(options$pelican.publish) && options$pelican.publish) {
+        x <- paste0("{filename}", x)
+    }
+    hook_plot(x, options)
+})
+opts_chunk$set(dev='Cairo_svg')
+opts_chunk$set(pelican.publish=TRUE)
+```
+
+New Jersey has switched over to the PARCC assessment, but from roughly 2005-2014 New Jersey took the "New Jersey Assessment of Skills and Knowledge," or more simply "the NJASK."
+
+This data is a bit of a pain to work with.  There's a page for each [year](http://www.state.nj.us/education/schools/achievement/14/) of assessment data, and for each year there's a [page](http://www.state.nj.us/education/schools/achievement/14/njask8/) per grade level.  But wait!  It gets better!  If you download the Excel spreadsheet for each grade level (helpfully titled `state_summary.xls` for _every_ year and grade!), you'll find **5** tabs per file, because there are simply too many demographic/subject subgroups for Excel 2003 to handle.
+
+<img src="../figure/04_njask_excel.png">
+
+I would like to say that I never go down this road, but looking at my downloads folder, I'm apparently on `state_summary(15).xls`.  
+
+Yuck.
+
+# there must be a better way
+
+Fortunately the state publishes [fixed width](http://www.state.nj.us/education/schools/achievement/14/njask8/state_summary.txt) versions of these files that you can work with.  They're a little intimidating at first, but they're actually (relatively) easy to read into R.
+
+##<i class="fa fa-music"></i>welcome to the <a href="https://barryrowlingson.github.io/hadleyverse/#1">Hadleyverse</a><i class="fa fa-music"></i>
+
+We can use the `read_fwf()` function from [`hadley/readr`](https://github.com/hadley/readr) to quickly read fixed width files into R.
+
+First let's load some libraries:
+
+```{r libraries}
+
+library(readr)
+library(dplyr)
+library(sqldf)
+library(reshape2)
+library(magrittr)
+```
+
+```{r fwf1}
+
+sample_file = "http://www.state.nj.us/education/schools/achievement/14/njask8/state_summary.txt"
+
+njask14_gr8 <- readr::read_fwf(
+  file = sample_file,
+  col_positions = readr::fwf_empty(file=sample_file)
+)
+head(njask14_gr8)
+
+```
+
+
+So that's a start, but that gives us a bunch of weird unhelpful column names.  Also, there's a bunch of weird * characters.
+
+# this part is unfortunate
+
+For whatever reason NJ has seen fit to publish the crucial _definitions_ (column headers) for that data in an Excel spreadsheet.  Never in my life have I seen something _more_ clearly suited for JSON.  
+
+<img src="../figure/04_njask_layout.png">
+
+I think we can do some dplyr tricks and recover the nested aspects of this data:
+
+```{r read_layout}
+
+layout <- readr::read_csv("../datasets/njask_layout.csv")
+
+head(layout)
+names(layout) <- tolower(gsub(' ', '_', names(layout)))
+
+```
+
+In Excel I created a simple column to test if a column was a 'spanning' column (basically, was it merged across multiple columns).  First we'll separate those 'spanners' from the non-spanners.
+
+```{r munge1}
+
+spanners <- dplyr::filter(layout, structural==TRUE)
+keepers <- dplyr::filter(layout, structural==FALSE)
+
+head(spanners)
+
+```
+
+To match spanners with keepers, we can do a SQL join (dplyr doesn't join on inequalities [yet](https://github.com/hadley/dplyr/issues/557)).
+
+```{r}
+
+with_spanners <- sqldf('
+  SELECT keepers.*
+        ,spanners.data_type AS spanner
+        ,spanners.field_length AS spanner_length
+  FROM keepers
+  LEFT OUTER JOIN spanners
+    ON keepers.field_start_position >= spanners.field_start_position
+   AND keepers.field_end_position <= spanners.field_end_position
+')
+
+with_spanners[1:20, c(1:5,8:10)]
+
+```
+
+So we have fields matched with their parents, but the sql join leaves us with long data, and we really need wide data (one row per field).  Let's reshape!
+
+First let's tag each row with a row number:
+```{r reshape1}
+
+with_rn <- with_spanners %>%
+  dplyr::group_by(
+     field_start_position, field_end_position, field_length, 
+     data_type, description, comments, valid_values  
+  ) %>%
+  mutate(
+    rn = order(desc(spanner_length)) 
+  ) %>%
+  select(
+    field_start_position, field_end_position, field_length, 
+    data_type, description, comments, valid_values, spanner, rn
+  ) %>%
+  as.data.frame()
+
+with_rn$rn <- paste0('spanner', with_rn$rn)
+#mask NAS
+with_rn$spanner <- ifelse(is.na(with_rn$spanner),'', with_rn$spanner)
+head(with_rn)
+
+```
+
+Using that row number as a key, we can pivot and move each of those spanner values to a new column, using one of the many tools in the `reshape2` [toolbox](http://www.cookbook-r.com/Manipulating_data/Converting_data_between_wide_and_long_format/#from-long-to-wide).
+
+```{r reshape2}
+
+layout_wide <- dcast(
+  data = with_rn,
+  formula = field_start_position + field_end_position + field_length +
+    data_type + description + comments + valid_values ~ rn,
+  value.var = "spanner"
+)
+
+#this appears to be a bug in dcast?  should not be needed.
+layout_wide$spanner2 <- ifelse(is.na(layout_wide$spanner2),'', layout_wide$spanner2)
+
+layout_wide[1:20, ]
+
+```
+
+Success!  Now we just concatenate `description`, `spanner1`, and `spanner2` into a single value, do a little cleanup, and we have our headers.
+
+```{r combine}
+
+layout_wide$final_name <- layout_wide %$% paste(spanner1, spanner2, description, sep='_')
+#kill double underscores
+layout_wide$final_name <- gsub('__', '_', layout_wide$final_name)
+#kill leading or trailer underscores
+layout_wide$final_name <- gsub("(^_+|_+$)", "", layout_wide$final_name)
+#all whitespace becomes underscore
+layout_wide$final_name <- gsub(' ', '_', layout_wide$final_name)
+
+head(layout_wide)
+
+```
+
+Now we can hand our data frame of headers back to fwf using `fwf_positions` and get meaningful data:
+
+
+```{r fwf2}
+
+sample_file = "http://www.state.nj.us/education/schools/achievement/14/njask8/state_summary.txt"
+
+njask14_gr8 <- readr::read_fwf(
+  file = sample_file,
+  col_positions = readr::fwf_positions(
+    start = layout_wide$field_start_position,
+    end = layout_wide$field_end_position,
+    col_names = layout_wide$final_name
+  ),
+  na = "*"
+)
+
+```
+
+success!
+let's look at just a sample of 10 rows and 10 columns from that:
+
+```{r fwf3}
+
+dplyr::sample_n(njask14_gr8[, sample(c(1:551), 10)], 10) %>% as.data.frame()
+
+```
+
+In the next post, we'll talk about how to turn this linear script into a function that can process all of the state data.
+
+# appendix: all 551 headers
+
+```{r all_the_headers}
+
+layout_wide$final_name
+
+```
