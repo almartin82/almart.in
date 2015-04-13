@@ -8,12 +8,12 @@
   font-size: 16px;
 }
 
-.li {
-  line-height: 18px;
+li {
+  line-height: 1.6;
 }
 
 h5 {
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* aboutwilson css customizations start here */
