@@ -29,7 +29,7 @@ New Jersey has switched over to the PARCC assessment, but from roughly 2005-2014
 
 This data is a bit of a pain to work with.  There's a page for each [year](http://www.state.nj.us/education/schools/achievement/14/) of assessment data, and for each year there's a [page](http://www.state.nj.us/education/schools/achievement/14/njask8/) per grade level.  But wait!  It gets better!  If you download the Excel spreadsheet for each grade level (helpfully titled `state_summary.xls` for _every_ year and grade!), you'll find **5** tabs per file, because there are simply too many demographic/subject subgroups for Excel 2003 to handle.
 
-<img src="`r paste0(relative_img_path,"static_images/04_njask_excel.png")`">
+<img src="static_images/04_njask_excel.png">
 
 I would like to say that I never go down this road, but looking at my downloads folder, I'm apparently on `state_summary(15).xls`.  
 
