@@ -92,6 +92,7 @@
 		</div>
 	</div>
 	
+	posted in: 
 	<span itemprop="articleSection">
 		<strong><a href="http://almart.in/category/meta.html" rel="category">meta</a></strong>
 	</span>
@@ -131,21 +132,23 @@
 		</div>
 	</div>
 	
+	posted in: 
 	<span itemprop="articleSection">
 		<strong><a href="http://almart.in/category/education.html" rel="category">education</a></strong>
 	</span>
  
+	 tagged: 
 	<span itemprop="keywords">
-		<a href="http://almart.in/tag/nj.html" rel="tag">NJ</a>
+		<a href="http://almart.in/tag/nj.html" rel="tag"> NJ </a>
 	</span>
 	<span itemprop="keywords">
-		<a href="http://almart.in/tag/njask.html" rel="tag">NJASK</a>
+		<a href="http://almart.in/tag/njask.html" rel="tag"> NJASK </a>
 	</span>
 	<span itemprop="keywords">
-		<a href="http://almart.in/tag/data_management.html" rel="tag">data_management</a>
+		<a href="http://almart.in/tag/data_management.html" rel="tag"> data_management </a>
 	</span>
 	<span itemprop="keywords">
-		<a href="http://almart.in/tag/technical.html" rel="tag">technical</a>
+		<a href="http://almart.in/tag/tutorial.html" rel="tag"> tutorial </a>
 	</span>
 	
 	<div class="row">
@@ -161,39 +164,28 @@
 <p>We can use the <code>read_fwf()</code> function from <a href="https://github.com/hadley/readr"><code>hadley/readr</code></a> to quickly read fixed width files into R.</p>
 <p>First let's load some libraries:</p>
 <div class="highlight"><pre>library<span class="p">(</span>readr<span class="p">)</span>
+library<span class="p">(</span>dplyr<span class="p">)</span>
+library<span class="p">(</span>sqldf<span class="p">)</span>
+library<span class="p">(</span>reshape2<span class="p">)</span>
+library<span class="p">(</span>magrittr<span class="p">)</span>
 </pre></div>
 
 
-<div class="highlight"><pre>## Warning: package &#39;readr&#39; was built under R version 3.1.3
+<div class="highlight"><pre>sample_file <span class="o">=</span> <span class="s">&quot;http://www.state.nj.us/education/schools/achievement/14/njask8/state_summary.txt&quot;</span>
+
+njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
+  file <span class="o">=</span> sample_file<span class="p">,</span>
+  col_positions <span class="o">=</span> readr<span class="o">::</span>fwf_empty<span class="p">(</span>file<span class="o">=</span>sample_file<span class="p">)</span>
+<span class="p">)</span>
+head<span class="p">(</span>njask14_gr8<span class="p">)</span>
 </pre></div>
 
 
-<div class="highlight"><pre>library<span class="p">(</span>dplyr<span class="p">)</span>
-</pre></div>
-
-
-<div class="highlight"><pre>## 
-## Attaching package: &#39;dplyr&#39;
+<div class="highlight"><pre>## Source: local data frame [6 x 244]
 ## 
-## The following object is masked from &#39;package:stats&#39;:
-## 
-##     filter
-## 
-## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union
-</pre></div>
-
-
-<div class="highlight"><pre>library<span class="p">(</span>sqldf<span class="p">)</span>
-</pre></div>
-
-
-<div class="highlight"><pre>## Warning: package &#39;sqldf&#39; was built under R version 3.1.3
-</pre></div>
-
-
-<div class="highlight"><pre>## Loading ...</pre></div></h5>
+##                  X1          X2                        X3 X4      X5  X6
+## 1                ST                                           104616 308
+## 2 ...</pre></div></h5>
 		</div>
 	</div>
 </div>
@@ -214,6 +206,7 @@
 		</div>
 	</div>
 	
+	posted in: 
 	<span itemprop="articleSection">
 		<strong><a href="http://almart.in/category/meta.html" rel="category">meta</a></strong>
 	</span>
@@ -243,6 +236,7 @@
 		</div>
 	</div>
 	
+	posted in: 
 	<span itemprop="articleSection">
 		<strong><a href="http://almart.in/category/meta.html" rel="category">meta</a></strong>
 	</span>

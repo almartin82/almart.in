@@ -1,7 +1,7 @@
 Title: Working with NJASK data in R: part 1 in a series.
 Date: 2015-04-10
 Category: education
-Tags: NJ, NJASK, data_management, technical
+Tags: NJ, NJASK, data_management, tutorial
 Slug: reading-njask-data-1
 Author: Andrew Martin
 
@@ -45,13 +45,14 @@ We can use the `read_fwf()` function from [`hadley/readr`](https://github.com/ha
 
 First let's load some libraries:
 
-```{r libraries}
+```{r libraries, message=FALSE, warning=FALSE}
 
 library(readr)
 library(dplyr)
 library(sqldf)
 library(reshape2)
 library(magrittr)
+
 ```
 
 ```{r fwf1}
@@ -73,7 +74,7 @@ So that's a start, but that gives us a bunch of weird unhelpful column names.  A
 
 For whatever reason NJ has seen fit to publish the crucial _definitions_ (column headers) for that data in an Excel spreadsheet.  Never in my life have I seen something _more_ clearly suited for JSON.  
 
-<img src="`r paste0(relative_img_path,"static_images/04_njask_layout.png")`">
+<img src="static_images/04_njask_layout.png">
 
 I think we can do some dplyr tricks and recover the nested aspects of this data:
 
