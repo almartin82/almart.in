@@ -25,7 +25,8 @@
 &lt;p&gt;Overall, though, I have to say that I'm thrilled about having a straightforward .Rmd publishing tool.  &lt;a href="https://rpubs.com/"&gt;rpubs&lt;/a&gt; is great, but having the ability to publish .Rmds to my own site is exciting.&lt;/p&gt;
 &lt;h1&gt;enhancement ideas&lt;/h1&gt;
 &lt;p&gt;One thing that would be helpful would be a pelican_rmd template, following the &lt;a href="(http://rmarkdown.rstudio.com/developer_document_templates.html)"&gt;tutorials&lt;/a&gt; for creating custom knitr templates on RStudio.  That would fix the metadata problem, and it could have a nice block with all the &lt;code&gt;hook_content&lt;/code&gt; stuff all ready to go.  If I find some time while this is still fresh, I'd like to add some of this back to Wilson's readme for rmd_reader.  &lt;strong&gt;Shiny&lt;/strong&gt; support is also something to look into.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew Martin</dc:creator><pubDate>Fri, 10 Apr 2015 00:00:00 -0400</pubDate><guid>tag:almart.in,2015-04-10:pelican-with-rmd.html</guid></item><item><title>Working with NJASK data in R: part 1 in a series.</title><link>http://almart.in/reading-njask-data-1.html</link><description>&lt;p&gt;New Jersey has switched over to the PARCC assessment, but from roughly 2005-2014 New Jersey took the "New Jersey Assessment of Skills and Knowledge," or more simply "the NJASK."&lt;/p&gt;
-&lt;p&gt;This data is a bit of a pain to work with.  There's a page for each &lt;a href="http://www.state.nj.us/education/schools/achievement/14/"&gt;year&lt;/a&gt; of assessment data, and for each year there's a &lt;a href="http://www.state.nj.us/education/schools/achievement/14/njask8/"&gt;page&lt;/a&gt; per grade level.  But wait!  It gets better!  If you download the Excel spreadsheet for each grade level (helpfully titled &lt;code&gt;state_summary.xls&lt;/code&gt; for &lt;em&gt;every&lt;/em&gt; year and grade!), you'll find &lt;strong&gt;5&lt;/strong&gt; tabs per file, because there are simply too many demographic/subject subgroups for Excel 2003 to handle.&lt;/p&gt;
+&lt;p&gt;This data is a bit of a pain to work with.  There's a page for each &lt;a href="http://www.state.nj.us/education/schools/achievement/14/"&gt;year&lt;/a&gt; of assessment data, and for each year there's a &lt;a href="http://www.state.nj.us/education/schools/achievement/14/njask8/"&gt;page&lt;/a&gt; per grade level.  But wait!  It gets better!  If you download the Excel spreadsheet for each grade level (helpfully titled &lt;code&gt;state_summary.xls&lt;/code&gt; for &lt;em&gt;every&lt;/em&gt; year and grade!), you'll find &lt;strong&gt;5&lt;/strong&gt; tabs per file, because there are simply too many demographic/subject subgroups for Excel 2003 to handle.
+&lt;/p&gt;
 &lt;p&gt;&lt;img src="static_images/04_njask_excel.png"&gt;&lt;/p&gt;
 &lt;p&gt;I would like to say that I never go down this road, but looking at my downloads folder, I'm apparently on &lt;code&gt;state_summary(15).xls&lt;/code&gt;.  &lt;/p&gt;
 &lt;p&gt;Yuck.&lt;/p&gt;
@@ -497,95 +498,62 @@ let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    FORMER_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Advanced_Proficient_Percentage
-## 1                                                                              NA
-## 2                                                                              NA
-## 3                                                                              NA
-## 4                                                                              NA
-## 5                                                                              NA
-## 6                                                                              NA
-## 7                                                                              NA
-## 8                                                                              NA
-## 9                                                                              NA
-## 10                                                                             NA
-##    TOTAL_POPULATION_SCIENCE_Proficient_Percentage
-## 1                                             350
-## 2                                             600
-## 3                                             636
-## 4                                              NA
-## 5                                              NA
-## 6                                             500
-## 7                                             608
-## 8                                             521
-## 9                                             616
-## 10                                            478
-##    MIGRANT_SCIENCE_Advanced_Proficient_Percentage
-## 1                                              NA
-## 2                                              NA
-## 3                                              NA
-## 4                                              NA
-## 5                                              NA
-## 6                                              NA
-## 7                                              NA
-## 8                                              NA
-## 9                                              NA
-## 10                                             NA
-##    BLACK_MATHEMATICS_Number_APA FEMALE_SCIENCE_Scale_Score_Mean
-## 1                             0                            1864
-## 2                            NA                              NA
-## 3                            NA                              NA
-## 4                            NA                              NA
-## 5                            NA                              NA
-## 6                            NA                            2410
-## 7                            NA                            2248
-## 8                            NA                            2366
-## 9                             0                            2125
-## 10                            0                            2377
-##    PACIFIC_ISLANDER_MATHEMATICS_Number_of_Valid_Scale_Scores
-## 1                                                         NA
-## 2                                                         NA
-## 3                                                         NA
-## 4                                                         NA
-## 5                                                         NA
-## 6                                                         NA
-## 7                                                         NA
-## 8                                                         NA
-## 9                                                         NA
-## 10                                                        NA
-##    LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                                                 NA
-## 2                                                                                 NA
-## 3                                                                                 NA
-## 4                                                                                 NA
-## 5                                                                                 NA
-## 6                                                                                 NA
-## 7                                                                                 NA
-## 8                                                                                 NA
-## 9                                                                                 NA
-## 10                                                                                NA
-##    CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Scale_Score_Mean
-## 1                                                               NA
-## 2                                                               NA
-## 3                                                               NA
-## 4                                                               NA
-## 5                                                               NA
-## 6                                                               NA
-## 7                                                               NA
-## 8                                                               NA
-## 9                                                             1996
-## 10                                                              NA
-##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Advanced_Proficient_Percentage
-## 1                                                                            NA
-## 2                                                                            NA
-## 3                                                                            NA
-## 4                                                                            NA
-## 5                                                                            NA
-## 6                                                                            NA
-## 7                                                                            NA
-## 8                                                                            NA
-## 9                                                                            NA
-## 10                                                                           NA
-##    PACIFIC_ISLANDER_MATHEMATICS_Number_APA
+&lt;div class="highlight"&gt;&lt;pre&gt;##    MIGRANT_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                     NA
+## 2                                                     NA
+## 3                                                     NA
+## 4                                                     NA
+## 5                                                     NA
+## 6                                                     NA
+## 7                                                     NA
+## 8                                                     NA
+## 9                                                     NA
+## 10                                                    NA
+##    SPECIAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                                NA
+## 2                                                NA
+## 3                                                NA
+## 4                                                NA
+## 5                                                NA
+## 6                                                NA
+## 7                                              2000
+## 8                                              1968
+## 9                                                NA
+## 10                                               NA
+##    ASIAN_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                25
+## 2                                                13
+## 3                                                NA
+## 4                                                NA
+## 5                                                NA
+## 6                                                NA
+## 7                                                18
+## 8                                                NA
+## 9                                                NA
+## 10                                               46
+##    SPECIAL_EDUCATION_SCIENCE_Number_of_Valid_Scale_Scores
+## 1                                                      NA
+## 2                                                      NA
+## 3                                                      NA
+## 4                                                      NA
+## 5                                                      NA
+## 6                                                      NA
+## 7                                                     135
+## 8                                                      13
+## 9                                                      NA
+## 10                                                     72
+##    NON-MIGRANT_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                              728
+## 2                                              694
+## 3                                              941
+## 4                                              719
+## 5                                               NA
+## 6                                              701
+## 7                                              760
+## 8                                              805
+## 9                                              765
+## 10                                             718
+##    OTHER_MATHEMATICS_Proficient_Percentage
 ## 1                                       NA
 ## 2                                       NA
 ## 3                                       NA
@@ -596,6 +564,50 @@ let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
 ## 8                                       NA
 ## 9                                       NA
 ## 10                                      NA
+##    GENERAL_EDUCATION_MATHEMATICS_Number_of_Valid_Scale_Scores
+## 1                                                         276
+## 2                                                          74
+## 3                                                          17
+## 4                                                          48
+## 5                                                          NA
+## 6                                                          75
+## 7                                                         602
+## 8                                                          69
+## 9                                                         197
+## 10                                                        222
+##    HISPANIC_MATHEMATICS_Number_of_Valid_Scale_Scores
+## 1                                                 48
+## 2                                                 16
+## 3                                                 NA
+## 4                                                 53
+## 5                                                 NA
+## 6                                                 20
+## 7                                                 75
+## 8                                                 NA
+## 9                                                 16
+## 10                                                40
+##    WHITE_MATHEMATICS_Number_APA
+## 1                             2
+## 2                             0
+## 3                            NA
+## 4                            NA
+## 5                            NA
+## 6                             0
+## 7                            12
+## 8                             1
+## 9                             0
+## 10                            2
+##    GENERAL_EDUCATION_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                    793
+## 2                                                    770
+## 3                                                    941
+## 4                                                    813
+## 5                                                     NA
+## 6                                                    773
+## 7                                                    803
+## 8                                                    884
+## 9                                                    832
+## 10                                                   847
 &lt;/pre&gt;&lt;/div&gt;
 
 
