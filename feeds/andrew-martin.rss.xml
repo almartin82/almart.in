@@ -26,7 +26,7 @@
 &lt;h1&gt;enhancement ideas&lt;/h1&gt;
 &lt;p&gt;One thing that would be helpful would be a pelican_rmd template, following the &lt;a href="(http://rmarkdown.rstudio.com/developer_document_templates.html)"&gt;tutorials&lt;/a&gt; for creating custom knitr templates on RStudio.  That would fix the metadata problem, and it could have a nice block with all the &lt;code&gt;hook_content&lt;/code&gt; stuff all ready to go.  If I find some time while this is still fresh, I'd like to add some of this back to Wilson's readme for rmd_reader.  &lt;strong&gt;Shiny&lt;/strong&gt; support is also something to look into.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew Martin</dc:creator><pubDate>Fri, 10 Apr 2015 00:00:00 -0400</pubDate><guid>tag:almart.in,2015-04-10:pelican-with-rmd.html</guid></item><item><title>Working with NJASK data in R: part 1 in a series.</title><link>http://almart.in/reading-njask-data-1.html</link><description>&lt;p&gt;New Jersey has switched over to the PARCC assessment, but from roughly 2005-2014 New Jersey took the "New Jersey Assessment of Skills and Knowledge," or more simply "the NJASK."&lt;/p&gt;
 &lt;p&gt;This data is a bit of a pain to work with.  There's a page for each &lt;a href="http://www.state.nj.us/education/schools/achievement/14/"&gt;year&lt;/a&gt; of assessment data, and for each year there's a &lt;a href="http://www.state.nj.us/education/schools/achievement/14/njask8/"&gt;page&lt;/a&gt; per grade level.  But wait!  It gets better!  If you download the Excel spreadsheet for each grade level (helpfully titled &lt;code&gt;state_summary.xls&lt;/code&gt; for &lt;em&gt;every&lt;/em&gt; year and grade!), you'll find &lt;strong&gt;5&lt;/strong&gt; tabs per file, because there are simply too many demographic/subject subgroups for Excel 2003 to handle.&lt;/p&gt;
-&lt;p&gt;&lt;img src="/content/static_images/04_njask_excel.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="static_images/04_njask_excel.png"&gt;&lt;/p&gt;
 &lt;p&gt;I would like to say that I never go down this road, but looking at my downloads folder, I'm apparently on &lt;code&gt;state_summary(15).xls&lt;/code&gt;.  &lt;/p&gt;
 &lt;p&gt;Yuck.&lt;/p&gt;
 &lt;h1&gt;there must be a better way&lt;/h1&gt;
@@ -157,27 +157,25 @@ head&lt;span class="p"&gt;(&lt;/span&gt;njask14_gr8&lt;span class="p"&gt;)&lt;/s
 &lt;p&gt;So that's a start, but that gives us a bunch of weird unhelpful column names.  Also, there's a bunch of weird * characters.&lt;/p&gt;
 &lt;h1&gt;this part is unfortunate&lt;/h1&gt;
 &lt;p&gt;For whatever reason NJ has seen fit to publish the crucial &lt;em&gt;definitions&lt;/em&gt; (column headers) for that data in an Excel spreadsheet.  Never in my life have I seen something &lt;em&gt;more&lt;/em&gt; clearly suited for JSON.  &lt;/p&gt;
-&lt;p&gt;&lt;img src="/content/static_images/04_njask_layout.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="static_images/04_njask_layout.png"&gt;&lt;/p&gt;
 &lt;p&gt;I think we can do some dplyr tricks and recover the nested aspects of this data:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;layout &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;read_csv&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/content/datasets/njask_layout.csv&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;layout &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;read_csv&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;datasets/njask_layout.csv&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+head&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error: &amp;#39;/content/datasets/njask_layout.csv&amp;#39; does not exist.
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;head&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;##                                                                       
-## 1 function (mat, widths = rep.int(1, ncol(mat)), heights = rep.int(1, 
-## 2     nrow(mat)), respect = FALSE)                                    
-## 3 {                                                                   
-## 4     storage.mode(mat) &amp;lt;- &amp;quot;integer&amp;quot;                                  
-## 5     mat &amp;lt;- as.matrix(mat)                                           
-## 6     if (!is.logical(respect)) {
+&lt;div class="highlight"&gt;&lt;pre&gt;## Source: local data frame [6 x 8]
+## 
+##   Field Start Position Field End Position Field Length Data Type
+## 1                    1                  9            9      Text
+## 2                    1                  2            2      Text
+## 3                    3                  6            4      Text
+## 4                    7                  9            3      Text
+## 5                   10                 59           50      Text
+## 6                   60                109           50      Text
+## Variables not shown: Description (chr), Comments (chr), Valid Values
+##   (chr), structural (lgl)
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -185,32 +183,25 @@ head&lt;span class="p"&gt;(&lt;/span&gt;njask14_gr8&lt;span class="p"&gt;)&lt;/s
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in names(layout) &amp;lt;- tolower(gsub(&amp;quot; &amp;quot;, &amp;quot;_&amp;quot;, names(layout))): names() applied to a non-vector
-&lt;/pre&gt;&lt;/div&gt;
-
-
 &lt;p&gt;In Excel I created a simple column to test if a column was a 'spanning' column (basically, was it merged across multiple columns).  First we'll separate those 'spanners' from the non-spanners.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;spanners &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; dplyr&lt;span class="o"&gt;::&lt;/span&gt;filter&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;,&lt;/span&gt; structural&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+keepers &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; dplyr&lt;span class="o"&gt;::&lt;/span&gt;filter&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;,&lt;/span&gt; structural&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="kc"&gt;FALSE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+head&lt;span class="p"&gt;(&lt;/span&gt;spanners&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in UseMethod(&amp;quot;filter_&amp;quot;): no applicable method for &amp;#39;filter_&amp;#39; applied to an object of class &amp;quot;function&amp;quot;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;keepers &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; dplyr&lt;span class="o"&gt;::&lt;/span&gt;filter&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;,&lt;/span&gt; structural&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="kc"&gt;FALSE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in UseMethod(&amp;quot;filter_&amp;quot;): no applicable method for &amp;#39;filter_&amp;#39; applied to an object of class &amp;quot;function&amp;quot;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;head&lt;span class="p"&gt;(&lt;/span&gt;spanners&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in head(spanners): object &amp;#39;spanners&amp;#39; not found
+&lt;div class="highlight"&gt;&lt;pre&gt;## Source: local data frame [6 x 8]
+## 
+##   field_start_position field_end_position field_length         data_type
+## 1                  163                300          138  TOTAL POPULATION
+## 2                  169                208           40     LANGUAGE ARTS
+## 3                  209                254           46       MATHEMATICS
+## 4                  255                300           46           SCIENCE
+## 5                  301                438          138 GENERAL EDUCATION
+## 6                  307                346           40     LANGUAGE ARTS
+## Variables not shown: description (chr), comments (chr), valid_values
+##   (chr), structural (lgl)
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -231,15 +222,73 @@ head&lt;span class="p"&gt;(&lt;/span&gt;njask14_gr8&lt;span class="p"&gt;)&lt;/s
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in sqliteSendQuery(con, statement, bind.data): error in statement: no such table: keepers
-&lt;/pre&gt;&lt;/div&gt;
-
-
 &lt;div class="highlight"&gt;&lt;pre&gt;with_spanners&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; c&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;8&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in eval(expr, envir, enclos): object &amp;#39;with_spanners&amp;#39; not found
+&lt;div class="highlight"&gt;&lt;pre&gt;##    field_start_position field_end_position field_length data_type
+## 1                     1                  9            9      Text
+## 2                     1                  2            2      Text
+## 3                     3                  6            4      Text
+## 4                     7                  9            3      Text
+## 5                    10                 59           50      Text
+## 6                    60                109           50      Text
+## 7                   110                159           50      Text
+## 8                   160                161            2      Text
+## 9                   162                162            1      Text
+## 10                  163                168            6   Integer
+## 11                  169                174            6   Integer
+## 12                  169                174            6   Integer
+## 13                  175                180            6   Integer
+## 14                  175                180            6   Integer
+## 15                  181                186            6   Integer
+## 16                  181                186            6   Integer
+## 17                  187                192            6   Integer
+## 18                  187                192            6   Integer
+## 19                  193                196            4   Decimal
+## 20                  193                196            4   Decimal
+##                         description structural          spanner
+## 1                         CDS Code       FALSE             &amp;lt;NA&amp;gt;
+## 2  County Code/DFG/Aggregation Code      FALSE             &amp;lt;NA&amp;gt;
+## 3                     District Code      FALSE             &amp;lt;NA&amp;gt;
+## 4                       School Code      FALSE             &amp;lt;NA&amp;gt;
+## 5                       County Name      FALSE             &amp;lt;NA&amp;gt;
+## 6                     District Name      FALSE             &amp;lt;NA&amp;gt;
+## 7                       School Name      FALSE             &amp;lt;NA&amp;gt;
+## 8                               DFG      FALSE             &amp;lt;NA&amp;gt;
+## 9                     Special Needs      FALSE             &amp;lt;NA&amp;gt;
+## 10              Number Enrolled ELA      FALSE TOTAL POPULATION
+## 11               Number Not Present      FALSE TOTAL POPULATION
+## 12               Number Not Present      FALSE    LANGUAGE ARTS
+## 13                  Number of Voids      FALSE TOTAL POPULATION
+## 14                  Number of Voids      FALSE    LANGUAGE ARTS
+## 15                       Number APA      FALSE TOTAL POPULATION
+## 16                       Number APA      FALSE    LANGUAGE ARTS
+## 17     Number of Valid Scale Scores      FALSE TOTAL POPULATION
+## 18     Number of Valid Scale Scores      FALSE    LANGUAGE ARTS
+## 19  Partially Proficient Percentage      FALSE TOTAL POPULATION
+## 20  Partially Proficient Percentage      FALSE    LANGUAGE ARTS
+##    spanner_length
+## 1              NA
+## 2              NA
+## 3              NA
+## 4              NA
+## 5              NA
+## 6              NA
+## 7              NA
+## 8              NA
+## 9              NA
+## 10            138
+## 11            138
+## 12             40
+## 13            138
+## 14             40
+## 15            138
+## 16             40
+## 17            138
+## 18             40
+## 19            138
+## 20             40
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -258,35 +307,49 @@ head&lt;span class="p"&gt;(&lt;/span&gt;njask14_gr8&lt;span class="p"&gt;)&lt;/s
     data_type&lt;span class="p"&gt;,&lt;/span&gt; description&lt;span class="p"&gt;,&lt;/span&gt; comments&lt;span class="p"&gt;,&lt;/span&gt; valid_values&lt;span class="p"&gt;,&lt;/span&gt; spanner&lt;span class="p"&gt;,&lt;/span&gt; rn
   &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt;
   as.data.frame&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
 
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in eval(expr, envir, enclos): object &amp;#39;with_spanners&amp;#39; not found
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;with_rn&lt;span class="o"&gt;$&lt;/span&gt;rn &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; paste0&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;spanner&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; with_rn&lt;span class="o"&gt;$&lt;/span&gt;rn&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in paste0(&amp;quot;spanner&amp;quot;, with_rn$rn): object &amp;#39;with_rn&amp;#39; not found
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;#mask NAS&lt;/span&gt;
+with_rn&lt;span class="o"&gt;$&lt;/span&gt;rn &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; paste0&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;spanner&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; with_rn&lt;span class="o"&gt;$&lt;/span&gt;rn&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c1"&gt;#mask NAS&lt;/span&gt;
 with_rn&lt;span class="o"&gt;$&lt;/span&gt;spanner &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; ifelse&lt;span class="p"&gt;(&lt;/span&gt;is.na&lt;span class="p"&gt;(&lt;/span&gt;with_rn&lt;span class="o"&gt;$&lt;/span&gt;spanner&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; with_rn&lt;span class="o"&gt;$&lt;/span&gt;spanner&lt;span class="p"&gt;)&lt;/span&gt;
+head&lt;span class="p"&gt;(&lt;/span&gt;with_rn&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in ifelse(is.na(with_rn$spanner), &amp;quot;&amp;quot;, with_rn$spanner): object &amp;#39;with_rn&amp;#39; not found
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;head&lt;span class="p"&gt;(&lt;/span&gt;with_rn&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in head(with_rn): object &amp;#39;with_rn&amp;#39; not found
+&lt;div class="highlight"&gt;&lt;pre&gt;##   field_start_position field_end_position field_length data_type
+## 1                    1                  9            9      Text
+## 2                    1                  2            2      Text
+## 3                    3                  6            4      Text
+## 4                    7                  9            3      Text
+## 5                   10                 59           50      Text
+## 6                   60                109           50      Text
+##                        description
+## 1                        CDS Code 
+## 2 County Code/DFG/Aggregation Code
+## 3                    District Code
+## 4                      School Code
+## 5                      County Name
+## 6                    District Name
+##                                                                                                                                                                                                                               comments
+## 1                                                                                                                                               For district and school records the first three fields combine to form the CDS code.  
+## 2 For district and school records this field contains a two-digit county code.  For DFG records, this field contains the DFG code.  For Statewide, Special Needs and Non-Special Needs records, it contains a two-letter abbreviation.
+## 3                                                                                                                                                                                  Applicable only for district and school records.   
+## 4                                                                                                                                                                                  Applicable only for district and school records.   
+## 5                                                                                                                                                                                  Applicable only for district and school records.   
+## 6                                                                                                                                                                                  Applicable only for district and school records.   
+##                                                                                                                                                                                               valid_values
+## 1                                                                                                                                                                                                         
+## 2 County Code = 01, 03, 05, 07, 09, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 80\nDFG = A, B, CD, DE, FG, GH, I, J, R, V\nST = Statewide, NS = Non-Special Needs, SN = Special Needs
+## 3                                                                                                                                                                                      0100 to 9999, blank
+## 4                                                                                                                                                                                        001 to 999, blank
+## 5                                                                                                                                                                                            A to Z, blank
+## 6                                                                                                                                                                                            A to Z, blank
+##   spanner       rn
+## 1         spanner1
+## 2         spanner1
+## 3         spanner1
+## 4         spanner1
+## 5         spanner1
+## 6         spanner1
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -297,71 +360,170 @@ with_rn&lt;span class="o"&gt;$&lt;/span&gt;spanner &lt;span class="o"&gt;&amp;lt
     data_type &lt;span class="o"&gt;+&lt;/span&gt; description &lt;span class="o"&gt;+&lt;/span&gt; comments &lt;span class="o"&gt;+&lt;/span&gt; valid_values &lt;span class="o"&gt;~&lt;/span&gt; rn&lt;span class="p"&gt;,&lt;/span&gt;
   value.var &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;spanner&amp;quot;&lt;/span&gt;
 &lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
 
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in match(x, table, nomatch = 0L): object &amp;#39;with_rn&amp;#39; not found
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;#this appears to be a bug in dcast?  should not be needed.&lt;/span&gt;
+&lt;span class="c1"&gt;#this appears to be a bug in dcast?  should not be needed.&lt;/span&gt;
 layout_wide&lt;span class="o"&gt;$&lt;/span&gt;spanner2 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; ifelse&lt;span class="p"&gt;(&lt;/span&gt;is.na&lt;span class="p"&gt;(&lt;/span&gt;layout_wide&lt;span class="o"&gt;$&lt;/span&gt;spanner2&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_wide&lt;span class="o"&gt;$&lt;/span&gt;spanner2&lt;span class="p"&gt;)&lt;/span&gt;
+
+layout_wide&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in ifelse(is.na(layout_wide$spanner2), &amp;quot;&amp;quot;, layout_wide$spanner2): object &amp;#39;layout_wide&amp;#39; not found
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;layout_wide&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in eval(expr, envir, enclos): object &amp;#39;layout_wide&amp;#39; not found
+&lt;div class="highlight"&gt;&lt;pre&gt;##    field_start_position field_end_position field_length data_type
+## 1                     1                  9            9      Text
+## 2                     1                  2            2      Text
+## 3                     3                  6            4      Text
+## 4                     7                  9            3      Text
+## 5                    10                 59           50      Text
+## 6                    60                109           50      Text
+## 7                   110                159           50      Text
+## 8                   160                161            2      Text
+## 9                   162                162            1      Text
+## 10                  163                168            6   Integer
+## 11                  169                174            6   Integer
+## 12                  175                180            6   Integer
+## 13                  181                186            6   Integer
+## 14                  187                192            6   Integer
+## 15                  193                196            4   Decimal
+## 16                  197                200            4   Decimal
+## 17                  201                204            4   Decimal
+## 18                  205                208            4   Decimal
+## 19                  209                214            6   Integer
+## 20                  215                220            6   Integer
+##                         description
+## 1                         CDS Code 
+## 2  County Code/DFG/Aggregation Code
+## 3                     District Code
+## 4                       School Code
+## 5                       County Name
+## 6                     District Name
+## 7                       School Name
+## 8                               DFG
+## 9                     Special Needs
+## 10              Number Enrolled ELA
+## 11               Number Not Present
+## 12                  Number of Voids
+## 13                       Number APA
+## 14     Number of Valid Scale Scores
+## 15  Partially Proficient Percentage
+## 16            Proficient Percentage
+## 17   Advanced Proficient Percentage
+## 18                 Scale Score Mean
+## 19             Number Enrolled Math
+## 20               Number Not Present
+##                                                                                                                                                                                                                                comments
+## 1                                                                                                                                                For district and school records the first three fields combine to form the CDS code.  
+## 2  For district and school records this field contains a two-digit county code.  For DFG records, this field contains the DFG code.  For Statewide, Special Needs and Non-Special Needs records, it contains a two-letter abbreviation.
+## 3                                                                                                                                                                                   Applicable only for district and school records.   
+## 4                                                                                                                                                                                   Applicable only for district and school records.   
+## 5                                                                                                                                                                                   Applicable only for district and school records.   
+## 6                                                                                                                                                                                   Applicable only for district and school records.   
+## 7                                                                                                                                                                                   Applicable only for district and school records.   
+## 8                                                                              Applicable only for district and school records.  For the DFG records, the DFG is only shown once, in the County Code field, and not in this DFG field  
+## 9                                                                                                                                                                                   Applicable only for district and school records.   
+## 10                                                                                                                                    In NJ ASK, the number of enrolled students is the same for a population across all content areas 
+## 11                                                                                                                                                                                                                                     
+## 12                                                                                                                                                                                                                                     
+## 13                                                                                                                                                                                                                                     
+## 14                                                                                                                                                                                                                                     
+## 15                                                                                                                                                                                                                  One implied decimal
+## 16                                                                                                                                                                                                                  One implied decimal
+## 17                                                                                                                                                                                                                  One implied decimal
+## 18                                                                                                                                                                                                                  One implied decimal
+## 19                                                                                                                                    In NJ ASK, the number of enrolled students is the same for a population across all content areas 
+## 20                                                                                                                                                                                                                                     
+##                                                                                                                                                                                                valid_values
+## 1                                                                                                                                                                                                          
+## 2  County Code = 01, 03, 05, 07, 09, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 80\nDFG = A, B, CD, DE, FG, GH, I, J, R, V\nST = Statewide, NS = Non-Special Needs, SN = Special Needs
+## 3                                                                                                                                                                                       0100 to 9999, blank
+## 4                                                                                                                                                                                         001 to 999, blank
+## 5                                                                                                                                                                                             A to Z, blank
+## 6                                                                                                                                                                                             A to Z, blank
+## 7                                                                                                                                                                                             A to Z, blank
+## 8                                                                                                                                                                          A, B, CD, DE, FG, GH, I, J, R, V
+## 9                                                                                                                                                                          Y=special need; Otherwise blank.
+## 10                                                                                                                                        0 or greater for spreadsheet and 000000 or greater for text file 
+## 11                                                                                                           0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0
+## 12                                                                                                           0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0
+## 13                                                                                                           0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0
+## 14                                                                                                           0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0
+## 15                                                                       0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.
+## 16                                                                       0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.
+## 17                                                                       0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.
+## 18                                                                     100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.
+## 19                                                                                                                                        0 or greater for spreadsheet and 000000 or greater for text file 
+## 20                                                                                                           0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0
+##            spanner1      spanner2
+## 1                                
+## 2                                
+## 3                                
+## 4                                
+## 5                                
+## 6                                
+## 7                                
+## 8                                
+## 9                                
+## 10 TOTAL POPULATION              
+## 11 TOTAL POPULATION LANGUAGE ARTS
+## 12 TOTAL POPULATION LANGUAGE ARTS
+## 13 TOTAL POPULATION LANGUAGE ARTS
+## 14 TOTAL POPULATION LANGUAGE ARTS
+## 15 TOTAL POPULATION LANGUAGE ARTS
+## 16 TOTAL POPULATION LANGUAGE ARTS
+## 17 TOTAL POPULATION LANGUAGE ARTS
+## 18 TOTAL POPULATION LANGUAGE ARTS
+## 19 TOTAL POPULATION   MATHEMATICS
+## 20 TOTAL POPULATION   MATHEMATICS
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Success!  Now we just concatenate &lt;code&gt;description&lt;/code&gt;, &lt;code&gt;spanner1&lt;/code&gt;, and &lt;code&gt;spanner2&lt;/code&gt; into a single value, do a little cleanup, and we have our headers.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; layout_wide &lt;span class="o"&gt;%$%&lt;/span&gt; paste&lt;span class="p"&gt;(&lt;/span&gt;spanner1&lt;span class="p"&gt;,&lt;/span&gt; spanner2&lt;span class="p"&gt;,&lt;/span&gt; description&lt;span class="p"&gt;,&lt;/span&gt; sep&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in eval(expr, envir, enclos): object &amp;#39;layout_wide&amp;#39; not found
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;#kill double underscores&lt;/span&gt;
+&lt;span class="c1"&gt;#kill double underscores&lt;/span&gt;
 layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in gsub(&amp;quot;__&amp;quot;, &amp;quot;_&amp;quot;, layout_wide$final_name): object &amp;#39;layout_wide&amp;#39; not found
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;#kill leading or trailer underscores&lt;/span&gt;
+&lt;span class="c1"&gt;#kill leading or trailer underscores&lt;/span&gt;
 layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;(^_+|_+$)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in gsub(&amp;quot;(^_+|_+$)&amp;quot;, &amp;quot;&amp;quot;, layout_wide$final_name): object &amp;#39;layout_wide&amp;#39; not found
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;#all whitespace becomes underscore&lt;/span&gt;
+&lt;span class="c1"&gt;#all whitespace becomes underscore&lt;/span&gt;
 layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name&lt;span class="p"&gt;)&lt;/span&gt;
+
+head&lt;span class="p"&gt;(&lt;/span&gt;layout_wide&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in gsub(&amp;quot; &amp;quot;, &amp;quot;_&amp;quot;, layout_wide$final_name): object &amp;#39;layout_wide&amp;#39; not found
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;head&lt;span class="p"&gt;(&lt;/span&gt;layout_wide&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in head(layout_wide): object &amp;#39;layout_wide&amp;#39; not found
+&lt;div class="highlight"&gt;&lt;pre&gt;##   field_start_position field_end_position field_length data_type
+## 1                    1                  9            9      Text
+## 2                    1                  2            2      Text
+## 3                    3                  6            4      Text
+## 4                    7                  9            3      Text
+## 5                   10                 59           50      Text
+## 6                   60                109           50      Text
+##                        description
+## 1                        CDS Code 
+## 2 County Code/DFG/Aggregation Code
+## 3                    District Code
+## 4                      School Code
+## 5                      County Name
+## 6                    District Name
+##                                                                                                                                                                                                                               comments
+## 1                                                                                                                                               For district and school records the first three fields combine to form the CDS code.  
+## 2 For district and school records this field contains a two-digit county code.  For DFG records, this field contains the DFG code.  For Statewide, Special Needs and Non-Special Needs records, it contains a two-letter abbreviation.
+## 3                                                                                                                                                                                  Applicable only for district and school records.   
+## 4                                                                                                                                                                                  Applicable only for district and school records.   
+## 5                                                                                                                                                                                  Applicable only for district and school records.   
+## 6                                                                                                                                                                                  Applicable only for district and school records.   
+##                                                                                                                                                                                               valid_values
+## 1                                                                                                                                                                                                         
+## 2 County Code = 01, 03, 05, 07, 09, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 80\nDFG = A, B, CD, DE, FG, GH, I, J, R, V\nST = Statewide, NS = Non-Special Needs, SN = Special Needs
+## 3                                                                                                                                                                                      0100 to 9999, blank
+## 4                                                                                                                                                                                        001 to 999, blank
+## 5                                                                                                                                                                                            A to Z, blank
+## 6                                                                                                                                                                                            A to Z, blank
+##   spanner1 spanner2                       final_name
+## 1                                          CDS_Code_
+## 2                   County_Code/DFG/Aggregation_Code
+## 3                                      District_Code
+## 4                                        School_Code
+## 5                                        County_Name
+## 6                                      District_Name
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -380,17 +542,111 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in stopifnot(length(start) == length(end)): object &amp;#39;layout_wide&amp;#39; not found
-&lt;/pre&gt;&lt;/div&gt;
-
-
 &lt;p&gt;success!
 let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;dplyr&lt;span class="o"&gt;::&lt;/span&gt;sample_n&lt;span class="p"&gt;(&lt;/span&gt;njask14_gr8&lt;span class="p"&gt;[,&lt;/span&gt; sample&lt;span class="p"&gt;(&lt;/span&gt;c&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;551&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)],&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; as.data.frame&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error: Sample size (10) greater than population size (0). Do you want replace = TRUE?
+&lt;div class="highlight"&gt;&lt;pre&gt;##    OTHER_LANGUAGE_ARTS_Number_of_Voids
+## 1                                   NA
+## 2                                   NA
+## 3                                   NA
+## 4                                   NA
+## 5                                   NA
+## 6                                   NA
+## 7                                   NA
+## 8                                   NA
+## 9                                    0
+## 10                                  NA
+##    ASIAN_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                   NA
+## 2                                                   NA
+## 3                                                   NA
+## 4                                                   NA
+## 5                                                   NA
+## 6                                                   22
+## 7                                                   NA
+## 8                                                   NA
+## 9                                                   NA
+## 10                                                  NA
+##    MIGRANT_SCIENCE_Number_APA HISPANIC_MATHEMATICS_Number_Not_Present
+## 1                          NA                                      NA
+## 2                          NA                                      NA
+## 3                          NA                                      NA
+## 4                          NA                                       0
+## 5                          NA                                      NA
+## 6                          NA                                       0
+## 7                          NA                                      NA
+## 8                          NA                                      NA
+## 9                          NA                                      NA
+## 10                         NA                                      NA
+##    PACIFIC_ISLANDER_SCIENCE_Advanced_Proficient_Percentage
+## 1                                                       NA
+## 2                                                       NA
+## 3                                                       NA
+## 4                                                       NA
+## 5                                                       NA
+## 6                                                       NA
+## 7                                                       NA
+## 8                                                       NA
+## 9                                                       NA
+## 10                                                      NA
+##    TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                             2330
+## 2                                               NA
+## 3                                             2201
+## 4                                             2149
+## 5                                             2125
+## 6                                             2311
+## 7                                             2185
+## 8                                             2250
+## 9                                             1784
+## 10                                            2211
+##    HISPANIC_MATHEMATICS_Partially_Proficient_Percentage
+## 1                                                    NA
+## 2                                                    NA
+## 3                                                    NA
+## 4                                                   222
+## 5                                                    NA
+## 6                                                   436
+## 7                                                    NA
+## 8                                                    NA
+## 9                                                    NA
+## 10                                                   NA
+##    MIGRANT_LANGUAGE_ARTS_Number_of_Voids
+## 1                                     NA
+## 2                                     NA
+## 3                                     NA
+## 4                                     NA
+## 5                                     NA
+## 6                                     NA
+## 7                                     NA
+## 8                                     NA
+## 9                                     NA
+## 10                                    NA
+##    SPECIAL_EDUCATION_SCIENCE_Number_Enrolled_Science
+## 1                                                 11
+## 2                                                 NA
+## 3                                                 NA
+## 4                                                 NA
+## 5                                                 NA
+## 6                                                 90
+## 7                                                 NA
+## 8                                                 12
+## 9                                                 NA
+## 10                                                14
+##    AMERICAN_INDIAN_MATHEMATICS_Number_APA
+## 1                                      NA
+## 2                                      NA
+## 3                                      NA
+## 4                                      NA
+## 5                                      NA
+## 6                                      NA
+## 7                                      NA
+## 8                                      NA
+## 9                                      NA
+## 10                                     NA
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -400,7 +656,557 @@ let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in eval(expr, envir, enclos): object &amp;#39;layout_wide&amp;#39; not found
+&lt;div class="highlight"&gt;&lt;pre&gt;##   [1] &amp;quot;CDS_Code_&amp;quot;                                                                                  
+##   [2] &amp;quot;County_Code/DFG/Aggregation_Code&amp;quot;                                                           
+##   [3] &amp;quot;District_Code&amp;quot;                                                                              
+##   [4] &amp;quot;School_Code&amp;quot;                                                                                
+##   [5] &amp;quot;County_Name&amp;quot;                                                                                
+##   [6] &amp;quot;District_Name&amp;quot;                                                                              
+##   [7] &amp;quot;School_Name&amp;quot;                                                                                
+##   [8] &amp;quot;DFG&amp;quot;                                                                                        
+##   [9] &amp;quot;Special_Needs&amp;quot;                                                                              
+##  [10] &amp;quot;TOTAL_POPULATION_Number_Enrolled_ELA&amp;quot;                                                       
+##  [11] &amp;quot;TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                                          
+##  [12] &amp;quot;TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                                             
+##  [13] &amp;quot;TOTAL_POPULATION_LANGUAGE_ARTS_Number_APA&amp;quot;                                                  
+##  [14] &amp;quot;TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                                
+##  [15] &amp;quot;TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;                             
+##  [16] &amp;quot;TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                                       
+##  [17] &amp;quot;TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                              
+##  [18] &amp;quot;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                                            
+##  [19] &amp;quot;TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math&amp;quot;                                          
+##  [20] &amp;quot;TOTAL_POPULATION_MATHEMATICS_Number_Not_Present&amp;quot;                                            
+##  [21] &amp;quot;TOTAL_POPULATION_MATHEMATICS_Number_of_Voids&amp;quot;                                               
+##  [22] &amp;quot;TOTAL_POPULATION_MATHEMATICS_Number_APA&amp;quot;                                                    
+##  [23] &amp;quot;TOTAL_POPULATION_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                                  
+##  [24] &amp;quot;TOTAL_POPULATION_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                               
+##  [25] &amp;quot;TOTAL_POPULATION_MATHEMATICS_Proficient_Percentage&amp;quot;                                         
+##  [26] &amp;quot;TOTAL_POPULATION_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                                
+##  [27] &amp;quot;TOTAL_POPULATION_MATHEMATICS_Scale_Score_Mean&amp;quot;                                              
+##  [28] &amp;quot;TOTAL_POPULATION_SCIENCE_Number_Enrolled_Science&amp;quot;                                           
+##  [29] &amp;quot;TOTAL_POPULATION_SCIENCE_Number_Not_Present&amp;quot;                                                
+##  [30] &amp;quot;TOTAL_POPULATION_SCIENCE_Number_of_Voids&amp;quot;                                                   
+##  [31] &amp;quot;TOTAL_POPULATION_SCIENCE_Number_APA&amp;quot;                                                        
+##  [32] &amp;quot;TOTAL_POPULATION_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                                      
+##  [33] &amp;quot;TOTAL_POPULATION_SCIENCE_Partially_Proficient_Percentage&amp;quot;                                   
+##  [34] &amp;quot;TOTAL_POPULATION_SCIENCE_Proficient_Percentage&amp;quot;                                             
+##  [35] &amp;quot;TOTAL_POPULATION_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                                    
+##  [36] &amp;quot;TOTAL_POPULATION_SCIENCE_Scale_Score_Mean&amp;quot;                                                  
+##  [37] &amp;quot;GENERAL_EDUCATION_Number_Enrolled_ELA&amp;quot;                                                      
+##  [38] &amp;quot;GENERAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                                         
+##  [39] &amp;quot;GENERAL_EDUCATION_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                                            
+##  [40] &amp;quot;GENERAL_EDUCATION_LANGUAGE_ARTS_Number_APA&amp;quot;                                                 
+##  [41] &amp;quot;GENERAL_EDUCATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                               
+##  [42] &amp;quot;GENERAL_EDUCATION_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;                            
+##  [43] &amp;quot;GENERAL_EDUCATION_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                                      
+##  [44] &amp;quot;GENERAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                             
+##  [45] &amp;quot;GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                                           
+##  [46] &amp;quot;GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math&amp;quot;                                         
+##  [47] &amp;quot;GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present&amp;quot;                                           
+##  [48] &amp;quot;GENERAL_EDUCATION_MATHEMATICS_Number_of_Voids&amp;quot;                                              
+##  [49] &amp;quot;GENERAL_EDUCATION_MATHEMATICS_Number_APA&amp;quot;                                                   
+##  [50] &amp;quot;GENERAL_EDUCATION_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                                 
+##  [51] &amp;quot;GENERAL_EDUCATION_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                              
+##  [52] &amp;quot;GENERAL_EDUCATION_MATHEMATICS_Proficient_Percentage&amp;quot;                                        
+##  [53] &amp;quot;GENERAL_EDUCATION_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                               
+##  [54] &amp;quot;GENERAL_EDUCATION_MATHEMATICS_Scale_Score_Mean&amp;quot;                                             
+##  [55] &amp;quot;GENERAL_EDUCATION_SCIENCE_Number_Enrolled_Science&amp;quot;                                          
+##  [56] &amp;quot;GENERAL_EDUCATION_SCIENCE_Number_Not_Present&amp;quot;                                               
+##  [57] &amp;quot;GENERAL_EDUCATION_SCIENCE_Number_of_Voids&amp;quot;                                                  
+##  [58] &amp;quot;GENERAL_EDUCATION_SCIENCE_Number_APA&amp;quot;                                                       
+##  [59] &amp;quot;GENERAL_EDUCATION_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                                     
+##  [60] &amp;quot;GENERAL_EDUCATION_SCIENCE_Partially_Proficient_Percentage&amp;quot;                                  
+##  [61] &amp;quot;GENERAL_EDUCATION_SCIENCE_Proficient_Percentage&amp;quot;                                            
+##  [62] &amp;quot;GENERAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                                   
+##  [63] &amp;quot;GENERAL_EDUCATION_SCIENCE_Scale_Score_Mean&amp;quot;                                                 
+##  [64] &amp;quot;SPECIAL_EDUCATION_Number_Enrolled_ELA&amp;quot;                                                      
+##  [65] &amp;quot;SPECIAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                                         
+##  [66] &amp;quot;SPECIAL_EDUCATION_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                                            
+##  [67] &amp;quot;SPECIAL_EDUCATION_LANGUAGE_ARTS_Number_APA&amp;quot;                                                 
+##  [68] &amp;quot;SPECIAL_EDUCATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                               
+##  [69] &amp;quot;SPECIAL_EDUCATION_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;                            
+##  [70] &amp;quot;SPECIAL_EDUCATION_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                                      
+##  [71] &amp;quot;SPECIAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                             
+##  [72] &amp;quot;SPECIAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                                           
+##  [73] &amp;quot;SPECIAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math&amp;quot;                                         
+##  [74] &amp;quot;SPECIAL_EDUCATION_MATHEMATICS_Number_Not_Present&amp;quot;                                           
+##  [75] &amp;quot;SPECIAL_EDUCATION_MATHEMATICS_Number_of_Voids&amp;quot;                                              
+##  [76] &amp;quot;SPECIAL_EDUCATION_MATHEMATICS_Number_APA&amp;quot;                                                   
+##  [77] &amp;quot;SPECIAL_EDUCATION_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                                 
+##  [78] &amp;quot;SPECIAL_EDUCATION_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                              
+##  [79] &amp;quot;SPECIAL_EDUCATION_MATHEMATICS_Proficient_Percentage&amp;quot;                                        
+##  [80] &amp;quot;SPECIAL_EDUCATION_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                               
+##  [81] &amp;quot;SPECIAL_EDUCATION_MATHEMATICS_Scale_Score_Mean&amp;quot;                                             
+##  [82] &amp;quot;SPECIAL_EDUCATION_SCIENCE_Number_Enrolled_Science&amp;quot;                                          
+##  [83] &amp;quot;SPECIAL_EDUCATION_SCIENCE_Number_Not_Present&amp;quot;                                               
+##  [84] &amp;quot;SPECIAL_EDUCATION_SCIENCE_Number_of_Voids&amp;quot;                                                  
+##  [85] &amp;quot;SPECIAL_EDUCATION_SCIENCE_Number_APA&amp;quot;                                                       
+##  [86] &amp;quot;SPECIAL_EDUCATION_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                                     
+##  [87] &amp;quot;SPECIAL_EDUCATION_SCIENCE_Partially_Proficient_Percentage&amp;quot;                                  
+##  [88] &amp;quot;SPECIAL_EDUCATION_SCIENCE_Proficient_Percentage&amp;quot;                                            
+##  [89] &amp;quot;SPECIAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                                   
+##  [90] &amp;quot;SPECIAL_EDUCATION_SCIENCE_Scale_Score_Mean&amp;quot;                                                 
+##  [91] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_Number_Enrolled_ELA&amp;quot;                          
+##  [92] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Number_Not_Present&amp;quot;             
+##  [93] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                
+##  [94] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Number_APA&amp;quot;                     
+##  [95] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;   
+##  [96] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;
+##  [97] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;          
+##  [98] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot; 
+##  [99] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;               
+## [100] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Number_Enrolled_Math&amp;quot;             
+## [101] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Number_Not_Present&amp;quot;               
+## [102] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Number_of_Voids&amp;quot;                  
+## [103] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Number_APA&amp;quot;                       
+## [104] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;     
+## [105] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;  
+## [106] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Proficient_Percentage&amp;quot;            
+## [107] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;   
+## [108] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Scale_Score_Mean&amp;quot;                 
+## [109] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_Enrolled_Science&amp;quot;              
+## [110] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_Not_Present&amp;quot;                   
+## [111] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_of_Voids&amp;quot;                      
+## [112] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_APA&amp;quot;                           
+## [113] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;         
+## [114] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Partially_Proficient_Percentage&amp;quot;      
+## [115] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Proficient_Percentage&amp;quot;                
+## [116] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Advanced_Proficient_Percentage&amp;quot;       
+## [117] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Scale_Score_Mean&amp;quot;                     
+## [118] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_Number_Enrolled_ELA&amp;quot;                                     
+## [119] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                        
+## [120] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                           
+## [121] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_APA&amp;quot;                                
+## [122] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;              
+## [123] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;           
+## [124] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                     
+## [125] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;            
+## [126] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                          
+## [127] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_Enrolled_Math&amp;quot;                        
+## [128] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_Not_Present&amp;quot;                          
+## [129] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_of_Voids&amp;quot;                             
+## [130] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_APA&amp;quot;                                  
+## [131] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                
+## [132] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;             
+## [133] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Proficient_Percentage&amp;quot;                       
+## [134] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;              
+## [135] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Scale_Score_Mean&amp;quot;                            
+## [136] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_Enrolled_Science&amp;quot;                         
+## [137] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_Not_Present&amp;quot;                              
+## [138] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_of_Voids&amp;quot;                                 
+## [139] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_APA&amp;quot;                                      
+## [140] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                    
+## [141] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Partially_Proficient_Percentage&amp;quot;                 
+## [142] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Proficient_Percentage&amp;quot;                           
+## [143] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                  
+## [144] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Scale_Score_Mean&amp;quot;                                
+## [145] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_Number_Enrolled_ELA&amp;quot;                                      
+## [146] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                         
+## [147] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                            
+## [148] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_APA&amp;quot;                                 
+## [149] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;               
+## [150] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;            
+## [151] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                      
+## [152] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;             
+## [153] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                           
+## [154] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_Enrolled_Math&amp;quot;                         
+## [155] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_Not_Present&amp;quot;                           
+## [156] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_of_Voids&amp;quot;                              
+## [157] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_APA&amp;quot;                                   
+## [158] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                 
+## [159] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;              
+## [160] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Proficient_Percentage&amp;quot;                        
+## [161] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;               
+## [162] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Scale_Score_Mean&amp;quot;                             
+## [163] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_Enrolled_Science&amp;quot;                          
+## [164] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_Not_Present&amp;quot;                               
+## [165] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_of_Voids&amp;quot;                                  
+## [166] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_APA&amp;quot;                                       
+## [167] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                     
+## [168] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Partially_Proficient_Percentage&amp;quot;                  
+## [169] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Proficient_Percentage&amp;quot;                            
+## [170] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                   
+## [171] &amp;quot;FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Scale_Score_Mean&amp;quot;                                 
+## [172] &amp;quot;FEMALE_Number_Enrolled_ELA&amp;quot;                                                                 
+## [173] &amp;quot;FEMALE_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                                                    
+## [174] &amp;quot;FEMALE_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                                                       
+## [175] &amp;quot;FEMALE_LANGUAGE_ARTS_Number_APA&amp;quot;                                                            
+## [176] &amp;quot;FEMALE_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                                          
+## [177] &amp;quot;FEMALE_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;                                       
+## [178] &amp;quot;FEMALE_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                                                 
+## [179] &amp;quot;FEMALE_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                                        
+## [180] &amp;quot;FEMALE_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                                                      
+## [181] &amp;quot;FEMALE_MATHEMATICS_Number_Enrolled_Math&amp;quot;                                                    
+## [182] &amp;quot;FEMALE_MATHEMATICS_Number_Not_Present&amp;quot;                                                      
+## [183] &amp;quot;FEMALE_MATHEMATICS_Number_of_Voids&amp;quot;                                                         
+## [184] &amp;quot;FEMALE_MATHEMATICS_Number_APA&amp;quot;                                                              
+## [185] &amp;quot;FEMALE_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                                            
+## [186] &amp;quot;FEMALE_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                                         
+## [187] &amp;quot;FEMALE_MATHEMATICS_Proficient_Percentage&amp;quot;                                                   
+## [188] &amp;quot;FEMALE_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                                          
+## [189] &amp;quot;FEMALE_MATHEMATICS_Scale_Score_Mean&amp;quot;                                                        
+## [190] &amp;quot;FEMALE_SCIENCE_Number_Enrolled_Science&amp;quot;                                                     
+## [191] &amp;quot;FEMALE_SCIENCE_Number_Not_Present&amp;quot;                                                          
+## [192] &amp;quot;FEMALE_SCIENCE_Number_of_Voids&amp;quot;                                                             
+## [193] &amp;quot;FEMALE_SCIENCE_Number_APA&amp;quot;                                                                  
+## [194] &amp;quot;FEMALE_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                                                
+## [195] &amp;quot;FEMALE_SCIENCE_Partially_Proficient_Percentage&amp;quot;                                             
+## [196] &amp;quot;FEMALE_SCIENCE_Proficient_Percentage&amp;quot;                                                       
+## [197] &amp;quot;FEMALE_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                                              
+## [198] &amp;quot;FEMALE_SCIENCE_Scale_Score_Mean&amp;quot;                                                            
+## [199] &amp;quot;MALE_Number_Enrolled_ELA&amp;quot;                                                                   
+## [200] &amp;quot;MALE_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                                                      
+## [201] &amp;quot;MALE_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                                                         
+## [202] &amp;quot;MALE_LANGUAGE_ARTS_Number_APA&amp;quot;                                                              
+## [203] &amp;quot;MALE_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                                            
+## [204] &amp;quot;MALE_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;                                         
+## [205] &amp;quot;MALE_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                                                   
+## [206] &amp;quot;MALE_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                                          
+## [207] &amp;quot;MALE_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                                                        
+## [208] &amp;quot;MALE_MATHEMATICS_Number_Enrolled_Math&amp;quot;                                                      
+## [209] &amp;quot;MALE_MATHEMATICS_Number_Not_Present&amp;quot;                                                        
+## [210] &amp;quot;MALE_MATHEMATICS_Number_of_Voids&amp;quot;                                                           
+## [211] &amp;quot;MALE_MATHEMATICS_Number_APA&amp;quot;                                                                
+## [212] &amp;quot;MALE_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                                              
+## [213] &amp;quot;MALE_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                                           
+## [214] &amp;quot;MALE_MATHEMATICS_Proficient_Percentage&amp;quot;                                                     
+## [215] &amp;quot;MALE_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                                            
+## [216] &amp;quot;MALE_MATHEMATICS_Scale_Score_Mean&amp;quot;                                                          
+## [217] &amp;quot;MALE_SCIENCE_Number_Enrolled_Science&amp;quot;                                                       
+## [218] &amp;quot;MALE_SCIENCE_Number_Not_Present&amp;quot;                                                            
+## [219] &amp;quot;MALE_SCIENCE_Number_of_Voids&amp;quot;                                                               
+## [220] &amp;quot;MALE_SCIENCE_Number_APA&amp;quot;                                                                    
+## [221] &amp;quot;MALE_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                                                  
+## [222] &amp;quot;MALE_SCIENCE_Partially_Proficient_Percentage&amp;quot;                                               
+## [223] &amp;quot;MALE_SCIENCE_Proficient_Percentage&amp;quot;                                                         
+## [224] &amp;quot;MALE_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                                                
+## [225] &amp;quot;MALE_SCIENCE_Scale_Score_Mean&amp;quot;                                                              
+## [226] &amp;quot;MIGRANT_Number_Enrolled_ELA&amp;quot;                                                                
+## [227] &amp;quot;MIGRANT_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                                                   
+## [228] &amp;quot;MIGRANT_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                                                      
+## [229] &amp;quot;MIGRANT_LANGUAGE_ARTS_Number_APA&amp;quot;                                                           
+## [230] &amp;quot;MIGRANT_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                                         
+## [231] &amp;quot;MIGRANT_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;                                      
+## [232] &amp;quot;MIGRANT_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                                                
+## [233] &amp;quot;MIGRANT_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                                       
+## [234] &amp;quot;MIGRANT_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                                                     
+## [235] &amp;quot;MIGRANT_MATHEMATICS_Number_Enrolled_Math&amp;quot;                                                   
+## [236] &amp;quot;MIGRANT_MATHEMATICS_Number_Not_Present&amp;quot;                                                     
+## [237] &amp;quot;MIGRANT_MATHEMATICS_Number_of_Voids&amp;quot;                                                        
+## [238] &amp;quot;MIGRANT_MATHEMATICS_Number_APA&amp;quot;                                                             
+## [239] &amp;quot;MIGRANT_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                                           
+## [240] &amp;quot;MIGRANT_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                                        
+## [241] &amp;quot;MIGRANT_MATHEMATICS_Proficient_Percentage&amp;quot;                                                  
+## [242] &amp;quot;MIGRANT_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                                         
+## [243] &amp;quot;MIGRANT_MATHEMATICS_Scale_Score_Mean&amp;quot;                                                       
+## [244] &amp;quot;MIGRANT_SCIENCE_Number_Enrolled_Science&amp;quot;                                                    
+## [245] &amp;quot;MIGRANT_SCIENCE_Number_Not_Present&amp;quot;                                                         
+## [246] &amp;quot;MIGRANT_SCIENCE_Number_of_Voids&amp;quot;                                                            
+## [247] &amp;quot;MIGRANT_SCIENCE_Number_APA&amp;quot;                                                                 
+## [248] &amp;quot;MIGRANT_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                                               
+## [249] &amp;quot;MIGRANT_SCIENCE_Partially_Proficient_Percentage&amp;quot;                                            
+## [250] &amp;quot;MIGRANT_SCIENCE_Proficient_Percentage&amp;quot;                                                      
+## [251] &amp;quot;MIGRANT_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                                             
+## [252] &amp;quot;MIGRANT_SCIENCE_Scale_Score_Mean&amp;quot;                                                           
+## [253] &amp;quot;NON-MIGRANT_Number_Enrolled_ELA&amp;quot;                                                            
+## [254] &amp;quot;NON-MIGRANT_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                                               
+## [255] &amp;quot;NON-MIGRANT_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                                                  
+## [256] &amp;quot;NON-MIGRANT_LANGUAGE_ARTS_Number_APA&amp;quot;                                                       
+## [257] &amp;quot;NON-MIGRANT_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                                     
+## [258] &amp;quot;NON-MIGRANT_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;                                  
+## [259] &amp;quot;NON-MIGRANT_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                                            
+## [260] &amp;quot;NON-MIGRANT_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                                   
+## [261] &amp;quot;NON-MIGRANT_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                                                 
+## [262] &amp;quot;NON-MIGRANT_MATHEMATICS_Number_Enrolled_Math&amp;quot;                                               
+## [263] &amp;quot;NON-MIGRANT_MATHEMATICS_Number_Not_Present&amp;quot;                                                 
+## [264] &amp;quot;NON-MIGRANT_MATHEMATICS_Number_of_Voids&amp;quot;                                                    
+## [265] &amp;quot;NON-MIGRANT_MATHEMATICS_Number_APA&amp;quot;                                                         
+## [266] &amp;quot;NON-MIGRANT_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                                       
+## [267] &amp;quot;NON-MIGRANT_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                                    
+## [268] &amp;quot;NON-MIGRANT_MATHEMATICS_Proficient_Percentage&amp;quot;                                              
+## [269] &amp;quot;NON-MIGRANT_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                                     
+## [270] &amp;quot;NON-MIGRANT_MATHEMATICS_Scale_Score_Mean&amp;quot;                                                   
+## [271] &amp;quot;NON-MIGRANT_SCIENCE_Number_Enrolled_Science&amp;quot;                                                
+## [272] &amp;quot;NON-MIGRANT_SCIENCE_Number_Not_Present&amp;quot;                                                     
+## [273] &amp;quot;NON-MIGRANT_SCIENCE_Number_of_Voids&amp;quot;                                                        
+## [274] &amp;quot;NON-MIGRANT_SCIENCE_Number_APA&amp;quot;                                                             
+## [275] &amp;quot;NON-MIGRANT_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                                           
+## [276] &amp;quot;NON-MIGRANT_SCIENCE_Partially_Proficient_Percentage&amp;quot;                                        
+## [277] &amp;quot;NON-MIGRANT_SCIENCE_Proficient_Percentage&amp;quot;                                                  
+## [278] &amp;quot;NON-MIGRANT_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                                         
+## [279] &amp;quot;NON-MIGRANT_SCIENCE_Scale_Score_Mean&amp;quot;                                                       
+## [280] &amp;quot;WHITE_Number_Enrolled_ELA&amp;quot;                                                                  
+## [281] &amp;quot;WHITE_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                                                     
+## [282] &amp;quot;WHITE_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                                                        
+## [283] &amp;quot;WHITE_LANGUAGE_ARTS_Number_APA&amp;quot;                                                             
+## [284] &amp;quot;WHITE_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                                           
+## [285] &amp;quot;WHITE_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;                                        
+## [286] &amp;quot;WHITE_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                                                  
+## [287] &amp;quot;WHITE_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                                         
+## [288] &amp;quot;WHITE_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                                                       
+## [289] &amp;quot;WHITE_MATHEMATICS_Number_Enrolled_Math&amp;quot;                                                     
+## [290] &amp;quot;WHITE_MATHEMATICS_Number_Not_Present&amp;quot;                                                       
+## [291] &amp;quot;WHITE_MATHEMATICS_Number_of_Voids&amp;quot;                                                          
+## [292] &amp;quot;WHITE_MATHEMATICS_Number_APA&amp;quot;                                                               
+## [293] &amp;quot;WHITE_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                                             
+## [294] &amp;quot;WHITE_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                                          
+## [295] &amp;quot;WHITE_MATHEMATICS_Proficient_Percentage&amp;quot;                                                    
+## [296] &amp;quot;WHITE_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                                           
+## [297] &amp;quot;WHITE_MATHEMATICS_Scale_Score_Mean&amp;quot;                                                         
+## [298] &amp;quot;WHITE_SCIENCE_Number_Enrolled_Science&amp;quot;                                                      
+## [299] &amp;quot;WHITE_SCIENCE_Number_Not_Present&amp;quot;                                                           
+## [300] &amp;quot;WHITE_SCIENCE_Number_of_Voids&amp;quot;                                                              
+## [301] &amp;quot;WHITE_SCIENCE_Number_APA&amp;quot;                                                                   
+## [302] &amp;quot;WHITE_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                                                 
+## [303] &amp;quot;WHITE_SCIENCE_Partially_Proficient_Percentage&amp;quot;                                              
+## [304] &amp;quot;WHITE_SCIENCE_Proficient_Percentage&amp;quot;                                                        
+## [305] &amp;quot;WHITE_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                                               
+## [306] &amp;quot;WHITE_SCIENCE_Scale_Score_Mean&amp;quot;                                                             
+## [307] &amp;quot;BLACK_Number_Enrolled_ELA&amp;quot;                                                                  
+## [308] &amp;quot;BLACK_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                                                     
+## [309] &amp;quot;BLACK_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                                                        
+## [310] &amp;quot;BLACK_LANGUAGE_ARTS_Number_APA&amp;quot;                                                             
+## [311] &amp;quot;BLACK_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                                           
+## [312] &amp;quot;BLACK_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;                                        
+## [313] &amp;quot;BLACK_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                                                  
+## [314] &amp;quot;BLACK_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                                         
+## [315] &amp;quot;BLACK_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                                                       
+## [316] &amp;quot;BLACK_MATHEMATICS_Number_Enrolled_Math&amp;quot;                                                     
+## [317] &amp;quot;BLACK_MATHEMATICS_Number_Not_Present&amp;quot;                                                       
+## [318] &amp;quot;BLACK_MATHEMATICS_Number_of_Voids&amp;quot;                                                          
+## [319] &amp;quot;BLACK_MATHEMATICS_Number_APA&amp;quot;                                                               
+## [320] &amp;quot;BLACK_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                                             
+## [321] &amp;quot;BLACK_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                                          
+## [322] &amp;quot;BLACK_MATHEMATICS_Proficient_Percentage&amp;quot;                                                    
+## [323] &amp;quot;BLACK_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                                           
+## [324] &amp;quot;BLACK_MATHEMATICS_Scale_Score_Mean&amp;quot;                                                         
+## [325] &amp;quot;BLACK_SCIENCE_Number_Enrolled_Science&amp;quot;                                                      
+## [326] &amp;quot;BLACK_SCIENCE_Number_Not_Present&amp;quot;                                                           
+## [327] &amp;quot;BLACK_SCIENCE_Number_of_Voids&amp;quot;                                                              
+## [328] &amp;quot;BLACK_SCIENCE_Number_APA&amp;quot;                                                                   
+## [329] &amp;quot;BLACK_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                                                 
+## [330] &amp;quot;BLACK_SCIENCE_Partially_Proficient_Percentage&amp;quot;                                              
+## [331] &amp;quot;BLACK_SCIENCE_Proficient_Percentage&amp;quot;                                                        
+## [332] &amp;quot;BLACK_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                                               
+## [333] &amp;quot;BLACK_SCIENCE_Scale_Score_Mean&amp;quot;                                                             
+## [334] &amp;quot;ASIAN_Number_Enrolled_ELA&amp;quot;                                                                  
+## [335] &amp;quot;ASIAN_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                                                     
+## [336] &amp;quot;ASIAN_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                                                        
+## [337] &amp;quot;ASIAN_LANGUAGE_ARTS_Number_APA&amp;quot;                                                             
+## [338] &amp;quot;ASIAN_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                                           
+## [339] &amp;quot;ASIAN_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;                                        
+## [340] &amp;quot;ASIAN_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                                                  
+## [341] &amp;quot;ASIAN_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                                         
+## [342] &amp;quot;ASIAN_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                                                       
+## [343] &amp;quot;ASIAN_MATHEMATICS_Number_Enrolled_Math&amp;quot;                                                     
+## [344] &amp;quot;ASIAN_MATHEMATICS_Number_Not_Present&amp;quot;                                                       
+## [345] &amp;quot;ASIAN_MATHEMATICS_Number_of_Voids&amp;quot;                                                          
+## [346] &amp;quot;ASIAN_MATHEMATICS_Number_APA&amp;quot;                                                               
+## [347] &amp;quot;ASIAN_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                                             
+## [348] &amp;quot;ASIAN_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                                          
+## [349] &amp;quot;ASIAN_MATHEMATICS_Proficient_Percentage&amp;quot;                                                    
+## [350] &amp;quot;ASIAN_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                                           
+## [351] &amp;quot;ASIAN_MATHEMATICS_Scale_Score_Mean&amp;quot;                                                         
+## [352] &amp;quot;ASIAN_SCIENCE_Number_Enrolled_Science&amp;quot;                                                      
+## [353] &amp;quot;ASIAN_SCIENCE_Number_Not_Present&amp;quot;                                                           
+## [354] &amp;quot;ASIAN_SCIENCE_Number_of_Voids&amp;quot;                                                              
+## [355] &amp;quot;ASIAN_SCIENCE_Number_APA&amp;quot;                                                                   
+## [356] &amp;quot;ASIAN_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                                                 
+## [357] &amp;quot;ASIAN_SCIENCE_Partially_Proficient_Percentage&amp;quot;                                              
+## [358] &amp;quot;ASIAN_SCIENCE_Proficient_Percentage&amp;quot;                                                        
+## [359] &amp;quot;ASIAN_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                                               
+## [360] &amp;quot;ASIAN_SCIENCE_Scale_Score_Mean&amp;quot;                                                             
+## [361] &amp;quot;PACIFIC_ISLANDER_Number_Enrolled_ELA&amp;quot;                                                       
+## [362] &amp;quot;PACIFIC_ISLANDER_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                                          
+## [363] &amp;quot;PACIFIC_ISLANDER_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                                             
+## [364] &amp;quot;PACIFIC_ISLANDER_LANGUAGE_ARTS_Number_APA&amp;quot;                                                  
+## [365] &amp;quot;PACIFIC_ISLANDER_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                                
+## [366] &amp;quot;PACIFIC_ISLANDER_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;                             
+## [367] &amp;quot;PACIFIC_ISLANDER_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                                       
+## [368] &amp;quot;PACIFIC_ISLANDER_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                              
+## [369] &amp;quot;PACIFIC_ISLANDER_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                                            
+## [370] &amp;quot;PACIFIC_ISLANDER_MATHEMATICS_Number_Enrolled_Math&amp;quot;                                          
+## [371] &amp;quot;PACIFIC_ISLANDER_MATHEMATICS_Number_Not_Present&amp;quot;                                            
+## [372] &amp;quot;PACIFIC_ISLANDER_MATHEMATICS_Number_of_Voids&amp;quot;                                               
+## [373] &amp;quot;PACIFIC_ISLANDER_MATHEMATICS_Number_APA&amp;quot;                                                    
+## [374] &amp;quot;PACIFIC_ISLANDER_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                                  
+## [375] &amp;quot;PACIFIC_ISLANDER_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                               
+## [376] &amp;quot;PACIFIC_ISLANDER_MATHEMATICS_Proficient_Percentage&amp;quot;                                         
+## [377] &amp;quot;PACIFIC_ISLANDER_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                                
+## [378] &amp;quot;PACIFIC_ISLANDER_MATHEMATICS_Scale_Score_Mean&amp;quot;                                              
+## [379] &amp;quot;PACIFIC_ISLANDER_SCIENCE_Number_Enrolled_Science&amp;quot;                                           
+## [380] &amp;quot;PACIFIC_ISLANDER_SCIENCE_Number_Not_Present&amp;quot;                                                
+## [381] &amp;quot;PACIFIC_ISLANDER_SCIENCE_Number_of_Voids&amp;quot;                                                   
+## [382] &amp;quot;PACIFIC_ISLANDER_SCIENCE_Number_APA&amp;quot;                                                        
+## [383] &amp;quot;PACIFIC_ISLANDER_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                                      
+## [384] &amp;quot;PACIFIC_ISLANDER_SCIENCE_Partially_Proficient_Percentage&amp;quot;                                   
+## [385] &amp;quot;PACIFIC_ISLANDER_SCIENCE_Proficient_Percentage&amp;quot;                                             
+## [386] &amp;quot;PACIFIC_ISLANDER_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                                    
+## [387] &amp;quot;PACIFIC_ISLANDER_SCIENCE_Scale_Score_Mean&amp;quot;                                                  
+## [388] &amp;quot;HISPANIC_Number_Enrolled_ELA&amp;quot;                                                               
+## [389] &amp;quot;HISPANIC_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                                                  
+## [390] &amp;quot;HISPANIC_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                                                     
+## [391] &amp;quot;HISPANIC_LANGUAGE_ARTS_Number_APA&amp;quot;                                                          
+## [392] &amp;quot;HISPANIC_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                                        
+## [393] &amp;quot;HISPANIC_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;                                     
+## [394] &amp;quot;HISPANIC_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                                               
+## [395] &amp;quot;HISPANIC_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                                      
+## [396] &amp;quot;HISPANIC_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                                                    
+## [397] &amp;quot;HISPANIC_MATHEMATICS_Number_Enrolled_Math&amp;quot;                                                  
+## [398] &amp;quot;HISPANIC_MATHEMATICS_Number_Not_Present&amp;quot;                                                    
+## [399] &amp;quot;HISPANIC_MATHEMATICS_Number_of_Voids&amp;quot;                                                       
+## [400] &amp;quot;HISPANIC_MATHEMATICS_Number_APA&amp;quot;                                                            
+## [401] &amp;quot;HISPANIC_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                                          
+## [402] &amp;quot;HISPANIC_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                                       
+## [403] &amp;quot;HISPANIC_MATHEMATICS_Proficient_Percentage&amp;quot;                                                 
+## [404] &amp;quot;HISPANIC_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                                        
+## [405] &amp;quot;HISPANIC_MATHEMATICS_Scale_Score_Mean&amp;quot;                                                      
+## [406] &amp;quot;HISPANIC_SCIENCE_Number_Enrolled_Science&amp;quot;                                                   
+## [407] &amp;quot;HISPANIC_SCIENCE_Number_Not_Present&amp;quot;                                                        
+## [408] &amp;quot;HISPANIC_SCIENCE_Number_of_Voids&amp;quot;                                                           
+## [409] &amp;quot;HISPANIC_SCIENCE_Number_APA&amp;quot;                                                                
+## [410] &amp;quot;HISPANIC_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                                              
+## [411] &amp;quot;HISPANIC_SCIENCE_Partially_Proficient_Percentage&amp;quot;                                           
+## [412] &amp;quot;HISPANIC_SCIENCE_Proficient_Percentage&amp;quot;                                                     
+## [413] &amp;quot;HISPANIC_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                                            
+## [414] &amp;quot;HISPANIC_SCIENCE_Scale_Score_Mean&amp;quot;                                                          
+## [415] &amp;quot;AMERICAN_INDIAN_Number_Enrolled_ELA&amp;quot;                                                        
+## [416] &amp;quot;AMERICAN_INDIAN_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                                           
+## [417] &amp;quot;AMERICAN_INDIAN_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                                              
+## [418] &amp;quot;AMERICAN_INDIAN_LANGUAGE_ARTS_Number_APA&amp;quot;                                                   
+## [419] &amp;quot;AMERICAN_INDIAN_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                                 
+## [420] &amp;quot;AMERICAN_INDIAN_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;                              
+## [421] &amp;quot;AMERICAN_INDIAN_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                                        
+## [422] &amp;quot;AMERICAN_INDIAN_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                               
+## [423] &amp;quot;AMERICAN_INDIAN_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                                             
+## [424] &amp;quot;AMERICAN_INDIAN_MATHEMATICS_Number_Enrolled_Math&amp;quot;                                           
+## [425] &amp;quot;AMERICAN_INDIAN_MATHEMATICS_Number_Not_Present&amp;quot;                                             
+## [426] &amp;quot;AMERICAN_INDIAN_MATHEMATICS_Number_of_Voids&amp;quot;                                                
+## [427] &amp;quot;AMERICAN_INDIAN_MATHEMATICS_Number_APA&amp;quot;                                                     
+## [428] &amp;quot;AMERICAN_INDIAN_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                                   
+## [429] &amp;quot;AMERICAN_INDIAN_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                                
+## [430] &amp;quot;AMERICAN_INDIAN_MATHEMATICS_Proficient_Percentage&amp;quot;                                          
+## [431] &amp;quot;AMERICAN_INDIAN_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                                 
+## [432] &amp;quot;AMERICAN_INDIAN_MATHEMATICS_Scale_Score_Mean&amp;quot;                                               
+## [433] &amp;quot;AMERICAN_INDIAN_SCIENCE_Number_Enrolled_Science&amp;quot;                                            
+## [434] &amp;quot;AMERICAN_INDIAN_SCIENCE_Number_Not_Present&amp;quot;                                                 
+## [435] &amp;quot;AMERICAN_INDIAN_SCIENCE_Number_of_Voids&amp;quot;                                                    
+## [436] &amp;quot;AMERICAN_INDIAN_SCIENCE_Number_APA&amp;quot;                                                         
+## [437] &amp;quot;AMERICAN_INDIAN_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                                       
+## [438] &amp;quot;AMERICAN_INDIAN_SCIENCE_Partially_Proficient_Percentage&amp;quot;                                    
+## [439] &amp;quot;AMERICAN_INDIAN_SCIENCE_Proficient_Percentage&amp;quot;                                              
+## [440] &amp;quot;AMERICAN_INDIAN_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                                     
+## [441] &amp;quot;AMERICAN_INDIAN_SCIENCE_Scale_Score_Mean&amp;quot;                                                   
+## [442] &amp;quot;OTHER_Number_Enrolled_ELA&amp;quot;                                                                  
+## [443] &amp;quot;OTHER_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                                                     
+## [444] &amp;quot;OTHER_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                                                        
+## [445] &amp;quot;OTHER_LANGUAGE_ARTS_Number_APA&amp;quot;                                                             
+## [446] &amp;quot;OTHER_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                                           
+## [447] &amp;quot;OTHER_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;                                        
+## [448] &amp;quot;OTHER_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                                                  
+## [449] &amp;quot;OTHER_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                                         
+## [450] &amp;quot;OTHER_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                                                       
+## [451] &amp;quot;OTHER_MATHEMATICS_Number_Enrolled_Math&amp;quot;                                                     
+## [452] &amp;quot;OTHER_MATHEMATICS_Number_Not_Present&amp;quot;                                                       
+## [453] &amp;quot;OTHER_MATHEMATICS_Number_of_Voids&amp;quot;                                                          
+## [454] &amp;quot;OTHER_MATHEMATICS_Number_APA&amp;quot;                                                               
+## [455] &amp;quot;OTHER_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                                             
+## [456] &amp;quot;OTHER_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                                          
+## [457] &amp;quot;OTHER_MATHEMATICS_Proficient_Percentage&amp;quot;                                                    
+## [458] &amp;quot;OTHER_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                                           
+## [459] &amp;quot;OTHER_MATHEMATICS_Scale_Score_Mean&amp;quot;                                                         
+## [460] &amp;quot;OTHER_SCIENCE_Number_Enrolled_Science&amp;quot;                                                      
+## [461] &amp;quot;OTHER_SCIENCE_Number_Not_Present&amp;quot;                                                           
+## [462] &amp;quot;OTHER_SCIENCE_Number_of_Voids&amp;quot;                                                              
+## [463] &amp;quot;OTHER_SCIENCE_Number_APA&amp;quot;                                                                   
+## [464] &amp;quot;OTHER_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                                                 
+## [465] &amp;quot;OTHER_SCIENCE_Partially_Proficient_Percentage&amp;quot;                                              
+## [466] &amp;quot;OTHER_SCIENCE_Proficient_Percentage&amp;quot;                                                        
+## [467] &amp;quot;OTHER_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                                               
+## [468] &amp;quot;OTHER_SCIENCE_Scale_Score_Mean&amp;quot;                                                             
+## [469] &amp;quot;ECONOMICALLY_DISADVANTAGED_Number_Enrolled_ELA&amp;quot;                                             
+## [470] &amp;quot;ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                                
+## [471] &amp;quot;ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                                   
+## [472] &amp;quot;ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Number_APA&amp;quot;                                        
+## [473] &amp;quot;ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                      
+## [474] &amp;quot;ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;                   
+## [475] &amp;quot;ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                             
+## [476] &amp;quot;ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                    
+## [477] &amp;quot;ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                                  
+## [478] &amp;quot;ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_Enrolled_Math&amp;quot;                                
+## [479] &amp;quot;ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_Not_Present&amp;quot;                                  
+## [480] &amp;quot;ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_of_Voids&amp;quot;                                     
+## [481] &amp;quot;ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_APA&amp;quot;                                          
+## [482] &amp;quot;ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                        
+## [483] &amp;quot;ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                     
+## [484] &amp;quot;ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Proficient_Percentage&amp;quot;                               
+## [485] &amp;quot;ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                      
+## [486] &amp;quot;ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Scale_Score_Mean&amp;quot;                                    
+## [487] &amp;quot;ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_Enrolled_Science&amp;quot;                                 
+## [488] &amp;quot;ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_Not_Present&amp;quot;                                      
+## [489] &amp;quot;ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_of_Voids&amp;quot;                                         
+## [490] &amp;quot;ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_APA&amp;quot;                                              
+## [491] &amp;quot;ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                            
+## [492] &amp;quot;ECONOMICALLY_DISADVANTAGED_SCIENCE_Partially_Proficient_Percentage&amp;quot;                         
+## [493] &amp;quot;ECONOMICALLY_DISADVANTAGED_SCIENCE_Proficient_Percentage&amp;quot;                                   
+## [494] &amp;quot;ECONOMICALLY_DISADVANTAGED_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                          
+## [495] &amp;quot;ECONOMICALLY_DISADVANTAGED_SCIENCE_Scale_Score_Mean&amp;quot;                                        
+## [496] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_Number_Enrolled_ELA&amp;quot;                                         
+## [497] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                            
+## [498] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                               
+## [499] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Number_APA&amp;quot;                                    
+## [500] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;                  
+## [501] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;               
+## [502] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                         
+## [503] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;                
+## [504] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                              
+## [505] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_Enrolled_Math&amp;quot;                            
+## [506] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_Not_Present&amp;quot;                              
+## [507] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_of_Voids&amp;quot;                                 
+## [508] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_APA&amp;quot;                                      
+## [509] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;                    
+## [510] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;                 
+## [511] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Proficient_Percentage&amp;quot;                           
+## [512] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;                  
+## [513] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Scale_Score_Mean&amp;quot;                                
+## [514] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_Enrolled_Science&amp;quot;                             
+## [515] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_Not_Present&amp;quot;                                  
+## [516] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_of_Voids&amp;quot;                                     
+## [517] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_APA&amp;quot;                                          
+## [518] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                        
+## [519] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Partially_Proficient_Percentage&amp;quot;                     
+## [520] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Proficient_Percentage&amp;quot;                               
+## [521] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                      
+## [522] &amp;quot;NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Scale_Score_Mean&amp;quot;                                    
+## [523] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Number_Enrolled_ELA&amp;quot;                                  
+## [524] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                     
+## [525] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                        
+## [526] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_LANGUAGE_ARTS_Number_APA&amp;quot;                             
+## [527] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;           
+## [528] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;        
+## [529] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;                  
+## [530] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot;         
+## [531] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;                       
+## [532] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Number_Enrolled_Math&amp;quot;                     
+## [533] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Number_Not_Present&amp;quot;                       
+## [534] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Number_of_Voids&amp;quot;                          
+## [535] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Number_APA&amp;quot;                               
+## [536] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;             
+## [537] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;          
+## [538] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Proficient_Percentage&amp;quot;                    
+## [539] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;           
+## [540] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Scale_Score_Mean&amp;quot;                         
+## [541] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Number_Enrolled_Science&amp;quot;                      
+## [542] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Number_Not_Present&amp;quot;                           
+## [543] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Number_of_Voids&amp;quot;                              
+## [544] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Number_APA&amp;quot;                                   
+## [545] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;                 
+## [546] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Partially_Proficient_Percentage&amp;quot;              
+## [547] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Proficient_Percentage&amp;quot;                        
+## [548] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Advanced_Proficient_Percentage&amp;quot;               
+## [549] &amp;quot;SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean&amp;quot;                             
+## [550] &amp;quot;Testing_Year&amp;quot;                                                                               
+## [551] &amp;quot;Grade&amp;quot;
 &lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew Martin</dc:creator><pubDate>Fri, 10 Apr 2015 00:00:00 -0400</pubDate><guid>tag:almart.in,2015-04-10:reading-njask-data-1.html</guid><category>NJ</category><category>NJASK</category><category>data_management</category><category>technical</category></item><item><title>just a sample rmd</title><link>http://almart.in/sample-rmd.html</link><description>&lt;!-- PELICAN_END_SUMMARY --&gt;
 
 &lt;h2&gt;an out-of-the-box sample RStudio RMD, to test &lt;a href="https://github.com/getpelican/pelican-plugins/tree/master/rmd_reader"&gt;&lt;code&gt;rmd_reader&lt;/code&gt;&lt;/a&gt;&lt;/h2&gt;
