@@ -33,7 +33,7 @@ Yuck.
 
 Fortunately the state publishes [fixed width](http://www.state.nj.us/education/schools/achievement/14/njask8/state_summary.txt) versions of these files that you can work with.  They're a little intimidating at first, but they're actually (relatively) easy to read into R.
 
-##<i class="fa fa-music"></i>welcome to the <a href="https://barryrowlingson.github.io/hadleyverse/#1">Hadleyverse</a><i class="fa fa-music"></i>
+##<i class="fa fa-music"></i> welcome to the <a href="https://barryrowlingson.github.io/hadleyverse/#1">Hadleyverse </a><i class="fa fa-music"></i>
 
 We can use the `read_fwf()` function from [`hadley/readr`](https://github.com/hadley/readr) to quickly read fixed width files into R.
 
