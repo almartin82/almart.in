@@ -56,6 +56,8 @@ library(magrittr)
 
 ```
 
+We can pass one of those fixed-width data file to `read_fwf`, and it will try to convert it into an R data frame:
+
 ```{r fwf1}
 
 sample_file = "http://www.state.nj.us/education/schools/achievement/14/njask8/state_summary.txt"
@@ -64,12 +66,10 @@ njask14_gr8 <- readr::read_fwf(
   file = sample_file,
   col_positions = readr::fwf_empty(file=sample_file)
 )
-head(njask14_gr8)
-
+head(as.data.frame(njask14_gr8)[1:10,1:15])
 ```
 
-
-So that's a start, but that gives us a bunch of weird unhelpful column names.  Also, there's a bunch of weird * characters.
+That's just the first fifteen of `r ncol(njask14_gr8)` columns -- we got some data into R (good), but those column names are awful unhelpful.  Also, there's a bunch of weird `*` characters in our data.  How can we identify each column?
 
 # this part is unfortunate
 
@@ -77,7 +77,7 @@ For whatever reason NJ has seen fit to publish the crucial _definitions_ (column
 
 <img src="static_images/04_njask_layout.png">
 
-I think we can do some dplyr tricks and recover the nested aspects of this data:
+I think we can do some dplyr tricks and recover the nested aspects of this data.  First, read the excel file in as a data frame:
 
 ```{r read_layout}
 
@@ -88,7 +88,11 @@ names(layout) <- tolower(gsub(' ', '_', names(layout)))
 
 ```
 
-In Excel I created a simple column to test if a column was a 'spanning' column (basically, was it merged across multiple columns).  First we'll separate those 'spanners' from the non-spanners.
+I did a little pre-processing in Excel before saving that csv -- namely, I created an indicator variable that indicates if a row was a 'spanning' row (basically, did the value span multiple columns?).  The strategy here is going to be:
+
+1) Separate those 'spanners' (which contain info, but aren't unique data elements) from the 'keepers' (the rows that uniquely ID each column).
+
+2) Join our keepers back to our spanners, exploting the data about field start position and end position.
 
 ```{r munge1}
 
@@ -117,9 +121,9 @@ with_spanners[1:20, c(1:5,8:10)]
 
 ```
 
-So we have fields matched with their parents, but the sql join leaves us with long data, and we really need wide data (one row per field).  Let's reshape!
+So we have fields matched with their parents, but the sql join leaves us with _long_ data, and we really need _wide_ data (one row per field).  Let's reshape!
 
-First let's tag each row with a row number:
+First let's tag each row with a row number.  For cases where we have multiple matching spanners(`TOTAL POPULATION` and `LANGUAGE ARTS`, for instance), this will let us collapse those rows into one record, with a column for `description`, `spanner1`, and `spanner2`.
 ```{r reshape1}
 
 with_rn <- with_spanners %>%
@@ -143,7 +147,7 @@ head(with_rn)
 
 ```
 
-Using that row number as a key, we can pivot and move each of those spanner values to a new column, using one of the many tools in the `reshape2` [toolbox](http://www.cookbook-r.com/Manipulating_data/Converting_data_between_wide_and_long_format/#from-long-to-wide).
+We'll pass the row number we just generated as an identifier to one of the many functions in the `reshape2` [toolbox](http://www.cookbook-r.com/Manipulating_data/Converting_data_between_wide_and_long_format/#from-long-to-wide) (TBH I don't know any of those by heart - I just look up the syntax when needed).
 
 ```{r reshape2}
 

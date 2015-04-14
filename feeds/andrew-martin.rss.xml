@@ -43,72 +43,53 @@ library&lt;span class="p"&gt;(&lt;/span&gt;magrittr&lt;span class="p"&gt;)&lt;/s
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;p&gt;We can pass one of those fixed-width data file to &lt;code&gt;read_fwf&lt;/code&gt;, and it will try to convert it into an R data frame:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;sample_file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;http://www.state.nj.us/education/schools/achievement/14/njask8/state_summary.txt&amp;quot;&lt;/span&gt;
 
 njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;read_fwf&lt;span class="p"&gt;(&lt;/span&gt;
   file &lt;span class="o"&gt;=&lt;/span&gt; sample_file&lt;span class="p"&gt;,&lt;/span&gt;
   col_positions &lt;span class="o"&gt;=&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;fwf_empty&lt;span class="p"&gt;(&lt;/span&gt;file&lt;span class="o"&gt;=&lt;/span&gt;sample_file&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;)&lt;/span&gt;
-head&lt;span class="p"&gt;(&lt;/span&gt;njask14_gr8&lt;span class="p"&gt;)&lt;/span&gt;
+head&lt;span class="p"&gt;(&lt;/span&gt;as.data.frame&lt;span class="p"&gt;(&lt;/span&gt;njask14_gr8&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;15&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Source: local data frame [6 x 244]
-## 
-##                  X1          X2                        X3 X4      X5  X6
+&lt;div class="highlight"&gt;&lt;pre&gt;##                  X1          X2                        X3 X4      X5  X6
 ## 1                ST                                           104616 308
 ## 2                NS                                            85260 218
 ## 3                SN                                            19356  90
 ## 4                 A                                            16599  77
 ## 5 250100   MONMOUTH ASBURY PARK                            A Y   129   1
 ## 6 250100070MONMOUTH ASBURY PARK ASBURY PARK MIDDLE SCHOOL  A Y   128   1
-## Variables not shown: X7 (chr), X8 (chr), X9 (chr), X10 (chr), X11 (chr),
-##   X12 (chr), X13 (chr), X14 (chr), X15 (chr), X16 (chr), X17 (chr), X18
-##   (chr), X19 (chr), X20 (chr), X21 (chr), X22 (chr), X23 (chr), X24 (chr),
-##   X25 (chr), X26 (chr), X27 (chr), X28 (chr), X29 (chr), X30 (chr), X31
-##   (chr), X32 (chr), X33 (chr), X34 (chr), X35 (chr), X36 (chr), X37 (chr),
-##   X38 (chr), X39 (chr), X40 (chr), X41 (chr), X42 (chr), X43 (chr), X44
-##   (chr), X45 (chr), X46 (chr), X47 (chr), X48 (chr), X49 (chr), X50 (chr),
-##   X51 (chr), X52 (chr), X53 (chr), X54 (chr), X55 (chr), X56 (chr), X57
-##   (chr), X58 (chr), X59 (chr), X60 (chr), X61 (chr), X62 (chr), X63 (chr),
-##   X64 (chr), X65 (chr), X66 (chr), X67 (chr), X68 (chr), X69 (chr), X70
-##   (chr), X71 (chr), X72 (chr), X73 (chr), X74 (chr), X75 (chr), X76 (chr),
-##   X77 (chr), X78 (chr), X79 (chr), X80 (chr), X81 (chr), X82 (chr), X83
-##   (chr), X84 (chr), X85 (chr), X86 (chr), X87 (chr), X88 (chr), X89 (chr),
-##   X90 (chr), X91 (chr), X92 (chr), X93 (chr), X94 (chr), X95 (chr), X96
-##   (chr), X97 (chr), X98 (chr), X99 (chr), X100 (chr), X101 (chr), X102
-##   (chr), X103 (chr), X104 (chr), X105 (chr), X106 (chr), X107 (chr), X108
-##   (chr), X109 (chr), X110 (chr), X111 (chr), X112 (chr), X113 (chr), X114
-##   (chr), X115 (chr), X116 (chr), X117 (chr), X118 (chr), X119 (chr), X120
-##   (chr), X121 (chr), X122 (chr), X123 (chr), X124 (chr), X125 (chr), X126
-##   (chr), X127 (chr), X128 (chr), X129 (chr), X130 (chr), X131 (chr), X132
-##   (chr), X133 (chr), X134 (chr), X135 (chr), X136 (chr), X137 (chr), X138
-##   (chr), X139 (chr), X140 (chr), X141 (chr), X142 (chr), X143 (chr), X144
-##   (chr), X145 (chr), X146 (chr), X147 (chr), X148 (chr), X149 (chr), X150
-##   (chr), X151 (chr), X152 (chr), X153 (chr), X154 (chr), X155 (chr), X156
-##   (chr), X157 (chr), X158 (chr), X159 (chr), X160 (chr), X161 (chr), X162
-##   (chr), X163 (chr), X164 (chr), X165 (chr), X166 (chr), X167 (chr), X168
-##   (chr), X169 (chr), X170 (chr), X171 (chr), X172 (chr), X173 (chr), X174
-##   (chr), X175 (chr), X176 (chr), X177 (chr), X178 (chr), X179 (chr), X180
-##   (chr), X181 (chr), X182 (chr), X183 (chr), X184 (chr), X185 (chr), X186
-##   (chr), X187 (chr), X188 (chr), X189 (chr), X190 (chr), X191 (chr), X192
-##   (chr), X193 (chr), X194 (chr), X195 (chr), X196 (chr), X197 (chr), X198
-##   (chr), X199 (chr), X200 (chr), X201 (chr), X202 (chr), X203 (chr), X204
-##   (chr), X205 (chr), X206 (chr), X207 (chr), X208 (chr), X209 (chr), X210
-##   (chr), X211 (chr), X212 (chr), X213 (chr), X214 (chr), X215 (chr), X216
-##   (chr), X217 (chr), X218 (chr), X219 (chr), X220 (chr), X221 (chr), X222
-##   (chr), X223 (chr), X224 (chr), X225 (chr), X226 (chr), X227 (chr), X228
-##   (chr), X229 (chr), X230 (chr), X231 (chr), X232 (int), X233 (int), X234
-##   (int), X235 (int), X236 (int), X237 (int), X238 (int), X239 (int), X240
-##   (int), X241 (int), X242 (int), X243 (int), X244 (int)
+##    X7                              X8  X9 X10
+## 1 473 877102958 202 672 1262201104616 396 292
+## 2 343 683 84016 151 701 1482239 85260 259 237
+## 3 130 194 18942 428 546  272036 19356 137  55
+## 4  99 173 16250 442 535  242028 16599 123  52
+## 5   2   0   126 667 333  001885   129   2   0
+## 6   2   0   125 664 336  001888   128   2   0
+##                               X11 X12 X13                             X14
+## 1 894103034 285 359 3562252104616 518 285 797103016 210 518 2712256 84718
+## 2 696 84068 230 369 4012316 85260 348 239 610 84063 154 530 3162307 70367
+## 3 198 18966 530 314 1561973 19356 170  46 187 18953 459 469  722030 14351
+## 4 175 16249 533 312 1551970 16599 151  44 164 16240 467 465  682024 12279
+## 5   0   127 835 134  311665   129   3   0   0   126 627 365  081901    81
+## 6   0   126 833 135  321667   128   3   0   0   125 624 368  081906    81
+##   X15
+## 1 185
+## 2 133
+## 3  52
+## 4  42
+## 5   1
+## 6   1
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;So that's a start, but that gives us a bunch of weird unhelpful column names.  Also, there's a bunch of weird * characters.&lt;/p&gt;
+&lt;p&gt;That's just the first fifteen of 244 columns -- we got some data into R (good), but those column names are awful unhelpful.  Also, there's a bunch of weird &lt;code&gt;*&lt;/code&gt; characters in our data.  How can we identify each column?&lt;/p&gt;
 &lt;h1&gt;this part is unfortunate&lt;/h1&gt;
 &lt;p&gt;For whatever reason NJ has seen fit to publish the crucial &lt;em&gt;definitions&lt;/em&gt; (column headers) for that data in an Excel spreadsheet.  Never in my life have I seen something &lt;em&gt;more&lt;/em&gt; clearly suited for JSON.  &lt;/p&gt;
 &lt;p&gt;&lt;img src="static_images/04_njask_layout.png"&gt;&lt;/p&gt;
-&lt;p&gt;I think we can do some dplyr tricks and recover the nested aspects of this data:&lt;/p&gt;
+&lt;p&gt;I think we can do some dplyr tricks and recover the nested aspects of this data.  First, read the excel file in as a data frame:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;layout &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;read_csv&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;datasets/njask_layout.csv&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 head&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)&lt;/span&gt;
@@ -133,7 +114,9 @@ head&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)&lt;/span&g
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;In Excel I created a simple column to test if a column was a 'spanning' column (basically, was it merged across multiple columns).  First we'll separate those 'spanners' from the non-spanners.&lt;/p&gt;
+&lt;p&gt;I did a little pre-processing in Excel before saving that csv -- namely, I created an indicator variable that indicates if a row was a 'spanning' row (basically, did the value span multiple columns?).  The strategy here is going to be:&lt;/p&gt;
+&lt;p&gt;1) Separate those 'spanners' (which contain info, but aren't unique data elements) from the 'keepers' (the rows that uniquely ID each column).&lt;/p&gt;
+&lt;p&gt;2) Join our keepers back to our spanners, exploting the data about field start position and end position.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;spanners &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; dplyr&lt;span class="o"&gt;::&lt;/span&gt;filter&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;,&lt;/span&gt; structural&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 keepers &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; dplyr&lt;span class="o"&gt;::&lt;/span&gt;filter&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;,&lt;/span&gt; structural&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="kc"&gt;FALSE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
@@ -242,8 +225,8 @@ head&lt;span class="p"&gt;(&lt;/span&gt;spanners&lt;span class="p"&gt;)&lt;/span
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;So we have fields matched with their parents, but the sql join leaves us with long data, and we really need wide data (one row per field).  Let's reshape!&lt;/p&gt;
-&lt;p&gt;First let's tag each row with a row number:&lt;/p&gt;
+&lt;p&gt;So we have fields matched with their parents, but the sql join leaves us with &lt;em&gt;long&lt;/em&gt; data, and we really need &lt;em&gt;wide&lt;/em&gt; data (one row per field).  Let's reshape!&lt;/p&gt;
+&lt;p&gt;First let's tag each row with a row number.  For cases where we have multiple matching spanners(&lt;code&gt;TOTAL POPULATION&lt;/code&gt; and &lt;code&gt;LANGUAGE ARTS&lt;/code&gt;, for instance), this will let us collapse those rows into one record, with a column for &lt;code&gt;description&lt;/code&gt;, &lt;code&gt;spanner1&lt;/code&gt;, and &lt;code&gt;spanner2&lt;/code&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;with_rn &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; with_spanners &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt;
   dplyr&lt;span class="o"&gt;::&lt;/span&gt;group_by&lt;span class="p"&gt;(&lt;/span&gt;
      field_start_position&lt;span class="p"&gt;,&lt;/span&gt; field_end_position&lt;span class="p"&gt;,&lt;/span&gt; field_length&lt;span class="p"&gt;,&lt;/span&gt; 
@@ -303,7 +286,7 @@ head&lt;span class="p"&gt;(&lt;/span&gt;with_rn&lt;span class="p"&gt;)&lt;/span&
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Using that row number as a key, we can pivot and move each of those spanner values to a new column, using one of the many tools in the &lt;code&gt;reshape2&lt;/code&gt; &lt;a href="http://www.cookbook-r.com/Manipulating_data/Converting_data_between_wide_and_long_format/#from-long-to-wide"&gt;toolbox&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We'll pass the row number we just generated as an identifier to one of the many functions in the &lt;code&gt;reshape2&lt;/code&gt; &lt;a href="http://www.cookbook-r.com/Manipulating_data/Converting_data_between_wide_and_long_format/#from-long-to-wide"&gt;toolbox&lt;/a&gt; (TBH I don't know any of those by heart - I just look up the syntax when needed).&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;layout_wide &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; dcast&lt;span class="p"&gt;(&lt;/span&gt;
   data &lt;span class="o"&gt;=&lt;/span&gt; with_rn&lt;span class="p"&gt;,&lt;/span&gt;
   formula &lt;span class="o"&gt;=&lt;/span&gt; field_start_position &lt;span class="o"&gt;+&lt;/span&gt; field_end_position &lt;span class="o"&gt;+&lt;/span&gt; field_length &lt;span class="o"&gt;+&lt;/span&gt;
@@ -498,116 +481,94 @@ let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    MIGRANT_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                     NA
-## 2                                                     NA
-## 3                                                     NA
-## 4                                                     NA
-## 5                                                     NA
-## 6                                                     NA
-## 7                                                     NA
-## 8                                                     NA
-## 9                                                     NA
-## 10                                                    NA
-##    SPECIAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                                NA
-## 2                                                NA
-## 3                                                NA
-## 4                                                NA
-## 5                                                NA
-## 6                                                NA
-## 7                                              2000
-## 8                                              1968
-## 9                                                NA
-## 10                                               NA
-##    ASIAN_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                25
-## 2                                                13
-## 3                                                NA
-## 4                                                NA
-## 5                                                NA
-## 6                                                NA
-## 7                                                18
-## 8                                                NA
-## 9                                                NA
-## 10                                               46
-##    SPECIAL_EDUCATION_SCIENCE_Number_of_Valid_Scale_Scores
-## 1                                                      NA
-## 2                                                      NA
-## 3                                                      NA
-## 4                                                      NA
-## 5                                                      NA
-## 6                                                      NA
-## 7                                                     135
-## 8                                                      13
-## 9                                                      NA
-## 10                                                     72
-##    NON-MIGRANT_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                              728
-## 2                                              694
-## 3                                              941
-## 4                                              719
-## 5                                               NA
-## 6                                              701
-## 7                                              760
-## 8                                              805
-## 9                                              765
-## 10                                             718
-##    OTHER_MATHEMATICS_Proficient_Percentage
-## 1                                       NA
-## 2                                       NA
-## 3                                       NA
-## 4                                       NA
-## 5                                       NA
-## 6                                       NA
-## 7                                       NA
-## 8                                       NA
-## 9                                       NA
-## 10                                      NA
-##    GENERAL_EDUCATION_MATHEMATICS_Number_of_Valid_Scale_Scores
-## 1                                                         276
-## 2                                                          74
-## 3                                                          17
-## 4                                                          48
-## 5                                                          NA
-## 6                                                          75
-## 7                                                         602
-## 8                                                          69
-## 9                                                         197
-## 10                                                        222
-##    HISPANIC_MATHEMATICS_Number_of_Valid_Scale_Scores
-## 1                                                 48
-## 2                                                 16
-## 3                                                 NA
-## 4                                                 53
-## 5                                                 NA
-## 6                                                 20
-## 7                                                 75
-## 8                                                 NA
-## 9                                                 16
-## 10                                                40
-##    WHITE_MATHEMATICS_Number_APA
-## 1                             2
-## 2                             0
-## 3                            NA
-## 4                            NA
-## 5                            NA
-## 6                             0
-## 7                            12
-## 8                             1
-## 9                             0
-## 10                            2
-##    GENERAL_EDUCATION_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                    793
-## 2                                                    770
-## 3                                                    941
-## 4                                                    813
-## 5                                                     NA
-## 6                                                    773
-## 7                                                    803
-## 8                                                    884
-## 9                                                    832
-## 10                                                   847
+&lt;div class="highlight"&gt;&lt;pre&gt;##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Number_APA
+## 1                                                        NA
+## 2                                                        NA
+## 3                                                        NA
+## 4                                                        NA
+## 5                                                        NA
+## 6                                                        NA
+## 7                                                        NA
+## 8                                                        NA
+## 9                                                        NA
+## 10                                                       NA
+##    MIGRANT_MATHEMATICS_Advanced_Proficient_Percentage Testing_Year
+## 1                                                  NA         2014
+## 2                                                  NA         2014
+## 3                                                  NA         2014
+## 4                                                  NA         2014
+## 5                                                  NA         2014
+## 6                                                  NA         2014
+## 7                                                  NA         2014
+## 8                                                  NA         2014
+## 9                                                  NA         2014
+## 10                                                 NA         2014
+##    BLACK_MATHEMATICS_Number_of_Voids
+## 1                                 NA
+## 2                                  0
+## 3                                 NA
+## 4                                 NA
+## 5                                 NA
+## 6                                  0
+## 7                                  2
+## 8                                 NA
+## 9                                  0
+## 10                                NA
+##    SPECIAL_EDUCATION_MATHEMATICS_Proficient_Percentage DFG
+## 1                                                   NA   A
+## 2                                                  136   A
+## 3                                                   NA   R
+## 4                                                   NA  DE
+## 5                                                   NA  DE
+## 6                                                  147  CD
+## 7                                                   NA   A
+## 8                                                   NA   I
+## 9                                                   NA   R
+## 10                                                  NA  DE
+##    CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Partially_Proficient_Percentage
+## 1                                                                              NA
+## 2                                                                              NA
+## 3                                                                              NA
+## 4                                                                              NA
+## 5                                                                              NA
+## 6                                                                              NA
+## 7                                                                              NA
+## 8                                                                              NA
+## 9                                                                              NA
+## 10                                                                             NA
+##    OTHER_SCIENCE_Number_of_Voids
+## 1                             NA
+## 2                             NA
+## 3                             NA
+## 4                             NA
+## 5                             NA
+## 6                             NA
+## 7                             NA
+## 8                             NA
+## 9                             NA
+## 10                            NA
+##    WHITE_SCIENCE_Advanced_Proficient_Percentage
+## 1                                            NA
+## 2                                            65
+## 3                                           778
+## 4                                           336
+## 5                                            63
+## 6                                           100
+## 7                                            NA
+## 8                                           250
+## 9                                            NA
+## 10                                          385
+##    SPECIAL_EDUCATION_MATHEMATICS_Partially_Proficient_Percentage
+## 1                                                             NA
+## 2                                                            840
+## 3                                                             NA
+## 4                                                             NA
+## 5                                                             NA
+## 6                                                            853
+## 7                                                             NA
+## 8                                                             NA
+## 9                                                             NA
+## 10                                                            NA
 &lt;/pre&gt;&lt;/div&gt;
 
 
