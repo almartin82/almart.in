@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Working with NJASK data in R: part 1 in a series. — almart.in</title>
-	<meta name="description" content="Title: Working with NJASK data in R: part 1 in a series.; Date: 2015-04-10; Author: Andrew Martin">
+	<meta name="description" content="Title: Working with NJASK data in R: part 1 in a series.; Date: 2015-04-13; Author: Andrew Martin">
 	<meta name="author" content="Andrew Martin">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -58,7 +58,7 @@
 			<div itemprop="author" itemscope itemtype="http://schema.org/Person">
 				<span itemprop="name">Andrew Martin</span> 
 				&nbsp;&#124;&nbsp;
-				<time datetime="2015-04-10T00:00:00" itemprop="datePublished">April 10 2015</time>
+				<time datetime="2015-04-13T00:00:00" itemprop="datePublished">April 13 2015</time>
 				&nbsp;|&nbsp;
 				<span><a href="http://almart.in/reading-njask-data-1.txt" title="Raw Markdown for Working with NJASK data in R: part 1 in a series.">raw</a></span>
 			</div>
@@ -565,120 +565,113 @@ let's look at just a sample of 10 rows and 10 columns from that:</p>
 </pre></div>
 
 
-<div class="highlight"><pre>##    ASIAN_MATHEMATICS_Proficient_Percentage
-## 1                                      179
-## 2                                       NA
-## 3                                      226
-## 4                                       NA
-## 5                                      286
-## 6                                      238
-## 7                                       NA
-## 8                                       NA
-## 9                                       NA
-## 10                                      NA
-##    OTHER_MATHEMATICS_Partially_Proficient_Percentage
-## 1                                                 NA
+<div class="highlight"><pre>##    SPECIAL_EDUCATION_SCIENCE_Number_Not_Present
+## 1                                             0
+## 2                                             0
+## 3                                            NA
+## 4                                            NA
+## 5                                            NA
+## 6                                            NA
+## 7                                             1
+## 8                                            NA
+## 9                                            NA
+## 10                                           NA
+##    PACIFIC_ISLANDER_MATHEMATICS_Number_Enrolled_Math
+## 1                                                  0
 ## 2                                                 NA
-## 3                                                236
+## 3                                                  0
 ## 4                                                 NA
-## 5                                                 NA
+## 5                                                  0
 ## 6                                                 NA
-## 7                                                 NA
+## 7                                                  0
 ## 8                                                 NA
 ## 9                                                 NA
-## 10                                                NA
-##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Number_of_Valid_Scale_Scores
-## 1                                                                              63
-## 2                                                                               3
-## 3                                                                            1963
-## 4                                                                              11
-## 5                                                                              51
-## 6                                                                               0
-## 7                                                                              48
-## 8                                                                              39
-## 9                                                                               1
-## 10                                                                              6
-##    ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_of_Voids
-## 1                                                       0
-## 2                                                       0
-## 3                                                       5
-## 4                                                       0
-## 5                                                       0
-## 6                                                       0
-## 7                                                       0
-## 8                                                       1
-## 9                                                       0
-## 10                                                      0
-##    LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_APA
-## 1                                                                NA
-## 2                                                                 0
-## 3                                                                 0
-## 4                                                                NA
-## 5                                                                NA
-## 6                                                                NA
-## 7                                                                NA
-## 8                                                                NA
-## 9                                                                NA
-## 10                                                               NA
-##    OTHER_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                         NA
-## 2                                         NA
-## 3                                        682
-## 4                                         NA
-## 5                                         NA
-## 6                                         NA
-## 7                                         NA
-## 8                                         NA
+## 10                                                 0
+##    OTHER_MATHEMATICS_Number_of_Voids
+## 1                                 NA
+## 2                                 NA
+## 3                                 NA
+## 4                                 NA
+## 5                                 NA
+## 6                                 NA
+## 7                                 NA
+## 8                                 NA
+## 9                                 NA
+## 10                                NA
+##    TOTAL_POPULATION_SCIENCE_Scale_Score_Mean
+## 1                                       2368
+## 2                                       2157
+## 3                                       1840
+## 4                                       1944
+## 5                                       2291
+## 6                                       2166
+## 7                                       2200
+## 8                                       2180
 ## 9                                         NA
-## 10                                        NA
-##    ASIAN_SCIENCE_Partially_Proficient_Percentage
-## 1                                              0
-## 2                                             NA
-## 3                                             50
-## 4                                             NA
-## 5                                             36
-## 6                                            143
-## 7                                             NA
-## 8                                             NA
-## 9                                             NA
-## 10                                            NA
-##    CURRENT_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_APA
-## 1                                                     NA
-## 2                                                     NA
-## 3                                                      0
-## 4                                                     NA
-## 5                                                     NA
-## 6                                                     NA
-## 7                                                     NA
-## 8                                                     NA
-## 9                                                     NA
-## 10                                                    NA
-##    NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Scale_Score_Mean
-## 1                                                     2451
-## 2                                                     2278
-## 3                                                     2380
-## 4                                                     2244
-## 5                                                     2341
-## 6                                                     2213
-## 7                                                     2298
-## 8                                                     2227
-## 9                                                       NA
-## 10                                                    2170
-##    TOTAL_POPULATION_SCIENCE_Number_Not_Present
-## 1                                            1
-## 2                                            0
-## 3                                           53
-## 4                                            0
-## 5                                            3
-## 6                                            0
-## 7                                            0
-## 8                                            3
-## 9                                            0
-## 10                                           0
+## 10                                      2558
+##    MALE_SCIENCE_Number_Enrolled_Science
+## 1                                    53
+## 2                                    59
+## 3                                    26
+## 4                                    17
+## 5                                   171
+## 6                                    47
+## 7                                   229
+## 8                                    30
+## 9                                    NA
+## 10                                   40
+##    GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                              2303
+## 2                                              2146
+## 3                                              2049
+## 4                                              2051
+## 5                                              2246
+## 6                                              2185
+## 7                                              2212
+## 8                                              2161
+## 9                                                NA
+## 10                                             2408
+##    FEMALE_SCIENCE_Number_of_Voids
+## 1                               0
+## 2                               0
+## 3                               0
+## 4                               0
+## 5                               0
+## 6                               0
+## 7                               2
+## 8                               0
+## 9                              NA
+## 10                              0
+##    WHITE_MATHEMATICS_Number_of_Valid_Scale_Scores
+## 1                                              64
+## 2                                              66
+## 3                                              NA
+## 4                                              NA
+## 5                                             263
+## 6                                              46
+## 7                                             186
+## 8                                              NA
+## 9                                              NA
+## 10                                             77
+##    FEMALE_SCIENCE_Partially_Proficient_Percentage DFG
+## 1                                              83  FG
+## 2                                             179   B
+## 3                                             563   A
+## 4                                             636   R
+## 5                                              75  CD
+## 6                                             346   B
+## 7                                             239   B
+## 8                                             194   A
+## 9                                              NA   A
+## 10                                             45   J
 </pre></div>
 
 
-<p>In the next post, we'll talk about how to turn this linear script into a function that can process all of the state data.</p>
+<p>In the next post, we'll talk about how to turn this linear script into a function that can process all of the state data.  In preparation, let's dump the layout data frame that we cleaned up here to an <code>.rda</code> object so that we can easily use it later.</p>
+<div class="highlight"><pre>save<span class="p">(</span>layout_wide<span class="p">,</span> file <span class="o">=</span> <span class="s">&#39;datasets/njask_layout.rda&#39;</span><span class="p">)</span>
+</pre></div>
+
+
 <h1>appendix: all 551 headers</h1>
 <div class="highlight"><pre>layout_wide<span class="o">$</span>final_name
 </pre></div>

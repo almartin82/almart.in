@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Working with NJASK data in R: part 2 in a series. — almart.in</title>
+	<meta name="description" content="Title: Working with NJASK data in R: part 2 in a series.; Date: 2015-04-14; Author: Andrew Martin">
+	<meta name="author" content="Andrew Martin">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+		<script src="http://almart.in/theme/html5.js"></script>
+		<![endif]-->
+	<link href="http://almart.in/theme/css/ipython.css" rel="stylesheet">
+	<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+	<!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> -->
+	<!-- <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/simplex/bootstrap.min.css" rel="stylesheet"> -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/simplex/bootstrap.min.css" rel="stylesheet">
+	<link href="http://almart.in/theme/css/local.css" rel="stylesheet">
+	<link href="http://almart.in/theme/css/pygments.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+	<!-- NAVBAR -->
+	<nav class="navbar navbar-default" style="margin-top:2em;">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://almart.in">almart.in</a>
+			</div>			
+			<!-- MENUITEMS: update the MENUITEMS dict in pelicanconf.py -->
+			<div id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="http://almart.in/pages/about.html"><i class="fa fa-user "></i> about</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="http://almart.in/categories.html"><i class="fa fa-archive"></i> categories</a></li>
+					<li><a href="http://almart.in/tags.html"><i class="fa fa-tags"></i> tags</a></li>
+					<li><a href="http://almart.in/feeds/all_rss.xml"><i class="fa fa-rss"></i> rss</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<!-- MAIN CONTENT: edit in base_site.html template -->
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+<div class="article" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="text-center article-header">
+		<h1 itemprop="name headline" class="article-title">Working with NJASK data in R: part 2 in a series.</h1>
+		<span>
+			<div itemprop="author" itemscope itemtype="http://schema.org/Person">
+				<span itemprop="name">Andrew Martin</span> 
+				&nbsp;&#124;&nbsp;
+				<time datetime="2015-04-14T00:00:00" itemprop="datePublished">April 14 2015</time>
+				&nbsp;|&nbsp;
+				<span><a href="http://almart.in/reading-njask-data-2.txt" title="Raw Markdown for Working with NJASK data in R: part 2 in a series.">raw</a></span>
+			</div>
+		</span>
+		
+	</div>
+	<div>
+		category:
+		<span itemprop="articleSection">
+			<a href="http://almart.in/category/education.html" rel="category">education</a>
+		</span>
+	</div>
+	
+ 
+	<div>
+		tags:
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/nj.html" rel="tag"> NJ&nbsp;&nbsp;</a>
+		</span>
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/njask.html" rel="tag"> NJASK&nbsp;&nbsp;</a>
+		</span>
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/data_management.html" rel="tag"> data_management&nbsp;&nbsp;</a>
+		</span>
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/tutorial.html" rel="tag"> tutorial&nbsp;&nbsp;</a>
+		</span>
+	</div>
+	<div itemprop="articleBody" class="article-body"><p>In my <a href="" title="/reading-njask-data-1.html">last post</a>, I showed how to read a fixed width file into R.  In this post, I'll refactor that code into a function that takes year/grade as a parameter.</p>
+<p>First, read in the layout data frame.  This contains the column headers for NJASK fixed with files.</p>
+<div class="highlight"><pre>load<span class="p">(</span>file <span class="o">=</span> <span class="s">&#39;datasets/njask_layout.rda&#39;</span><span class="p">)</span>
+
+head<span class="p">(</span>layout_wide<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>##   field_start_position field_end_position field_length data_type
+## 1                    1                  9            9      Text
+## 2                    1                  2            2      Text
+## 3                    3                  6            4      Text
+## 4                    7                  9            3      Text
+## 5                   10                 59           50      Text
+## 6                   60                109           50      Text
+##                        description
+## 1                        CDS Code 
+## 2 County Code/DFG/Aggregation Code
+## 3                    District Code
+## 4                      School Code
+## 5                      County Name
+## 6                    District Name
+##                                                                                                                                                                                                                               comments
+## 1                                                                                                                                               For district and school records the first three fields combine to form the CDS code.  
+## 2 For district and school records this field contains a two-digit county code.  For DFG records, this field contains the DFG code.  For Statewide, Special Needs and Non-Special Needs records, it contains a two-letter abbreviation.
+## 3                                                                                                                                                                                  Applicable only for district and school records.   
+## 4                                                                                                                                                                                  Applicable only for district and school records.   
+## 5                                                                                                                                                                                  Applicable only for district and school records.   
+## 6                                                                                                                                                                                  Applicable only for district and school records.   
+##                                                                                                                                                                                               valid_values
+## 1                                                                                                                                                                                                         
+## 2 County Code = 01, 03, 05, 07, 09, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 80\nDFG = A, B, CD, DE, FG, GH, I, J, R, V\nST = Statewide, NS = Non-Special Needs, SN = Special Needs
+## 3                                                                                                                                                                                      0100 to 9999, blank
+## 4                                                                                                                                                                                        001 to 999, blank
+## 5                                                                                                                                                                                            A to Z, blank
+## 6                                                                                                                                                                                            A to Z, blank
+##   spanner1 spanner2                       final_name
+## 1                                          CDS_Code_
+## 2                   County_Code/DFG/Aggregation_Code
+## 3                                      District_Code
+## 4                                        School_Code
+## 5                                        County_Name
+## 6                                      District_Name
+</pre></div>
+
+
+<p>Our final call to <code>read_fwf</code> in the last post looked like this:</p>
+<div class="highlight"><pre>sample_file <span class="o">=</span> <span class="s">&quot;http://www.state.nj.us/education/schools/achievement/14/njask8/state_summary.txt&quot;</span>
+
+njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
+  file <span class="o">=</span> sample_file<span class="p">,</span>
+  col_positions <span class="o">=</span> readr<span class="o">::</span>fwf_positions<span class="p">(</span>
+    start <span class="o">=</span> layout_wide<span class="o">$</span>field_start_position<span class="p">,</span>
+    end <span class="o">=</span> layout_wide<span class="o">$</span>field_end_position<span class="p">,</span>
+    col_names <span class="o">=</span> layout_wide<span class="o">$</span>final_name
+  <span class="p">),</span>
+  na <span class="o">=</span> <span class="s">&quot;*&quot;</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>A script that has a bunch of copy/paste versions of that call would probably get the job done, but we're writing for our <a href="https://xkcd.com/1421/">future selves</a> here, and those url paths are easy to build.  The function should:</p>
+<p>1) build the target url
+2) use hadley's <code>readr</code> to fetch the fixed with file, using the provided field definitions.</p>
+<div class="highlight"><pre>read_njask <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">,</span> grade<span class="p">,</span> layout<span class="o">=</span>layout_wide<span class="p">)</span> <span class="p">{</span>
+  require<span class="p">(</span>readr<span class="p">)</span>
+
+  <span class="c1">#build url</span>
+  target_url <span class="o">&lt;-</span> paste0<span class="p">(</span>
+    <span class="s">&quot;http://www.state.nj.us/education/schools/achievement/&quot;</span><span class="p">,</span> year<span class="m">-2000</span><span class="p">,</span> 
+    <span class="s">&quot;/njask&quot;</span><span class="p">,</span> grade<span class="p">,</span> <span class="s">&quot;/state_summary.txt&quot;</span>
+  <span class="p">)</span>
+
+  <span class="c1">#read_fwf</span>
+  df <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
+    file <span class="o">=</span> target_url<span class="p">,</span>
+    col_positions <span class="o">=</span> readr<span class="o">::</span>fwf_positions<span class="p">(</span>
+      start <span class="o">=</span> layout_wide<span class="o">$</span>field_start_position<span class="p">,</span>
+      end <span class="o">=</span> layout_wide<span class="o">$</span>field_end_position<span class="p">,</span>
+      col_names <span class="o">=</span> layout_wide<span class="o">$</span>final_name
+    <span class="p">),</span>
+    na <span class="o">=</span> <span class="s">&quot;*&quot;</span>
+  <span class="p">)</span>
+
+  <span class="c1">#return df</span>
+  <span class="kr">return</span><span class="p">(</span>df<span class="p">)</span>
+
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Let's give it a try!</p>
+<div class="highlight"><pre>ex <span class="o">&lt;-</span> read_njask<span class="p">(</span><span class="m">2014</span><span class="p">,</span> <span class="m">6</span><span class="p">)</span>
+
+dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">[,</span> sample<span class="p">(</span>c<span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">551</span><span class="p">),</span> <span class="m">10</span><span class="p">)],</span> <span class="m">10</span><span class="p">)</span> <span class="o">%&gt;%</span> as.data.frame<span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre>##    HISPANIC_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                   13
+## 2                                                   41
+## 3                                                   NA
+## 4                                                   NA
+## 5                                                   NA
+## 6                                                   12
+## 7                                                   29
+## 8                                                   53
+## 9                                                   14
+## 10                                                  NA
+##    FEMALE_MATHEMATICS_Proficient_Percentage
+## 1                                       505
+## 2                                       194
+## 3                                       280
+## 4                                        NA
+## 5                                       692
+## 6                                       200
+## 7                                         0
+## 8                                       462
+## 9                                       541
+## 10                                       NA
+##    FORMER_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                                            NA
+## 2                                                                            NA
+## 3                                                                            NA
+## 4                                                                            NA
+## 5                                                                            NA
+## 6                                                                            NA
+## 7                                                                            NA
+## 8                                                                            NA
+## 9                                                                            NA
+## 10                                                                           NA
+##    GENERAL_EDUCATION_MATHEMATICS_Number_APA
+## 1                                         0
+## 2                                         0
+## 3                                         0
+## 4                                        NA
+## 5                                         0
+## 6                                         0
+## 7                                         0
+## 8                                         0
+## 9                                         0
+## 10                                        0
+##    MIGRANT_SCIENCE_Scale_Score_Mean
+## 1                                NA
+## 2                                NA
+## 3                                NA
+## 4                                NA
+## 5                                NA
+## 6                                NA
+## 7                                NA
+## 8                                NA
+## 9                                NA
+## 10                               NA
+##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                                                    NA
+## 2                                                                    NA
+## 3                                                                    NA
+## 4                                                                    NA
+## 5                                                                    NA
+## 6                                                                    NA
+## 7                                                                    NA
+## 8                                                                    NA
+## 9                                                                    NA
+## 10                                                                   NA
+##    NON-MIGRANT_LANGUAGE_ARTS_Number_of_Voids
+## 1                                          1
+## 2                                          0
+## 3                                          0
+## 4                                         NA
+## 5                                          0
+## 6                                          0
+## 7                                          0
+## 8                                          0
+## 9                                          0
+## 10                                         0
+##    MIGRANT_SCIENCE_Advanced_Proficient_Percentage DFG
+## 1                                              NA   I
+## 2                                              NA   R
+## 3                                              NA  CD
+## 4                                              NA  GH
+## 5                                              NA  CD
+## 6                                              NA   A
+## 7                                              NA   A
+## 8                                              NA  DE
+## 9                                              NA   B
+## 10                                             NA   B
+##    HISPANIC_MATHEMATICS_Advanced_Proficient_Percentage
+## 1                                                  462
+## 2                                                  829
+## 3                                                   NA
+## 4                                                   NA
+## 5                                                   NA
+## 6                                                    0
+## 7                                                 1000
+## 8                                                  302
+## 9                                                  143
+## 10                                                  NA
+</pre></div></div>
+	<hr>
+
+	
+</div>
+		</div>
+	</div>
+</div>
+
+<!-- FOOTER -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-11 text-center center-block aw-bottom">
+			<p>almart.in is built with <a href="http://docs.getpelican.com/en/3.5.0/#">pelican</a></p>
+		</div>
+	</div>
+</div>
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$("div.collapseheader").click(function () {
+		$header = $(this).children("span").first();
+		$codearea = $(this).children(".input_area");
+		$codearea.slideToggle(500, function () {
+			$header.text(function () {
+				return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+			});
+		});
+	});
+});
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61809650-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+ 
+</body>
+</html>

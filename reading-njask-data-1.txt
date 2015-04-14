@@ -1,5 +1,5 @@
 Title: Working with NJASK data in R: part 1 in a series.
-Date: 2015-04-10
+Date: 2015-04-13
 Category: education
 Tags: NJ, NJASK, data_management, tutorial
 Slug: reading-njask-data-1
@@ -20,8 +20,6 @@ knit_hooks$set(plot=function(x, options) {
 })
 opts_chunk$set(dev='Cairo_svg')
 opts_chunk$set(pelican.publish=ready_to_ship)
-
-relative_img_path <- if (ready_to_ship) {''} else {''}
 
 ```
 
@@ -209,7 +207,13 @@ dplyr::sample_n(njask14_gr8[, sample(c(1:551), 10)], 10) %>% as.data.frame()
 
 ```
 
-In the next post, we'll talk about how to turn this linear script into a function that can process all of the state data.
+In the next post, we'll talk about how to turn this linear script into a function that can process all of the state data.  In preparation, let's dump the layout data frame that we cleaned up here to an `.rda` object so that we can easily use it later.
+
+```{r export}
+
+save(layout_wide, file = 'datasets/njask_layout.rda')
+
+```
 
 # appendix: all 551 headers
 
