@@ -114,38 +114,58 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
   file <span class="o">=</span> sample_file<span class="p">,</span>
   col_positions <span class="o">=</span> readr<span class="o">::</span>fwf_empty<span class="p">(</span>file<span class="o">=</span>sample_file<span class="p">)</span>
 <span class="p">)</span>
-head<span class="p">(</span>as.data.frame<span class="p">(</span>njask14_gr8<span class="p">)[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="m">1</span><span class="o">:</span><span class="m">15</span><span class="p">])</span>
+as.data.frame<span class="p">(</span>njask14_gr8<span class="p">)[</span><span class="m">1</span><span class="o">:</span><span class="m">11</span><span class="p">,</span><span class="m">1</span><span class="o">:</span><span class="m">15</span><span class="p">]</span>
 </pre></div>
 
 
-<div class="highlight"><pre>##                  X1          X2                        X3 X4      X5  X6
-## 1                ST                                           104616 308
-## 2                NS                                            85260 218
-## 3                SN                                            19356  90
-## 4                 A                                            16599  77
-## 5 250100   MONMOUTH ASBURY PARK                            A Y   129   1
-## 6 250100070MONMOUTH ASBURY PARK ASBURY PARK MIDDLE SCHOOL  A Y   128   1
-##    X7                              X8  X9 X10
-## 1 473 877102958 202 672 1262201104616 396 292
-## 2 343 683 84016 151 701 1482239 85260 259 237
-## 3 130 194 18942 428 546  272036 19356 137  55
-## 4  99 173 16250 442 535  242028 16599 123  52
-## 5   2   0   126 667 333  001885   129   2   0
-## 6   2   0   125 664 336  001888   128   2   0
-##                               X11 X12 X13                             X14
-## 1 894103034 285 359 3562252104616 518 285 797103016 210 518 2712256 84718
-## 2 696 84068 230 369 4012316 85260 348 239 610 84063 154 530 3162307 70367
-## 3 198 18966 530 314 1561973 19356 170  46 187 18953 459 469  722030 14351
-## 4 175 16249 533 312 1551970 16599 151  44 164 16240 467 465  682024 12279
-## 5   0   127 835 134  311665   129   3   0   0   126 627 365  081901    81
-## 6   0   126 833 135  321667   128   3   0   0   125 624 368  081906    81
-##   X15
-## 1 185
-## 2 133
-## 3  52
-## 4  42
-## 5   1
-## 6   1
+<div class="highlight"><pre>##                   X1            X2                        X3 X4       X5
+## 1                 ST                                              104616
+## 2                 NS                                               85260
+## 3                 SN                                               19356
+## 4                  A                                               16599
+## 5  250100   MONMOUTH   ASBURY PARK                            A  Y   129
+## 6  250100070MONMOUTH   ASBURY PARK ASBURY PARK MIDDLE SCHOOL  A  Y   128
+## 7  250100100MONMOUTH   ASBURY PARK THURGOOD MARSHALL PRIMARY  A Y*     *
+## 8  010110   ATLANTIC ATLANTIC CITY                            A      462
+## 9  010110300ATLANTIC ATLANTIC CITY    BRIGHTON AVENUE SCHOOL  A  *     *
+## 10 010110050ATLANTIC ATLANTIC CITY           CHELSEA HEIGHTS  A       26
+## 11 010110140ATLANTIC ATLANTIC CITY   DR M L KING JR SCH COMP  A       47
+##     X6  X7                              X8  X9 X10
+## 1  308 473 877102958 202 672 1262201104616 396 292
+## 2  218 343 683 84016 151 701 1482239 85260 259 237
+## 3   90 130 194 18942 428 546  272036 19356 137  55
+## 4   77  99 173 16250 442 535  242028 16599 123  52
+## 5    1   2   0   126 667 333  001885   129   2   0
+## 6    1   2   0   125 664 336  001888   128   2   0
+## 7    *   *   *     *   *   *   *   *     *   *   *
+## 8    3   5   0   454 379 599  222065   462   4   3
+## 9    *   *   *     *   *   *   *   *     *   *   *
+## 10   0   0   0    26  38 923  382247    26   0   0
+## 11   0   3   0    44 318 659  232047    47   0   3
+##                                X11 X12 X13                             X14
+## 1  894103034 285 359 3562252104616 518 285 797103016 210 518 2712256 84718
+## 2  696 84068 230 369 4012316 85260 348 239 610 84063 154 530 3162307 70367
+## 3  198 18966 530 314 1561973 19356 170  46 187 18953 459 469  722030 14351
+## 4  175 16249 533 312 1551970 16599 151  44 164 16240 467 465  682024 12279
+## 5    0   127 835 134  311665   129   3   0   0   126 627 365  081901    81
+## 6    0   126 833 135  321667   128   3   0   0   125 624 368  081906    81
+## 7    *     *   *   *   *   *     *   *   *    *     *   *   *   *        0
+## 8    0   455 451 356 1932064   462   2   2   0   458 450 483  682046   373
+## 9    *     *   *   *   *   *     *   *   *    *     *   *   *   *        0
+## 10   0    26 269 423 3082247    26   0   0   0    26 115 577 3082338    20
+## 11   0    44 386 432 1822065    47   0   2   0    45 511 422  672013    39
+##    X15
+## 1  185
+## 2  133
+## 3   52
+## 4   42
+## 5    1
+## 6    1
+## 7     
+## 8    3
+## 9     
+## 10   0
+## 11   0
 </pre></div>
 
 
@@ -545,94 +565,116 @@ let's look at just a sample of 10 rows and 10 columns from that:</p>
 </pre></div>
 
 
-<div class="highlight"><pre>##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Number_APA
-## 1                                                        NA
-## 2                                                        NA
-## 3                                                        NA
-## 4                                                        NA
-## 5                                                        NA
-## 6                                                        NA
-## 7                                                        NA
-## 8                                                        NA
-## 9                                                        NA
-## 10                                                       NA
-##    MIGRANT_MATHEMATICS_Advanced_Proficient_Percentage Testing_Year
-## 1                                                  NA         2014
-## 2                                                  NA         2014
-## 3                                                  NA         2014
-## 4                                                  NA         2014
-## 5                                                  NA         2014
-## 6                                                  NA         2014
-## 7                                                  NA         2014
-## 8                                                  NA         2014
-## 9                                                  NA         2014
-## 10                                                 NA         2014
-##    BLACK_MATHEMATICS_Number_of_Voids
-## 1                                 NA
-## 2                                  0
-## 3                                 NA
-## 4                                 NA
-## 5                                 NA
-## 6                                  0
-## 7                                  2
-## 8                                 NA
-## 9                                  0
-## 10                                NA
-##    SPECIAL_EDUCATION_MATHEMATICS_Proficient_Percentage DFG
-## 1                                                   NA   A
-## 2                                                  136   A
-## 3                                                   NA   R
-## 4                                                   NA  DE
-## 5                                                   NA  DE
-## 6                                                  147  CD
-## 7                                                   NA   A
-## 8                                                   NA   I
-## 9                                                   NA   R
-## 10                                                  NA  DE
-##    CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Partially_Proficient_Percentage
-## 1                                                                              NA
-## 2                                                                              NA
-## 3                                                                              NA
-## 4                                                                              NA
-## 5                                                                              NA
-## 6                                                                              NA
-## 7                                                                              NA
-## 8                                                                              NA
-## 9                                                                              NA
-## 10                                                                             NA
-##    OTHER_SCIENCE_Number_of_Voids
-## 1                             NA
-## 2                             NA
-## 3                             NA
-## 4                             NA
-## 5                             NA
-## 6                             NA
-## 7                             NA
-## 8                             NA
-## 9                             NA
-## 10                            NA
-##    WHITE_SCIENCE_Advanced_Proficient_Percentage
-## 1                                            NA
-## 2                                            65
-## 3                                           778
-## 4                                           336
-## 5                                            63
-## 6                                           100
-## 7                                            NA
-## 8                                           250
-## 9                                            NA
-## 10                                          385
-##    SPECIAL_EDUCATION_MATHEMATICS_Partially_Proficient_Percentage
-## 1                                                             NA
-## 2                                                            840
-## 3                                                             NA
-## 4                                                             NA
-## 5                                                             NA
-## 6                                                            853
-## 7                                                             NA
-## 8                                                             NA
-## 9                                                             NA
-## 10                                                            NA
+<div class="highlight"><pre>##    ASIAN_MATHEMATICS_Proficient_Percentage
+## 1                                      179
+## 2                                       NA
+## 3                                      226
+## 4                                       NA
+## 5                                      286
+## 6                                      238
+## 7                                       NA
+## 8                                       NA
+## 9                                       NA
+## 10                                      NA
+##    OTHER_MATHEMATICS_Partially_Proficient_Percentage
+## 1                                                 NA
+## 2                                                 NA
+## 3                                                236
+## 4                                                 NA
+## 5                                                 NA
+## 6                                                 NA
+## 7                                                 NA
+## 8                                                 NA
+## 9                                                 NA
+## 10                                                NA
+##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Number_of_Valid_Scale_Scores
+## 1                                                                              63
+## 2                                                                               3
+## 3                                                                            1963
+## 4                                                                              11
+## 5                                                                              51
+## 6                                                                               0
+## 7                                                                              48
+## 8                                                                              39
+## 9                                                                               1
+## 10                                                                              6
+##    ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_of_Voids
+## 1                                                       0
+## 2                                                       0
+## 3                                                       5
+## 4                                                       0
+## 5                                                       0
+## 6                                                       0
+## 7                                                       0
+## 8                                                       1
+## 9                                                       0
+## 10                                                      0
+##    LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_APA
+## 1                                                                NA
+## 2                                                                 0
+## 3                                                                 0
+## 4                                                                NA
+## 5                                                                NA
+## 6                                                                NA
+## 7                                                                NA
+## 8                                                                NA
+## 9                                                                NA
+## 10                                                               NA
+##    OTHER_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                         NA
+## 2                                         NA
+## 3                                        682
+## 4                                         NA
+## 5                                         NA
+## 6                                         NA
+## 7                                         NA
+## 8                                         NA
+## 9                                         NA
+## 10                                        NA
+##    ASIAN_SCIENCE_Partially_Proficient_Percentage
+## 1                                              0
+## 2                                             NA
+## 3                                             50
+## 4                                             NA
+## 5                                             36
+## 6                                            143
+## 7                                             NA
+## 8                                             NA
+## 9                                             NA
+## 10                                            NA
+##    CURRENT_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_APA
+## 1                                                     NA
+## 2                                                     NA
+## 3                                                      0
+## 4                                                     NA
+## 5                                                     NA
+## 6                                                     NA
+## 7                                                     NA
+## 8                                                     NA
+## 9                                                     NA
+## 10                                                    NA
+##    NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Scale_Score_Mean
+## 1                                                     2451
+## 2                                                     2278
+## 3                                                     2380
+## 4                                                     2244
+## 5                                                     2341
+## 6                                                     2213
+## 7                                                     2298
+## 8                                                     2227
+## 9                                                       NA
+## 10                                                    2170
+##    TOTAL_POPULATION_SCIENCE_Number_Not_Present
+## 1                                            1
+## 2                                            0
+## 3                                           53
+## 4                                            0
+## 5                                            3
+## 6                                            0
+## 7                                            0
+## 8                                            3
+## 9                                            0
+## 10                                           0
 </pre></div>
 
 
