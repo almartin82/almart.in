@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Getting NJASK data into R: part 2 of 2. — almart.in</title>
-	<meta name="description" content="Title: Getting NJASK data into R: part 2 of 2.; Date: 2015-04-15; Author: Andrew Martin">
+	<title>Getting NJ assessment data into R: part 2 in a series — almart.in</title>
+	<meta name="description" content="Title: Getting NJ assessment data into R: part 2 in a series; Date: 2015-04-15; Author: Andrew Martin">
 	<meta name="author" content="Andrew Martin">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -53,14 +53,14 @@
 		<div class="col-md-8 col-md-offset-2">
 <div class="article" itemscope itemtype="http://schema.org/BlogPosting">
 	<div class="text-center article-header">
-		<h1 itemprop="name headline" class="article-title">Getting NJASK data into R: part 2 of 2.</h1>
+		<h1 itemprop="name headline" class="article-title">Getting NJ assessment data into R: part 2 in a series</h1>
 		<span>
 			<div itemprop="author" itemscope itemtype="http://schema.org/Person">
 				<span itemprop="name">Andrew Martin</span> 
 				&nbsp;&#124;&nbsp;
 				<time datetime="2015-04-15T00:00:00" itemprop="datePublished">April 15 2015</time>
 				&nbsp;|&nbsp;
-				<span><a href="http://almart.in/reading-njask-data-2.txt" title="Raw Markdown for Getting NJASK data into R: part 2 of 2.">raw</a></span>
+				<span><a href="http://almart.in/reading-nj-assess-data-2.txt" title="Raw Markdown for Getting NJ assessment data into R: part 2 in a series">raw</a></span>
 			</div>
 		</span>
 		
@@ -79,7 +79,13 @@
 			<a href="http://almart.in/tag/nj.html" rel="tag"> NJ&nbsp;&nbsp;</a>
 		</span>
 		<span itemprop="keywords">
+			<a href="http://almart.in/tag/assessment.html" rel="tag"> assessment&nbsp;&nbsp;</a>
+		</span>
+		<span itemprop="keywords">
 			<a href="http://almart.in/tag/njask.html" rel="tag"> NJASK&nbsp;&nbsp;</a>
+		</span>
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/hspa.html" rel="tag"> HSPA&nbsp;&nbsp;</a>
 		</span>
 		<span itemprop="keywords">
 			<a href="http://almart.in/tag/data_management.html" rel="tag"> data_management&nbsp;&nbsp;</a>
@@ -88,7 +94,7 @@
 			<a href="http://almart.in/tag/tutorial.html" rel="tag"> tutorial&nbsp;&nbsp;</a>
 		</span>
 	</div>
-	<div itemprop="articleBody" class="article-body"><p>In my <a href="" title="/reading-njask-data-1.html">last post</a>, I showed how to read a fixed width file into R.  In this post, I'll refactor that code into a function that takes year/grade as a parameter.</p>
+	<div itemprop="articleBody" class="article-body"><p>In my <a href="" title="/reading-nj-assess-1.html">last post</a>, I showed how to read a fixed width file into R.  In this post, I'll refactor that code into a function that takes year/grade as a parameter.</p>
 <p>First, read in the layout data frame.  This contains the column headers for NJASK fixed with files.</p>
 <div class="highlight"><pre>load<span class="p">(</span>file <span class="o">=</span> <span class="s">&#39;datasets/njask_layout.rda&#39;</span><span class="p">)</span>
 
@@ -195,105 +201,116 @@ dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">
 </pre></div>
 
 
-<div class="highlight"><pre>##    GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present
-## 1                                                 0
-## 2                                                 0
-## 3                                                 0
-## 4                                                 0
-## 5                                                 0
-## 6                                                NA
-## 7                                                 0
-## 8                                                 1
-## 9                                                 0
-## 10                                                0
-##    BLACK_LANGUAGE_ARTS_Number_of_Voids
-## 1                                   NA
-## 2                                    0
-## 3                                   NA
-## 4                                   NA
-## 5                                    0
-## 6                                   NA
-## 7                                    0
-## 8                                    4
-## 9                                   NA
-## 10                                   0
-##    FEMALE_SCIENCE_Proficient_Percentage
-## 1                                    NA
-## 2                                    NA
-## 3                                    NA
-## 4                                    NA
-## 5                                    NA
-## 6                                    NA
-## 7                                    NA
-## 8                                    NA
-## 9                                    NA
-## 10                                   NA
-##    AMERICAN_INDIAN_SCIENCE_Number_of_Voids
-## 1                                       NA
-## 2                                       NA
-## 3                                       NA
-## 4                                       NA
-## 5                                       NA
-## 6                                       NA
-## 7                                       NA
-## 8                                       NA
-## 9                                       NA
-## 10                                      NA
-##    TOTAL_POPULATION_MATHEMATICS_Advanced_Proficient_Percentage
-## 1                                                          314
-## 2                                                          254
-## 3                                                          435
-## 4                                                          534
-## 5                                                           79
-## 6                                                           NA
-## 7                                                           75
-## 8                                                           71
-## 9                                                          513
-## 10                                                         125
-##    SPECIAL_EDUCATION_MATHEMATICS_Number_of_Voids
-## 1                                             NA
-## 2                                             NA
-## 3                                              1
-## 4                                             NA
-## 5                                              0
-## 6                                             NA
-## 7                                             NA
-## 8                                              0
-## 9                                             NA
-## 10                                            NA
-##    FEMALE_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                         667
-## 2                                         636
-## 3                                         722
-## 4                                         462
-## 5                                         445
-## 6                                          NA
-## 7                                         438
-## 8                                         465
-## 9                                         698
-## 10                                        833
-##    PACIFIC_ISLANDER_SCIENCE_Number_Enrolled_Science DFG
-## 1                                                NA  GH
-## 2                                                NA  CD
-## 3                                                NA  GH
-## 4                                                NA  DE
-## 5                                                NA   B
-## 6                                                NA  CD
-## 7                                                NA   A
-## 8                                                NA   A
-## 9                                                NA  FG
-## 10                                               NA   R
+<div class="highlight"><pre>##    PACIFIC_ISLANDER_SCIENCE_Proficient_Percentage
+## 1                                              NA
+## 2                                              NA
+## 3                                              NA
+## 4                                              NA
+## 5                                              NA
+## 6                                              NA
+## 7                                              NA
+## 8                                              NA
+## 9                                              NA
+## 10                                             NA
+##    FORMER_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_Not_Present
+## 1                                                                  NA
+## 2                                                                  NA
+## 3                                                                  NA
+## 4                                                                  NA
+## 5                                                                  NA
+## 6                                                                  NA
+## 7                                                                  NA
+## 8                                                                  NA
+## 9                                                                  NA
+## 10                                                                 NA
 ##    BLACK_MATHEMATICS_Number_of_Voids
 ## 1                                 NA
-## 2                                  1
+## 2                                 NA
 ## 3                                 NA
 ## 4                                 NA
-## 5                                  0
-## 6                                 NA
+## 5                                 NA
+## 6                                  0
 ## 7                                  0
-## 8                                  0
-## 9                                 NA
-## 10                                 0
+## 8                                 NA
+## 9                                  0
+## 10                                NA
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Advanced_Proficient_Percentage
+## 1                                                                                    NA
+## 2                                                                                    NA
+## 3                                                                                    NA
+## 4                                                                                    NA
+## 5                                                                                    NA
+## 6                                                                                    NA
+## 7                                                                                    NA
+## 8                                                                                    NA
+## 9                                                                                    NA
+## 10                                                                                   NA
+##    WHITE_SCIENCE_Number_Enrolled_Science
+## 1                                     NA
+## 2                                     NA
+## 3                                     NA
+## 4                                     NA
+## 5                                     NA
+## 6                                     NA
+## 7                                     NA
+## 8                                     NA
+## 9                                     NA
+## 10                                    NA
+##    HISPANIC_MATHEMATICS_Number_Enrolled_Math
+## 1                                         12
+## 2                                          0
+## 3                                         14
+## 4                                         20
+## 5                                         NA
+## 6                                         94
+## 7                                         NA
+## 8                                          0
+## 9                                         NA
+## 10                                         0
+##    MIGRANT_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                    NA
+## 2                                                    NA
+## 3                                                    NA
+## 4                                                    NA
+## 5                                                    NA
+## 6                                                    NA
+## 7                                                    NA
+## 8                                                    NA
+## 9                                                    NA
+## 10                                                   NA
+##    NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_APA
+## 1                                                 NA
+## 2                                                 NA
+## 3                                                 NA
+## 4                                                 NA
+## 5                                                 NA
+## 6                                                 NA
+## 7                                                 NA
+## 8                                                 NA
+## 9                                                 NA
+## 10                                                NA
+##    TOTAL_POPULATION_SCIENCE_Scale_Score_Mean
+## 1                                         NA
+## 2                                         NA
+## 3                                         NA
+## 4                                         NA
+## 5                                         NA
+## 6                                         NA
+## 7                                         NA
+## 8                                         NA
+## 9                                         NA
+## 10                                        NA
+##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                                                    NA
+## 2                                                                    NA
+## 3                                                                    NA
+## 4                                                                    NA
+## 5                                                                    NA
+## 6                                                                    NA
+## 7                                                                    NA
+## 8                                                                    NA
+## 9                                                                    NA
+## 10                                                                   NA
 </pre></div>
 
 
@@ -302,11 +319,12 @@ dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">
 <p>We'll also need to make sure that we only mutate the columns that are tagged with 'One implied decimal.'</p>
 <div class="highlight"><pre>library<span class="p">(</span>dplyr<span class="p">)</span>
 
-
-
 process_njask <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>df<span class="p">,</span> mask<span class="o">=</span>layout_wide<span class="o">$</span>comments <span class="o">==</span> <span class="s">&#39;One implied decimal&#39;</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">#keep the names to put back in the same order</span>
   all_names <span class="o">&lt;-</span> names<span class="p">(</span>df<span class="p">)</span>
+
+  <span class="c1">#replace any line breaks in last column</span>
+  df<span class="o">$</span>Grade <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&#39;\n&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> df<span class="o">$</span>Grade<span class="p">,</span> fixed <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 
   <span class="c1">#put some columns aside</span>
   ignore <span class="o">&lt;-</span> df<span class="p">[,</span> <span class="o">!</span>mask<span class="p">]</span>
@@ -392,76 +410,12 @@ head<span class="p">(</span>ex_process<span class="p">[,</span> <span class="m">
 </pre></div>
 
 
-<p>Now we put it all together, with a wrapper function around the <code>get_raw_njask</code> and <code>process_njask</code> functions:</p>
-<div class="highlight"><pre>valid_call <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span> <span class="p">{</span>
-  <span class="c1">#common core transition started in 2015</span>
-  <span class="kr">if</span><span class="p">(</span>year <span class="o">&gt;</span> <span class="m">2014</span><span class="p">)</span> <span class="p">{</span>
-    valid_call <span class="o">&lt;-</span> <span class="kc">FALSE</span>
-  <span class="c1">#NJASK fully implemented in 2008</span>
-  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span><span class="p">(</span>year <span class="o">&gt;=</span> <span class="m">2006</span><span class="p">)</span> <span class="p">{</span>
-    valid_call <span class="o">&lt;-</span> grade <span class="o">%in%</span> c<span class="p">(</span><span class="m">3</span><span class="o">:</span><span class="m">8</span><span class="p">,</span> <span class="m">11</span><span class="p">)</span>
-  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year <span class="o">&gt;=</span> <span class="m">2004</span><span class="p">)</span> <span class="p">{</span>
-    valid_call <span class="o">&lt;-</span> grade <span class="o">%in%</span> c<span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">11</span><span class="p">)</span>
-  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year <span class="o">&lt;</span> <span class="m">2004</span><span class="p">)</span> <span class="p">{</span>
-    valid_call <span class="o">&lt;-</span> <span class="kc">FALSE</span>
-  <span class="p">}</span>
-
-  <span class="kr">return</span><span class="p">(</span>valid_call<span class="p">)</span>
-
+<p>Now we put it all together, with a little wrapper function around the <code>get_raw_njask</code> and <code>process_njask</code> functions:</p>
+<div class="highlight"><pre>fetch_njask <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span> <span class="p">{</span>
+  get_raw_njask<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span> <span class="o">%&gt;%</span> process_njask<span class="p">()</span>
 <span class="p">}</span>
 
-
-standard_assess <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span> <span class="p">{</span>
-  <span class="kr">if</span><span class="p">(</span>grade <span class="o">%in%</span> c<span class="p">(</span><span class="m">3</span><span class="o">:</span><span class="m">8</span><span class="p">))</span> <span class="p">{</span>
-    assess_data <span class="o">&lt;-</span> get_raw_njask<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span> <span class="o">%&gt;%</span>
-      process_njask<span class="p">()</span>
-  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade <span class="o">==</span> <span class="m">11</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">#not yet implemented</span>
-    assess_data <span class="o">&lt;-</span> get_raw_hspa<span class="p">(</span>year<span class="p">)</span> <span class="o">%&gt;%</span>
-      process_hspa
-  <span class="p">}</span>
-
-  <span class="kr">return</span><span class="p">(</span>assess_data<span class="p">)</span>
-<span class="p">}</span> 
-
-
-fetch_nj_assess <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span> <span class="p">{</span>
-
-  is_valid <span class="o">&lt;-</span> valid_call<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span>
-
-  <span class="kr">if</span> <span class="p">(</span>year <span class="o">&gt;=</span> <span class="m">2008</span><span class="p">)</span> <span class="p">{</span>
-    assess_data <span class="o">&lt;-</span> standard_assess<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span>
-  <span class="c1">#2006 and 2007: GEPA in 8th grade</span>
-  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year <span class="o">%in%</span> c<span class="p">(</span><span class="m">2006</span><span class="p">,</span> <span class="m">2007</span><span class="p">))</span> <span class="p">{</span>
-    <span class="kr">if</span> <span class="p">(</span>grade <span class="o">%in%</span> c<span class="p">(</span><span class="m">3</span><span class="o">:</span><span class="m">7</span><span class="p">))</span> <span class="p">{</span>
-      assess_data <span class="o">&lt;-</span> standard_assess<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span>  
-    <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade <span class="o">==</span> <span class="m">8</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">#not yet implemented</span>
-      assess_data <span class="o">&lt;-</span> get_raw_gepa<span class="p">(</span>year<span class="p">)</span> <span class="o">%&gt;%</span>
-        process_gepa<span class="p">()</span>
-    <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade <span class="o">==</span> <span class="m">11</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">#not yet implemented</span>
-      assess_data <span class="o">&lt;-</span> get_raw_hspa<span class="p">(</span>year<span class="p">)</span> <span class="o">%&gt;%</span>
-        process_hspa
-    <span class="p">}</span>
-  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year <span class="o">%in%</span> c<span class="p">(</span><span class="m">2004</span><span class="p">,</span> <span class="m">2005</span><span class="p">))</span> <span class="p">{</span>
-    <span class="kr">if</span> <span class="p">(</span>grade <span class="o">%in%</span> c<span class="p">(</span><span class="m">3</span><span class="o">:</span><span class="m">4</span><span class="p">))</span> <span class="p">{</span>
-      assess_data <span class="o">&lt;-</span> standard_assess<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span>  
-    <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade <span class="o">==</span> <span class="m">8</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">#not yet implemented</span>
-      assess_data <span class="o">&lt;-</span> get_raw_gepa<span class="p">(</span>year<span class="p">)</span> <span class="o">%&gt;%</span>
-        process_gepa<span class="p">()</span>
-    <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade <span class="o">==</span> <span class="m">11</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">#not yet implemented</span>
-      assess_data <span class="o">&lt;-</span> get_raw_hspa<span class="p">(</span>year<span class="p">)</span> <span class="o">%&gt;%</span>
-        process_hspa 
-    <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="kr">return</span><span class="p">(</span>assess_data<span class="p">)</span>
-<span class="p">}</span>
-
-fetch_nj_assess<span class="p">(</span><span class="m">2014</span><span class="p">,</span> <span class="m">6</span><span class="p">)</span> <span class="o">%&gt;%</span> head<span class="p">()</span>
+fetch_njask<span class="p">(</span><span class="m">2014</span><span class="p">,</span> <span class="m">6</span><span class="p">)</span> <span class="o">%&gt;%</span> head<span class="p">()</span>
 </pre></div>
 
 
@@ -3924,17 +3878,16 @@ fetch_nj_assess<span class="p">(</span><span class="m">2014</span><span class="p
 ## 5                                                             NA
 ## 6                                                             NA
 ##   Testing_Year Grade
-## 1         2014   6\n
+## 1         2014     6
 ## 2         2014     6
 ## 3         2014     6
-## 4         2014   6\n
-## 5         2014   6\n
-## 6         2014   6\n
+## 4         2014     6
+## 5         2014     6
+## 6         2014     6
 </pre></div>
 
 
-<p>Finally, as a convenience, let's write a function that brings down all of the NJASK data for all years and grades.</p>
-<p>And that's it!  Now we can explore the data to see what we can learn about school performance in NJ.</p></div>
+<p>There's a more data out there than just the grade 3 NJASK, though.  In my next post, we'll tackle the HSPA, and dive into some older data - the 'Grade Eight Proficiency Assessment' (GEPA) that used to be offered to students at the end of middle school.  We'll also look at some ways to stitch all those functions together to provide a simplified interface for bringing NJ assessment data into R.</p></div>
 	<hr>
 
 	

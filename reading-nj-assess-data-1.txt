@@ -1,8 +1,8 @@
-Title: Getting NJASK data into R: part 1 of 2.
+Title: Getting NJ assessment data into R: part 1 in a series.
 Date: 2015-04-13
 Category: education
-Tags: NJ, NJASK, data_management, tutorial
-Slug: reading-njask-data-1
+Tags: NJ, assessment, NJASK, HSPA, data_management, tutorial
+Slug: reading-nj-assess-data-1
 Author: Andrew Martin
 
 ```{r, echo=FALSE}
@@ -220,7 +220,7 @@ dplyr::sample_n(njask14_gr8[, sample(c(1:551), 10)], 10) %>% as.data.frame()
 
 ```
 
-In the next post, we'll talk about how to turn this linear script into a function that can process all of the state data.  In preparation, let's dump the layout data frame that we cleaned up here to an `.rda` object so that we can easily use it later.
+In the [next post]('/reading-nj-assess-data-2.html'), I'll talk about how to turn this linear script into a function that can process all of the state data.  In preparation, let's dump the layout data frame that we cleaned up here to an `.rda` object so that we can easily use it later.
 
 ```{r export}
 

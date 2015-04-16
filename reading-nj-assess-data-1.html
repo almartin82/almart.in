@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Working with NJASK data in R: part 1 in a series. — almart.in</title>
-	<meta name="description" content="Title: Working with NJASK data in R: part 1 in a series.; Date: 2015-04-10; Author: Andrew Martin">
+	<title>Getting NJ assessment data into R: part 1 in a series. — almart.in</title>
+	<meta name="description" content="Title: Getting NJ assessment data into R: part 1 in a series.; Date: 2015-04-13; Author: Andrew Martin">
 	<meta name="author" content="Andrew Martin">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -53,14 +53,14 @@
 		<div class="col-md-8 col-md-offset-2">
 <div class="article" itemscope itemtype="http://schema.org/BlogPosting">
 	<div class="text-center article-header">
-		<h1 itemprop="name headline" class="article-title">Working with NJASK data in R: part 1 in a series.</h1>
+		<h1 itemprop="name headline" class="article-title">Getting NJ assessment data into R: part 1 in a series.</h1>
 		<span>
 			<div itemprop="author" itemscope itemtype="http://schema.org/Person">
 				<span itemprop="name">Andrew Martin</span> 
 				&nbsp;&#124;&nbsp;
-				<time datetime="2015-04-10T00:00:00" itemprop="datePublished">April 10 2015</time>
+				<time datetime="2015-04-13T00:00:00" itemprop="datePublished">April 13 2015</time>
 				&nbsp;|&nbsp;
-				<span><a href="http://almart.in/reading-njask-data.txt" title="Raw Markdown for Working with NJASK data in R: part 1 in a series.">raw</a></span>
+				<span><a href="http://almart.in/reading-nj-assess-data-1.txt" title="Raw Markdown for Getting NJ assessment data into R: part 1 in a series.">raw</a></span>
 			</div>
 		</span>
 		
@@ -76,154 +76,111 @@
 	<div>
 		tags:
 		<span itemprop="keywords">
-			<a href="http://almart.in/tag/nj.html" rel="tag">NJ</a>
+			<a href="http://almart.in/tag/nj.html" rel="tag"> NJ&nbsp;&nbsp;</a>
 		</span>
 		<span itemprop="keywords">
-			<a href="http://almart.in/tag/njask.html" rel="tag">NJASK</a>
+			<a href="http://almart.in/tag/assessment.html" rel="tag"> assessment&nbsp;&nbsp;</a>
 		</span>
 		<span itemprop="keywords">
-			<a href="http://almart.in/tag/data_management.html" rel="tag">data_management</a>
+			<a href="http://almart.in/tag/njask.html" rel="tag"> NJASK&nbsp;&nbsp;</a>
 		</span>
 		<span itemprop="keywords">
-			<a href="http://almart.in/tag/technical.html" rel="tag">technical</a>
+			<a href="http://almart.in/tag/hspa.html" rel="tag"> HSPA&nbsp;&nbsp;</a>
+		</span>
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/data_management.html" rel="tag"> data_management&nbsp;&nbsp;</a>
+		</span>
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/tutorial.html" rel="tag"> tutorial&nbsp;&nbsp;</a>
 		</span>
 	</div>
 	<div itemprop="articleBody" class="article-body"><p>New Jersey has switched over to the PARCC assessment, but from roughly 2005-2014 New Jersey took the "New Jersey Assessment of Skills and Knowledge," or more simply "the NJASK."</p>
-<p>This data is a bit of a pain to work with.  There's a page for each <a href="http://www.state.nj.us/education/schools/achievement/14/">year</a> of assessment data, and for each year there's a <a href="http://www.state.nj.us/education/schools/achievement/14/njask8/">page</a> per grade level.  But wait!  It gets better!  If you download the Excel spreadsheet for each grade level (helpfully titled <code>state_summary.xls</code> for <em>every</em> year and grade!), you'll find <strong>5</strong> tabs per file, because there are simply too many demographic/subject subgroups for Excel 2003 to handle.</p>
-<p><img src="../figure/04_njask_excel.png"></p>
+<p>This data is a bit of a pain to work with.  There's a page for each <a href="http://www.state.nj.us/education/schools/achievement/14/">year</a> of assessment data, and for each year there's a <a href="http://www.state.nj.us/education/schools/achievement/14/njask8/">page</a> per grade level.  But wait!  It gets better!  If you download the Excel spreadsheet for each grade level (helpfully titled <code>state_summary.xls</code> for <em>every</em> year and grade!), you'll find <strong>5</strong> tabs per file, because there are simply too many demographic/subject subgroups for Excel 2003 to handle.
+</p>
+<p><img src="static_images/04_njask_excel.png"></p>
 <p>I would like to say that I never go down this road, but looking at my downloads folder, I'm apparently on <code>state_summary(15).xls</code>.  </p>
 <p>Yuck.</p>
 <h1>there must be a better way</h1>
 <p>Fortunately the state publishes <a href="http://www.state.nj.us/education/schools/achievement/14/njask8/state_summary.txt">fixed width</a> versions of these files that you can work with.  They're a little intimidating at first, but they're actually (relatively) easy to read into R.</p>
-<h2><i class="fa fa-music"></i>welcome to the <a href="https://barryrowlingson.github.io/hadleyverse/#1">Hadleyverse</a><i class="fa fa-music"></i></h2>
+<h2><i class="fa fa-music"></i> welcome to the <a href="https://barryrowlingson.github.io/hadleyverse/#1">Hadleyverse </a><i class="fa fa-music"></i></h2>
 <p>We can use the <code>read_fwf()</code> function from <a href="https://github.com/hadley/readr"><code>hadley/readr</code></a> to quickly read fixed width files into R.</p>
 <p>First let's load some libraries:</p>
 <div class="highlight"><pre>library<span class="p">(</span>readr<span class="p">)</span>
-</pre></div>
-
-
-<div class="highlight"><pre>## Warning: package &#39;readr&#39; was built under R version 3.1.3
-</pre></div>
-
-
-<div class="highlight"><pre>library<span class="p">(</span>dplyr<span class="p">)</span>
-</pre></div>
-
-
-<div class="highlight"><pre>## 
-## Attaching package: &#39;dplyr&#39;
-## 
-## The following object is masked from &#39;package:stats&#39;:
-## 
-##     filter
-## 
-## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union
-</pre></div>
-
-
-<div class="highlight"><pre>library<span class="p">(</span>sqldf<span class="p">)</span>
-</pre></div>
-
-
-<div class="highlight"><pre>## Warning: package &#39;sqldf&#39; was built under R version 3.1.3
-</pre></div>
-
-
-<div class="highlight"><pre>## Loading required package: gsubfn
-</pre></div>
-
-
-<div class="highlight"><pre>## Warning: package &#39;gsubfn&#39; was built under R version 3.1.3
-</pre></div>
-
-
-<div class="highlight"><pre>## Loading required package: proto
-## Loading required package: RSQLite
-</pre></div>
-
-
-<div class="highlight"><pre>## Warning: package &#39;RSQLite&#39; was built under R version 3.1.3
-</pre></div>
-
-
-<div class="highlight"><pre>## Loading required package: DBI
-</pre></div>
-
-
-<div class="highlight"><pre>library<span class="p">(</span>reshape2<span class="p">)</span>
+library<span class="p">(</span>dplyr<span class="p">)</span>
+library<span class="p">(</span>sqldf<span class="p">)</span>
+library<span class="p">(</span>reshape2<span class="p">)</span>
 library<span class="p">(</span>magrittr<span class="p">)</span>
 </pre></div>
 
 
+<p>We can pass one of those fixed-width data file to <code>read_fwf</code>, and it will try to convert it into an R data frame:</p>
 <div class="highlight"><pre>sample_file <span class="o">=</span> <span class="s">&quot;http://www.state.nj.us/education/schools/achievement/14/njask8/state_summary.txt&quot;</span>
 
 njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
   file <span class="o">=</span> sample_file<span class="p">,</span>
   col_positions <span class="o">=</span> readr<span class="o">::</span>fwf_empty<span class="p">(</span>file<span class="o">=</span>sample_file<span class="p">)</span>
 <span class="p">)</span>
-head<span class="p">(</span>njask14_gr8<span class="p">)</span>
+as.data.frame<span class="p">(</span>njask14_gr8<span class="p">)[</span><span class="m">1</span><span class="o">:</span><span class="m">11</span><span class="p">,</span><span class="m">1</span><span class="o">:</span><span class="m">15</span><span class="p">]</span>
 </pre></div>
 
 
-<div class="highlight"><pre>## Source: local data frame [6 x 244]
-## 
-##                  X1          X2                        X3 X4      X5  X6
-## 1                ST                                           104616 308
-## 2                NS                                            85260 218
-## 3                SN                                            19356  90
-## 4                 A                                            16599  77
-## 5 250100   MONMOUTH ASBURY PARK                            A Y   129   1
-## 6 250100070MONMOUTH ASBURY PARK ASBURY PARK MIDDLE SCHOOL  A Y   128   1
-## Variables not shown: X7 (chr), X8 (chr), X9 (chr), X10 (chr), X11 (chr),
-##   X12 (chr), X13 (chr), X14 (chr), X15 (chr), X16 (chr), X17 (chr), X18
-##   (chr), X19 (chr), X20 (chr), X21 (chr), X22 (chr), X23 (chr), X24 (chr),
-##   X25 (chr), X26 (chr), X27 (chr), X28 (chr), X29 (chr), X30 (chr), X31
-##   (chr), X32 (chr), X33 (chr), X34 (chr), X35 (chr), X36 (chr), X37 (chr),
-##   X38 (chr), X39 (chr), X40 (chr), X41 (chr), X42 (chr), X43 (chr), X44
-##   (chr), X45 (chr), X46 (chr), X47 (chr), X48 (chr), X49 (chr), X50 (chr),
-##   X51 (chr), X52 (chr), X53 (chr), X54 (chr), X55 (chr), X56 (chr), X57
-##   (chr), X58 (chr), X59 (chr), X60 (chr), X61 (chr), X62 (chr), X63 (chr),
-##   X64 (chr), X65 (chr), X66 (chr), X67 (chr), X68 (chr), X69 (chr), X70
-##   (chr), X71 (chr), X72 (chr), X73 (chr), X74 (chr), X75 (chr), X76 (chr),
-##   X77 (chr), X78 (chr), X79 (chr), X80 (chr), X81 (chr), X82 (chr), X83
-##   (chr), X84 (chr), X85 (chr), X86 (chr), X87 (chr), X88 (chr), X89 (chr),
-##   X90 (chr), X91 (chr), X92 (chr), X93 (chr), X94 (chr), X95 (chr), X96
-##   (chr), X97 (chr), X98 (chr), X99 (chr), X100 (chr), X101 (chr), X102
-##   (chr), X103 (chr), X104 (chr), X105 (chr), X106 (chr), X107 (chr), X108
-##   (chr), X109 (chr), X110 (chr), X111 (chr), X112 (chr), X113 (chr), X114
-##   (chr), X115 (chr), X116 (chr), X117 (chr), X118 (chr), X119 (chr), X120
-##   (chr), X121 (chr), X122 (chr), X123 (chr), X124 (chr), X125 (chr), X126
-##   (chr), X127 (chr), X128 (chr), X129 (chr), X130 (chr), X131 (chr), X132
-##   (chr), X133 (chr), X134 (chr), X135 (chr), X136 (chr), X137 (chr), X138
-##   (chr), X139 (chr), X140 (chr), X141 (chr), X142 (chr), X143 (chr), X144
-##   (chr), X145 (chr), X146 (chr), X147 (chr), X148 (chr), X149 (chr), X150
-##   (chr), X151 (chr), X152 (chr), X153 (chr), X154 (chr), X155 (chr), X156
-##   (chr), X157 (chr), X158 (chr), X159 (chr), X160 (chr), X161 (chr), X162
-##   (chr), X163 (chr), X164 (chr), X165 (chr), X166 (chr), X167 (chr), X168
-##   (chr), X169 (chr), X170 (chr), X171 (chr), X172 (chr), X173 (chr), X174
-##   (chr), X175 (chr), X176 (chr), X177 (chr), X178 (chr), X179 (chr), X180
-##   (chr), X181 (chr), X182 (chr), X183 (chr), X184 (chr), X185 (chr), X186
-##   (chr), X187 (chr), X188 (chr), X189 (chr), X190 (chr), X191 (chr), X192
-##   (chr), X193 (chr), X194 (chr), X195 (chr), X196 (chr), X197 (chr), X198
-##   (chr), X199 (chr), X200 (chr), X201 (chr), X202 (chr), X203 (chr), X204
-##   (chr), X205 (chr), X206 (chr), X207 (chr), X208 (chr), X209 (chr), X210
-##   (chr), X211 (chr), X212 (chr), X213 (chr), X214 (chr), X215 (chr), X216
-##   (chr), X217 (chr), X218 (chr), X219 (chr), X220 (chr), X221 (chr), X222
-##   (chr), X223 (chr), X224 (chr), X225 (chr), X226 (chr), X227 (chr), X228
-##   (chr), X229 (chr), X230 (chr), X231 (chr), X232 (int), X233 (int), X234
-##   (int), X235 (int), X236 (int), X237 (int), X238 (int), X239 (int), X240
-##   (int), X241 (int), X242 (int), X243 (int), X244 (int)
+<div class="highlight"><pre>##                   X1            X2                        X3 X4       X5
+## 1                 ST                                              104616
+## 2                 NS                                               85260
+## 3                 SN                                               19356
+## 4                  A                                               16599
+## 5  250100   MONMOUTH   ASBURY PARK                            A  Y   129
+## 6  250100070MONMOUTH   ASBURY PARK ASBURY PARK MIDDLE SCHOOL  A  Y   128
+## 7  250100100MONMOUTH   ASBURY PARK THURGOOD MARSHALL PRIMARY  A Y*     *
+## 8  010110   ATLANTIC ATLANTIC CITY                            A      462
+## 9  010110300ATLANTIC ATLANTIC CITY    BRIGHTON AVENUE SCHOOL  A  *     *
+## 10 010110050ATLANTIC ATLANTIC CITY           CHELSEA HEIGHTS  A       26
+## 11 010110140ATLANTIC ATLANTIC CITY   DR M L KING JR SCH COMP  A       47
+##     X6  X7                              X8  X9 X10
+## 1  308 473 877102958 202 672 1262201104616 396 292
+## 2  218 343 683 84016 151 701 1482239 85260 259 237
+## 3   90 130 194 18942 428 546  272036 19356 137  55
+## 4   77  99 173 16250 442 535  242028 16599 123  52
+## 5    1   2   0   126 667 333  001885   129   2   0
+## 6    1   2   0   125 664 336  001888   128   2   0
+## 7    *   *   *     *   *   *   *   *     *   *   *
+## 8    3   5   0   454 379 599  222065   462   4   3
+## 9    *   *   *     *   *   *   *   *     *   *   *
+## 10   0   0   0    26  38 923  382247    26   0   0
+## 11   0   3   0    44 318 659  232047    47   0   3
+##                                X11 X12 X13                             X14
+## 1  894103034 285 359 3562252104616 518 285 797103016 210 518 2712256 84718
+## 2  696 84068 230 369 4012316 85260 348 239 610 84063 154 530 3162307 70367
+## 3  198 18966 530 314 1561973 19356 170  46 187 18953 459 469  722030 14351
+## 4  175 16249 533 312 1551970 16599 151  44 164 16240 467 465  682024 12279
+## 5    0   127 835 134  311665   129   3   0   0   126 627 365  081901    81
+## 6    0   126 833 135  321667   128   3   0   0   125 624 368  081906    81
+## 7    *     *   *   *   *   *     *   *   *    *     *   *   *   *        0
+## 8    0   455 451 356 1932064   462   2   2   0   458 450 483  682046   373
+## 9    *     *   *   *   *   *     *   *   *    *     *   *   *   *        0
+## 10   0    26 269 423 3082247    26   0   0   0    26 115 577 3082338    20
+## 11   0    44 386 432 1822065    47   0   2   0    45 511 422  672013    39
+##    X15
+## 1  185
+## 2  133
+## 3   52
+## 4   42
+## 5    1
+## 6    1
+## 7     
+## 8    3
+## 9     
+## 10   0
+## 11   0
 </pre></div>
 
 
-<p>So that's a start, but that gives us a bunch of weird unhelpful column names.  Also, there's a bunch of weird * characters.</p>
+<p>That's just the first fifteen of 244 columns -- we got some data into R (good), but those column names are awful unhelpful.  Also, there's a bunch of weird <code>*</code> characters in our data.  How can we identify each column?</p>
 <h1>this part is unfortunate</h1>
 <p>For whatever reason NJ has seen fit to publish the crucial <em>definitions</em> (column headers) for that data in an Excel spreadsheet.  Never in my life have I seen something <em>more</em> clearly suited for JSON.  </p>
-<p><img src="../figure/04_njask_layout.png"></p>
-<p>I think we can do some dplyr tricks and recover the nested aspects of this data:</p>
-<div class="highlight"><pre>layout <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="s">&quot;../datasets/njask_layout.csv&quot;</span><span class="p">)</span>
+<p><img src="static_images/04_njask_layout.png"></p>
+<p>I think we can do some dplyr tricks and recover the nested aspects of this data.  First, read the excel file in as a data frame:</p>
+<div class="highlight"><pre>layout <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="s">&quot;datasets/njask_layout.csv&quot;</span><span class="p">)</span>
 
 head<span class="p">(</span>layout<span class="p">)</span>
 </pre></div>
@@ -247,7 +204,9 @@ head<span class="p">(</span>layout<span class="p">)</span>
 </pre></div>
 
 
-<p>In Excel I created a simple column to test if a column was a 'spanning' column (basically, was it merged across multiple columns).  First we'll separate those 'spanners' from the non-spanners.</p>
+<p>I did a little pre-processing in Excel before saving that csv -- namely, I created an indicator variable that indicates if a row was a 'spanning' row (basically, did the value span multiple columns?).  The strategy here is going to be:</p>
+<p>1) Separate those 'spanners' (which contain info, but aren't unique data elements) from the 'keepers' (the rows that uniquely ID each column).</p>
+<p>2) Join our keepers back to our spanners, exploting the data about field start position and end position.</p>
 <div class="highlight"><pre>spanners <span class="o">&lt;-</span> dplyr<span class="o">::</span>filter<span class="p">(</span>layout<span class="p">,</span> structural<span class="o">==</span><span class="kc">TRUE</span><span class="p">)</span>
 keepers <span class="o">&lt;-</span> dplyr<span class="o">::</span>filter<span class="p">(</span>layout<span class="p">,</span> structural<span class="o">==</span><span class="kc">FALSE</span><span class="p">)</span>
 
@@ -356,8 +315,8 @@ head<span class="p">(</span>spanners<span class="p">)</span>
 </pre></div>
 
 
-<p>So we have fields matched with their parents, but the sql join leaves us with long data, and we really need wide data (one row per field).  Let's reshape!</p>
-<p>First let's tag each row with a row number:</p>
+<p>So we have fields matched with their parents, but the sql join leaves us with <em>long</em> data, and we really need <em>wide</em> data (one row per field).  Let's reshape!</p>
+<p>First let's tag each row with a row number.  For cases where we have multiple matching spanners(<code>TOTAL POPULATION</code> and <code>LANGUAGE ARTS</code>, for instance), this will let us collapse those rows into one record, with a column for <code>description</code>, <code>spanner1</code>, and <code>spanner2</code>.</p>
 <div class="highlight"><pre>with_rn <span class="o">&lt;-</span> with_spanners <span class="o">%&gt;%</span>
   dplyr<span class="o">::</span>group_by<span class="p">(</span>
      field_start_position<span class="p">,</span> field_end_position<span class="p">,</span> field_length<span class="p">,</span> 
@@ -417,7 +376,7 @@ head<span class="p">(</span>with_rn<span class="p">)</span>
 </pre></div>
 
 
-<p>Using that row number as a key, we can pivot and move each of those spanner values to a new column, using one of the many tools in the <code>reshape2</code> <a href="http://www.cookbook-r.com/Manipulating_data/Converting_data_between_wide_and_long_format/#from-long-to-wide">toolbox</a>.</p>
+<p>We'll pass the row number we just generated as an identifier to one of the many functions in the <code>reshape2</code> <a href="http://www.cookbook-r.com/Manipulating_data/Converting_data_between_wide_and_long_format/#from-long-to-wide">toolbox</a> (TBH I don't know any of those by heart - I just look up the syntax when needed).</p>
 <div class="highlight"><pre>layout_wide <span class="o">&lt;-</span> dcast<span class="p">(</span>
   data <span class="o">=</span> with_rn<span class="p">,</span>
   formula <span class="o">=</span> field_start_position <span class="o">+</span> field_end_position <span class="o">+</span> field_length <span class="o">+</span>
@@ -540,14 +499,27 @@ layout_wide<span class="p">[</span><span class="m">1</span><span class="o">:</sp
 </pre></div>
 
 
-<p>Success!  Now we just concatenate <code>description</code>, <code>spanner1</code>, and <code>spanner2</code> into a single value, do a little cleanup, and we have our headers.</p>
-<div class="highlight"><pre>layout_wide<span class="o">$</span>final_name <span class="o">&lt;-</span> layout_wide <span class="o">%$%</span> paste<span class="p">(</span>spanner1<span class="p">,</span> spanner2<span class="p">,</span> description<span class="p">,</span> sep<span class="o">=</span><span class="s">&#39;_&#39;</span><span class="p">)</span>
+<p>Success!  Now we just concatenate <code>description</code>, <code>spanner1</code>, and <code>spanner2</code> into a single value, do a little cleanup, and we have our headers.  For cleanup, we want to get rid of weird whitespace, and convert reserved characters (like <code>+</code>) to words.</p>
+<div class="highlight"><pre><span class="c1">#no plus or () symbols</span>
+layout_wide<span class="o">$</span>spanner1 <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&#39;+&#39;</span><span class="p">,</span> <span class="s">&#39;and&#39;</span><span class="p">,</span> layout_wide<span class="o">$</span>spanner1<span class="p">,</span> fixed <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+layout_wide<span class="o">$</span>spanner1 <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&#39;(&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> layout_wide<span class="o">$</span>spanner1<span class="p">,</span> fixed <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+layout_wide<span class="o">$</span>spanner1 <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&#39;)&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> layout_wide<span class="o">$</span>spanner1<span class="p">,</span> fixed <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+
+layout_wide<span class="o">$</span>final_name <span class="o">&lt;-</span> layout_wide <span class="o">%$%</span> paste<span class="p">(</span>spanner1<span class="p">,</span> spanner2<span class="p">,</span> description<span class="p">,</span> sep<span class="o">=</span><span class="s">&#39;_&#39;</span><span class="p">)</span>
 <span class="c1">#kill double underscores</span>
 layout_wide<span class="o">$</span>final_name <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&#39;__&#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> layout_wide<span class="o">$</span>final_name<span class="p">)</span>
 <span class="c1">#kill leading or trailer underscores</span>
 layout_wide<span class="o">$</span>final_name <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&quot;(^_+|_+$)&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_wide<span class="o">$</span>final_name<span class="p">)</span>
+<span class="c1">#trim any remaining whitespace</span>
+layout_wide<span class="o">$</span>final_name <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_wide<span class="o">$</span>final_name<span class="p">)</span>
 <span class="c1">#all whitespace becomes underscore</span>
 layout_wide<span class="o">$</span>final_name <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> layout_wide<span class="o">$</span>final_name<span class="p">)</span>
+
+<span class="c1">#more whitespace cleanup</span>
+layout_wide<span class="o">$</span>comments <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_wide<span class="o">$</span>comments<span class="p">)</span>
+layout_wide<span class="o">$</span>description <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_wide<span class="o">$</span>description<span class="p">)</span>
+layout_wide<span class="o">$</span>valid_values <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_wide<span class="o">$</span>valid_values<span class="p">)</span>
+
 
 head<span class="p">(</span>layout_wide<span class="p">)</span>
 </pre></div>
@@ -561,19 +533,19 @@ head<span class="p">(</span>layout_wide<span class="p">)</span>
 ## 5                   10                 59           50      Text
 ## 6                   60                109           50      Text
 ##                        description
-## 1                        CDS Code 
+## 1                         CDS Code
 ## 2 County Code/DFG/Aggregation Code
 ## 3                    District Code
 ## 4                      School Code
 ## 5                      County Name
 ## 6                    District Name
 ##                                                                                                                                                                                                                               comments
-## 1                                                                                                                                               For district and school records the first three fields combine to form the CDS code.  
+## 1                                                                                                                                                 For district and school records the first three fields combine to form the CDS code.
 ## 2 For district and school records this field contains a two-digit county code.  For DFG records, this field contains the DFG code.  For Statewide, Special Needs and Non-Special Needs records, it contains a two-letter abbreviation.
-## 3                                                                                                                                                                                  Applicable only for district and school records.   
-## 4                                                                                                                                                                                  Applicable only for district and school records.   
-## 5                                                                                                                                                                                  Applicable only for district and school records.   
-## 6                                                                                                                                                                                  Applicable only for district and school records.   
+## 3                                                                                                                                                                                     Applicable only for district and school records.
+## 4                                                                                                                                                                                     Applicable only for district and school records.
+## 5                                                                                                                                                                                     Applicable only for district and school records.
+## 6                                                                                                                                                                                     Applicable only for district and school records.
 ##                                                                                                                                                                                               valid_values
 ## 1                                                                                                                                                                                                         
 ## 2 County Code = 01, 03, 05, 07, 09, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 80\nDFG = A, B, CD, DE, FG, GH, I, J, R, V\nST = Statewide, NS = Non-Special Needs, SN = Special Needs
@@ -582,7 +554,7 @@ head<span class="p">(</span>layout_wide<span class="p">)</span>
 ## 5                                                                                                                                                                                            A to Z, blank
 ## 6                                                                                                                                                                                            A to Z, blank
 ##   spanner1 spanner2                       final_name
-## 1                                          CDS_Code_
+## 1                                           CDS_Code
 ## 2                   County_Code/DFG/Aggregation_Code
 ## 3                                      District_Code
 ## 4                                        School_Code
@@ -612,126 +584,108 @@ let's look at just a sample of 10 rows and 10 columns from that:</p>
 </pre></div>
 
 
-<div class="highlight"><pre>##    OTHER_MATHEMATICS_Proficient_Percentage
-## 1                                       NA
-## 2                                       NA
-## 3                                       NA
-## 4                                       NA
-## 5                                       NA
-## 6                                       NA
-## 7                                       NA
-## 8                                      309
-## 9                                       NA
-## 10                                      NA
-##    MALE_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                   NA
-## 2                                 2266
-## 3                                 2196
-## 4                                 2153
-## 5                                 2266
-## 6                                 2133
-## 7                                 2066
-## 8                                 2167
-## 9                                 2204
-## 10                                2148
-##    MIGRANT_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+<div class="highlight"><pre>##    FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_Not_Present
+## 1                                                            NA
+## 2                                                            NA
+## 3                                                            NA
+## 4                                                            NA
+## 5                                                            NA
+## 6                                                            NA
+## 7                                                            NA
+## 8                                                            NA
+## 9                                                            NA
+## 10                                                           NA
+##    WHITE_SCIENCE_Scale_Score_Mean ASIAN_MATHEMATICS_Number_APA
+## 1                              NA                           NA
+## 2                              NA                           NA
+## 3                              NA                           NA
+## 4                            2376                           NA
+## 5                            2515                            0
+## 6                            2529                           NA
+## 7                              NA                           NA
+## 8                            2149                           NA
+## 9                            2356                            1
+## 10                             NA                           NA
+##    CURRENT_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Proficient_Percentage
+## 1                                                                NA
+## 2                                                                NA
+## 3                                                                NA
+## 4                                                                NA
+## 5                                                                NA
+## 6                                                                NA
+## 7                                                                NA
+## 8                                                                NA
+## 9                                                                NA
+## 10                                                               NA
+##    AMERICAN_INDIAN_MATHEMATICS_Number_of_Valid_Scale_Scores
+## 1                                                        NA
+## 2                                                        NA
+## 3                                                        NA
+## 4                                                        NA
+## 5                                                        NA
+## 6                                                        NA
+## 7                                                        NA
+## 8                                                        NA
+## 9                                                        NA
+## 10                                                       NA
+##    AMERICAN_INDIAN_SCIENCE_Number_of_Voids ASIAN_SCIENCE_Scale_Score_Mean
+## 1                                       NA                             NA
+## 2                                       NA                             NA
+## 3                                       NA                             NA
+## 4                                       NA                             NA
+## 5                                       NA                           2612
+## 6                                       NA                             NA
+## 7                                       NA                             NA
+## 8                                       NA                             NA
+## 9                                       NA                           2586
+## 10                                      NA                             NA
+##    GENERAL_EDUCATION_LANGUAGE_ARTS_Number_of_Voids
+## 1                                                0
+## 2                                                1
+## 3                                                0
+## 4                                                0
+## 5                                                1
+## 6                                                0
+## 7                                                0
+## 8                                                0
+## 9                                                0
+## 10                                               0
+##    SPECIAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present
 ## 1                                                  NA
 ## 2                                                  NA
-## 3                                                  NA
-## 4                                                  NA
-## 5                                                  NA
+## 3                                                   0
+## 4                                                   0
+## 5                                                   0
 ## 6                                                  NA
 ## 7                                                  NA
-## 8                                                  41
-## 9                                                  NA
+## 8                                                  NA
+## 9                                                   0
 ## 10                                                 NA
-##    SPECIAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                                NA
-## 2                                              2058
-## 3                                                NA
-## 4                                              1962
-## 5                                              2007
-## 6                                              1895
-## 7                                                NA
-## 8                                              1955
-## 9                                                NA
-## 10                                             1987
-##    HISPANIC_MATHEMATICS_Scale_Score_Mean
-## 1                                     NA
-## 2                                   2382
-## 3                                     NA
-## 4                                   2062
-## 5                                   2245
-## 6                                   2111
-## 7                                     NA
-## 8                                   2072
-## 9                                   2196
-## 10                                    NA
-##    NON-MIGRANT_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                      14
-## 2                                                      78
-## 3                                                     183
-## 4                                                     410
-## 5                                                     158
-## 6                                                     331
-## 7                                                      39
-## 8                                                  102917
-## 9                                                     247
-## 10                                                     99
-##    WHITE_SCIENCE_Number_APA
-## 1                         0
-## 2                         0
-## 3                         0
-## 4                         4
-## 5                         0
-## 6                         0
-## 7                        NA
-## 8                       366
-## 9                         0
-## 10                        3
-##    FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_of_Valid_Scale_Scores
-## 1                                                                      NA
-## 2                                                                      NA
-## 3                                                                      NA
-## 4                                                                      NA
-## 5                                                                      NA
-## 6                                                                      NA
-## 7                                                                      NA
-## 8                                                                     855
-## 9                                                                      NA
-## 10                                                                     NA
-##    GENERAL_EDUCATION_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                    846
-## 2                                                    697
-## 3                                                    819
-## 4                                                    798
-## 5                                                    679
-## 6                                                    828
-## 7                                                    622
-## 8                                                    732
-## 9                                                    832
-## 10                                                   810
-##    ASIAN_LANGUAGE_ARTS_Number_of_Voids
-## 1                                   NA
-## 2                                   NA
-## 3                                   NA
+##    NON-MIGRANT_SCIENCE_Number_of_Voids
+## 1                                    0
+## 2                                    1
+## 3                                    0
 ## 4                                    0
-## 5                                    0
+## 5                                    1
 ## 6                                    0
-## 7                                   NA
-## 8                                   89
-## 9                                   NA
-## 10                                  NA
+## 7                                    0
+## 8                                    0
+## 9                                    0
+## 10                                   0
 </pre></div>
 
 
-<p>In the next post, we'll talk about how to turn this linear script into a function that can process all of the state data.</p>
+<p>In the <a href="" title="/reading-nj-assess-data-2.html">next post</a>, I'll talk about how to turn this linear script into a function that can process all of the state data.  In preparation, let's dump the layout data frame that we cleaned up here to an <code>.rda</code> object so that we can easily use it later.</p>
+<div class="highlight"><pre>save<span class="p">(</span>layout_wide<span class="p">,</span> file <span class="o">=</span> <span class="s">&#39;datasets/njask_layout.rda&#39;</span><span class="p">)</span>
+</pre></div>
+
+
 <h1>appendix: all 551 headers</h1>
 <div class="highlight"><pre>layout_wide<span class="o">$</span>final_name
 </pre></div>
 
 
-<div class="highlight"><pre>##   [1] &quot;CDS_Code_&quot;                                                                                  
+<div class="highlight"><pre>##   [1] &quot;CDS_Code&quot;                                                                                   
 ##   [2] &quot;County_Code/DFG/Aggregation_Code&quot;                                                           
 ##   [3] &quot;District_Code&quot;                                                                              
 ##   [4] &quot;School_Code&quot;                                                                                
@@ -821,33 +775,33 @@ let's look at just a sample of 10 rows and 10 columns from that:</p>
 ##  [88] &quot;SPECIAL_EDUCATION_SCIENCE_Proficient_Percentage&quot;                                            
 ##  [89] &quot;SPECIAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage&quot;                                   
 ##  [90] &quot;SPECIAL_EDUCATION_SCIENCE_Scale_Score_Mean&quot;                                                 
-##  [91] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_Number_Enrolled_ELA&quot;                          
-##  [92] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Number_Not_Present&quot;             
-##  [93] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Number_of_Voids&quot;                
-##  [94] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Number_APA&quot;                     
-##  [95] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&quot;   
-##  [96] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Partially_Proficient_Percentage&quot;
-##  [97] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Proficient_Percentage&quot;          
-##  [98] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Advanced_Proficient_Percentage&quot; 
-##  [99] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Scale_Score_Mean&quot;               
-## [100] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Number_Enrolled_Math&quot;             
-## [101] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Number_Not_Present&quot;               
-## [102] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Number_of_Voids&quot;                  
-## [103] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Number_APA&quot;                       
-## [104] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Number_of_Valid_Scale_Scores&quot;     
-## [105] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Partially_Proficient_Percentage&quot;  
-## [106] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Proficient_Percentage&quot;            
-## [107] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Advanced_Proficient_Percentage&quot;   
-## [108] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Scale_Score_Mean&quot;                 
-## [109] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_Enrolled_Science&quot;              
-## [110] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_Not_Present&quot;                   
-## [111] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_of_Voids&quot;                      
-## [112] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_APA&quot;                           
-## [113] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_of_Valid_Scale_Scores&quot;         
-## [114] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Partially_Proficient_Percentage&quot;      
-## [115] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Proficient_Percentage&quot;                
-## [116] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Advanced_Proficient_Percentage&quot;       
-## [117] &quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Scale_Score_Mean&quot;                     
+##  [91] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_Number_Enrolled_ELA&quot;                          
+##  [92] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Number_Not_Present&quot;             
+##  [93] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Number_of_Voids&quot;                
+##  [94] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Number_APA&quot;                     
+##  [95] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&quot;   
+##  [96] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Partially_Proficient_Percentage&quot;
+##  [97] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Proficient_Percentage&quot;          
+##  [98] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Advanced_Proficient_Percentage&quot; 
+##  [99] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Scale_Score_Mean&quot;               
+## [100] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_Enrolled_Math&quot;             
+## [101] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_Not_Present&quot;               
+## [102] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_of_Voids&quot;                  
+## [103] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_APA&quot;                       
+## [104] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_of_Valid_Scale_Scores&quot;     
+## [105] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Partially_Proficient_Percentage&quot;  
+## [106] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Proficient_Percentage&quot;            
+## [107] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Advanced_Proficient_Percentage&quot;   
+## [108] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Scale_Score_Mean&quot;                 
+## [109] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_Enrolled_Science&quot;              
+## [110] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_Not_Present&quot;                   
+## [111] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_of_Voids&quot;                      
+## [112] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_APA&quot;                           
+## [113] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_of_Valid_Scale_Scores&quot;         
+## [114] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Partially_Proficient_Percentage&quot;      
+## [115] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Proficient_Percentage&quot;                
+## [116] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Advanced_Proficient_Percentage&quot;       
+## [117] &quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Scale_Score_Mean&quot;                     
 ## [118] &quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_Number_Enrolled_ELA&quot;                                     
 ## [119] &quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_Not_Present&quot;                        
 ## [120] &quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_of_Voids&quot;                           
