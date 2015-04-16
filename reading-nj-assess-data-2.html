@@ -196,56 +196,77 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
 <div class="highlight"><pre>library<span class="p">(</span>magrittr<span class="p">)</span>
 
 ex <span class="o">&lt;-</span> get_raw_njask<span class="p">(</span><span class="m">2014</span><span class="p">,</span> <span class="m">6</span><span class="p">)</span>
-
-dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">[,</span> sample<span class="p">(</span>c<span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">551</span><span class="p">),</span> <span class="m">10</span><span class="p">)],</span> <span class="m">10</span><span class="p">)</span> <span class="o">%&gt;%</span> as.data.frame<span class="p">()</span>
 </pre></div>
 
 
-<div class="highlight"><pre>##    PACIFIC_ISLANDER_SCIENCE_Proficient_Percentage
-## 1                                              NA
-## 2                                              NA
-## 3                                              NA
-## 4                                              NA
-## 5                                              NA
-## 6                                              NA
-## 7                                              NA
-## 8                                              NA
-## 9                                              NA
-## 10                                             NA
-##    FORMER_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_Not_Present
-## 1                                                                  NA
-## 2                                                                  NA
-## 3                                                                  NA
-## 4                                                                  NA
-## 5                                                                  NA
-## 6                                                                  NA
-## 7                                                                  NA
-## 8                                                                  NA
-## 9                                                                  NA
-## 10                                                                 NA
-##    BLACK_MATHEMATICS_Number_of_Voids
-## 1                                 NA
-## 2                                 NA
-## 3                                 NA
-## 4                                 NA
-## 5                                 NA
-## 6                                  0
-## 7                                  0
-## 8                                 NA
-## 9                                  0
-## 10                                NA
-##    LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Advanced_Proficient_Percentage
-## 1                                                                                    NA
-## 2                                                                                    NA
-## 3                                                                                    NA
-## 4                                                                                    NA
-## 5                                                                                    NA
-## 6                                                                                    NA
-## 7                                                                                    NA
-## 8                                                                                    NA
-## 9                                                                                    NA
-## 10                                                                                   NA
-##    WHITE_SCIENCE_Number_Enrolled_Science
+<div class="highlight"><pre>## Loading required package: readr
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: package &#39;readr&#39; was built under R version 3.1.3
+</pre></div>
+
+
+<div class="highlight"><pre>dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">[,</span> sample<span class="p">(</span>c<span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">551</span><span class="p">),</span> <span class="m">10</span><span class="p">)],</span> <span class="m">10</span><span class="p">)</span> <span class="o">%&gt;%</span> as.data.frame<span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre>##    DFG HISPANIC_LANGUAGE_ARTS_Number_APA
+## 1   DE                                NA
+## 2    I                                NA
+## 3   FG                                NA
+## 4    R                                NA
+## 5   CD                                NA
+## 6   FG                                NA
+## 7    I                                 1
+## 8    I                                NA
+## 9    B                                NA
+## 10  CD                                 0
+##    TOTAL_POPULATION_MATHEMATICS_Number_of_Voids
+## 1                                             0
+## 2                                             1
+## 3                                             0
+## 4                                             0
+## 5                                             0
+## 6                                             0
+## 7                                             0
+## 8                                             0
+## 9                                             0
+## 10                                            0
+##    CURRENT_LIMITED_ENGLISH_PROFICIENT_Number_Enrolled_ELA
+## 1                                                       0
+## 2                                                       0
+## 3                                                      NA
+## 4                                                       0
+## 5                                                       0
+## 6                                                       0
+## 7                                                       0
+## 8                                                       0
+## 9                                                       0
+## 10                                                      0
+##    TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                             50
+## 2                                                            131
+## 3                                                            150
+## 4                                                              0
+## 5                                                             36
+## 6                                                            102
+## 7                                                            218
+## 8                                                            184
+## 9                                                              0
+## 10                                                             0
+##    TOTAL_POPULATION_MATHEMATICS_Number_APA ASIAN_MATHEMATICS_Number_APA
+## 1                                        1                           NA
+## 2                                        2                           NA
+## 3                                        2                           NA
+## 4                                        0                           NA
+## 5                                        2                           NA
+## 6                                        0                           NA
+## 7                                        4                            0
+## 8                                        0                            0
+## 9                                        0                           NA
+## 10                                       2                           NA
+##    OTHER_SCIENCE_Number_Enrolled_Science
 ## 1                                     NA
 ## 2                                     NA
 ## 3                                     NA
@@ -256,29 +277,7 @@ dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">
 ## 8                                     NA
 ## 9                                     NA
 ## 10                                    NA
-##    HISPANIC_MATHEMATICS_Number_Enrolled_Math
-## 1                                         12
-## 2                                          0
-## 3                                         14
-## 4                                         20
-## 5                                         NA
-## 6                                         94
-## 7                                         NA
-## 8                                          0
-## 9                                         NA
-## 10                                         0
-##    MIGRANT_LANGUAGE_ARTS_Advanced_Proficient_Percentage
-## 1                                                    NA
-## 2                                                    NA
-## 3                                                    NA
-## 4                                                    NA
-## 5                                                    NA
-## 6                                                    NA
-## 7                                                    NA
-## 8                                                    NA
-## 9                                                    NA
-## 10                                                   NA
-##    NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_APA
+##    GENERAL_EDUCATION_SCIENCE_Number_Enrolled_Science
 ## 1                                                 NA
 ## 2                                                 NA
 ## 3                                                 NA
@@ -289,28 +288,17 @@ dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">
 ## 8                                                 NA
 ## 9                                                 NA
 ## 10                                                NA
-##    TOTAL_POPULATION_SCIENCE_Scale_Score_Mean
-## 1                                         NA
-## 2                                         NA
-## 3                                         NA
-## 4                                         NA
-## 5                                         NA
-## 6                                         NA
-## 7                                         NA
-## 8                                         NA
-## 9                                         NA
-## 10                                        NA
-##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                                                    NA
-## 2                                                                    NA
-## 3                                                                    NA
-## 4                                                                    NA
-## 5                                                                    NA
-## 6                                                                    NA
-## 7                                                                    NA
-## 8                                                                    NA
-## 9                                                                    NA
-## 10                                                                   NA
+##    BLACK_LANGUAGE_ARTS_Number_APA
+## 1                              NA
+## 2                              NA
+## 3                              NA
+## 4                              NA
+## 5                              NA
+## 6                              NA
+## 7                               1
+## 8                              NA
+## 9                               0
+## 10                             NA
 </pre></div>
 
 
@@ -318,8 +306,23 @@ dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">
 <p>For each of those columns, we want to apply a function to each column.  Hadley's <code>dplyr</code> has a nice utility for doing this - <code>mutate_each</code>.</p>
 <p>We'll also need to make sure that we only mutate the columns that are tagged with 'One implied decimal.'</p>
 <div class="highlight"><pre>library<span class="p">(</span>dplyr<span class="p">)</span>
+</pre></div>
 
-process_njask <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>df<span class="p">,</span> mask<span class="o">=</span>layout_wide<span class="o">$</span>comments <span class="o">==</span> <span class="s">&#39;One implied decimal&#39;</span><span class="p">)</span> <span class="p">{</span>
+
+<div class="highlight"><pre>## 
+## Attaching package: &#39;dplyr&#39;
+## 
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter
+## 
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union
+</pre></div>
+
+
+<div class="highlight"><pre>process_njask <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>df<span class="p">,</span> mask<span class="o">=</span>layout_wide<span class="o">$</span>comments <span class="o">==</span> <span class="s">&#39;One implied decimal&#39;</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">#keep the names to put back in the same order</span>
   all_names <span class="o">&lt;-</span> names<span class="p">(</span>df<span class="p">)</span>
 

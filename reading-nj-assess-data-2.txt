@@ -25,7 +25,7 @@ opts_chunk$set(pelican.publish=ready_to_ship)
 
 In my [last post]('/reading-nj-assess-1.html'), I showed how to read a fixed width file into R.  In this post, I'll refactor that code into a function that takes year/grade as a parameter.
 
-First, read in the layout data frame.  This contains the column headers for NJASK fixed with files.
+First, read in the layout data frame.  This contains the column headers for NJASK fixed with files.<!-- PELICAN_END_SUMMARY -->
 
 ```{r load_layout}
 

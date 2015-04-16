@@ -120,39 +120,9 @@
 	<div class="row">
 		<div class="col-md-11 col-md-offset-1">
 			<h5><p>In my <a href="" title="/reading-nj-assess-1.html">last post</a>, I showed how to read a fixed width file into R.  In this post, I'll refactor that code into a function that takes year/grade as a parameter.</p>
-<p>First, read in the layout data frame.  This contains the column headers for NJASK fixed with files.</p>
-<div class="highlight"><pre>load<span class="p">(</span>file <span class="o">=</span> <span class="s">&#39;datasets/njask_layout.rda&#39;</span><span class="p">)</span>
-
-head<span class="p">(</span>layout_wide<span class="p">)</span>
-</pre></div>
-
-
-<div class="highlight"><pre>##   field_start_position field_end_position field_length data_type
-## 1                    1                  9            9      Text
-## 2                    1                  2            2      Text
-## 3                    3                  6            4      Text
-## 4                    7                  9            3      Text
-## 5                   10                 59           50      Text
-## 6                   60                109           50      Text
-##                        description
-## 1                         CDS Code
-## 2 County Code/DFG/Aggregation Code
-## 3                    District Code
-## 4                      School Code
-## 5                      County Name
-## 6                    District Name
-##                                                                                                                                                                                                                               comments
-## 1                                                                                                                                                 For district and school records the first three fields combine to form the CDS code.
-## 2 For district and school records this field contains a two-digit county code.  For DFG records, this field contains the DFG code.  For Statewide, Special Needs and Non-Special Needs records, it contains a two-letter abbreviation.
-## 3                                                                                                                                                                                     Applicable only for district and school records.
-## 4                                                                                                                                                                                     Applicable only for district and school records.
-## 5                                                                                                                                                                                     Applicable only for district and school records.
-## 6                                                                                                                                                                                     Applicable only for district and school records.
-##                                                                                                                                                                                               valid_values
-## 1                                                                                                                                                                                                         
-## 2 County Code = 01, 03, 05, 07, 09, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 80\nDFG = A, B, CD, DE, FG, GH, I, J, R, V\nST = Statewide, NS = Non-Special Needs, SN = Special Needs
-## 3                                                                                                                                                                                      0100 to 9999, blank
-## 4                                                                                                                                                                                        001 ...</pre></div></h5>
+<p>First, read in the layout data frame.  This contains the column headers for NJASK fixed with files.</h5>
+	
+			<strong>there's more!  <a href="http://almart.in/reading-nj-assess-data-2.html">continue reading...</a></strong>
 		</div>
 	</div>
 </div>
@@ -204,7 +174,7 @@ head<span class="p">(</span>layout_wide<span class="p">)</span>
 <p>This data is a bit of a pain to work with.  There's a page for each <a href="http://www.state.nj.us/education/schools/achievement/14/">year</a> of assessment data, and for each year there's a <a href="http://www.state.nj.us/education/schools/achievement/14/njask8/">page</a> per grade level.  But wait!  It gets better!  If you download the Excel spreadsheet for each grade level (helpfully titled <code>state_summary.xls</code> for <em>every</em> year and grade!), you'll find <strong>5</strong> tabs per file, because there are simply too many demographic/subject subgroups for Excel 2003 to handle.
 </h5>
 	
-			there's more!  <a href="http://almart.in/reading-nj-assess-data-1.html">continue reading...</a>
+			<strong>there's more!  <a href="http://almart.in/reading-nj-assess-data-1.html">continue reading...</a></strong>
 		</div>
 	</div>
 </div>
@@ -244,7 +214,7 @@ head<span class="p">(</span>layout_wide<span class="p">)</span>
 </ul>
 <p>It would be great to be able to write up an .Rmd, run <code>pelican content</code>, and have everything just show up on the web, with syntax highlighting, inline images, etc.  That's what Pelican + knitr lets us do!</h5>
 	
-			there's more!  <a href="http://almart.in/pelican-with-rmd.html">continue reading...</a>
+			<strong>there's more!  <a href="http://almart.in/pelican-with-rmd.html">continue reading...</a></strong>
 		</div>
 	</div>
 </div>
@@ -274,7 +244,7 @@ head<span class="p">(</span>layout_wide<span class="p">)</span>
 		<div class="col-md-11 col-md-offset-1">
 			<h5></h5>
 	
-			there's more!  <a href="http://almart.in/sample-rmd.html">continue reading...</a>
+			<strong>there's more!  <a href="http://almart.in/sample-rmd.html">continue reading...</a></strong>
 		</div>
 	</div>
 </div>
@@ -304,7 +274,7 @@ head<span class="p">(</span>layout_wide<span class="p">)</span>
 		<div class="col-md-11 col-md-offset-1">
 			<h5><p>just a test post to see if pelican works...</h5>
 	
-			there's more!  <a href="http://almart.in/will-it-blend.html">continue reading...</a>
+			<strong>there's more!  <a href="http://almart.in/will-it-blend.html">continue reading...</a></strong>
 		</div>
 	</div>
 </div>
