@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>almart.in</title><link href="http://almart.in/" rel="alternate"></link><link href="http://almart.in/feeds%5Candrew-martin.atom.xml" rel="self"></link><id>http://almart.in/</id><updated>2015-04-13T00:00:00-04:00</updated><entry><title>Working with NJASK data in R: part 1 in a series.</title><link href="http://almart.in/reading-njask-data-1.html" rel="alternate"></link><updated>2015-04-13T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-13:reading-njask-data-1.html</id><summary type="html">&lt;p&gt;New Jersey has switched over to the PARCC assessment, but from roughly 2005-2014 New Jersey took the "New Jersey Assessment of Skills and Knowledge," or more simply "the NJASK."&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>almart.in</title><link href="http://almart.in/" rel="alternate"></link><link href="http://almart.in/feeds%5Candrew-martin.atom.xml" rel="self"></link><id>http://almart.in/</id><updated>2015-04-13T00:00:00-04:00</updated><entry><title>Getting NJASK data into R: part 1 of 2.</title><link href="http://almart.in/reading-njask-data-1.html" rel="alternate"></link><updated>2015-04-13T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-13:reading-njask-data-1.html</id><summary type="html">&lt;p&gt;New Jersey has switched over to the PARCC assessment, but from roughly 2005-2014 New Jersey took the "New Jersey Assessment of Skills and Knowledge," or more simply "the NJASK."&lt;/p&gt;
 &lt;p&gt;This data is a bit of a pain to work with.  There's a page for each &lt;a href="http://www.state.nj.us/education/schools/achievement/14/"&gt;year&lt;/a&gt; of assessment data, and for each year there's a &lt;a href="http://www.state.nj.us/education/schools/achievement/14/njask8/"&gt;page&lt;/a&gt; per grade level.  But wait!  It gets better!  If you download the Excel spreadsheet for each grade level (helpfully titled &lt;code&gt;state_summary.xls&lt;/code&gt; for &lt;em&gt;every&lt;/em&gt; year and grade!), you'll find &lt;strong&gt;5&lt;/strong&gt; tabs per file, because there are simply too many demographic/subject subgroups for Excel 2003 to handle.
 &lt;/p&gt;
 &lt;p&gt;&lt;img src="static_images/04_njask_excel.png"&gt;&lt;/p&gt;
@@ -404,14 +404,27 @@ layout_wide&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Success!  Now we just concatenate &lt;code&gt;description&lt;/code&gt;, &lt;code&gt;spanner1&lt;/code&gt;, and &lt;code&gt;spanner2&lt;/code&gt; into a single value, do a little cleanup, and we have our headers.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; layout_wide &lt;span class="o"&gt;%$%&lt;/span&gt; paste&lt;span class="p"&gt;(&lt;/span&gt;spanner1&lt;span class="p"&gt;,&lt;/span&gt; spanner2&lt;span class="p"&gt;,&lt;/span&gt; description&lt;span class="p"&gt;,&lt;/span&gt; sep&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;p&gt;Success!  Now we just concatenate &lt;code&gt;description&lt;/code&gt;, &lt;code&gt;spanner1&lt;/code&gt;, and &lt;code&gt;spanner2&lt;/code&gt; into a single value, do a little cleanup, and we have our headers.  For cleanup, we want to get rid of weird whitespace, and convert reserved characters (like &lt;code&gt;+&lt;/code&gt;) to words.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;#no plus or () symbols&lt;/span&gt;
+layout_wide&lt;span class="o"&gt;$&lt;/span&gt;spanner1 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;+&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;and&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_wide&lt;span class="o"&gt;$&lt;/span&gt;spanner1&lt;span class="p"&gt;,&lt;/span&gt; fixed &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+layout_wide&lt;span class="o"&gt;$&lt;/span&gt;spanner1 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;(&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_wide&lt;span class="o"&gt;$&lt;/span&gt;spanner1&lt;span class="p"&gt;,&lt;/span&gt; fixed &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+layout_wide&lt;span class="o"&gt;$&lt;/span&gt;spanner1 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;)&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_wide&lt;span class="o"&gt;$&lt;/span&gt;spanner1&lt;span class="p"&gt;,&lt;/span&gt; fixed &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; layout_wide &lt;span class="o"&gt;%$%&lt;/span&gt; paste&lt;span class="p"&gt;(&lt;/span&gt;spanner1&lt;span class="p"&gt;,&lt;/span&gt; spanner2&lt;span class="p"&gt;,&lt;/span&gt; description&lt;span class="p"&gt;,&lt;/span&gt; sep&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="c1"&gt;#kill double underscores&lt;/span&gt;
 layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="c1"&gt;#kill leading or trailer underscores&lt;/span&gt;
 layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;(^_+|_+$)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c1"&gt;#trim any remaining whitespace&lt;/span&gt;
+layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;^\\s+|\\s+$&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="c1"&gt;#all whitespace becomes underscore&lt;/span&gt;
 layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_wide&lt;span class="o"&gt;$&lt;/span&gt;final_name&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;#more whitespace cleanup&lt;/span&gt;
+layout_wide&lt;span class="o"&gt;$&lt;/span&gt;comments &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;^\\s+|\\s+$&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_wide&lt;span class="o"&gt;$&lt;/span&gt;comments&lt;span class="p"&gt;)&lt;/span&gt;
+layout_wide&lt;span class="o"&gt;$&lt;/span&gt;description &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;^\\s+|\\s+$&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_wide&lt;span class="o"&gt;$&lt;/span&gt;description&lt;span class="p"&gt;)&lt;/span&gt;
+layout_wide&lt;span class="o"&gt;$&lt;/span&gt;valid_values &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;^\\s+|\\s+$&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_wide&lt;span class="o"&gt;$&lt;/span&gt;valid_values&lt;span class="p"&gt;)&lt;/span&gt;
+
 
 head&lt;span class="p"&gt;(&lt;/span&gt;layout_wide&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -425,19 +438,19 @@ head&lt;span class="p"&gt;(&lt;/span&gt;layout_wide&lt;span class="p"&gt;)&lt;/s
 ## 5                   10                 59           50      Text
 ## 6                   60                109           50      Text
 ##                        description
-## 1                        CDS Code 
+## 1                         CDS Code
 ## 2 County Code/DFG/Aggregation Code
 ## 3                    District Code
 ## 4                      School Code
 ## 5                      County Name
 ## 6                    District Name
 ##                                                                                                                                                                                                                               comments
-## 1                                                                                                                                               For district and school records the first three fields combine to form the CDS code.  
+## 1                                                                                                                                                 For district and school records the first three fields combine to form the CDS code.
 ## 2 For district and school records this field contains a two-digit county code.  For DFG records, this field contains the DFG code.  For Statewide, Special Needs and Non-Special Needs records, it contains a two-letter abbreviation.
-## 3                                                                                                                                                                                  Applicable only for district and school records.   
-## 4                                                                                                                                                                                  Applicable only for district and school records.   
-## 5                                                                                                                                                                                  Applicable only for district and school records.   
-## 6                                                                                                                                                                                  Applicable only for district and school records.   
+## 3                                                                                                                                                                                     Applicable only for district and school records.
+## 4                                                                                                                                                                                     Applicable only for district and school records.
+## 5                                                                                                                                                                                     Applicable only for district and school records.
+## 6                                                                                                                                                                                     Applicable only for district and school records.
 ##                                                                                                                                                                                               valid_values
 ## 1                                                                                                                                                                                                         
 ## 2 County Code = 01, 03, 05, 07, 09, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 80\nDFG = A, B, CD, DE, FG, GH, I, J, R, V\nST = Statewide, NS = Non-Special Needs, SN = Special Needs
@@ -446,7 +459,7 @@ head&lt;span class="p"&gt;(&lt;/span&gt;layout_wide&lt;span class="p"&gt;)&lt;/s
 ## 5                                                                                                                                                                                            A to Z, blank
 ## 6                                                                                                                                                                                            A to Z, blank
 ##   spanner1 spanner2                       final_name
-## 1                                          CDS_Code_
+## 1                                           CDS_Code
 ## 2                   County_Code/DFG/Aggregation_Code
 ## 3                                      District_Code
 ## 4                                        School_Code
@@ -476,105 +489,105 @@ let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    SPECIAL_EDUCATION_SCIENCE_Number_Not_Present
-## 1                                             0
-## 2                                             0
+&lt;div class="highlight"&gt;&lt;pre&gt;##    FEMALE_SCIENCE_Number_of_Valid_Scale_Scores
+## 1                                           32
+## 2                                          224
+## 3                                           81
+## 4                                           37
+## 5                                          245
+## 6                                           80
+## 7                                           NA
+## 8                                           59
+## 9                                           NA
+## 10                                          15
+##    BLACK_SCIENCE_Advanced_Proficient_Percentage
+## 1                                            NA
+## 2                                           112
 ## 3                                            NA
 ## 4                                            NA
-## 5                                            NA
-## 6                                            NA
-## 7                                             1
+## 5                                           140
+## 6                                            91
+## 7                                            NA
 ## 8                                            NA
 ## 9                                            NA
-## 10                                           NA
-##    PACIFIC_ISLANDER_MATHEMATICS_Number_Enrolled_Math
-## 1                                                  0
-## 2                                                 NA
-## 3                                                  0
-## 4                                                 NA
-## 5                                                  0
-## 6                                                 NA
-## 7                                                  0
-## 8                                                 NA
-## 9                                                 NA
-## 10                                                 0
-##    OTHER_MATHEMATICS_Number_of_Voids
-## 1                                 NA
-## 2                                 NA
-## 3                                 NA
-## 4                                 NA
-## 5                                 NA
-## 6                                 NA
-## 7                                 NA
-## 8                                 NA
-## 9                                 NA
-## 10                                NA
-##    TOTAL_POPULATION_SCIENCE_Scale_Score_Mean
-## 1                                       2368
-## 2                                       2157
-## 3                                       1840
-## 4                                       1944
-## 5                                       2291
-## 6                                       2166
-## 7                                       2200
-## 8                                       2180
-## 9                                         NA
-## 10                                      2558
-##    MALE_SCIENCE_Number_Enrolled_Science
-## 1                                    53
-## 2                                    59
-## 3                                    26
-## 4                                    17
-## 5                                   171
-## 6                                    47
-## 7                                   229
-## 8                                    30
-## 9                                    NA
-## 10                                   40
-##    GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                              2303
-## 2                                              2146
-## 3                                              2049
-## 4                                              2051
-## 5                                              2246
-## 6                                              2185
-## 7                                              2212
-## 8                                              2161
-## 9                                                NA
-## 10                                             2408
-##    FEMALE_SCIENCE_Number_of_Voids
-## 1                               0
-## 2                               0
-## 3                               0
+## 10                                          263
+##    WHITE_LANGUAGE_ARTS_Number_APA
+## 1                              NA
+## 2                               4
+## 3                               4
 ## 4                               0
-## 5                               0
+## 5                               1
 ## 6                               0
-## 7                               2
+## 7                              NA
 ## 8                               0
-## 9                              NA
-## 10                              0
-##    WHITE_MATHEMATICS_Number_of_Valid_Scale_Scores
-## 1                                              64
-## 2                                              66
+## 9                               0
+## 10                             NA
+##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Scale_Score_Mean
+## 1                                                                  NA
+## 2                                                                  NA
+## 3                                                                  NA
+## 4                                                                  NA
+## 5                                                                  NA
+## 6                                                                  NA
+## 7                                                                  NA
+## 8                                                                  NA
+## 9                                                                  NA
+## 10                                                                 NA
+##    BLACK_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                  NA
+## 2                                                  56
+## 3                                                  NA
+## 4                                                  NA
+## 5                                                  65
+## 6                                                  36
+## 7                                                  NA
+## 8                                                  NA
+## 9                                                  NA
+## 10                                                158
+##    MIGRANT_SCIENCE_Advanced_Proficient_Percentage
+## 1                                              NA
+## 2                                              NA
 ## 3                                              NA
 ## 4                                              NA
-## 5                                             263
-## 6                                              46
-## 7                                             186
+## 5                                              NA
+## 6                                              NA
+## 7                                              NA
 ## 8                                              NA
 ## 9                                              NA
-## 10                                             77
-##    FEMALE_SCIENCE_Partially_Proficient_Percentage DFG
-## 1                                              83  FG
-## 2                                             179   B
-## 3                                             563   A
-## 4                                             636   R
-## 5                                              75  CD
-## 6                                             346   B
-## 7                                             239   B
-## 8                                             194   A
-## 9                                              NA   A
-## 10                                             45   J
+## 10                                             NA
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_of_Valid_Scale_Scores
+## 1                                                                                      14
+## 2                                                                                      NA
+## 3                                                                                      NA
+## 4                                                                                      NA
+## 5                                                                                      NA
+## 6                                                                                      NA
+## 7                                                                                      NA
+## 8                                                                                      NA
+## 9                                                                                      NA
+## 10                                                                                     NA
+##    District_Code ASIAN_MATHEMATICS_Number_of_Voids
+## 1           1320                                NA
+## 2           3440                                 0
+## 3           5100                                NA
+## 4            970                                 0
+## 5           3310                                 0
+## 6           1730                                NA
+## 7           2660                                NA
+## 8           1470                                NA
+## 9           4280                                NA
+## 10          7600                                NA
+##    NON-MIGRANT_MATHEMATICS_Number_of_Voids
+## 1                                        0
+## 2                                        0
+## 3                                        0
+## 4                                        0
+## 5                                        1
+## 6                                        0
+## 7                                       NA
+## 8                                        0
+## 9                                        0
+## 10                                       0
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -588,7 +601,7 @@ let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##   [1] &amp;quot;CDS_Code_&amp;quot;                                                                                  
+&lt;div class="highlight"&gt;&lt;pre&gt;##   [1] &amp;quot;CDS_Code&amp;quot;                                                                                   
 ##   [2] &amp;quot;County_Code/DFG/Aggregation_Code&amp;quot;                                                           
 ##   [3] &amp;quot;District_Code&amp;quot;                                                                              
 ##   [4] &amp;quot;School_Code&amp;quot;                                                                                
@@ -678,33 +691,33 @@ let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
 ##  [88] &amp;quot;SPECIAL_EDUCATION_SCIENCE_Proficient_Percentage&amp;quot;                                            
 ##  [89] &amp;quot;SPECIAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage&amp;quot;                                   
 ##  [90] &amp;quot;SPECIAL_EDUCATION_SCIENCE_Scale_Score_Mean&amp;quot;                                                 
-##  [91] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_Number_Enrolled_ELA&amp;quot;                          
-##  [92] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Number_Not_Present&amp;quot;             
-##  [93] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                
-##  [94] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Number_APA&amp;quot;                     
-##  [95] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;   
-##  [96] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;
-##  [97] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;          
-##  [98] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot; 
-##  [99] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;               
-## [100] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Number_Enrolled_Math&amp;quot;             
-## [101] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Number_Not_Present&amp;quot;               
-## [102] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Number_of_Voids&amp;quot;                  
-## [103] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Number_APA&amp;quot;                       
-## [104] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;     
-## [105] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;  
-## [106] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Proficient_Percentage&amp;quot;            
-## [107] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;   
-## [108] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_MATHEMATICS_Scale_Score_Mean&amp;quot;                 
-## [109] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_Enrolled_Science&amp;quot;              
-## [110] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_Not_Present&amp;quot;                   
-## [111] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_of_Voids&amp;quot;                      
-## [112] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_APA&amp;quot;                           
-## [113] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;         
-## [114] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Partially_Proficient_Percentage&amp;quot;      
-## [115] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Proficient_Percentage&amp;quot;                
-## [116] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Advanced_Proficient_Percentage&amp;quot;       
-## [117] &amp;quot;LIMITED_ENGLISH_PROFICIENT_(current_+_former)_SCIENCE_Scale_Score_Mean&amp;quot;                     
+##  [91] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_Number_Enrolled_ELA&amp;quot;                          
+##  [92] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Number_Not_Present&amp;quot;             
+##  [93] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                
+##  [94] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Number_APA&amp;quot;                     
+##  [95] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores&amp;quot;   
+##  [96] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Partially_Proficient_Percentage&amp;quot;
+##  [97] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Proficient_Percentage&amp;quot;          
+##  [98] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Advanced_Proficient_Percentage&amp;quot; 
+##  [99] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_LANGUAGE_ARTS_Scale_Score_Mean&amp;quot;               
+## [100] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_Enrolled_Math&amp;quot;             
+## [101] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_Not_Present&amp;quot;               
+## [102] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_of_Voids&amp;quot;                  
+## [103] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_APA&amp;quot;                       
+## [104] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_of_Valid_Scale_Scores&amp;quot;     
+## [105] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Partially_Proficient_Percentage&amp;quot;  
+## [106] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Proficient_Percentage&amp;quot;            
+## [107] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Advanced_Proficient_Percentage&amp;quot;   
+## [108] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Scale_Score_Mean&amp;quot;                 
+## [109] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_Enrolled_Science&amp;quot;              
+## [110] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_Not_Present&amp;quot;                   
+## [111] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_of_Voids&amp;quot;                      
+## [112] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_APA&amp;quot;                           
+## [113] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_of_Valid_Scale_Scores&amp;quot;         
+## [114] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Partially_Proficient_Percentage&amp;quot;      
+## [115] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Proficient_Percentage&amp;quot;                
+## [116] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Advanced_Proficient_Percentage&amp;quot;       
+## [117] &amp;quot;LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Scale_Score_Mean&amp;quot;                     
 ## [118] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_Number_Enrolled_ELA&amp;quot;                                     
 ## [119] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_Not_Present&amp;quot;                        
 ## [120] &amp;quot;CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_of_Voids&amp;quot;                           

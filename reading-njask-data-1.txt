@@ -1,4 +1,4 @@
-Title: Working with NJASK data in R: part 1 in a series.
+Title: Getting NJASK data into R: part 1 of 2.
 Date: 2015-04-13
 Category: education
 Tags: NJ, NJASK, data_management, tutorial
@@ -163,17 +163,30 @@ layout_wide[1:20, ]
 
 ```
 
-Success!  Now we just concatenate `description`, `spanner1`, and `spanner2` into a single value, do a little cleanup, and we have our headers.
+Success!  Now we just concatenate `description`, `spanner1`, and `spanner2` into a single value, do a little cleanup, and we have our headers.  For cleanup, we want to get rid of weird whitespace, and convert reserved characters (like `+`) to words.
 
 ```{r combine}
+
+#no plus or () symbols
+layout_wide$spanner1 <- gsub('+', 'and', layout_wide$spanner1, fixed = TRUE)
+layout_wide$spanner1 <- gsub('(', '', layout_wide$spanner1, fixed = TRUE)
+layout_wide$spanner1 <- gsub(')', '', layout_wide$spanner1, fixed = TRUE)
 
 layout_wide$final_name <- layout_wide %$% paste(spanner1, spanner2, description, sep='_')
 #kill double underscores
 layout_wide$final_name <- gsub('__', '_', layout_wide$final_name)
 #kill leading or trailer underscores
 layout_wide$final_name <- gsub("(^_+|_+$)", "", layout_wide$final_name)
+#trim any remaining whitespace
+layout_wide$final_name <- gsub("^\\s+|\\s+$", "", layout_wide$final_name)
 #all whitespace becomes underscore
 layout_wide$final_name <- gsub(' ', '_', layout_wide$final_name)
+
+#more whitespace cleanup
+layout_wide$comments <- gsub("^\\s+|\\s+$", "", layout_wide$comments)
+layout_wide$description <- gsub("^\\s+|\\s+$", "", layout_wide$description)
+layout_wide$valid_values <- gsub("^\\s+|\\s+$", "", layout_wide$valid_values)
+
 
 head(layout_wide)
 
