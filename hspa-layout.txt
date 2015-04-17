@@ -1,5 +1,5 @@
 Title: Errata: prepping the HSPA and GEPA layout files
-Date: 2015-04-16
+Date: 2015-04-15
 Category: education
 Tags: boring, errata
 Slug: hspa-layout

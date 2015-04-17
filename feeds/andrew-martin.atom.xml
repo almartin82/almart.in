@@ -1,5 +1,731 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>almart.in</title><link href="http://almart.in/" rel="alternate"></link><link href="http://almart.in/feeds%5Candrew-martin.atom.xml" rel="self"></link><id>http://almart.in/</id><updated>2015-04-16T00:00:00-04:00</updated><entry><title>Errata: prepping the HSPA and GEPA layout files</title><link href="http://almart.in/hspa-layout.html" rel="alternate"></link><updated>2015-04-16T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-16:hspa-layout.html</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>almart.in</title><link href="http://almart.in/" rel="alternate"></link><link href="http://almart.in/feeds%5Candrew-martin.atom.xml" rel="self"></link><id>http://almart.in/</id><updated>2015-04-16T00:00:00-04:00</updated><entry><title>Getting NJ assessment data into R: part 3 in a series.</title><link href="http://almart.in/reading-nj-assess-data-3.html" rel="alternate"></link><updated>2015-04-16T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-16:reading-nj-assess-data-3.html</id><summary type="html">&lt;p&gt;In my &lt;a href="" title="/reading-nj-assess-data-2.html"&gt;last post&lt;/a&gt;, I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA), and to the old Grade Eight Proficiency Assessment (GEPA).  With functions that can access each of those data sources, we'll be ready to write a general wrapper that simplifies access to relevant state assessment data.&lt;/p&gt;
+&lt;h1&gt;HSPA&lt;/h1&gt;
+&lt;p&gt;Much like the NJASK data in posts &lt;a href="" title="/reading-nj-assess-data-1.html"&gt;1&lt;/a&gt; and &lt;a href="" title="/reading-nj-assess-data-2.html"&gt;2&lt;/a&gt;, we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some postprocessing.  I wrote up how to process the HSPA metadata &lt;a href="" title="/hspa-layout.html"&gt;here&lt;/a&gt;, if data processing is your thing.&lt;/p&gt;
+&lt;p&gt;Load in those processed files:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;Hmisc&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/hspa_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/hspa2010_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout_hspa&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;##&lt;/span&gt;   &lt;span class="nt"&gt;field_start_position&lt;/span&gt; &lt;span class="nt"&gt;field_end_position&lt;/span&gt; &lt;span class="nt"&gt;field_length&lt;/span&gt; &lt;span class="nt"&gt;data_type&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                    &lt;span class="nt"&gt;1&lt;/span&gt;                  &lt;span class="nt"&gt;9&lt;/span&gt;            &lt;span class="nt"&gt;9&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;                    &lt;span class="nt"&gt;1&lt;/span&gt;                  &lt;span class="nt"&gt;9&lt;/span&gt;            &lt;span class="nt"&gt;9&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                    &lt;span class="nt"&gt;1&lt;/span&gt;                  &lt;span class="nt"&gt;2&lt;/span&gt;            &lt;span class="nt"&gt;2&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                    &lt;span class="nt"&gt;3&lt;/span&gt;                  &lt;span class="nt"&gt;6&lt;/span&gt;            &lt;span class="nt"&gt;4&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                    &lt;span class="nt"&gt;7&lt;/span&gt;                  &lt;span class="nt"&gt;9&lt;/span&gt;            &lt;span class="nt"&gt;3&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                   &lt;span class="nt"&gt;10&lt;/span&gt;                 &lt;span class="nt"&gt;59&lt;/span&gt;           &lt;span class="nt"&gt;50&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt;     &lt;span class="nt"&gt;description&lt;/span&gt;                                              &lt;span class="nt"&gt;comments&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;    &lt;span class="nt"&gt;RECORD&lt;/span&gt; &lt;span class="nt"&gt;KEY&lt;/span&gt;                                                      
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;      &lt;span class="nt"&gt;CDS&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;                                                      
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;   &lt;span class="nt"&gt;County&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;                                                      
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt; &lt;span class="nt"&gt;District&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt; &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;   &lt;span class="nt"&gt;School&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;              &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;   &lt;span class="nt"&gt;County&lt;/span&gt; &lt;span class="nt"&gt;Name&lt;/span&gt;                                                      
+&lt;span class="err"&gt;##&lt;/span&gt;                                                                                                                                                                                            &lt;span class="nt"&gt;valid_values&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                                                                                                                                                                                                      
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt; &lt;span class="nt"&gt;CDS&lt;/span&gt; &lt;span class="nt"&gt;codes&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;schools&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;districts&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="nt"&gt;nTHE&lt;/span&gt; &lt;span class="nt"&gt;FIRST&lt;/span&gt; &lt;span class="nt"&gt;TWO&lt;/span&gt; &lt;span class="nt"&gt;POSITIONS&lt;/span&gt; &lt;span class="nt"&gt;WILL&lt;/span&gt; &lt;span class="nt"&gt;INCLUDE&lt;/span&gt; &lt;span class="nt"&gt;THE&lt;/span&gt; &lt;span class="nt"&gt;FOLLOWING&lt;/span&gt; &lt;span class="nt"&gt;AGGREGATION&lt;/span&gt; &lt;span class="nt"&gt;CODES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;NS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Non-Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;SN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;ST&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;State&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="err"&gt;…&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                                                                                                    &lt;span class="nt"&gt;01&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;03&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;05&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;07&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;09&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;11&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;13&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;15&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;17&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;19&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;21&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;23&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;25&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;27&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;29&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;31&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;33&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;35&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;37&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;39&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;41&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;43&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;45&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;47&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;80&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                                                                                                                                                                                   &lt;span class="nt"&gt;0100&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;9999&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                                                                                                                                                                                     &lt;span class="nt"&gt;001&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;999&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                                                                                                                                  &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;Z&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt;   &lt;span class="nt"&gt;spanner1&lt;/span&gt; &lt;span class="nt"&gt;spanner2&lt;/span&gt;    &lt;span class="nt"&gt;final_name&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                      &lt;span class="nt"&gt;RECORD_KEY&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;                        &lt;span class="nt"&gt;CDS_Code&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                     &lt;span class="nt"&gt;County_Code&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                   &lt;span class="nt"&gt;District_Code&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                     &lt;span class="nt"&gt;School_Code&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                     &lt;span class="nt"&gt;County_Name&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Use the layout file to process an example HSPA data file:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;hspa_url &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;http://www.state.nj.us/education/schools/achievement/14/hspa/state_summary.txt&amp;#39;&lt;/span&gt;
+
+hspa_ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;read_fwf&lt;span class="p"&gt;(&lt;/span&gt;
+  file &lt;span class="o"&gt;=&lt;/span&gt; hspa_url&lt;span class="p"&gt;,&lt;/span&gt;
+  col_positions &lt;span class="o"&gt;=&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;fwf_positions&lt;span class="p"&gt;(&lt;/span&gt;
+    start &lt;span class="o"&gt;=&lt;/span&gt; layout_hspa&lt;span class="o"&gt;$&lt;/span&gt;field_start_position&lt;span class="p"&gt;,&lt;/span&gt;
+    end &lt;span class="o"&gt;=&lt;/span&gt; layout_hspa&lt;span class="o"&gt;$&lt;/span&gt;field_end_position&lt;span class="p"&gt;,&lt;/span&gt;
+    col_names &lt;span class="o"&gt;=&lt;/span&gt; layout_hspa&lt;span class="o"&gt;$&lt;/span&gt;final_name
+  &lt;span class="p"&gt;),&lt;/span&gt;
+  na &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;*&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+
+hspa_ex &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;##   CDS_Code County_Code District_Code School_Code County_Name
+## 1       ST          ST            NA          NA            
+## 2       SN          SN            NA          NA            
+## 3   250100          25           100          NA    MONMOUTH
+## 4   010110          01           110          NA    ATLANTIC
+## 5   110540          11           540          NA  CUMBERLAND
+## 6   010590          01           590          NA    ATLANTIC
+##    District_Name School_Name DFG Special_Needs
+## 1                                             
+## 2                                             
+## 3    ASBURY PARK               A             Y
+## 4  ATLANTIC CITY               A              
+## 5      BRIDGETON               A             Y
+## 6 BUENA REGIONAL               A              
+##   TOTAL_POPULATION_Number_Enrolled_LAL
+## 1                                98240
+## 2                                14584
+## 3                                   73
+## 4                                  377
+## 5                                  268
+## 6                                  173
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                               507
+## 2                                               165
+## 3                                                 1
+## 4                                                 7
+## 5                                                 6
+## 6                                                 0
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
+## 1                                            148
+## 2                                             28
+## 3                                              1
+## 4                                              0
+## 5                                              0
+## 6                                              1
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                       97091
+## 2                                                       14315
+## 3                                                          71
+## 4                                                         370
+## 5                                                         262
+## 6                                                         172
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                             67
+## 2                                                            190
+## 3                                                            366
+## 4                                                            176
+## 5                                                            149
+## 6                                                             41
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                  604
+## 2                                                  708
+## 3                                                  634
+## 4                                                  630
+## 5                                                  802
+## 6                                                  802
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                           328
+## 2                                                           103
+## 3                                                             0
+## 4                                                           195
+## 5                                                            50
+## 6                                                           157
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                            2368
+## 2                                            2201
+## 3                                            2039
+## 4                                            2254
+## 5                                            2207
+## 6                                            2320
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That gets us to a similar state as we were in for the NJASK data - we have all the columns identified, but there's a need for post-processing, especially for the percentage columns, which have 'One implied decimal.'&lt;/p&gt;
+&lt;p&gt;We can take the formula we wrote to process NJASK data frames and generalize it, so that it can handle both NJASK and HSPA data.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;process_nj_assess &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kn"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;Hmisc&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="c1"&gt;#build a mask&lt;/span&gt;
+  mask &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; layout&lt;span class="o"&gt;$&lt;/span&gt;comments &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;One implied decimal&amp;#39;&lt;/span&gt;
+
+  &lt;span class="c1"&gt;#keep the names to put back in the same order&lt;/span&gt;
+  all_names &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;names&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="c1"&gt;#make sure df is data frame (not dplyr data frame) so that normal subsetting&lt;/span&gt;
+  df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="c1"&gt;#get name of last column and kill \n characters&lt;/span&gt;
+  last_col &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;names&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="kp"&gt;ncol&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;)]&lt;/span&gt;
+  df&lt;span class="p"&gt;[,&lt;/span&gt; last_col&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;\n&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; df&lt;span class="p"&gt;[,&lt;/span&gt; last_col&lt;span class="p"&gt;],&lt;/span&gt; fixed &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;#   #sigh, edge case in old HSPA data file where \n randomly exists in one middle column&lt;/span&gt;
+&lt;span class="c1"&gt;#   if (&amp;#39;SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean&amp;#39; %in% names(df)) {&lt;/span&gt;
+&lt;span class="c1"&gt;#     df$SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean &amp;lt;- gsub(&lt;/span&gt;
+&lt;span class="c1"&gt;#       &amp;#39;\n&amp;#39;, &amp;#39;&amp;#39;, df$SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean, fixed = TRUE&lt;/span&gt;
+&lt;span class="c1"&gt;#     )  &lt;/span&gt;
+&lt;span class="c1"&gt;#   }&lt;/span&gt;
+
+  &lt;span class="c1"&gt;#put some columns aside&lt;/span&gt;
+  ignore &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; df&lt;span class="p"&gt;[,&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;mask&lt;span class="p"&gt;]&lt;/span&gt;
+
+  implied_decimal_fix &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;x&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;#strip out anything that&amp;#39;s not a number.&lt;/span&gt;
+    x &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;as.numeric&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;[^\\d]+&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; x&lt;span class="p"&gt;,&lt;/span&gt; perl&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    x &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="c1"&gt;#process the columns that have an implied decimal&lt;/span&gt;
+  processed &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; df&lt;span class="p"&gt;[,&lt;/span&gt; mask&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt;
+    dplyr&lt;span class="o"&gt;::&lt;/span&gt;mutate_each&lt;span class="p"&gt;(&lt;/span&gt;
+      dplyr&lt;span class="o"&gt;::&lt;/span&gt;funs&lt;span class="p"&gt;(&lt;/span&gt;implied_decimal_fix&lt;span class="p"&gt;)&lt;/span&gt;  
+    &lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="c1"&gt;#put back together &lt;/span&gt;
+  final &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;cbind&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;ignore&lt;span class="p"&gt;,&lt;/span&gt; processed&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="c1"&gt;#reorder and return&lt;/span&gt;
+  final &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt;
+    select&lt;span class="p"&gt;(&lt;/span&gt;
+      one_of&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;names&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+process_nj_assess&lt;span class="p"&gt;(&lt;/span&gt;hspa_ex&lt;span class="p"&gt;,&lt;/span&gt; layout_hspa&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;##   CDS_Code County_Code District_Code School_Code County_Name
+## 1       ST          ST            NA          NA            
+## 2       SN          SN            NA          NA            
+## 3   250100          25           100          NA    MONMOUTH
+## 4   010110          01           110          NA    ATLANTIC
+## 5   110540          11           540          NA  CUMBERLAND
+## 6   010590          01           590          NA    ATLANTIC
+##    District_Name School_Name DFG Special_Needs
+## 1                                             
+## 2                                             
+## 3    ASBURY PARK               A             Y
+## 4  ATLANTIC CITY               A              
+## 5      BRIDGETON               A             Y
+## 6 BUENA REGIONAL               A              
+##   TOTAL_POPULATION_Number_Enrolled_LAL
+## 1                                98240
+## 2                                14584
+## 3                                   73
+## 4                                  377
+## 5                                  268
+## 6                                  173
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                               507
+## 2                                               165
+## 3                                                 1
+## 4                                                 7
+## 5                                                 6
+## 6                                                 0
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
+## 1                                            148
+## 2                                             28
+## 3                                              1
+## 4                                              0
+## 5                                              0
+## 6                                              1
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                       97091
+## 2                                                       14315
+## 3                                                          71
+## 4                                                         370
+## 5                                                         262
+## 6                                                         172
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                            6.7
+## 2                                                           19.0
+## 3                                                           36.6
+## 4                                                           17.6
+## 5                                                           14.9
+## 6                                                            4.1
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                 60.4
+## 2                                                 70.8
+## 3                                                 63.4
+## 4                                                 63.0
+## 5                                                 80.2
+## 6                                                 80.2
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                          32.8
+## 2                                                          10.3
+## 3                                                           0.0
+## 4                                                          19.5
+## 5                                                           5.0
+## 6                                                          15.7
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                           236.8
+## 2                                           220.1
+## 3                                           203.9
+## 4                                           225.4
+## 5                                           220.7
+## 6                                           232.0
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Yep, that totally works.  Following from the NJASK example, we'll write a function to simplify fetching the HSPA data, and a final wrapper around the fetch/process steps.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;get_raw_hspa &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="o"&gt;=&lt;/span&gt;layout_hspa&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kn"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;readr&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="c1"&gt;#url paths changed in 2012&lt;/span&gt;
+  years &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kt"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;quot;2014&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;14&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2013&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;13&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2012&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2013&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2011&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2012&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2010&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2011&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2009&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2010&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
+    &lt;span class="s"&gt;&amp;quot;2008&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2009&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2007&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2008&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2006&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2007&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2005&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2006&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2004&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2005&amp;quot;&lt;/span&gt;
+  &lt;span class="p"&gt;)&lt;/span&gt;
+  parsed_year &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; years&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="kp"&gt;as.character&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;)]]&lt;/span&gt;
+
+  &lt;span class="c1"&gt;#build url&lt;/span&gt;
+  target_url &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;paste0&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;quot;http://www.state.nj.us/education/schools/achievement/&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; parsed_year&lt;span class="p"&gt;,&lt;/span&gt; 
+    &lt;span class="s"&gt;&amp;quot;/hspa/state_summary.txt&amp;quot;&lt;/span&gt;
+  &lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="c1"&gt;#read_fwf&lt;/span&gt;
+  df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;read_fwf&lt;span class="p"&gt;(&lt;/span&gt;
+    file &lt;span class="o"&gt;=&lt;/span&gt; target_url&lt;span class="p"&gt;,&lt;/span&gt;
+    col_positions &lt;span class="o"&gt;=&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;fwf_positions&lt;span class="p"&gt;(&lt;/span&gt;
+      start &lt;span class="o"&gt;=&lt;/span&gt; layout&lt;span class="o"&gt;$&lt;/span&gt;field_start_position&lt;span class="p"&gt;,&lt;/span&gt;
+      end &lt;span class="o"&gt;=&lt;/span&gt; layout&lt;span class="o"&gt;$&lt;/span&gt;field_end_position&lt;span class="p"&gt;,&lt;/span&gt;
+      col_names &lt;span class="o"&gt;=&lt;/span&gt; layout&lt;span class="o"&gt;$&lt;/span&gt;final_name
+    &lt;span class="p"&gt;),&lt;/span&gt;
+    na &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;*&amp;quot;&lt;/span&gt;
+  &lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="c1"&gt;#return df&lt;/span&gt;
+  &lt;span class="kr"&gt;return&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;#final wrapper&lt;/span&gt;
+fetch_hspa &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;year &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="m"&gt;2011&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    hspa_df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_hspa&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; process_nj_assess&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="o"&gt;=&lt;/span&gt;layout_hspa&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;year &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="m"&gt;2004&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    hspa_df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_hspa&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="o"&gt;=&lt;/span&gt;layout_hspa2010&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; process_nj_assess&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="o"&gt;=&lt;/span&gt;layout_hspa2010&lt;span class="p"&gt;)&lt;/span&gt; 
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="kr"&gt;return&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;hspa_df&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+fetch_hspa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2010&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Loading required package: readr
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: package &amp;#39;readr&amp;#39; was built under R version 3.1.3
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
+## 1        ST          ST            NA          NA            
+## 2        NS          NS            NA          NA            
+## 3        SN          SN            NA          NA            
+## 4         A           A            NA          NA            
+## 5    250100          25           100          NA    MONMOUTH
+## 6 250100010          25           100          10    MONMOUTH
+##   District_Name      School_Name DFG Special_Needs
+## 1                                                 
+## 2                                                 
+## 3                                                 
+## 4                                                 
+## 5   ASBURY PARK                    A             Y
+## 6   ASBURY PARK ASBURY PARK H.S.   A             Y
+##   TOTAL_POPULATION_Number_Enrolled_LAL
+## 1                                99548
+## 2                                85256
+## 3                                14292
+## 4                                11673
+## 5                                  107
+## 6                                  107
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                               551
+## 2                                               356
+## 3                                               195
+## 4                                               179
+## 5                                                 1
+## 6                                                 1
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
+## 1                                            199
+## 2                                            126
+## 3                                             73
+## 4                                             64
+## 5                                              0
+## 6                                              0
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                       98257
+## 2                                                       84337
+## 3                                                       13920
+## 4                                                       11347
+## 5                                                         103
+## 6                                                         103
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                           12.9
+## 2                                                            9.2
+## 3                                                           35.1
+## 4                                                           37.4
+## 5                                                           52.4
+## 6                                                           52.4
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                 68.7
+## 2                                                 70.0
+## 3                                                 60.6
+## 4                                                 58.9
+## 5                                                 47.6
+## 6                                                 47.6
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                          18.4
+## 2                                                          20.8
+## 3                                                           4.3
+## 4                                                           3.7
+## 5                                                           0.0
+## 6                                                           0.0
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                           227.3
+## 2                                           230.9
+## 3                                           205.3
+## 4                                           203.5
+## 5                                           186.7
+## 6                                           186.7
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Nice!  NJASK and HSPA down, GEPA data to go.&lt;/p&gt;
+&lt;h1&gt;GEPA&lt;/h1&gt;
+&lt;p&gt;Load in the processed GEPA layout file:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/gepa_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout_gepa&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;##&lt;/span&gt;   &lt;span class="nt"&gt;field_start_position&lt;/span&gt; &lt;span class="nt"&gt;field_end_position&lt;/span&gt; &lt;span class="nt"&gt;field_length&lt;/span&gt; &lt;span class="nt"&gt;data_type&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                    &lt;span class="nt"&gt;1&lt;/span&gt;                  &lt;span class="nt"&gt;9&lt;/span&gt;            &lt;span class="nt"&gt;9&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;                    &lt;span class="nt"&gt;1&lt;/span&gt;                  &lt;span class="nt"&gt;2&lt;/span&gt;            &lt;span class="nt"&gt;2&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                    &lt;span class="nt"&gt;3&lt;/span&gt;                  &lt;span class="nt"&gt;6&lt;/span&gt;            &lt;span class="nt"&gt;4&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                    &lt;span class="nt"&gt;7&lt;/span&gt;                  &lt;span class="nt"&gt;9&lt;/span&gt;            &lt;span class="nt"&gt;3&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                   &lt;span class="nt"&gt;10&lt;/span&gt;                 &lt;span class="nt"&gt;59&lt;/span&gt;           &lt;span class="nt"&gt;50&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                   &lt;span class="nt"&gt;60&lt;/span&gt;                &lt;span class="nt"&gt;109&lt;/span&gt;           &lt;span class="nt"&gt;50&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt;     &lt;span class="nt"&gt;description&lt;/span&gt; &lt;span class="nt"&gt;comments&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;      &lt;span class="nt"&gt;CDS&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;         
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;   &lt;span class="nt"&gt;County&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;         
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt; &lt;span class="nt"&gt;District&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;         
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;   &lt;span class="nt"&gt;School&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;         
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;   &lt;span class="nt"&gt;County&lt;/span&gt; &lt;span class="nt"&gt;Name&lt;/span&gt;         
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt; &lt;span class="nt"&gt;District&lt;/span&gt; &lt;span class="nt"&gt;Name&lt;/span&gt;         
+&lt;span class="err"&gt;##&lt;/span&gt;                                                                                                                                                                                            &lt;span class="nt"&gt;valid_values&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt; &lt;span class="nt"&gt;CDS&lt;/span&gt; &lt;span class="nt"&gt;codes&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;schools&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;districts&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="nt"&gt;nTHE&lt;/span&gt; &lt;span class="nt"&gt;FIRST&lt;/span&gt; &lt;span class="nt"&gt;TWO&lt;/span&gt; &lt;span class="nt"&gt;POSITIONS&lt;/span&gt; &lt;span class="nt"&gt;WILL&lt;/span&gt; &lt;span class="nt"&gt;INCLUDE&lt;/span&gt; &lt;span class="nt"&gt;THE&lt;/span&gt; &lt;span class="nt"&gt;FOLLOWING&lt;/span&gt; &lt;span class="nt"&gt;AGGREGATION&lt;/span&gt; &lt;span class="nt"&gt;CODES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;NS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Non-Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;SN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;ST&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;State&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="err"&gt;…&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;                                                                     &lt;span class="nt"&gt;01&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;03&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;05&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;07&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;09&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;11&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;13&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;15&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;17&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;19&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;21&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;23&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;25&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;27&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;29&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;31&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;33&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;35&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;37&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;39&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;41&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;80&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;ST&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;DE&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;FG&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;GH&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;I&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;J&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;R&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;NS&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;SN&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                                                                                                                                   &lt;span class="nt"&gt;0100&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;9999&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                                                                                                                                                  &lt;span class="nt"&gt;001&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;999&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                                                                                                                                  &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;Z&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                                                                                                                                  &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;Z&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt;   &lt;span class="nt"&gt;spanner1&lt;/span&gt; &lt;span class="nt"&gt;spanner2&lt;/span&gt;    &lt;span class="nt"&gt;final_name&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                        &lt;span class="nt"&gt;CDS_Code&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;                     &lt;span class="nt"&gt;County_Code&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                   &lt;span class="nt"&gt;District_Code&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                     &lt;span class="nt"&gt;School_Code&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                     &lt;span class="nt"&gt;County_Name&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                   &lt;span class="nt"&gt;District_Name&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;A function to get GEPA data:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;get_raw_gepa &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="o"&gt;=&lt;/span&gt;layout_gepa&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kn"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;readr&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="c1"&gt;#url paths changed in 2012&lt;/span&gt;
+  years &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kt"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;quot;2014&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;14&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2013&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;13&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2012&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2013&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2011&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2012&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2010&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2011&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2009&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2010&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
+    &lt;span class="s"&gt;&amp;quot;2008&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2009&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2007&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2008&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2006&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2007&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2005&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2006&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2004&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2005&amp;quot;&lt;/span&gt;
+  &lt;span class="p"&gt;)&lt;/span&gt;
+  parsed_year &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; years&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="kp"&gt;as.character&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;)]]&lt;/span&gt;
+
+  &lt;span class="c1"&gt;#build url&lt;/span&gt;
+  target_url &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;paste0&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;quot;http://www.state.nj.us/education/schools/achievement/&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; parsed_year&lt;span class="p"&gt;,&lt;/span&gt; 
+    &lt;span class="s"&gt;&amp;quot;/gepa/state_summary.txt&amp;quot;&lt;/span&gt;
+  &lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="c1"&gt;#read_fwf&lt;/span&gt;
+  df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;read_fwf&lt;span class="p"&gt;(&lt;/span&gt;
+    file &lt;span class="o"&gt;=&lt;/span&gt; target_url&lt;span class="p"&gt;,&lt;/span&gt;
+    col_positions &lt;span class="o"&gt;=&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;fwf_positions&lt;span class="p"&gt;(&lt;/span&gt;
+      start &lt;span class="o"&gt;=&lt;/span&gt; layout&lt;span class="o"&gt;$&lt;/span&gt;field_start_position&lt;span class="p"&gt;,&lt;/span&gt;
+      end &lt;span class="o"&gt;=&lt;/span&gt; layout&lt;span class="o"&gt;$&lt;/span&gt;field_end_position&lt;span class="p"&gt;,&lt;/span&gt;
+      col_names &lt;span class="o"&gt;=&lt;/span&gt; layout&lt;span class="o"&gt;$&lt;/span&gt;final_name
+    &lt;span class="p"&gt;),&lt;/span&gt;
+    na &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;*&amp;quot;&lt;/span&gt;
+  &lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="c1"&gt;#return df&lt;/span&gt;
+  &lt;span class="kr"&gt;return&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+gepa_ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_gepa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2007&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+gepa_ex &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
+## 1        ST          ST            NA          NA            
+## 2        NS          NS            NA          NA            
+## 3        SN          SN            NA          NA            
+## 4         A           A            NA          NA            
+## 5 250100000          25           100           0    MONMOUTH
+## 6 250100070          25           100          70    MONMOUTH
+##   District_Name      School_Name DFG_Flag
+## 1                                        
+## 2                                        
+## 3                                        
+## 4                                        
+## 5   ASBURY PARK                         A
+## 6   ASBURY PARK ASBURY PARK M.S.        A
+##   Special_Needs_(Abbott)_district_flag TOTAL_POPULATION_Number_Enrolled
+## 1                                                                108474
+## 2                                                                 87774
+## 3                                                                 20700
+## 4                                                                 17401
+## 5                                    Y                               NA
+## 6                                    Y                               NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                               667
+## 2                                               371
+## 3                                               296
+## 4                                               264
+## 5                                                NA
+## 6                                                NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
+## 1                                           1262
+## 2                                            668
+## 3                                            594
+## 4                                            509
+## 5                                             NA
+## 6                                             NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_APA
+## 1                                          680
+## 2                                          545
+## 3                                          135
+## 4                                          102
+## 5                                           NA
+## 6                                           NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                      105865
+## 2                                                       86190
+## 3                                                       19675
+## 4                                                       16526
+## 5                                                          NA
+## 6                                                          NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                            264
+## 2                                                            205
+## 3                                                            522
+## 4                                                            531
+## 5                                                            715
+## 6                                                            715
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                  624
+## 2                                                  663
+## 3                                                  450
+## 4                                                  442
+## 5                                                  278
+## 6                                                  278
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                           113
+## 2                                                           132
+## 3                                                            28
+## 4                                                            27
+## 5                                                             7
+## 6                                                             7
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                            2149
+## 2                                            2193
+## 3                                            1953
+## 4                                            1946
+## 5                                            1842
+## 6                                            1842
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Can we process the GEPA df using our existing function?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;process_nj_assess&lt;span class="p"&gt;(&lt;/span&gt;gepa_ex&lt;span class="p"&gt;,&lt;/span&gt; layout_gepa&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
+## 1        ST          ST            NA          NA            
+## 2        NS          NS            NA          NA            
+## 3        SN          SN            NA          NA            
+## 4         A           A            NA          NA            
+## 5 250100000          25           100           0    MONMOUTH
+## 6 250100070          25           100          70    MONMOUTH
+##   District_Name      School_Name DFG_Flag
+## 1                                        
+## 2                                        
+## 3                                        
+## 4                                        
+## 5   ASBURY PARK                         A
+## 6   ASBURY PARK ASBURY PARK M.S.        A
+##   Special_Needs_(Abbott)_district_flag TOTAL_POPULATION_Number_Enrolled
+## 1                                                                108474
+## 2                                                                 87774
+## 3                                                                 20700
+## 4                                                                 17401
+## 5                                    Y                               NA
+## 6                                    Y                               NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                               667
+## 2                                               371
+## 3                                               296
+## 4                                               264
+## 5                                                NA
+## 6                                                NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
+## 1                                           1262
+## 2                                            668
+## 3                                            594
+## 4                                            509
+## 5                                             NA
+## 6                                             NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_APA
+## 1                                          680
+## 2                                          545
+## 3                                          135
+## 4                                          102
+## 5                                           NA
+## 6                                           NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                      105865
+## 2                                                       86190
+## 3                                                       19675
+## 4                                                       16526
+## 5                                                          NA
+## 6                                                          NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                           26.4
+## 2                                                           20.5
+## 3                                                           52.2
+## 4                                                           53.1
+## 5                                                           71.5
+## 6                                                           71.5
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                 62.4
+## 2                                                 66.3
+## 3                                                 45.0
+## 4                                                 44.2
+## 5                                                 27.8
+## 6                                                 27.8
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                          11.3
+## 2                                                          13.2
+## 3                                                           2.8
+## 4                                                           2.7
+## 5                                                           0.7
+## 6                                                           0.7
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                           214.9
+## 2                                           219.3
+## 3                                           195.3
+## 4                                           194.6
+## 5                                           184.2
+## 6                                           184.2
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Yes, totally.&lt;br /&gt;
+Final step: write all of that into a final wrapper function:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;#final wrapper&lt;/span&gt;
+fetch_gepa &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  get_raw_gepa&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; process_nj_assess&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="o"&gt;=&lt;/span&gt;layout_gepa&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+fetch_gepa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2007&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
+## 1        ST          ST            NA          NA            
+## 2        NS          NS            NA          NA            
+## 3        SN          SN            NA          NA            
+## 4         A           A            NA          NA            
+## 5 250100000          25           100           0    MONMOUTH
+## 6 250100070          25           100          70    MONMOUTH
+##   District_Name      School_Name DFG_Flag
+## 1                                        
+## 2                                        
+## 3                                        
+## 4                                        
+## 5   ASBURY PARK                         A
+## 6   ASBURY PARK ASBURY PARK M.S.        A
+##   Special_Needs_(Abbott)_district_flag TOTAL_POPULATION_Number_Enrolled
+## 1                                                                108474
+## 2                                                                 87774
+## 3                                                                 20700
+## 4                                                                 17401
+## 5                                    Y                               NA
+## 6                                    Y                               NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                               667
+## 2                                               371
+## 3                                               296
+## 4                                               264
+## 5                                                NA
+## 6                                                NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
+## 1                                           1262
+## 2                                            668
+## 3                                            594
+## 4                                            509
+## 5                                             NA
+## 6                                             NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_APA
+## 1                                          680
+## 2                                          545
+## 3                                          135
+## 4                                          102
+## 5                                           NA
+## 6                                           NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                      105865
+## 2                                                       86190
+## 3                                                       19675
+## 4                                                       16526
+## 5                                                          NA
+## 6                                                          NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                           26.4
+## 2                                                           20.5
+## 3                                                           52.2
+## 4                                                           53.1
+## 5                                                           71.5
+## 6                                                           71.5
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                 62.4
+## 2                                                 66.3
+## 3                                                 45.0
+## 4                                                 44.2
+## 5                                                 27.8
+## 6                                                 27.8
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                          11.3
+## 2                                                          13.2
+## 3                                                           2.8
+## 4                                                           2.7
+## 5                                                           0.7
+## 6                                                           0.7
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                           214.9
+## 2                                           219.3
+## 3                                           195.3
+## 4                                           194.6
+## 5                                           184.2
+## 6                                           184.2
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In the next post in this series, we'll take these individual NJASK, HSPA, and GEPA functions and write a wrapper to rule them all, allowing data to be easily fetched for any year/grade.&lt;/p&gt;</summary><category term="NJ"></category><category term="assessment"></category><category term="NJASK"></category><category term="HSPA"></category><category term="data_management"></category><category term="tutorial"></category></entry><entry><title>Errata: prepping the HSPA and GEPA layout files</title><link href="http://almart.in/hspa-layout.html" rel="alternate"></link><updated>2015-04-15T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-15:hspa-layout.html</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
 
 &lt;p&gt;&lt;strong&gt;Attention conservaton notice:&lt;/strong&gt; this post is just data munging to get a csv with HSPA metadata shipshape.  Tried to set it to &lt;code&gt;status: hidden&lt;/code&gt; so it wouldn't show on the front page of the blog, but had some trouble with Pelican.  That said, work has to get done, so better to do it in an .Rmd and write down what I was thinking - I've learned that lesson like a thousand times.  If you are in the small group of people who care about this sort of thing, &lt;a href="" title="mailto:almartin at gmail dot com"&gt;get in touch&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;First, read in the csv.  This proved to be kind of a headache:&lt;/p&gt;
@@ -16,17 +742,34 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Source: local data frame [6 x 8]
-## 
-##   field_start_position field_end_position field_length data_type
-## 1                    1                  9            9      Text
-## 2                    1                  9            9      Text
-## 3                    1                  2            2      Text
-## 4                    3                  6            4      Text
-## 5                    7                  9            3      Text
-## 6                   10                 59           50      Text
-## Variables not shown: description (chr), comments (chr), valid_values
-##   (chr), structural (lgl)
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;##&lt;/span&gt;   &lt;span class="nt"&gt;field_start_position&lt;/span&gt; &lt;span class="nt"&gt;field_end_position&lt;/span&gt; &lt;span class="nt"&gt;field_length&lt;/span&gt; &lt;span class="nt"&gt;data_type&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                    &lt;span class="nt"&gt;1&lt;/span&gt;                  &lt;span class="nt"&gt;9&lt;/span&gt;            &lt;span class="nt"&gt;9&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;                    &lt;span class="nt"&gt;1&lt;/span&gt;                  &lt;span class="nt"&gt;9&lt;/span&gt;            &lt;span class="nt"&gt;9&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                    &lt;span class="nt"&gt;1&lt;/span&gt;                  &lt;span class="nt"&gt;2&lt;/span&gt;            &lt;span class="nt"&gt;2&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                    &lt;span class="nt"&gt;3&lt;/span&gt;                  &lt;span class="nt"&gt;6&lt;/span&gt;            &lt;span class="nt"&gt;4&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                    &lt;span class="nt"&gt;7&lt;/span&gt;                  &lt;span class="nt"&gt;9&lt;/span&gt;            &lt;span class="nt"&gt;3&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                   &lt;span class="nt"&gt;10&lt;/span&gt;                 &lt;span class="nt"&gt;59&lt;/span&gt;           &lt;span class="nt"&gt;50&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt;     &lt;span class="nt"&gt;description&lt;/span&gt;                                                 &lt;span class="nt"&gt;comments&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;    &lt;span class="nt"&gt;RECORD&lt;/span&gt; &lt;span class="nt"&gt;KEY&lt;/span&gt;                                                         
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;     &lt;span class="nt"&gt;CDS&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;                                                          
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;   &lt;span class="nt"&gt;County&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;                                                         
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt; &lt;span class="nt"&gt;District&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt; &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;   
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;   &lt;span class="nt"&gt;School&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;                 &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;   &lt;span class="nt"&gt;County&lt;/span&gt; &lt;span class="nt"&gt;Name&lt;/span&gt;                                                         
+&lt;span class="err"&gt;##&lt;/span&gt;                                                                                                                                                                                            &lt;span class="nt"&gt;valid_values&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                                                                                                                                                                                                      
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt; &lt;span class="nt"&gt;CDS&lt;/span&gt; &lt;span class="nt"&gt;codes&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;schools&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;districts&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="nt"&gt;nTHE&lt;/span&gt; &lt;span class="nt"&gt;FIRST&lt;/span&gt; &lt;span class="nt"&gt;TWO&lt;/span&gt; &lt;span class="nt"&gt;POSITIONS&lt;/span&gt; &lt;span class="nt"&gt;WILL&lt;/span&gt; &lt;span class="nt"&gt;INCLUDE&lt;/span&gt; &lt;span class="nt"&gt;THE&lt;/span&gt; &lt;span class="nt"&gt;FOLLOWING&lt;/span&gt; &lt;span class="nt"&gt;AGGREGATION&lt;/span&gt; &lt;span class="nt"&gt;CODES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;NS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Non-Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;SN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;ST&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;State&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="err"&gt;…&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                                                                                                    &lt;span class="nt"&gt;01&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;03&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;05&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;07&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;09&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;11&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;13&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;15&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;17&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;19&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;21&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;23&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;25&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;27&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;29&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;31&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;33&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;35&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;37&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;39&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;41&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;43&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;45&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;47&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;80&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                                                                                                                                                                                   &lt;span class="nt"&gt;0100&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;9999&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                                                                                                                                                                                     &lt;span class="nt"&gt;001&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;999&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                                                                                                                                  &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;Z&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt;   &lt;span class="nt"&gt;structural&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;      &lt;span class="nt"&gt;FALSE&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;      &lt;span class="nt"&gt;FALSE&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;      &lt;span class="nt"&gt;FALSE&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;      &lt;span class="nt"&gt;FALSE&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;      &lt;span class="nt"&gt;FALSE&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;      &lt;span class="nt"&gt;FALSE&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -292,300 +1035,7 @@ layout_gepa &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt
 
 &lt;p&gt;Save:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout_gepa&lt;span class="p"&gt;,&lt;/span&gt; file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/gepa_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="boring"></category><category term="errata"></category></entry><entry><title>Getting NJ assessment data into R: part 3 in a series.</title><link href="http://almart.in/reading-nj-assess-data-3.html" rel="alternate"></link><updated>2015-04-16T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-16:reading-nj-assess-data-3.html</id><summary type="html">&lt;p&gt;In my &lt;a href="" title="/reading-nj-assess-data-2.html"&gt;last post&lt;/a&gt;, I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA), and to the old Grade Eight Proficiency Assessment (GEPA).  With functions that can access each of those data sources, we'll be ready to write a general wrapper that simplifies access to relevant state assessment data.&lt;/p&gt;
-&lt;h1&gt;HSPA&lt;/h1&gt;
-&lt;p&gt;Much like the NJASK data in posts &lt;a href="" title="/reading-nj-assess-data-1.html"&gt;1&lt;/a&gt; and &lt;a href="" title="/reading-nj-assess-data-2.html"&gt;2&lt;/a&gt;, we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some postprocessing.  I wrote up how to process the HSPA metadata &lt;a href="" title="/hspa-layout.html"&gt;here&lt;/a&gt;, if data processing is your thing.&lt;/p&gt;
-&lt;p&gt;Load in those processed files:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;Hmisc&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/hspa_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/hspa2010_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout_hspa&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;##&lt;/span&gt;   &lt;span class="nt"&gt;field_start_position&lt;/span&gt; &lt;span class="nt"&gt;field_end_position&lt;/span&gt; &lt;span class="nt"&gt;field_length&lt;/span&gt; &lt;span class="nt"&gt;data_type&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                    &lt;span class="nt"&gt;1&lt;/span&gt;                  &lt;span class="nt"&gt;9&lt;/span&gt;            &lt;span class="nt"&gt;9&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;                    &lt;span class="nt"&gt;1&lt;/span&gt;                  &lt;span class="nt"&gt;9&lt;/span&gt;            &lt;span class="nt"&gt;9&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                    &lt;span class="nt"&gt;1&lt;/span&gt;                  &lt;span class="nt"&gt;2&lt;/span&gt;            &lt;span class="nt"&gt;2&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                    &lt;span class="nt"&gt;3&lt;/span&gt;                  &lt;span class="nt"&gt;6&lt;/span&gt;            &lt;span class="nt"&gt;4&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                    &lt;span class="nt"&gt;7&lt;/span&gt;                  &lt;span class="nt"&gt;9&lt;/span&gt;            &lt;span class="nt"&gt;3&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                   &lt;span class="nt"&gt;10&lt;/span&gt;                 &lt;span class="nt"&gt;59&lt;/span&gt;           &lt;span class="nt"&gt;50&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt;     &lt;span class="nt"&gt;description&lt;/span&gt;                                              &lt;span class="nt"&gt;comments&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;    &lt;span class="nt"&gt;RECORD&lt;/span&gt; &lt;span class="nt"&gt;KEY&lt;/span&gt;                                                      
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;      &lt;span class="nt"&gt;CDS&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;                                                      
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;   &lt;span class="nt"&gt;County&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;                                                      
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt; &lt;span class="nt"&gt;District&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt; &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;   &lt;span class="nt"&gt;School&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;              &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;   &lt;span class="nt"&gt;County&lt;/span&gt; &lt;span class="nt"&gt;Name&lt;/span&gt;                                                      
-&lt;span class="err"&gt;##&lt;/span&gt;                                                                                                                                                                                            &lt;span class="nt"&gt;valid_values&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                                                                                                                                                                                                      
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt; &lt;span class="nt"&gt;CDS&lt;/span&gt; &lt;span class="nt"&gt;codes&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;schools&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;districts&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="nt"&gt;nTHE&lt;/span&gt; &lt;span class="nt"&gt;FIRST&lt;/span&gt; &lt;span class="nt"&gt;TWO&lt;/span&gt; &lt;span class="nt"&gt;POSITIONS&lt;/span&gt; &lt;span class="nt"&gt;WILL&lt;/span&gt; &lt;span class="nt"&gt;INCLUDE&lt;/span&gt; &lt;span class="nt"&gt;THE&lt;/span&gt; &lt;span class="nt"&gt;FOLLOWING&lt;/span&gt; &lt;span class="nt"&gt;AGGREGATION&lt;/span&gt; &lt;span class="nt"&gt;CODES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;NS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Non-Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;SN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;ST&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;State&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="err"&gt;…&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                                                                                                    &lt;span class="nt"&gt;01&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;03&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;05&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;07&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;09&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;11&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;13&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;15&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;17&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;19&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;21&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;23&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;25&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;27&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;29&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;31&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;33&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;35&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;37&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;39&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;41&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;43&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;45&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;47&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;80&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                                                                                                                                                                                   &lt;span class="nt"&gt;0100&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;9999&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                                                                                                                                                                                     &lt;span class="nt"&gt;001&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;999&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                                                                                                                                  &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;Z&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt;   &lt;span class="nt"&gt;spanner1&lt;/span&gt; &lt;span class="nt"&gt;spanner2&lt;/span&gt;    &lt;span class="nt"&gt;final_name&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                      &lt;span class="nt"&gt;RECORD_KEY&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;                        &lt;span class="nt"&gt;CDS_Code&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                     &lt;span class="nt"&gt;County_Code&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                   &lt;span class="nt"&gt;District_Code&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                     &lt;span class="nt"&gt;School_Code&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                     &lt;span class="nt"&gt;County_Name&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Use the layout file to process an example HSPA data file:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;hspa_url &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;http://www.state.nj.us/education/schools/achievement/14/hspa/state_summary.txt&amp;#39;&lt;/span&gt;
-
-hspa_ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;read_fwf&lt;span class="p"&gt;(&lt;/span&gt;
-  file &lt;span class="o"&gt;=&lt;/span&gt; hspa_url&lt;span class="p"&gt;,&lt;/span&gt;
-  col_positions &lt;span class="o"&gt;=&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;fwf_positions&lt;span class="p"&gt;(&lt;/span&gt;
-    start &lt;span class="o"&gt;=&lt;/span&gt; layout_hspa&lt;span class="o"&gt;$&lt;/span&gt;field_start_position&lt;span class="p"&gt;,&lt;/span&gt;
-    end &lt;span class="o"&gt;=&lt;/span&gt; layout_hspa&lt;span class="o"&gt;$&lt;/span&gt;field_end_position&lt;span class="p"&gt;,&lt;/span&gt;
-    col_names &lt;span class="o"&gt;=&lt;/span&gt; layout_hspa&lt;span class="o"&gt;$&lt;/span&gt;final_name
-  &lt;span class="p"&gt;),&lt;/span&gt;
-  na &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;*&amp;quot;&lt;/span&gt;
-&lt;span class="p"&gt;)&lt;/span&gt;
-
-hspa_ex &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nb"&gt;Error&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;eval&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;expr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;envir&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;enclos&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;could&lt;/span&gt; &lt;span class="nx"&gt;not&lt;/span&gt; &lt;span class="nx"&gt;find&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;%&amp;gt;%&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;That gets us to a similar state as we were in for the NJASK data - we have all the columns identified, but there's a need for post-processing, especially for the percentage columns, which have 'One implied decimal.'&lt;/p&gt;
-&lt;p&gt;We can take the formula we wrote to process NJASK data frames and generalize it, so that it can handle both NJASK and HSPA data.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;process_nj_assess &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="kn"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;Hmisc&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="c1"&gt;#build a mask&lt;/span&gt;
-  mask &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; layout&lt;span class="o"&gt;$&lt;/span&gt;comments &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;One implied decimal&amp;#39;&lt;/span&gt;
-
-  &lt;span class="c1"&gt;#keep the names to put back in the same order&lt;/span&gt;
-  all_names &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;names&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;)&lt;/span&gt;
-
-  &lt;span class="c1"&gt;#make sure df is data frame (not dplyr data frame) so that normal subsetting&lt;/span&gt;
-  df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;)&lt;/span&gt;
-
-  &lt;span class="c1"&gt;#get name of last column and kill \n characters&lt;/span&gt;
-  last_col &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;names&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="kp"&gt;ncol&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;)]&lt;/span&gt;
-  df&lt;span class="p"&gt;[,&lt;/span&gt; last_col&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;\n&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; df&lt;span class="p"&gt;[,&lt;/span&gt; last_col&lt;span class="p"&gt;],&lt;/span&gt; fixed &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="c1"&gt;#   #sigh, edge case in old HSPA data file where \n randomly exists in one middle column&lt;/span&gt;
-&lt;span class="c1"&gt;#   if (&amp;#39;SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean&amp;#39; %in% names(df)) {&lt;/span&gt;
-&lt;span class="c1"&gt;#     df$SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean &amp;lt;- gsub(&lt;/span&gt;
-&lt;span class="c1"&gt;#       &amp;#39;\n&amp;#39;, &amp;#39;&amp;#39;, df$SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean, fixed = TRUE&lt;/span&gt;
-&lt;span class="c1"&gt;#     )  &lt;/span&gt;
-&lt;span class="c1"&gt;#   }&lt;/span&gt;
-
-  &lt;span class="c1"&gt;#put some columns aside&lt;/span&gt;
-  ignore &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; df&lt;span class="p"&gt;[,&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;mask&lt;span class="p"&gt;]&lt;/span&gt;
-
-  implied_decimal_fix &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;x&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;#strip out anything that&amp;#39;s not a number.&lt;/span&gt;
-    x &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;as.numeric&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;[^\\d]+&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; x&lt;span class="p"&gt;,&lt;/span&gt; perl&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-    x &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;
-  &lt;span class="p"&gt;}&lt;/span&gt;
-
-  &lt;span class="c1"&gt;#process the columns that have an implied decimal&lt;/span&gt;
-  processed &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; df&lt;span class="p"&gt;[,&lt;/span&gt; mask&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt;
-    dplyr&lt;span class="o"&gt;::&lt;/span&gt;mutate_each&lt;span class="p"&gt;(&lt;/span&gt;
-      dplyr&lt;span class="o"&gt;::&lt;/span&gt;funs&lt;span class="p"&gt;(&lt;/span&gt;implied_decimal_fix&lt;span class="p"&gt;)&lt;/span&gt;  
-    &lt;span class="p"&gt;)&lt;/span&gt;
-
-  &lt;span class="c1"&gt;#put back together &lt;/span&gt;
-  final &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;cbind&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;ignore&lt;span class="p"&gt;,&lt;/span&gt; processed&lt;span class="p"&gt;)&lt;/span&gt;
-
-  &lt;span class="c1"&gt;#reorder and return&lt;/span&gt;
-  final &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt;
-    select&lt;span class="p"&gt;(&lt;/span&gt;
-      one_of&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;names&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;))&lt;/span&gt;
-    &lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-process_nj_assess&lt;span class="p"&gt;(&lt;/span&gt;hspa_ex&lt;span class="p"&gt;,&lt;/span&gt; layout_hspa&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nb"&gt;Error&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;eval&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;expr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;envir&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;enclos&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;could&lt;/span&gt; &lt;span class="nx"&gt;not&lt;/span&gt; &lt;span class="nx"&gt;find&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;%&amp;gt;%&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Yep, that totally works.  Following from the NJASK example, we'll write a function to simplify fetching the HSPA data, and a final wrapper around the fetch/process steps.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;get_raw_hspa &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="o"&gt;=&lt;/span&gt;layout_hspa&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="kn"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;readr&lt;span class="p"&gt;)&lt;/span&gt;
-
-  &lt;span class="c1"&gt;#url paths changed in 2012&lt;/span&gt;
-  years &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kt"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;2014&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;14&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2013&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;13&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2012&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2013&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2011&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2012&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2010&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2011&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2009&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2010&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
-    &lt;span class="s"&gt;&amp;quot;2008&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2009&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2007&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2008&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2006&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2007&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2005&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2006&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2004&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2005&amp;quot;&lt;/span&gt;
-  &lt;span class="p"&gt;)&lt;/span&gt;
-  parsed_year &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; years&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="kp"&gt;as.character&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;)]]&lt;/span&gt;
-
-  &lt;span class="c1"&gt;#build url&lt;/span&gt;
-  target_url &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;paste0&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;http://www.state.nj.us/education/schools/achievement/&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; parsed_year&lt;span class="p"&gt;,&lt;/span&gt; 
-    &lt;span class="s"&gt;&amp;quot;/hspa/state_summary.txt&amp;quot;&lt;/span&gt;
-  &lt;span class="p"&gt;)&lt;/span&gt;
-
-  &lt;span class="c1"&gt;#read_fwf&lt;/span&gt;
-  df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;read_fwf&lt;span class="p"&gt;(&lt;/span&gt;
-    file &lt;span class="o"&gt;=&lt;/span&gt; target_url&lt;span class="p"&gt;,&lt;/span&gt;
-    col_positions &lt;span class="o"&gt;=&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;fwf_positions&lt;span class="p"&gt;(&lt;/span&gt;
-      start &lt;span class="o"&gt;=&lt;/span&gt; layout&lt;span class="o"&gt;$&lt;/span&gt;field_start_position&lt;span class="p"&gt;,&lt;/span&gt;
-      end &lt;span class="o"&gt;=&lt;/span&gt; layout&lt;span class="o"&gt;$&lt;/span&gt;field_end_position&lt;span class="p"&gt;,&lt;/span&gt;
-      col_names &lt;span class="o"&gt;=&lt;/span&gt; layout&lt;span class="o"&gt;$&lt;/span&gt;final_name
-    &lt;span class="p"&gt;),&lt;/span&gt;
-    na &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;*&amp;quot;&lt;/span&gt;
-  &lt;span class="p"&gt;)&lt;/span&gt;
-
-  &lt;span class="c1"&gt;#return df&lt;/span&gt;
-  &lt;span class="kr"&gt;return&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-&lt;span class="c1"&gt;#final wrapper&lt;/span&gt;
-fetch_hspa &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;year &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="m"&gt;2011&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    hspa_df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_hspa&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; process_nj_assess&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="o"&gt;=&lt;/span&gt;layout_hspa&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;year &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="m"&gt;2004&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    hspa_df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_hspa&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="o"&gt;=&lt;/span&gt;layout_hspa2010&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; process_nj_assess&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="o"&gt;=&lt;/span&gt;layout_hspa2010&lt;span class="p"&gt;)&lt;/span&gt; 
-  &lt;span class="p"&gt;}&lt;/span&gt;
-
-  &lt;span class="kr"&gt;return&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;hspa_df&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-fetch_hspa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2010&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nb"&gt;Error&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;eval&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;expr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;envir&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;enclos&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;could&lt;/span&gt; &lt;span class="nx"&gt;not&lt;/span&gt; &lt;span class="nx"&gt;find&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;%&amp;gt;%&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Nice!  NJASK and HSPA down, GEPA data to go.&lt;/p&gt;
-&lt;h1&gt;GEPA&lt;/h1&gt;
-&lt;p&gt;Load in the processed GEPA layout file:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/gepa_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout_gepa&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;##&lt;/span&gt;   &lt;span class="nt"&gt;field_start_position&lt;/span&gt; &lt;span class="nt"&gt;field_end_position&lt;/span&gt; &lt;span class="nt"&gt;field_length&lt;/span&gt; &lt;span class="nt"&gt;data_type&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                    &lt;span class="nt"&gt;1&lt;/span&gt;                  &lt;span class="nt"&gt;9&lt;/span&gt;            &lt;span class="nt"&gt;9&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;                    &lt;span class="nt"&gt;1&lt;/span&gt;                  &lt;span class="nt"&gt;2&lt;/span&gt;            &lt;span class="nt"&gt;2&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                    &lt;span class="nt"&gt;3&lt;/span&gt;                  &lt;span class="nt"&gt;6&lt;/span&gt;            &lt;span class="nt"&gt;4&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                    &lt;span class="nt"&gt;7&lt;/span&gt;                  &lt;span class="nt"&gt;9&lt;/span&gt;            &lt;span class="nt"&gt;3&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                   &lt;span class="nt"&gt;10&lt;/span&gt;                 &lt;span class="nt"&gt;59&lt;/span&gt;           &lt;span class="nt"&gt;50&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                   &lt;span class="nt"&gt;60&lt;/span&gt;                &lt;span class="nt"&gt;109&lt;/span&gt;           &lt;span class="nt"&gt;50&lt;/span&gt;      &lt;span class="nt"&gt;Text&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt;     &lt;span class="nt"&gt;description&lt;/span&gt; &lt;span class="nt"&gt;comments&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;      &lt;span class="nt"&gt;CDS&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;         
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;   &lt;span class="nt"&gt;County&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;         
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt; &lt;span class="nt"&gt;District&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;         
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;   &lt;span class="nt"&gt;School&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;         
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;   &lt;span class="nt"&gt;County&lt;/span&gt; &lt;span class="nt"&gt;Name&lt;/span&gt;         
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt; &lt;span class="nt"&gt;District&lt;/span&gt; &lt;span class="nt"&gt;Name&lt;/span&gt;         
-&lt;span class="err"&gt;##&lt;/span&gt;                                                                                                                                                                                            &lt;span class="nt"&gt;valid_values&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt; &lt;span class="nt"&gt;CDS&lt;/span&gt; &lt;span class="nt"&gt;codes&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;schools&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;districts&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="nt"&gt;nTHE&lt;/span&gt; &lt;span class="nt"&gt;FIRST&lt;/span&gt; &lt;span class="nt"&gt;TWO&lt;/span&gt; &lt;span class="nt"&gt;POSITIONS&lt;/span&gt; &lt;span class="nt"&gt;WILL&lt;/span&gt; &lt;span class="nt"&gt;INCLUDE&lt;/span&gt; &lt;span class="nt"&gt;THE&lt;/span&gt; &lt;span class="nt"&gt;FOLLOWING&lt;/span&gt; &lt;span class="nt"&gt;AGGREGATION&lt;/span&gt; &lt;span class="nt"&gt;CODES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;NS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Non-Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;SN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;ST&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;State&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="err"&gt;…&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;                                                                     &lt;span class="nt"&gt;01&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;03&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;05&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;07&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;09&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;11&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;13&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;15&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;17&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;19&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;21&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;23&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;25&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;27&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;29&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;31&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;33&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;35&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;37&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;39&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;41&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;80&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;ST&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;DE&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;FG&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;GH&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;I&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;J&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;R&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;NS&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;SN&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                                                                                                                                   &lt;span class="nt"&gt;0100&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;9999&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                                                                                                                                                  &lt;span class="nt"&gt;001&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;999&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                                                                                                                                  &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;Z&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                                                                                                                                  &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;Z&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt;   &lt;span class="nt"&gt;spanner1&lt;/span&gt; &lt;span class="nt"&gt;spanner2&lt;/span&gt;    &lt;span class="nt"&gt;final_name&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                        &lt;span class="nt"&gt;CDS_Code&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;                     &lt;span class="nt"&gt;County_Code&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                   &lt;span class="nt"&gt;District_Code&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                     &lt;span class="nt"&gt;School_Code&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                     &lt;span class="nt"&gt;County_Name&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                   &lt;span class="nt"&gt;District_Name&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;A function to get GEPA data:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;get_raw_gepa &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="o"&gt;=&lt;/span&gt;layout_gepa&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="kn"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;readr&lt;span class="p"&gt;)&lt;/span&gt;
-
-  &lt;span class="c1"&gt;#url paths changed in 2012&lt;/span&gt;
-  years &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kt"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;2014&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;14&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2013&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;13&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2012&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2013&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2011&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2012&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2010&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2011&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2009&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2010&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
-    &lt;span class="s"&gt;&amp;quot;2008&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2009&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2007&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2008&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2006&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2007&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2005&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2006&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2004&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2005&amp;quot;&lt;/span&gt;
-  &lt;span class="p"&gt;)&lt;/span&gt;
-  parsed_year &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; years&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="kp"&gt;as.character&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;)]]&lt;/span&gt;
-
-  &lt;span class="c1"&gt;#build url&lt;/span&gt;
-  target_url &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;paste0&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;http://www.state.nj.us/education/schools/achievement/&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; parsed_year&lt;span class="p"&gt;,&lt;/span&gt; 
-    &lt;span class="s"&gt;&amp;quot;/gepa/state_summary.txt&amp;quot;&lt;/span&gt;
-  &lt;span class="p"&gt;)&lt;/span&gt;
-
-  &lt;span class="c1"&gt;#read_fwf&lt;/span&gt;
-  df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;read_fwf&lt;span class="p"&gt;(&lt;/span&gt;
-    file &lt;span class="o"&gt;=&lt;/span&gt; target_url&lt;span class="p"&gt;,&lt;/span&gt;
-    col_positions &lt;span class="o"&gt;=&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;fwf_positions&lt;span class="p"&gt;(&lt;/span&gt;
-      start &lt;span class="o"&gt;=&lt;/span&gt; layout&lt;span class="o"&gt;$&lt;/span&gt;field_start_position&lt;span class="p"&gt;,&lt;/span&gt;
-      end &lt;span class="o"&gt;=&lt;/span&gt; layout&lt;span class="o"&gt;$&lt;/span&gt;field_end_position&lt;span class="p"&gt;,&lt;/span&gt;
-      col_names &lt;span class="o"&gt;=&lt;/span&gt; layout&lt;span class="o"&gt;$&lt;/span&gt;final_name
-    &lt;span class="p"&gt;),&lt;/span&gt;
-    na &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;*&amp;quot;&lt;/span&gt;
-  &lt;span class="p"&gt;)&lt;/span&gt;
-
-  &lt;span class="c1"&gt;#return df&lt;/span&gt;
-  &lt;span class="kr"&gt;return&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-gepa_ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_gepa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2007&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Loading required package: readr
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: package &amp;#39;readr&amp;#39; was built under R version 3.1.3
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;gepa_ex &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nb"&gt;Error&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;eval&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;expr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;envir&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;enclos&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;could&lt;/span&gt; &lt;span class="nx"&gt;not&lt;/span&gt; &lt;span class="nx"&gt;find&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;%&amp;gt;%&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Can we process the GEPA df using our existing function?&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;process_nj_assess&lt;span class="p"&gt;(&lt;/span&gt;gepa_ex&lt;span class="p"&gt;,&lt;/span&gt; layout_gepa&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nb"&gt;Error&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;eval&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;expr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;envir&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;enclos&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;could&lt;/span&gt; &lt;span class="nx"&gt;not&lt;/span&gt; &lt;span class="nx"&gt;find&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;%&amp;gt;%&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Yes, totally.&lt;br /&gt;
-Final step: write all of that into a final wrapper function:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;#final wrapper&lt;/span&gt;
-fetch_gepa &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  get_raw_gepa&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; process_nj_assess&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="o"&gt;=&lt;/span&gt;layout_gepa&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-fetch_gepa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2007&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nb"&gt;Error&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;eval&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;expr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;envir&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;enclos&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;could&lt;/span&gt; &lt;span class="nx"&gt;not&lt;/span&gt; &lt;span class="nx"&gt;find&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;%&amp;gt;%&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;In the next post in this series, we'll take these individual NJASK, HSPA, and GEPA functions and write a wrapper to rule them all, allowing data to be easily fetched for any year/grade.&lt;/p&gt;</summary><category term="NJ"></category><category term="assessment"></category><category term="NJASK"></category><category term="HSPA"></category><category term="data_management"></category><category term="tutorial"></category></entry><entry><title>Getting NJ assessment data into R: part 2 in a series</title><link href="http://almart.in/reading-nj-assess-data-2.html" rel="alternate"></link><updated>2015-04-15T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-15:reading-nj-assess-data-2.html</id><summary type="html">&lt;p&gt;In my &lt;a href="" title="/reading-nj-assess-1.html"&gt;last post&lt;/a&gt;, I showed how to read a fixed width file into R.  In this post, I'll refactor that code into a function that takes year/grade as a parameter.&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="boring"></category><category term="errata"></category></entry><entry><title>Getting NJ assessment data into R: part 2 in a series</title><link href="http://almart.in/reading-nj-assess-data-2.html" rel="alternate"></link><updated>2015-04-15T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-15:reading-nj-assess-data-2.html</id><summary type="html">&lt;p&gt;In my &lt;a href="" title="/reading-nj-assess-1.html"&gt;last post&lt;/a&gt;, I showed how to read a fixed width file into R.  In this post, I'll refactor that code into a function that takes year/grade as a parameter.&lt;/p&gt;
 &lt;p&gt;First, read in the layout data frame.  This contains the column headers for NJASK fixed with files.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/njask_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 

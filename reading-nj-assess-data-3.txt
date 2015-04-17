@@ -23,7 +23,7 @@ opts_chunk$set(pelican.publish=ready_to_ship)
 
 ```
 
-In my [last post]('/reading-nj-assess-data-2.html'), I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA), and to the old Grade Eight Proficiency Assessment (GEPA).  With functions that can access each of those data sources, we'll be ready to write a general wrapper that simplifies access to relevant state assessment data.
+In my [last post]('/reading-nj-assess-data-2.html'), I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA), and to the old Grade Eight Proficiency Assessment (GEPA).  With functions that can access each of those data sources, we'll be ready to write a general wrapper that simplifies access to relevant state assessment data.<!-- PELICAN_END_SUMMARY -->
 
 # HSPA
 

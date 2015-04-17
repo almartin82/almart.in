@@ -156,7 +156,76 @@ hspa_ex <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span
 </pre></div>
 
 
-<div class="highlight"><pre><span class="err">##</span> <span class="nb">Error</span> <span class="k">in</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">envir</span><span class="p">,</span> <span class="nx">enclos</span><span class="p">)</span><span class="o">:</span> <span class="nx">could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="kd">function</span> <span class="s2">&quot;%&gt;%&quot;</span>
+<div class="highlight"><pre>##   CDS_Code County_Code District_Code School_Code County_Name
+## 1       ST          ST            NA          NA            
+## 2       SN          SN            NA          NA            
+## 3   250100          25           100          NA    MONMOUTH
+## 4   010110          01           110          NA    ATLANTIC
+## 5   110540          11           540          NA  CUMBERLAND
+## 6   010590          01           590          NA    ATLANTIC
+##    District_Name School_Name DFG Special_Needs
+## 1                                             
+## 2                                             
+## 3    ASBURY PARK               A             Y
+## 4  ATLANTIC CITY               A              
+## 5      BRIDGETON               A             Y
+## 6 BUENA REGIONAL               A              
+##   TOTAL_POPULATION_Number_Enrolled_LAL
+## 1                                98240
+## 2                                14584
+## 3                                   73
+## 4                                  377
+## 5                                  268
+## 6                                  173
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                               507
+## 2                                               165
+## 3                                                 1
+## 4                                                 7
+## 5                                                 6
+## 6                                                 0
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
+## 1                                            148
+## 2                                             28
+## 3                                              1
+## 4                                              0
+## 5                                              0
+## 6                                              1
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                       97091
+## 2                                                       14315
+## 3                                                          71
+## 4                                                         370
+## 5                                                         262
+## 6                                                         172
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                             67
+## 2                                                            190
+## 3                                                            366
+## 4                                                            176
+## 5                                                            149
+## 6                                                             41
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                  604
+## 2                                                  708
+## 3                                                  634
+## 4                                                  630
+## 5                                                  802
+## 6                                                  802
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                           328
+## 2                                                           103
+## 3                                                             0
+## 4                                                           195
+## 5                                                            50
+## 6                                                           157
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                            2368
+## 2                                            2201
+## 3                                            2039
+## 4                                            2254
+## 5                                            2207
+## 6                                            2320
 </pre></div>
 
 
@@ -213,7 +282,76 @@ process_nj_assess<span class="p">(</span>hspa_ex<span class="p">,</span> layout_
 </pre></div>
 
 
-<div class="highlight"><pre><span class="err">##</span> <span class="nb">Error</span> <span class="k">in</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">envir</span><span class="p">,</span> <span class="nx">enclos</span><span class="p">)</span><span class="o">:</span> <span class="nx">could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="kd">function</span> <span class="s2">&quot;%&gt;%&quot;</span>
+<div class="highlight"><pre>##   CDS_Code County_Code District_Code School_Code County_Name
+## 1       ST          ST            NA          NA            
+## 2       SN          SN            NA          NA            
+## 3   250100          25           100          NA    MONMOUTH
+## 4   010110          01           110          NA    ATLANTIC
+## 5   110540          11           540          NA  CUMBERLAND
+## 6   010590          01           590          NA    ATLANTIC
+##    District_Name School_Name DFG Special_Needs
+## 1                                             
+## 2                                             
+## 3    ASBURY PARK               A             Y
+## 4  ATLANTIC CITY               A              
+## 5      BRIDGETON               A             Y
+## 6 BUENA REGIONAL               A              
+##   TOTAL_POPULATION_Number_Enrolled_LAL
+## 1                                98240
+## 2                                14584
+## 3                                   73
+## 4                                  377
+## 5                                  268
+## 6                                  173
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                               507
+## 2                                               165
+## 3                                                 1
+## 4                                                 7
+## 5                                                 6
+## 6                                                 0
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
+## 1                                            148
+## 2                                             28
+## 3                                              1
+## 4                                              0
+## 5                                              0
+## 6                                              1
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                       97091
+## 2                                                       14315
+## 3                                                          71
+## 4                                                         370
+## 5                                                         262
+## 6                                                         172
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                            6.7
+## 2                                                           19.0
+## 3                                                           36.6
+## 4                                                           17.6
+## 5                                                           14.9
+## 6                                                            4.1
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                 60.4
+## 2                                                 70.8
+## 3                                                 63.4
+## 4                                                 63.0
+## 5                                                 80.2
+## 6                                                 80.2
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                          32.8
+## 2                                                          10.3
+## 3                                                           0.0
+## 4                                                          19.5
+## 5                                                           5.0
+## 6                                                          15.7
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                           236.8
+## 2                                           220.1
+## 3                                           203.9
+## 4                                           225.4
+## 5                                           220.7
+## 6                                           232.0
 </pre></div>
 
 
@@ -265,7 +403,84 @@ fetch_hspa<span class="p">(</span><span class="m">2010</span><span class="p">)</
 </pre></div>
 
 
-<div class="highlight"><pre><span class="err">##</span> <span class="nb">Error</span> <span class="k">in</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">envir</span><span class="p">,</span> <span class="nx">enclos</span><span class="p">)</span><span class="o">:</span> <span class="nx">could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="kd">function</span> <span class="s2">&quot;%&gt;%&quot;</span>
+<div class="highlight"><pre>## Loading required package: readr
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: package &#39;readr&#39; was built under R version 3.1.3
+</pre></div>
+
+
+<div class="highlight"><pre>##    CDS_Code County_Code District_Code School_Code County_Name
+## 1        ST          ST            NA          NA            
+## 2        NS          NS            NA          NA            
+## 3        SN          SN            NA          NA            
+## 4         A           A            NA          NA            
+## 5    250100          25           100          NA    MONMOUTH
+## 6 250100010          25           100          10    MONMOUTH
+##   District_Name      School_Name DFG Special_Needs
+## 1                                                 
+## 2                                                 
+## 3                                                 
+## 4                                                 
+## 5   ASBURY PARK                    A             Y
+## 6   ASBURY PARK ASBURY PARK H.S.   A             Y
+##   TOTAL_POPULATION_Number_Enrolled_LAL
+## 1                                99548
+## 2                                85256
+## 3                                14292
+## 4                                11673
+## 5                                  107
+## 6                                  107
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                               551
+## 2                                               356
+## 3                                               195
+## 4                                               179
+## 5                                                 1
+## 6                                                 1
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
+## 1                                            199
+## 2                                            126
+## 3                                             73
+## 4                                             64
+## 5                                              0
+## 6                                              0
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                       98257
+## 2                                                       84337
+## 3                                                       13920
+## 4                                                       11347
+## 5                                                         103
+## 6                                                         103
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                           12.9
+## 2                                                            9.2
+## 3                                                           35.1
+## 4                                                           37.4
+## 5                                                           52.4
+## 6                                                           52.4
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                 68.7
+## 2                                                 70.0
+## 3                                                 60.6
+## 4                                                 58.9
+## 5                                                 47.6
+## 6                                                 47.6
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                          18.4
+## 2                                                          20.8
+## 3                                                           4.3
+## 4                                                           3.7
+## 5                                                           0.0
+## 6                                                           0.0
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                           227.3
+## 2                                           230.9
+## 3                                           205.3
+## 4                                           203.5
+## 5                                           186.7
+## 6                                           186.7
 </pre></div>
 
 
@@ -343,22 +558,88 @@ fetch_hspa<span class="p">(</span><span class="m">2010</span><span class="p">)</
 <span class="p">}</span>
 
 gepa_ex <span class="o">&lt;-</span> get_raw_gepa<span class="p">(</span><span class="m">2007</span><span class="p">)</span>
+
+gepa_ex <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
 </pre></div>
 
 
-<div class="highlight"><pre>## Loading required package: readr
-</pre></div>
-
-
-<div class="highlight"><pre>## Warning: package &#39;readr&#39; was built under R version 3.1.3
-</pre></div>
-
-
-<div class="highlight"><pre>gepa_ex <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
-</pre></div>
-
-
-<div class="highlight"><pre><span class="err">##</span> <span class="nb">Error</span> <span class="k">in</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">envir</span><span class="p">,</span> <span class="nx">enclos</span><span class="p">)</span><span class="o">:</span> <span class="nx">could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="kd">function</span> <span class="s2">&quot;%&gt;%&quot;</span>
+<div class="highlight"><pre>##    CDS_Code County_Code District_Code School_Code County_Name
+## 1        ST          ST            NA          NA            
+## 2        NS          NS            NA          NA            
+## 3        SN          SN            NA          NA            
+## 4         A           A            NA          NA            
+## 5 250100000          25           100           0    MONMOUTH
+## 6 250100070          25           100          70    MONMOUTH
+##   District_Name      School_Name DFG_Flag
+## 1                                        
+## 2                                        
+## 3                                        
+## 4                                        
+## 5   ASBURY PARK                         A
+## 6   ASBURY PARK ASBURY PARK M.S.        A
+##   Special_Needs_(Abbott)_district_flag TOTAL_POPULATION_Number_Enrolled
+## 1                                                                108474
+## 2                                                                 87774
+## 3                                                                 20700
+## 4                                                                 17401
+## 5                                    Y                               NA
+## 6                                    Y                               NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                               667
+## 2                                               371
+## 3                                               296
+## 4                                               264
+## 5                                                NA
+## 6                                                NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
+## 1                                           1262
+## 2                                            668
+## 3                                            594
+## 4                                            509
+## 5                                             NA
+## 6                                             NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_APA
+## 1                                          680
+## 2                                          545
+## 3                                          135
+## 4                                          102
+## 5                                           NA
+## 6                                           NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                      105865
+## 2                                                       86190
+## 3                                                       19675
+## 4                                                       16526
+## 5                                                          NA
+## 6                                                          NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                            264
+## 2                                                            205
+## 3                                                            522
+## 4                                                            531
+## 5                                                            715
+## 6                                                            715
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                  624
+## 2                                                  663
+## 3                                                  450
+## 4                                                  442
+## 5                                                  278
+## 6                                                  278
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                           113
+## 2                                                           132
+## 3                                                            28
+## 4                                                            27
+## 5                                                             7
+## 6                                                             7
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                            2149
+## 2                                            2193
+## 3                                            1953
+## 4                                            1946
+## 5                                            1842
+## 6                                            1842
 </pre></div>
 
 
@@ -367,7 +648,83 @@ gepa_ex <span class="o">&lt;-</span> get_raw_gepa<span class="p">(</span><span c
 </pre></div>
 
 
-<div class="highlight"><pre><span class="err">##</span> <span class="nb">Error</span> <span class="k">in</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">envir</span><span class="p">,</span> <span class="nx">enclos</span><span class="p">)</span><span class="o">:</span> <span class="nx">could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="kd">function</span> <span class="s2">&quot;%&gt;%&quot;</span>
+<div class="highlight"><pre>##    CDS_Code County_Code District_Code School_Code County_Name
+## 1        ST          ST            NA          NA            
+## 2        NS          NS            NA          NA            
+## 3        SN          SN            NA          NA            
+## 4         A           A            NA          NA            
+## 5 250100000          25           100           0    MONMOUTH
+## 6 250100070          25           100          70    MONMOUTH
+##   District_Name      School_Name DFG_Flag
+## 1                                        
+## 2                                        
+## 3                                        
+## 4                                        
+## 5   ASBURY PARK                         A
+## 6   ASBURY PARK ASBURY PARK M.S.        A
+##   Special_Needs_(Abbott)_district_flag TOTAL_POPULATION_Number_Enrolled
+## 1                                                                108474
+## 2                                                                 87774
+## 3                                                                 20700
+## 4                                                                 17401
+## 5                                    Y                               NA
+## 6                                    Y                               NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                               667
+## 2                                               371
+## 3                                               296
+## 4                                               264
+## 5                                                NA
+## 6                                                NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
+## 1                                           1262
+## 2                                            668
+## 3                                            594
+## 4                                            509
+## 5                                             NA
+## 6                                             NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_APA
+## 1                                          680
+## 2                                          545
+## 3                                          135
+## 4                                          102
+## 5                                           NA
+## 6                                           NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                      105865
+## 2                                                       86190
+## 3                                                       19675
+## 4                                                       16526
+## 5                                                          NA
+## 6                                                          NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                           26.4
+## 2                                                           20.5
+## 3                                                           52.2
+## 4                                                           53.1
+## 5                                                           71.5
+## 6                                                           71.5
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                 62.4
+## 2                                                 66.3
+## 3                                                 45.0
+## 4                                                 44.2
+## 5                                                 27.8
+## 6                                                 27.8
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                          11.3
+## 2                                                          13.2
+## 3                                                           2.8
+## 4                                                           2.7
+## 5                                                           0.7
+## 6                                                           0.7
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                           214.9
+## 2                                           219.3
+## 3                                           195.3
+## 4                                           194.6
+## 5                                           184.2
+## 6                                           184.2
 </pre></div>
 
 
@@ -383,7 +740,83 @@ fetch_gepa<span class="p">(</span><span class="m">2007</span><span class="p">)</
 </pre></div>
 
 
-<div class="highlight"><pre><span class="err">##</span> <span class="nb">Error</span> <span class="k">in</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">envir</span><span class="p">,</span> <span class="nx">enclos</span><span class="p">)</span><span class="o">:</span> <span class="nx">could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="kd">function</span> <span class="s2">&quot;%&gt;%&quot;</span>
+<div class="highlight"><pre>##    CDS_Code County_Code District_Code School_Code County_Name
+## 1        ST          ST            NA          NA            
+## 2        NS          NS            NA          NA            
+## 3        SN          SN            NA          NA            
+## 4         A           A            NA          NA            
+## 5 250100000          25           100           0    MONMOUTH
+## 6 250100070          25           100          70    MONMOUTH
+##   District_Name      School_Name DFG_Flag
+## 1                                        
+## 2                                        
+## 3                                        
+## 4                                        
+## 5   ASBURY PARK                         A
+## 6   ASBURY PARK ASBURY PARK M.S.        A
+##   Special_Needs_(Abbott)_district_flag TOTAL_POPULATION_Number_Enrolled
+## 1                                                                108474
+## 2                                                                 87774
+## 3                                                                 20700
+## 4                                                                 17401
+## 5                                    Y                               NA
+## 6                                    Y                               NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                               667
+## 2                                               371
+## 3                                               296
+## 4                                               264
+## 5                                                NA
+## 6                                                NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
+## 1                                           1262
+## 2                                            668
+## 3                                            594
+## 4                                            509
+## 5                                             NA
+## 6                                             NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_APA
+## 1                                          680
+## 2                                          545
+## 3                                          135
+## 4                                          102
+## 5                                           NA
+## 6                                           NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                      105865
+## 2                                                       86190
+## 3                                                       19675
+## 4                                                       16526
+## 5                                                          NA
+## 6                                                          NA
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                           26.4
+## 2                                                           20.5
+## 3                                                           52.2
+## 4                                                           53.1
+## 5                                                           71.5
+## 6                                                           71.5
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                 62.4
+## 2                                                 66.3
+## 3                                                 45.0
+## 4                                                 44.2
+## 5                                                 27.8
+## 6                                                 27.8
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                          11.3
+## 2                                                          13.2
+## 3                                                           2.8
+## 4                                                           2.7
+## 5                                                           0.7
+## 6                                                           0.7
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                           214.9
+## 2                                           219.3
+## 3                                           195.3
+## 4                                           194.6
+## 5                                           184.2
+## 6                                           184.2
 </pre></div>
 
 
