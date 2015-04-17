@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Errata: prepping the HSPA layout file — almart.in</title>
-	<meta name="description" content="Title: Errata: prepping the HSPA layout file; Date: 2015-04-16; Author: Andrew Martin">
+	<title>Errata: prepping the HSPA and GEPA layout files — almart.in</title>
+	<meta name="description" content="Title: Errata: prepping the HSPA and GEPA layout files; Date: 2015-04-16; Author: Andrew Martin">
 	<meta name="author" content="Andrew Martin">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -53,14 +53,14 @@
 		<div class="col-md-8 col-md-offset-2">
 <div class="article" itemscope itemtype="http://schema.org/BlogPosting">
 	<div class="text-center article-header">
-		<h1 itemprop="name headline" class="article-title">Errata: prepping the HSPA layout file</h1>
+		<h1 itemprop="name headline" class="article-title">Errata: prepping the HSPA and GEPA layout files</h1>
 		<span>
 			<div itemprop="author" itemscope itemtype="http://schema.org/Person">
 				<span itemprop="name">Andrew Martin</span> 
 				&nbsp;&#124;&nbsp;
 				<time datetime="2015-04-16T00:00:00-04:00" itemprop="datePublished">April 16 2015</time>
 				&nbsp;|&nbsp;
-				<span><a href="http://almart.in/hspa-layout.txt" title="Raw Markdown for Errata: prepping the HSPA layout file">raw</a></span>
+				<span><a href="http://almart.in/hspa-layout.txt" title="Raw Markdown for Errata: prepping the HSPA and GEPA layout files">raw</a></span>
 			</div>
 		</span>
 		
@@ -95,39 +95,21 @@
 <div class="highlight"><pre>hspa <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="s">&quot;datasets/hspa_layout.csv&quot;</span><span class="p">)</span>
 <span class="kp">names</span><span class="p">(</span>hspa<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>hspa<span class="p">)))</span>
 
-
 <span class="kp">head</span><span class="p">(</span>hspa<span class="p">)</span>
 </pre></div>
 
 
-<div class="highlight"><pre><span class="err">##</span>   <span class="nt">field_start_position</span> <span class="nt">field_end_position</span> <span class="nt">field_length</span> <span class="nt">data_type</span>
-<span class="err">##</span> <span class="nt">1</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
-<span class="err">##</span> <span class="nt">2</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
-<span class="err">##</span> <span class="nt">3</span>                    <span class="nt">1</span>                  <span class="nt">2</span>            <span class="nt">2</span>      <span class="nt">Text</span>
-<span class="err">##</span> <span class="nt">4</span>                    <span class="nt">3</span>                  <span class="nt">6</span>            <span class="nt">4</span>      <span class="nt">Text</span>
-<span class="err">##</span> <span class="nt">5</span>                    <span class="nt">7</span>                  <span class="nt">9</span>            <span class="nt">3</span>      <span class="nt">Text</span>
-<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">10</span>                 <span class="nt">59</span>           <span class="nt">50</span>      <span class="nt">Text</span>
-<span class="err">##</span>     <span class="nt">description</span>                                                 <span class="nt">comments</span>
-<span class="err">##</span> <span class="nt">1</span>    <span class="nt">RECORD</span> <span class="nt">KEY</span>                                                         
-<span class="err">##</span> <span class="nt">2</span>     <span class="nt">CDS</span> <span class="nt">Code</span>                                                          
-<span class="err">##</span> <span class="nt">3</span>   <span class="nt">County</span> <span class="nt">Code</span>                                                         
-<span class="err">##</span> <span class="nt">4</span> <span class="nt">District</span> <span class="nt">Code</span> <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span><span class="o">.</span>   
-<span class="err">##</span> <span class="nt">5</span>   <span class="nt">School</span> <span class="nt">Code</span>                 <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">school</span> <span class="nt">aggregations</span><span class="o">.</span>
-<span class="err">##</span> <span class="nt">6</span>   <span class="nt">County</span> <span class="nt">Name</span>                                                         
-<span class="err">##</span>                                                                                                                                                                                            <span class="nt">valid_values</span>
-<span class="err">##</span> <span class="nt">1</span>                                                                                                                                                                                                      
-<span class="err">##</span> <span class="nt">2</span> <span class="nt">CDS</span> <span class="nt">codes</span> <span class="nt">for</span> <span class="nt">schools</span> <span class="nt">and</span> <span class="nt">districts</span><span class="err">\</span><span class="nt">nTHE</span> <span class="nt">FIRST</span> <span class="nt">TWO</span> <span class="nt">POSITIONS</span> <span class="nt">WILL</span> <span class="nt">INCLUDE</span> <span class="nt">THE</span> <span class="nt">FOLLOWING</span> <span class="nt">AGGREGATION</span> <span class="nt">CODES</span><span class="o">:</span> <span class="nt">NS</span> <span class="o">=</span> <span class="nt">Non-Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">SN</span> <span class="o">=</span> <span class="nt">Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">ST</span> <span class="o">=</span> <span class="nt">State</span><span class="o">;</span> <span class="nt">A</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">A</span><span class="o">;</span> <span class="nt">B</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">B</span><span class="o">;</span> <span class="nt">CD</span><span class="o">=</span> <span class="nt">DFG</span> <span class="nt">CD</span><span class="err">…</span><span class="o">.</span>
-<span class="err">##</span> <span class="nt">3</span>                                                                                                    <span class="nt">01</span><span class="o">,</span> <span class="nt">03</span><span class="o">,</span> <span class="nt">05</span><span class="o">,</span> <span class="nt">07</span><span class="o">,</span> <span class="nt">09</span><span class="o">,</span> <span class="nt">11</span><span class="o">,</span> <span class="nt">13</span><span class="o">,</span> <span class="nt">15</span><span class="o">,</span> <span class="nt">17</span><span class="o">,</span> <span class="nt">19</span><span class="o">,</span> <span class="nt">21</span><span class="o">,</span> <span class="nt">23</span><span class="o">,</span> <span class="nt">25</span><span class="o">,</span> <span class="nt">27</span><span class="o">,</span> <span class="nt">29</span><span class="o">,</span> <span class="nt">31</span><span class="o">,</span> <span class="nt">33</span><span class="o">,</span> <span class="nt">35</span><span class="o">,</span> <span class="nt">37</span><span class="o">,</span> <span class="nt">39</span><span class="o">,</span> <span class="nt">41</span><span class="o">,</span> <span class="nt">43</span><span class="o">,</span> <span class="nt">45</span><span class="o">,</span> <span class="nt">47</span><span class="o">,</span> <span class="nt">80</span>
-<span class="err">##</span> <span class="nt">4</span>                                                                                                                                                                                   <span class="nt">0100</span> <span class="nt">to</span> <span class="nt">9999</span><span class="o">,</span> <span class="nt">blank</span>
-<span class="err">##</span> <span class="nt">5</span>                                                                                                                                                                                     <span class="nt">001</span> <span class="nt">to</span> <span class="nt">999</span><span class="o">,</span> <span class="nt">blank</span>
-<span class="err">##</span> <span class="nt">6</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
-<span class="err">##</span>   <span class="nt">structural</span>
-<span class="err">##</span> <span class="nt">1</span>      <span class="nt">FALSE</span>
-<span class="err">##</span> <span class="nt">2</span>      <span class="nt">FALSE</span>
-<span class="err">##</span> <span class="nt">3</span>      <span class="nt">FALSE</span>
-<span class="err">##</span> <span class="nt">4</span>      <span class="nt">FALSE</span>
-<span class="err">##</span> <span class="nt">5</span>      <span class="nt">FALSE</span>
-<span class="err">##</span> <span class="nt">6</span>      <span class="nt">FALSE</span>
+<div class="highlight"><pre>## Source: local data frame [6 x 8]
+## 
+##   field_start_position field_end_position field_length data_type
+## 1                    1                  9            9      Text
+## 2                    1                  9            9      Text
+## 3                    1                  2            2      Text
+## 4                    3                  6            4      Text
+## 5                    7                  9            3      Text
+## 6                   10                 59           50      Text
+## Variables not shown: description (chr), comments (chr), valid_values
+##   (chr), structural (lgl)
 </pre></div>
 
 
@@ -214,7 +196,7 @@
   <span class="kr">return</span><span class="p">(</span>layout_wide<span class="p">)</span>
 <span class="p">}</span>
 
-layout_hspa <span class="o">&lt;-</span>process_layout<span class="p">(</span>hspa<span class="p">)</span>
+layout_hspa <span class="o">&lt;-</span> process_layout<span class="p">(</span>hspa<span class="p">)</span>
 </pre></div>
 
 
@@ -259,6 +241,140 @@ layout_hspa <span class="o">&lt;-</span>process_layout<span class="p">(</span>hs
 
 <p>Finally, save the hspa layout as an .rda file.</p>
 <div class="highlight"><pre><span class="kp">save</span><span class="p">(</span>layout_hspa<span class="p">,</span> file <span class="o">=</span> <span class="s">&#39;datasets/hspa_layout.rda&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h1>old HSPA</h1>
+<p>Before 2010 the HSPA used a different layout.  Prep that layout file:</p>
+<p>Read:</p>
+<div class="highlight"><pre>hspa2010 <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="s">&quot;datasets/hspa2010_layout.csv&quot;</span><span class="p">)</span>
+<span class="kp">names</span><span class="p">(</span>hspa2010<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>hspa2010<span class="p">)))</span>
+
+<span class="kp">head</span><span class="p">(</span>hspa2010<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Source: local data frame [6 x 8]
+## 
+##   field_start_position field_end_position field_length data_type
+## 1                    1                  9            9      Text
+## 2                    1                  9            9      Text
+## 3                    1                  2            2      Text
+## 4                    3                  6            4      Text
+## 5                    7                  9            3      Text
+## 6                   10                 59           50      Text
+## Variables not shown: description (chr), comments (chr), valid_values
+##   (chr), structural (lgl)
+</pre></div>
+
+
+<p>One note here: the layout at flat file has headers for science, even though it isn't on the HSPA.  I'm omitting the last set of science headers in my layout file, because the raw files on the state website don't appear to be padded with enough blanks for the last NA slots.  </p>
+<p>Process:</p>
+<div class="highlight"><pre>layout_hspa2010 <span class="o">&lt;-</span> process_layout<span class="p">(</span>hspa2010<span class="p">)</span>
+
+layout_hspa2010 <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="err">##</span>   <span class="nt">field_start_position</span> <span class="nt">field_end_position</span> <span class="nt">field_length</span> <span class="nt">data_type</span>
+<span class="err">##</span> <span class="nt">1</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">2</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">3</span>                    <span class="nt">1</span>                  <span class="nt">2</span>            <span class="nt">2</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">4</span>                    <span class="nt">3</span>                  <span class="nt">6</span>            <span class="nt">4</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">5</span>                    <span class="nt">7</span>                  <span class="nt">9</span>            <span class="nt">3</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">10</span>                 <span class="nt">59</span>           <span class="nt">50</span>      <span class="nt">Text</span>
+<span class="err">##</span>     <span class="nt">description</span>                                              <span class="nt">comments</span>
+<span class="err">##</span> <span class="nt">1</span>    <span class="nt">RECORD</span> <span class="nt">KEY</span>                                                      
+<span class="err">##</span> <span class="nt">2</span>      <span class="nt">CDS</span> <span class="nt">Code</span>                                                      
+<span class="err">##</span> <span class="nt">3</span>   <span class="nt">County</span> <span class="nt">Code</span>                                                      
+<span class="err">##</span> <span class="nt">4</span> <span class="nt">District</span> <span class="nt">Code</span> <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">5</span>   <span class="nt">School</span> <span class="nt">Code</span>              <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">school</span> <span class="nt">aggregations</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">6</span>   <span class="nt">County</span> <span class="nt">Name</span>                                                      
+<span class="err">##</span>                                                                                                                                                                                            <span class="nt">valid_values</span>
+<span class="err">##</span> <span class="nt">1</span>                                                                                                                                                                                                      
+<span class="err">##</span> <span class="nt">2</span> <span class="nt">CDS</span> <span class="nt">codes</span> <span class="nt">for</span> <span class="nt">schools</span> <span class="nt">and</span> <span class="nt">districts</span><span class="err">\</span><span class="nt">nTHE</span> <span class="nt">FIRST</span> <span class="nt">TWO</span> <span class="nt">POSITIONS</span> <span class="nt">WILL</span> <span class="nt">INCLUDE</span> <span class="nt">THE</span> <span class="nt">FOLLOWING</span> <span class="nt">AGGREGATION</span> <span class="nt">CODES</span><span class="o">:</span> <span class="nt">NS</span> <span class="o">=</span> <span class="nt">Non-Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">SN</span> <span class="o">=</span> <span class="nt">Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">ST</span> <span class="o">=</span> <span class="nt">State</span><span class="o">;</span> <span class="nt">A</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">A</span><span class="o">;</span> <span class="nt">B</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">B</span><span class="o">;</span> <span class="nt">CD</span><span class="o">=</span> <span class="nt">DFG</span> <span class="nt">CD</span><span class="err">…</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">3</span>                                                                                                    <span class="nt">01</span><span class="o">,</span> <span class="nt">03</span><span class="o">,</span> <span class="nt">05</span><span class="o">,</span> <span class="nt">07</span><span class="o">,</span> <span class="nt">09</span><span class="o">,</span> <span class="nt">11</span><span class="o">,</span> <span class="nt">13</span><span class="o">,</span> <span class="nt">15</span><span class="o">,</span> <span class="nt">17</span><span class="o">,</span> <span class="nt">19</span><span class="o">,</span> <span class="nt">21</span><span class="o">,</span> <span class="nt">23</span><span class="o">,</span> <span class="nt">25</span><span class="o">,</span> <span class="nt">27</span><span class="o">,</span> <span class="nt">29</span><span class="o">,</span> <span class="nt">31</span><span class="o">,</span> <span class="nt">33</span><span class="o">,</span> <span class="nt">35</span><span class="o">,</span> <span class="nt">37</span><span class="o">,</span> <span class="nt">39</span><span class="o">,</span> <span class="nt">41</span><span class="o">,</span> <span class="nt">43</span><span class="o">,</span> <span class="nt">45</span><span class="o">,</span> <span class="nt">47</span><span class="o">,</span> <span class="nt">80</span>
+<span class="err">##</span> <span class="nt">4</span>                                                                                                                                                                                   <span class="nt">0100</span> <span class="nt">to</span> <span class="nt">9999</span><span class="o">,</span> <span class="nt">blank</span>
+<span class="err">##</span> <span class="nt">5</span>                                                                                                                                                                                     <span class="nt">001</span> <span class="nt">to</span> <span class="nt">999</span><span class="o">,</span> <span class="nt">blank</span>
+<span class="err">##</span> <span class="nt">6</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span>   <span class="nt">spanner1</span> <span class="nt">spanner2</span>    <span class="nt">final_name</span>
+<span class="err">##</span> <span class="nt">1</span>                      <span class="nt">RECORD_KEY</span>
+<span class="err">##</span> <span class="nt">2</span>                        <span class="nt">CDS_Code</span>
+<span class="err">##</span> <span class="nt">3</span>                     <span class="nt">County_Code</span>
+<span class="err">##</span> <span class="nt">4</span>                   <span class="nt">District_Code</span>
+<span class="err">##</span> <span class="nt">5</span>                     <span class="nt">School_Code</span>
+<span class="err">##</span> <span class="nt">6</span>                     <span class="nt">County_Name</span>
+</pre></div>
+
+
+<p>Save:</p>
+<div class="highlight"><pre><span class="kp">save</span><span class="p">(</span>layout_hspa2010<span class="p">,</span> file <span class="o">=</span> <span class="s">&#39;datasets/hspa2010_layout.rda&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now do the same for the GEPA layout, using the functions developed above:</p>
+<p>Read:</p>
+<div class="highlight"><pre>gepa <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="s">&quot;datasets/gepa_layout.csv&quot;</span><span class="p">)</span>
+<span class="kp">names</span><span class="p">(</span>gepa<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>gepa<span class="p">)))</span>
+
+<span class="kp">head</span><span class="p">(</span>gepa<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Source: local data frame [6 x 8]
+## 
+##   field_start_position field_end_position field_length data_type
+## 1                    1                  9            9      Text
+## 2                    1                  2            2      Text
+## 3                    3                  6            4      Text
+## 4                    7                  9            3      Text
+## 5                   10                 59           50      Text
+## 6                   60                109           50      Text
+## Variables not shown: description (chr), comments (chr), valid_values
+##   (chr), structural (lgl)
+</pre></div>
+
+
+<p>Process:</p>
+<div class="highlight"><pre>layout_gepa <span class="o">&lt;-</span> process_layout<span class="p">(</span>gepa<span class="p">)</span>
+
+layout_gepa <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="err">##</span>   <span class="nt">field_start_position</span> <span class="nt">field_end_position</span> <span class="nt">field_length</span> <span class="nt">data_type</span>
+<span class="err">##</span> <span class="nt">1</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">2</span>                    <span class="nt">1</span>                  <span class="nt">2</span>            <span class="nt">2</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">3</span>                    <span class="nt">3</span>                  <span class="nt">6</span>            <span class="nt">4</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">4</span>                    <span class="nt">7</span>                  <span class="nt">9</span>            <span class="nt">3</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">5</span>                   <span class="nt">10</span>                 <span class="nt">59</span>           <span class="nt">50</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">60</span>                <span class="nt">109</span>           <span class="nt">50</span>      <span class="nt">Text</span>
+<span class="err">##</span>     <span class="nt">description</span> <span class="nt">comments</span>
+<span class="err">##</span> <span class="nt">1</span>      <span class="nt">CDS</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">2</span>   <span class="nt">County</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">3</span> <span class="nt">District</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">4</span>   <span class="nt">School</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">5</span>   <span class="nt">County</span> <span class="nt">Name</span>         
+<span class="err">##</span> <span class="nt">6</span> <span class="nt">District</span> <span class="nt">Name</span>         
+<span class="err">##</span>                                                                                                                                                                                            <span class="nt">valid_values</span>
+<span class="err">##</span> <span class="nt">1</span> <span class="nt">CDS</span> <span class="nt">codes</span> <span class="nt">for</span> <span class="nt">schools</span> <span class="nt">and</span> <span class="nt">districts</span><span class="err">\</span><span class="nt">nTHE</span> <span class="nt">FIRST</span> <span class="nt">TWO</span> <span class="nt">POSITIONS</span> <span class="nt">WILL</span> <span class="nt">INCLUDE</span> <span class="nt">THE</span> <span class="nt">FOLLOWING</span> <span class="nt">AGGREGATION</span> <span class="nt">CODES</span><span class="o">:</span> <span class="nt">NS</span> <span class="o">=</span> <span class="nt">Non-Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">SN</span> <span class="o">=</span> <span class="nt">Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">ST</span> <span class="o">=</span> <span class="nt">State</span><span class="o">;</span> <span class="nt">A</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">A</span><span class="o">;</span> <span class="nt">B</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">B</span><span class="o">;</span> <span class="nt">CD</span><span class="o">=</span> <span class="nt">DFG</span> <span class="nt">CD</span><span class="err">…</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">2</span>                                                                     <span class="nt">01</span><span class="o">,</span> <span class="nt">03</span><span class="o">,</span> <span class="nt">05</span><span class="o">,</span> <span class="nt">07</span><span class="o">,</span> <span class="nt">09</span><span class="o">,</span> <span class="nt">11</span><span class="o">,</span> <span class="nt">13</span><span class="o">,</span> <span class="nt">15</span><span class="o">,</span> <span class="nt">17</span><span class="o">,</span> <span class="nt">19</span><span class="o">,</span> <span class="nt">21</span><span class="o">,</span> <span class="nt">23</span><span class="o">,</span> <span class="nt">25</span><span class="o">,</span> <span class="nt">27</span><span class="o">,</span> <span class="nt">29</span><span class="o">,</span> <span class="nt">31</span><span class="o">,</span> <span class="nt">33</span><span class="o">,</span> <span class="nt">35</span><span class="o">,</span> <span class="nt">37</span><span class="o">,</span> <span class="nt">39</span><span class="o">,</span> <span class="nt">41</span><span class="o">,</span> <span class="nt">80</span><span class="o">,</span> <span class="nt">ST</span><span class="o">,</span> <span class="nt">A</span><span class="o">,</span> <span class="nt">B</span><span class="o">,</span> <span class="nt">CD</span><span class="o">,</span> <span class="nt">DE</span><span class="o">,</span> <span class="nt">FG</span><span class="o">,</span> <span class="nt">GH</span><span class="o">,</span> <span class="nt">I</span><span class="o">,</span> <span class="nt">J</span><span class="o">,</span> <span class="nt">R</span><span class="o">,</span> <span class="nt">NS</span><span class="o">,</span> <span class="nt">SN</span>
+<span class="err">##</span> <span class="nt">3</span>                                                                                                                                   <span class="nt">0100</span> <span class="nt">to</span> <span class="nt">9999</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span> <span class="nt">4</span>                                                                                                                                                  <span class="nt">001</span> <span class="nt">to</span> <span class="nt">999</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span> <span class="nt">5</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span> <span class="nt">6</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span>   <span class="nt">spanner1</span> <span class="nt">spanner2</span>    <span class="nt">final_name</span>
+<span class="err">##</span> <span class="nt">1</span>                        <span class="nt">CDS_Code</span>
+<span class="err">##</span> <span class="nt">2</span>                     <span class="nt">County_Code</span>
+<span class="err">##</span> <span class="nt">3</span>                   <span class="nt">District_Code</span>
+<span class="err">##</span> <span class="nt">4</span>                     <span class="nt">School_Code</span>
+<span class="err">##</span> <span class="nt">5</span>                     <span class="nt">County_Name</span>
+<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">District_Name</span>
+</pre></div>
+
+
+<p>Save:</p>
+<div class="highlight"><pre><span class="kp">save</span><span class="p">(</span>layout_gepa<span class="p">,</span> file <span class="o">=</span> <span class="s">&#39;datasets/gepa_layout.rda&#39;</span><span class="p">)</span>
 </pre></div></div>
 	<hr>
 

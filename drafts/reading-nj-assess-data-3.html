@@ -110,15 +110,64 @@
 <p>But we're getting a little ahead of ourselves.  First we need to look more closely at the HSPA data, and write functions to get and process that data. </p>
 <h1>HSPA</h1>
 <p>Much like the NJASK data in posts <a href="" title="/reading-nj-assess-data-1.html">1</a> and <a href="" title="/reading-nj-assess-data-2.html">2</a>, we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some postprocessing.  I wrote up how to process the HSPA metadata <a href="" title="/hspa-layout.html">here</a>, if data processing is your thing.</p>
-<div class="highlight"><pre>hspa_url <span class="o">&lt;-</span> <span class="s">&#39;http://www.state.nj.us/education/schools/achievement/14/hspa/state_summary.txt&#39;</span>
+<p>Load in that layout file:</p>
+<div class="highlight"><pre><span class="c1">#load the layout data frame</span>
 
-hspa_raw <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
-  file <span class="o">=</span> hspa_url
-<span class="p">)</span>
+<span class="kp">load</span><span class="p">(</span>file <span class="o">=</span> <span class="s">&#39;datasets/hspa_layout.rda&#39;</span><span class="p">)</span>
+
+<span class="kp">head</span><span class="p">(</span>layout_hspa<span class="p">)</span>
 </pre></div>
 
 
-<div class="highlight"><pre>## Error in structure(list(begin = begin, end = end, na = na), class = &quot;tokenizer_fwf&quot;): argument &quot;col_positions&quot; is missing, with no default
+<div class="highlight"><pre><span class="err">##</span>   <span class="nt">field_start_position</span> <span class="nt">field_end_position</span> <span class="nt">field_length</span> <span class="nt">data_type</span>
+<span class="err">##</span> <span class="nt">1</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">2</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">3</span>                    <span class="nt">1</span>                  <span class="nt">2</span>            <span class="nt">2</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">4</span>                    <span class="nt">3</span>                  <span class="nt">6</span>            <span class="nt">4</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">5</span>                    <span class="nt">7</span>                  <span class="nt">9</span>            <span class="nt">3</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">10</span>                 <span class="nt">59</span>           <span class="nt">50</span>      <span class="nt">Text</span>
+<span class="err">##</span>     <span class="nt">description</span>                                              <span class="nt">comments</span>
+<span class="err">##</span> <span class="nt">1</span>    <span class="nt">RECORD</span> <span class="nt">KEY</span>                                                      
+<span class="err">##</span> <span class="nt">2</span>      <span class="nt">CDS</span> <span class="nt">Code</span>                                                      
+<span class="err">##</span> <span class="nt">3</span>   <span class="nt">County</span> <span class="nt">Code</span>                                                      
+<span class="err">##</span> <span class="nt">4</span> <span class="nt">District</span> <span class="nt">Code</span> <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">5</span>   <span class="nt">School</span> <span class="nt">Code</span>              <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">school</span> <span class="nt">aggregations</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">6</span>   <span class="nt">County</span> <span class="nt">Name</span>                                                      
+<span class="err">##</span>                                                                                                                                                                                            <span class="nt">valid_values</span>
+<span class="err">##</span> <span class="nt">1</span>                                                                                                                                                                                                      
+<span class="err">##</span> <span class="nt">2</span> <span class="nt">CDS</span> <span class="nt">codes</span> <span class="nt">for</span> <span class="nt">schools</span> <span class="nt">and</span> <span class="nt">districts</span><span class="err">\</span><span class="nt">nTHE</span> <span class="nt">FIRST</span> <span class="nt">TWO</span> <span class="nt">POSITIONS</span> <span class="nt">WILL</span> <span class="nt">INCLUDE</span> <span class="nt">THE</span> <span class="nt">FOLLOWING</span> <span class="nt">AGGREGATION</span> <span class="nt">CODES</span><span class="o">:</span> <span class="nt">NS</span> <span class="o">=</span> <span class="nt">Non-Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">SN</span> <span class="o">=</span> <span class="nt">Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">ST</span> <span class="o">=</span> <span class="nt">State</span><span class="o">;</span> <span class="nt">A</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">A</span><span class="o">;</span> <span class="nt">B</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">B</span><span class="o">;</span> <span class="nt">CD</span><span class="o">=</span> <span class="nt">DFG</span> <span class="nt">CD</span><span class="err">…</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">3</span>                                                                                                    <span class="nt">01</span><span class="o">,</span> <span class="nt">03</span><span class="o">,</span> <span class="nt">05</span><span class="o">,</span> <span class="nt">07</span><span class="o">,</span> <span class="nt">09</span><span class="o">,</span> <span class="nt">11</span><span class="o">,</span> <span class="nt">13</span><span class="o">,</span> <span class="nt">15</span><span class="o">,</span> <span class="nt">17</span><span class="o">,</span> <span class="nt">19</span><span class="o">,</span> <span class="nt">21</span><span class="o">,</span> <span class="nt">23</span><span class="o">,</span> <span class="nt">25</span><span class="o">,</span> <span class="nt">27</span><span class="o">,</span> <span class="nt">29</span><span class="o">,</span> <span class="nt">31</span><span class="o">,</span> <span class="nt">33</span><span class="o">,</span> <span class="nt">35</span><span class="o">,</span> <span class="nt">37</span><span class="o">,</span> <span class="nt">39</span><span class="o">,</span> <span class="nt">41</span><span class="o">,</span> <span class="nt">43</span><span class="o">,</span> <span class="nt">45</span><span class="o">,</span> <span class="nt">47</span><span class="o">,</span> <span class="nt">80</span>
+<span class="err">##</span> <span class="nt">4</span>                                                                                                                                                                                   <span class="nt">0100</span> <span class="nt">to</span> <span class="nt">9999</span><span class="o">,</span> <span class="nt">blank</span>
+<span class="err">##</span> <span class="nt">5</span>                                                                                                                                                                                     <span class="nt">001</span> <span class="nt">to</span> <span class="nt">999</span><span class="o">,</span> <span class="nt">blank</span>
+<span class="err">##</span> <span class="nt">6</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span>   <span class="nt">spanner1</span> <span class="nt">spanner2</span>    <span class="nt">final_name</span>
+<span class="err">##</span> <span class="nt">1</span>                      <span class="nt">RECORD_KEY</span>
+<span class="err">##</span> <span class="nt">2</span>                        <span class="nt">CDS_Code</span>
+<span class="err">##</span> <span class="nt">3</span>                     <span class="nt">County_Code</span>
+<span class="err">##</span> <span class="nt">4</span>                   <span class="nt">District_Code</span>
+<span class="err">##</span> <span class="nt">5</span>                     <span class="nt">School_Code</span>
+<span class="err">##</span> <span class="nt">6</span>                     <span class="nt">County_Name</span>
+</pre></div>
+
+
+<p>Use the layout file to process an example HSPA data file:</p>
+<div class="highlight"><pre>hspa_url <span class="o">&lt;-</span> <span class="s">&#39;http://www.state.nj.us/education/schools/achievement/14/hspa/state_summary.txt&#39;</span>
+
+hspa_ex <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
+  file <span class="o">=</span> hspa_url<span class="p">,</span>
+  col_positions <span class="o">=</span> readr<span class="o">::</span>fwf_positions<span class="p">(</span>
+    start <span class="o">=</span> layout_hspa<span class="o">$</span>field_start_position<span class="p">,</span>
+    end <span class="o">=</span> layout_hspa<span class="o">$</span>field_end_position<span class="p">,</span>
+    col_names <span class="o">=</span> layout_hspa<span class="o">$</span>final_name
+  <span class="p">),</span>
+  na <span class="o">=</span> <span class="s">&quot;*&quot;</span>
+<span class="p">)</span>
+
+hspa_ex <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="err">##</span> <span class="nb">Error</span> <span class="k">in</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">envir</span><span class="p">,</span> <span class="nx">enclos</span><span class="p">)</span><span class="o">:</span> <span class="nx">could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="kd">function</span> <span class="s2">&quot;%&gt;%&quot;</span>
 </pre></div>
 
 
@@ -206,7 +255,7 @@ fetch_nj_assess<span class="p">(</span><span class="m">2014</span><span class="p
 </pre></div>
 
 
-<div class="highlight"><pre><span class="err">##</span> <span class="nb">Error</span> <span class="k">in</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">envir</span><span class="p">,</span> <span class="nx">enclos</span><span class="p">)</span><span class="o">:</span> <span class="nx">could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="kd">function</span> <span class="s2">&quot;get_raw_njask&quot;</span>
+<div class="highlight"><pre><span class="err">##</span> <span class="nb">Error</span> <span class="k">in</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">envir</span><span class="p">,</span> <span class="nx">enclos</span><span class="p">)</span><span class="o">:</span> <span class="nx">could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="kd">function</span> <span class="s2">&quot;%&gt;%&quot;</span>
 </pre></div>
 
 

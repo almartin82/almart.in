@@ -94,114 +94,65 @@
 			<a href="http://almart.in/tag/tutorial.html" rel="tag"> tutorial</a>&nbsp;&nbsp;
 		</span>
 	</div>
-	<div itemprop="articleBody" class="article-body"><p>In my <a href="" title="/reading-nj-assess-data-2.html">last post</a>, I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA) and the old Grade Eight Proficiency Assessment (GEPA).</p>
-<p>Roughly speaking, we want to:</p>
-<ol>
-<li>
-<p>Check that call we made is a valid grade/year combination (raising an informative error if not)</p>
-</li>
-<li>
-<p>Map the grade / year call to the correct <code>get_blank_data</code> function (NJASK? HSPA? GEPA?)</p>
-</li>
-<li>
-<p>Fetch, clean, and return the data frame.</p>
-</li>
-</ol>
-<p>But we're getting a little ahead of ourselves.  First we need to look more closely at the HSPA data, and write functions to get and process that data. </p>
+	<div itemprop="articleBody" class="article-body"><p>In my <a href="" title="/reading-nj-assess-data-2.html">last post</a>, I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA), and to the old Grade Eight Proficiency Assessment (GEPA).  With functions that can access each of those data sources, we'll be ready to write a general wrapper that simplifies access to relevant state assessment data.</p>
 <h1>HSPA</h1>
+<p>Much like the NJASK data in posts <a href="" title="/reading-nj-assess-data-1.html">1</a> and <a href="" title="/reading-nj-assess-data-2.html">2</a>, we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some postprocessing.  I wrote up how to process the HSPA metadata <a href="" title="/hspa-layout.html">here</a>, if data processing is your thing.</p>
+<p>Load in those processed files:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>Hmisc<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">load</span><span class="p">(</span>file <span class="o">=</span> <span class="s">&#39;datasets/hspa_layout.rda&#39;</span><span class="p">)</span>
+<span class="kp">load</span><span class="p">(</span>file <span class="o">=</span> <span class="s">&#39;datasets/hspa2010_layout.rda&#39;</span><span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>layout_hspa<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="err">##</span>   <span class="nt">field_start_position</span> <span class="nt">field_end_position</span> <span class="nt">field_length</span> <span class="nt">data_type</span>
+<span class="err">##</span> <span class="nt">1</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">2</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">3</span>                    <span class="nt">1</span>                  <span class="nt">2</span>            <span class="nt">2</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">4</span>                    <span class="nt">3</span>                  <span class="nt">6</span>            <span class="nt">4</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">5</span>                    <span class="nt">7</span>                  <span class="nt">9</span>            <span class="nt">3</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">10</span>                 <span class="nt">59</span>           <span class="nt">50</span>      <span class="nt">Text</span>
+<span class="err">##</span>     <span class="nt">description</span>                                              <span class="nt">comments</span>
+<span class="err">##</span> <span class="nt">1</span>    <span class="nt">RECORD</span> <span class="nt">KEY</span>                                                      
+<span class="err">##</span> <span class="nt">2</span>      <span class="nt">CDS</span> <span class="nt">Code</span>                                                      
+<span class="err">##</span> <span class="nt">3</span>   <span class="nt">County</span> <span class="nt">Code</span>                                                      
+<span class="err">##</span> <span class="nt">4</span> <span class="nt">District</span> <span class="nt">Code</span> <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">5</span>   <span class="nt">School</span> <span class="nt">Code</span>              <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">school</span> <span class="nt">aggregations</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">6</span>   <span class="nt">County</span> <span class="nt">Name</span>                                                      
+<span class="err">##</span>                                                                                                                                                                                            <span class="nt">valid_values</span>
+<span class="err">##</span> <span class="nt">1</span>                                                                                                                                                                                                      
+<span class="err">##</span> <span class="nt">2</span> <span class="nt">CDS</span> <span class="nt">codes</span> <span class="nt">for</span> <span class="nt">schools</span> <span class="nt">and</span> <span class="nt">districts</span><span class="err">\</span><span class="nt">nTHE</span> <span class="nt">FIRST</span> <span class="nt">TWO</span> <span class="nt">POSITIONS</span> <span class="nt">WILL</span> <span class="nt">INCLUDE</span> <span class="nt">THE</span> <span class="nt">FOLLOWING</span> <span class="nt">AGGREGATION</span> <span class="nt">CODES</span><span class="o">:</span> <span class="nt">NS</span> <span class="o">=</span> <span class="nt">Non-Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">SN</span> <span class="o">=</span> <span class="nt">Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">ST</span> <span class="o">=</span> <span class="nt">State</span><span class="o">;</span> <span class="nt">A</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">A</span><span class="o">;</span> <span class="nt">B</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">B</span><span class="o">;</span> <span class="nt">CD</span><span class="o">=</span> <span class="nt">DFG</span> <span class="nt">CD</span><span class="err">…</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">3</span>                                                                                                    <span class="nt">01</span><span class="o">,</span> <span class="nt">03</span><span class="o">,</span> <span class="nt">05</span><span class="o">,</span> <span class="nt">07</span><span class="o">,</span> <span class="nt">09</span><span class="o">,</span> <span class="nt">11</span><span class="o">,</span> <span class="nt">13</span><span class="o">,</span> <span class="nt">15</span><span class="o">,</span> <span class="nt">17</span><span class="o">,</span> <span class="nt">19</span><span class="o">,</span> <span class="nt">21</span><span class="o">,</span> <span class="nt">23</span><span class="o">,</span> <span class="nt">25</span><span class="o">,</span> <span class="nt">27</span><span class="o">,</span> <span class="nt">29</span><span class="o">,</span> <span class="nt">31</span><span class="o">,</span> <span class="nt">33</span><span class="o">,</span> <span class="nt">35</span><span class="o">,</span> <span class="nt">37</span><span class="o">,</span> <span class="nt">39</span><span class="o">,</span> <span class="nt">41</span><span class="o">,</span> <span class="nt">43</span><span class="o">,</span> <span class="nt">45</span><span class="o">,</span> <span class="nt">47</span><span class="o">,</span> <span class="nt">80</span>
+<span class="err">##</span> <span class="nt">4</span>                                                                                                                                                                                   <span class="nt">0100</span> <span class="nt">to</span> <span class="nt">9999</span><span class="o">,</span> <span class="nt">blank</span>
+<span class="err">##</span> <span class="nt">5</span>                                                                                                                                                                                     <span class="nt">001</span> <span class="nt">to</span> <span class="nt">999</span><span class="o">,</span> <span class="nt">blank</span>
+<span class="err">##</span> <span class="nt">6</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span>   <span class="nt">spanner1</span> <span class="nt">spanner2</span>    <span class="nt">final_name</span>
+<span class="err">##</span> <span class="nt">1</span>                      <span class="nt">RECORD_KEY</span>
+<span class="err">##</span> <span class="nt">2</span>                        <span class="nt">CDS_Code</span>
+<span class="err">##</span> <span class="nt">3</span>                     <span class="nt">County_Code</span>
+<span class="err">##</span> <span class="nt">4</span>                   <span class="nt">District_Code</span>
+<span class="err">##</span> <span class="nt">5</span>                     <span class="nt">School_Code</span>
+<span class="err">##</span> <span class="nt">6</span>                     <span class="nt">County_Name</span>
+</pre></div>
+
+
+<p>Use the layout file to process an example HSPA data file:</p>
 <div class="highlight"><pre>hspa_url <span class="o">&lt;-</span> <span class="s">&#39;http://www.state.nj.us/education/schools/achievement/14/hspa/state_summary.txt&#39;</span>
 
-hspa_raw <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
-  file <span class="o">=</span> hspa_url
+hspa_ex <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
+  file <span class="o">=</span> hspa_url<span class="p">,</span>
+  col_positions <span class="o">=</span> readr<span class="o">::</span>fwf_positions<span class="p">(</span>
+    start <span class="o">=</span> layout_hspa<span class="o">$</span>field_start_position<span class="p">,</span>
+    end <span class="o">=</span> layout_hspa<span class="o">$</span>field_end_position<span class="p">,</span>
+    col_names <span class="o">=</span> layout_hspa<span class="o">$</span>final_name
+  <span class="p">),</span>
+  na <span class="o">=</span> <span class="s">&quot;*&quot;</span>
 <span class="p">)</span>
-</pre></div>
 
-
-<div class="highlight"><pre>## Error in structure(list(begin = begin, end = end, na = na), class = &quot;tokenizer_fwf&quot;): argument &quot;col_positions&quot; is missing, with no default
-</pre></div>
-
-
-<h1>GEPA</h1>
-<h1>valid calls</h1>
-<p>This function will test if a year/grade call is valid.</p>
-<div class="highlight"><pre>valid_call <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span> <span class="p">{</span>
-  <span class="c1">#common core transition started in 2015</span>
-  <span class="kr">if</span><span class="p">(</span>year <span class="o">&gt;</span> <span class="m">2014</span><span class="p">)</span> <span class="p">{</span>
-    valid_call <span class="o">&lt;-</span> <span class="kc">FALSE</span>
-  <span class="c1">#NJASK fully implemented in 2008</span>
-  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span><span class="p">(</span>year <span class="o">&gt;=</span> <span class="m">2006</span><span class="p">)</span> <span class="p">{</span>
-    valid_call <span class="o">&lt;-</span> grade <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="o">:</span><span class="m">8</span><span class="p">,</span> <span class="m">11</span><span class="p">)</span>
-  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year <span class="o">&gt;=</span> <span class="m">2004</span><span class="p">)</span> <span class="p">{</span>
-    valid_call <span class="o">&lt;-</span> grade <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">11</span><span class="p">)</span>
-  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year <span class="o">&lt;</span> <span class="m">2004</span><span class="p">)</span> <span class="p">{</span>
-    valid_call <span class="o">&lt;-</span> <span class="kc">FALSE</span>
-  <span class="p">}</span>
-
-  <span class="kr">return</span><span class="p">(</span>valid_call<span class="p">)</span>
-
-<span class="p">}</span>
-</pre></div>
-
-
-<h1>retrieval</h1>
-<p>This function does normal retrieval (NJASK for 3-8; HSPA for 11).</p>
-<div class="highlight"><pre>standard_assess <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span> <span class="p">{</span>
-  <span class="kr">if</span><span class="p">(</span>grade <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="o">:</span><span class="m">8</span><span class="p">))</span> <span class="p">{</span>
-    assess_data <span class="o">&lt;-</span> get_raw_njask<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span> <span class="o">%&gt;%</span>
-      process_njask<span class="p">()</span>
-  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade <span class="o">==</span> <span class="m">11</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">#not yet implemented</span>
-    assess_data <span class="o">&lt;-</span> get_raw_hspa<span class="p">(</span>year<span class="p">)</span> <span class="o">%&gt;%</span>
-      process_hspa
-  <span class="p">}</span>
-
-  <span class="kr">return</span><span class="p">(</span>assess_data<span class="p">)</span>
-<span class="p">}</span> 
-</pre></div>
-
-
-<p>Here is a mapping function that calls the correct retrieval method, given grade and year.</p>
-<div class="highlight"><pre>fetch_nj_assess <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span> <span class="p">{</span>
-
-  is_valid <span class="o">&lt;-</span> valid_call<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span>
-
-  <span class="kr">if</span> <span class="p">(</span>year <span class="o">&gt;=</span> <span class="m">2008</span><span class="p">)</span> <span class="p">{</span>
-    assess_data <span class="o">&lt;-</span> standard_assess<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span>
-  <span class="c1">#2006 and 2007: NJASK 3rd-7th, GEPA 8th, HSPA 11th</span>
-  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">2006</span><span class="p">,</span> <span class="m">2007</span><span class="p">))</span> <span class="p">{</span>
-    <span class="kr">if</span> <span class="p">(</span>grade <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="o">:</span><span class="m">7</span><span class="p">))</span> <span class="p">{</span>
-      assess_data <span class="o">&lt;-</span> standard_assess<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span>  
-    <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade <span class="o">==</span> <span class="m">8</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">#not yet implemented</span>
-      assess_data <span class="o">&lt;-</span> get_raw_gepa<span class="p">(</span>year<span class="p">)</span> <span class="o">%&gt;%</span>
-        process_gepa<span class="p">()</span>
-    <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade <span class="o">==</span> <span class="m">11</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">#not yet implemented</span>
-      assess_data <span class="o">&lt;-</span> get_raw_hspa<span class="p">(</span>year<span class="p">)</span> <span class="o">%&gt;%</span>
-        process_hspa
-    <span class="p">}</span>
-  <span class="c1">#2004 and 2005:  NJASK 3rd &amp; 4th, GEPA 8th, HSPA 11th</span>
-  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">2004</span><span class="p">,</span> <span class="m">2005</span><span class="p">))</span> <span class="p">{</span>
-    <span class="kr">if</span> <span class="p">(</span>grade <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="o">:</span><span class="m">4</span><span class="p">))</span> <span class="p">{</span>
-      assess_data <span class="o">&lt;-</span> standard_assess<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span>  
-    <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade <span class="o">==</span> <span class="m">8</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">#not yet implemented</span>
-      assess_data <span class="o">&lt;-</span> get_raw_gepa<span class="p">(</span>year<span class="p">)</span> <span class="o">%&gt;%</span>
-        process_gepa<span class="p">()</span>
-    <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade <span class="o">==</span> <span class="m">11</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">#not yet implemented</span>
-      assess_data <span class="o">&lt;-</span> get_raw_hspa<span class="p">(</span>year<span class="p">)</span> <span class="o">%&gt;%</span>
-        process_hspa 
-    <span class="p">}</span>
-  <span class="c1"># if we ever reached this block, there&#39;s a problem with our `valid_call()` function</span>
-  <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
-    <span class="c1">#raise an error</span>
-  <span class="p">}</span>
-
-  <span class="kr">return</span><span class="p">(</span>assess_data<span class="p">)</span>
-<span class="p">}</span>
-
-fetch_nj_assess<span class="p">(</span><span class="m">2014</span><span class="p">,</span> <span class="m">6</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+hspa_ex <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
 </pre></div>
 
 
@@ -209,7 +160,234 @@ fetch_nj_assess<span class="p">(</span><span class="m">2014</span><span class="p
 </pre></div>
 
 
-<p>Finally, as a convenience, let's write a function that brings down all of the NJASK data for all years and grades.</p></div>
+<p>That gets us to a similar state as we were in for the NJASK data - we have all the columns identified, but there's a need for post-processing, especially for the percentage columns, which have 'One implied decimal.'</p>
+<p>We can take the formula we wrote to process NJASK data frames and generalize it, so that it can handle both NJASK and HSPA data.</p>
+<div class="highlight"><pre>process_nj_assess <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>df<span class="p">,</span> layout<span class="p">)</span> <span class="p">{</span>
+  <span class="kn">require</span><span class="p">(</span>Hmisc<span class="p">)</span>
+  <span class="c1">#build a mask</span>
+  mask <span class="o">&lt;-</span> layout<span class="o">$</span>comments <span class="o">==</span> <span class="s">&#39;One implied decimal&#39;</span>
+
+  <span class="c1">#keep the names to put back in the same order</span>
+  all_names <span class="o">&lt;-</span> <span class="kp">names</span><span class="p">(</span>df<span class="p">)</span>
+
+  <span class="c1">#make sure df is data frame (not dplyr data frame) so that normal subsetting</span>
+  df <span class="o">&lt;-</span> <span class="kp">as.data.frame</span><span class="p">(</span>df<span class="p">)</span>
+
+  <span class="c1">#get name of last column and kill \n characters</span>
+  last_col <span class="o">&lt;-</span> <span class="kp">names</span><span class="p">(</span>df<span class="p">)[</span><span class="kp">ncol</span><span class="p">(</span>df<span class="p">)]</span>
+  df<span class="p">[,</span> last_col<span class="p">]</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&#39;\n&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> df<span class="p">[,</span> last_col<span class="p">],</span> fixed <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+
+<span class="c1">#   #sigh, edge case in old HSPA data file where \n randomly exists in one middle column</span>
+<span class="c1">#   if (&#39;SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean&#39; %in% names(df)) {</span>
+<span class="c1">#     df$SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean &lt;- gsub(</span>
+<span class="c1">#       &#39;\n&#39;, &#39;&#39;, df$SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean, fixed = TRUE</span>
+<span class="c1">#     )  </span>
+<span class="c1">#   }</span>
+
+  <span class="c1">#put some columns aside</span>
+  ignore <span class="o">&lt;-</span> df<span class="p">[,</span> <span class="o">!</span>mask<span class="p">]</span>
+
+  implied_decimal_fix <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> <span class="p">{</span>
+    <span class="c1">#strip out anything that&#39;s not a number.</span>
+    x <span class="o">&lt;-</span> <span class="kp">as.numeric</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&quot;[^\\d]+&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> x<span class="p">,</span> perl<span class="o">=</span><span class="kc">TRUE</span><span class="p">))</span>
+    x <span class="o">/</span> <span class="m">10</span>
+  <span class="p">}</span>
+
+  <span class="c1">#process the columns that have an implied decimal</span>
+  processed <span class="o">&lt;-</span> df<span class="p">[,</span> mask<span class="p">]</span> <span class="o">%&gt;%</span>
+    dplyr<span class="o">::</span>mutate_each<span class="p">(</span>
+      dplyr<span class="o">::</span>funs<span class="p">(</span>implied_decimal_fix<span class="p">)</span>  
+    <span class="p">)</span>
+
+  <span class="c1">#put back together </span>
+  final <span class="o">&lt;-</span> <span class="kp">cbind</span><span class="p">(</span>ignore<span class="p">,</span> processed<span class="p">)</span>
+
+  <span class="c1">#reorder and return</span>
+  final <span class="o">%&gt;%</span>
+    select<span class="p">(</span>
+      one_of<span class="p">(</span><span class="kp">names</span><span class="p">(</span>df<span class="p">))</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+
+process_nj_assess<span class="p">(</span>hspa_ex<span class="p">,</span> layout_hspa<span class="p">)</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="err">##</span> <span class="nb">Error</span> <span class="k">in</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">envir</span><span class="p">,</span> <span class="nx">enclos</span><span class="p">)</span><span class="o">:</span> <span class="nx">could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="kd">function</span> <span class="s2">&quot;%&gt;%&quot;</span>
+</pre></div>
+
+
+<p>Yep, that totally works.  Following from the NJASK example, we'll write a function to simplify fetching the HSPA data, and a final wrapper around the fetch/process steps.</p>
+<div class="highlight"><pre>get_raw_hspa <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">,</span> layout<span class="o">=</span>layout_hspa<span class="p">)</span> <span class="p">{</span>
+  <span class="kn">require</span><span class="p">(</span>readr<span class="p">)</span>
+
+  <span class="c1">#url paths changed in 2012</span>
+  years <span class="o">&lt;-</span> <span class="kt">list</span><span class="p">(</span>
+    <span class="s">&quot;2014&quot;</span><span class="o">=</span><span class="s">&quot;14&quot;</span><span class="p">,</span> <span class="s">&quot;2013&quot;</span><span class="o">=</span><span class="s">&quot;13&quot;</span><span class="p">,</span> <span class="s">&quot;2012&quot;</span><span class="o">=</span><span class="s">&quot;2013&quot;</span><span class="p">,</span> <span class="s">&quot;2011&quot;</span><span class="o">=</span><span class="s">&quot;2012&quot;</span><span class="p">,</span> <span class="s">&quot;2010&quot;</span><span class="o">=</span><span class="s">&quot;2011&quot;</span><span class="p">,</span> <span class="s">&quot;2009&quot;</span><span class="o">=</span><span class="s">&quot;2010&quot;</span><span class="p">,</span> 
+    <span class="s">&quot;2008&quot;</span><span class="o">=</span><span class="s">&quot;2009&quot;</span><span class="p">,</span> <span class="s">&quot;2007&quot;</span><span class="o">=</span><span class="s">&quot;2008&quot;</span><span class="p">,</span> <span class="s">&quot;2006&quot;</span><span class="o">=</span><span class="s">&quot;2007&quot;</span><span class="p">,</span> <span class="s">&quot;2005&quot;</span><span class="o">=</span><span class="s">&quot;2006&quot;</span><span class="p">,</span> <span class="s">&quot;2004&quot;</span><span class="o">=</span><span class="s">&quot;2005&quot;</span>
+  <span class="p">)</span>
+  parsed_year <span class="o">&lt;-</span> years<span class="p">[[</span><span class="kp">as.character</span><span class="p">(</span>year<span class="p">)]]</span>
+
+  <span class="c1">#build url</span>
+  target_url <span class="o">&lt;-</span> <span class="kp">paste0</span><span class="p">(</span>
+    <span class="s">&quot;http://www.state.nj.us/education/schools/achievement/&quot;</span><span class="p">,</span> parsed_year<span class="p">,</span> 
+    <span class="s">&quot;/hspa/state_summary.txt&quot;</span>
+  <span class="p">)</span>
+
+  <span class="c1">#read_fwf</span>
+  df <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
+    file <span class="o">=</span> target_url<span class="p">,</span>
+    col_positions <span class="o">=</span> readr<span class="o">::</span>fwf_positions<span class="p">(</span>
+      start <span class="o">=</span> layout<span class="o">$</span>field_start_position<span class="p">,</span>
+      end <span class="o">=</span> layout<span class="o">$</span>field_end_position<span class="p">,</span>
+      col_names <span class="o">=</span> layout<span class="o">$</span>final_name
+    <span class="p">),</span>
+    na <span class="o">=</span> <span class="s">&quot;*&quot;</span>
+  <span class="p">)</span>
+
+  <span class="c1">#return df</span>
+  <span class="kr">return</span><span class="p">(</span>df<span class="p">)</span>
+
+<span class="p">}</span>
+
+<span class="c1">#final wrapper</span>
+fetch_hspa <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">)</span> <span class="p">{</span>
+  <span class="kr">if</span> <span class="p">(</span>year <span class="o">&gt;=</span> <span class="m">2011</span><span class="p">)</span> <span class="p">{</span>
+    hspa_df <span class="o">&lt;-</span> get_raw_hspa<span class="p">(</span>year<span class="p">)</span> <span class="o">%&gt;%</span> process_nj_assess<span class="p">(</span>layout<span class="o">=</span>layout_hspa<span class="p">)</span>
+  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year <span class="o">&gt;=</span> <span class="m">2004</span><span class="p">)</span> <span class="p">{</span>
+    hspa_df <span class="o">&lt;-</span> get_raw_hspa<span class="p">(</span>year<span class="p">,</span> layout<span class="o">=</span>layout_hspa2010<span class="p">)</span> <span class="o">%&gt;%</span> process_nj_assess<span class="p">(</span>layout<span class="o">=</span>layout_hspa2010<span class="p">)</span> 
+  <span class="p">}</span>
+
+  <span class="kr">return</span><span class="p">(</span>hspa_df<span class="p">)</span>
+<span class="p">}</span>
+
+fetch_hspa<span class="p">(</span><span class="m">2010</span><span class="p">)</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="err">##</span> <span class="nb">Error</span> <span class="k">in</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">envir</span><span class="p">,</span> <span class="nx">enclos</span><span class="p">)</span><span class="o">:</span> <span class="nx">could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="kd">function</span> <span class="s2">&quot;%&gt;%&quot;</span>
+</pre></div>
+
+
+<p>Nice!  NJASK and HSPA down, GEPA data to go.</p>
+<h1>GEPA</h1>
+<p>Load in the processed GEPA layout file:</p>
+<div class="highlight"><pre><span class="kp">load</span><span class="p">(</span>file <span class="o">=</span> <span class="s">&#39;datasets/gepa_layout.rda&#39;</span><span class="p">)</span>
+
+<span class="kp">head</span><span class="p">(</span>layout_gepa<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="err">##</span>   <span class="nt">field_start_position</span> <span class="nt">field_end_position</span> <span class="nt">field_length</span> <span class="nt">data_type</span>
+<span class="err">##</span> <span class="nt">1</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">2</span>                    <span class="nt">1</span>                  <span class="nt">2</span>            <span class="nt">2</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">3</span>                    <span class="nt">3</span>                  <span class="nt">6</span>            <span class="nt">4</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">4</span>                    <span class="nt">7</span>                  <span class="nt">9</span>            <span class="nt">3</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">5</span>                   <span class="nt">10</span>                 <span class="nt">59</span>           <span class="nt">50</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">60</span>                <span class="nt">109</span>           <span class="nt">50</span>      <span class="nt">Text</span>
+<span class="err">##</span>     <span class="nt">description</span> <span class="nt">comments</span>
+<span class="err">##</span> <span class="nt">1</span>      <span class="nt">CDS</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">2</span>   <span class="nt">County</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">3</span> <span class="nt">District</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">4</span>   <span class="nt">School</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">5</span>   <span class="nt">County</span> <span class="nt">Name</span>         
+<span class="err">##</span> <span class="nt">6</span> <span class="nt">District</span> <span class="nt">Name</span>         
+<span class="err">##</span>                                                                                                                                                                                            <span class="nt">valid_values</span>
+<span class="err">##</span> <span class="nt">1</span> <span class="nt">CDS</span> <span class="nt">codes</span> <span class="nt">for</span> <span class="nt">schools</span> <span class="nt">and</span> <span class="nt">districts</span><span class="err">\</span><span class="nt">nTHE</span> <span class="nt">FIRST</span> <span class="nt">TWO</span> <span class="nt">POSITIONS</span> <span class="nt">WILL</span> <span class="nt">INCLUDE</span> <span class="nt">THE</span> <span class="nt">FOLLOWING</span> <span class="nt">AGGREGATION</span> <span class="nt">CODES</span><span class="o">:</span> <span class="nt">NS</span> <span class="o">=</span> <span class="nt">Non-Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">SN</span> <span class="o">=</span> <span class="nt">Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">ST</span> <span class="o">=</span> <span class="nt">State</span><span class="o">;</span> <span class="nt">A</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">A</span><span class="o">;</span> <span class="nt">B</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">B</span><span class="o">;</span> <span class="nt">CD</span><span class="o">=</span> <span class="nt">DFG</span> <span class="nt">CD</span><span class="err">…</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">2</span>                                                                     <span class="nt">01</span><span class="o">,</span> <span class="nt">03</span><span class="o">,</span> <span class="nt">05</span><span class="o">,</span> <span class="nt">07</span><span class="o">,</span> <span class="nt">09</span><span class="o">,</span> <span class="nt">11</span><span class="o">,</span> <span class="nt">13</span><span class="o">,</span> <span class="nt">15</span><span class="o">,</span> <span class="nt">17</span><span class="o">,</span> <span class="nt">19</span><span class="o">,</span> <span class="nt">21</span><span class="o">,</span> <span class="nt">23</span><span class="o">,</span> <span class="nt">25</span><span class="o">,</span> <span class="nt">27</span><span class="o">,</span> <span class="nt">29</span><span class="o">,</span> <span class="nt">31</span><span class="o">,</span> <span class="nt">33</span><span class="o">,</span> <span class="nt">35</span><span class="o">,</span> <span class="nt">37</span><span class="o">,</span> <span class="nt">39</span><span class="o">,</span> <span class="nt">41</span><span class="o">,</span> <span class="nt">80</span><span class="o">,</span> <span class="nt">ST</span><span class="o">,</span> <span class="nt">A</span><span class="o">,</span> <span class="nt">B</span><span class="o">,</span> <span class="nt">CD</span><span class="o">,</span> <span class="nt">DE</span><span class="o">,</span> <span class="nt">FG</span><span class="o">,</span> <span class="nt">GH</span><span class="o">,</span> <span class="nt">I</span><span class="o">,</span> <span class="nt">J</span><span class="o">,</span> <span class="nt">R</span><span class="o">,</span> <span class="nt">NS</span><span class="o">,</span> <span class="nt">SN</span>
+<span class="err">##</span> <span class="nt">3</span>                                                                                                                                   <span class="nt">0100</span> <span class="nt">to</span> <span class="nt">9999</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span> <span class="nt">4</span>                                                                                                                                                  <span class="nt">001</span> <span class="nt">to</span> <span class="nt">999</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span> <span class="nt">5</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span> <span class="nt">6</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span>   <span class="nt">spanner1</span> <span class="nt">spanner2</span>    <span class="nt">final_name</span>
+<span class="err">##</span> <span class="nt">1</span>                        <span class="nt">CDS_Code</span>
+<span class="err">##</span> <span class="nt">2</span>                     <span class="nt">County_Code</span>
+<span class="err">##</span> <span class="nt">3</span>                   <span class="nt">District_Code</span>
+<span class="err">##</span> <span class="nt">4</span>                     <span class="nt">School_Code</span>
+<span class="err">##</span> <span class="nt">5</span>                     <span class="nt">County_Name</span>
+<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">District_Name</span>
+</pre></div>
+
+
+<p>A function to get GEPA data:</p>
+<div class="highlight"><pre>get_raw_gepa <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">,</span> layout<span class="o">=</span>layout_gepa<span class="p">)</span> <span class="p">{</span>
+  <span class="kn">require</span><span class="p">(</span>readr<span class="p">)</span>
+
+  <span class="c1">#url paths changed in 2012</span>
+  years <span class="o">&lt;-</span> <span class="kt">list</span><span class="p">(</span>
+    <span class="s">&quot;2014&quot;</span><span class="o">=</span><span class="s">&quot;14&quot;</span><span class="p">,</span> <span class="s">&quot;2013&quot;</span><span class="o">=</span><span class="s">&quot;13&quot;</span><span class="p">,</span> <span class="s">&quot;2012&quot;</span><span class="o">=</span><span class="s">&quot;2013&quot;</span><span class="p">,</span> <span class="s">&quot;2011&quot;</span><span class="o">=</span><span class="s">&quot;2012&quot;</span><span class="p">,</span> <span class="s">&quot;2010&quot;</span><span class="o">=</span><span class="s">&quot;2011&quot;</span><span class="p">,</span> <span class="s">&quot;2009&quot;</span><span class="o">=</span><span class="s">&quot;2010&quot;</span><span class="p">,</span> 
+    <span class="s">&quot;2008&quot;</span><span class="o">=</span><span class="s">&quot;2009&quot;</span><span class="p">,</span> <span class="s">&quot;2007&quot;</span><span class="o">=</span><span class="s">&quot;2008&quot;</span><span class="p">,</span> <span class="s">&quot;2006&quot;</span><span class="o">=</span><span class="s">&quot;2007&quot;</span><span class="p">,</span> <span class="s">&quot;2005&quot;</span><span class="o">=</span><span class="s">&quot;2006&quot;</span><span class="p">,</span> <span class="s">&quot;2004&quot;</span><span class="o">=</span><span class="s">&quot;2005&quot;</span>
+  <span class="p">)</span>
+  parsed_year <span class="o">&lt;-</span> years<span class="p">[[</span><span class="kp">as.character</span><span class="p">(</span>year<span class="p">)]]</span>
+
+  <span class="c1">#build url</span>
+  target_url <span class="o">&lt;-</span> <span class="kp">paste0</span><span class="p">(</span>
+    <span class="s">&quot;http://www.state.nj.us/education/schools/achievement/&quot;</span><span class="p">,</span> parsed_year<span class="p">,</span> 
+    <span class="s">&quot;/gepa/state_summary.txt&quot;</span>
+  <span class="p">)</span>
+
+  <span class="c1">#read_fwf</span>
+  df <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
+    file <span class="o">=</span> target_url<span class="p">,</span>
+    col_positions <span class="o">=</span> readr<span class="o">::</span>fwf_positions<span class="p">(</span>
+      start <span class="o">=</span> layout<span class="o">$</span>field_start_position<span class="p">,</span>
+      end <span class="o">=</span> layout<span class="o">$</span>field_end_position<span class="p">,</span>
+      col_names <span class="o">=</span> layout<span class="o">$</span>final_name
+    <span class="p">),</span>
+    na <span class="o">=</span> <span class="s">&quot;*&quot;</span>
+  <span class="p">)</span>
+
+  <span class="c1">#return df</span>
+  <span class="kr">return</span><span class="p">(</span>df<span class="p">)</span>
+
+<span class="p">}</span>
+
+gepa_ex <span class="o">&lt;-</span> get_raw_gepa<span class="p">(</span><span class="m">2007</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Loading required package: readr
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: package &#39;readr&#39; was built under R version 3.1.3
+</pre></div>
+
+
+<div class="highlight"><pre>gepa_ex <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="err">##</span> <span class="nb">Error</span> <span class="k">in</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">envir</span><span class="p">,</span> <span class="nx">enclos</span><span class="p">)</span><span class="o">:</span> <span class="nx">could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="kd">function</span> <span class="s2">&quot;%&gt;%&quot;</span>
+</pre></div>
+
+
+<p>Can we process the GEPA df using our existing function?</p>
+<div class="highlight"><pre>process_nj_assess<span class="p">(</span>gepa_ex<span class="p">,</span> layout_gepa<span class="p">)</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="err">##</span> <span class="nb">Error</span> <span class="k">in</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">envir</span><span class="p">,</span> <span class="nx">enclos</span><span class="p">)</span><span class="o">:</span> <span class="nx">could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="kd">function</span> <span class="s2">&quot;%&gt;%&quot;</span>
+</pre></div>
+
+
+<p>Yes, totally.<br />
+Final step: write all of that into a final wrapper function:</p>
+<div class="highlight"><pre><span class="c1">#final wrapper</span>
+fetch_gepa <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">)</span> <span class="p">{</span>
+  get_raw_gepa<span class="p">(</span>year<span class="p">)</span> <span class="o">%&gt;%</span> process_nj_assess<span class="p">(</span>layout<span class="o">=</span>layout_gepa<span class="p">)</span>
+
+<span class="p">}</span>
+
+fetch_gepa<span class="p">(</span><span class="m">2007</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="err">##</span> <span class="nb">Error</span> <span class="k">in</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">envir</span><span class="p">,</span> <span class="nx">enclos</span><span class="p">)</span><span class="o">:</span> <span class="nx">could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="kd">function</span> <span class="s2">&quot;%&gt;%&quot;</span>
+</pre></div>
+
+
+<p>In the next post in this series, we'll take these individual NJASK, HSPA, and GEPA functions and write a wrapper to rule them all, allowing data to be easily fetched for any year/grade.</p></div>
 	<hr>
 
 	

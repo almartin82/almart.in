@@ -96,9 +96,9 @@
 	</div>
 	<div itemprop="articleBody" class="article-body"><p>In my <a href="" title="/reading-nj-assess-1.html">last post</a>, I showed how to read a fixed width file into R.  In this post, I'll refactor that code into a function that takes year/grade as a parameter.</p>
 <p>First, read in the layout data frame.  This contains the column headers for NJASK fixed with files.</p>
-<div class="highlight"><pre>load<span class="p">(</span>file <span class="o">=</span> <span class="s">&#39;datasets/njask_layout.rda&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="kp">load</span><span class="p">(</span>file <span class="o">=</span> <span class="s">&#39;datasets/njask_layout.rda&#39;</span><span class="p">)</span>
 
-head<span class="p">(</span>layout_njask<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>layout_njask<span class="p">)</span>
 </pre></div>
 
 
@@ -159,17 +159,17 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
 <p>1) build the target url</p>
 <p>2) use hadley's <code>readr</code> to fetch the fixed with file, using the provided field definitions.</p>
 <div class="highlight"><pre>get_raw_njask <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">,</span> grade<span class="p">,</span> layout<span class="o">=</span>layout_njask<span class="p">)</span> <span class="p">{</span>
-  require<span class="p">(</span>readr<span class="p">)</span>
+  <span class="kn">require</span><span class="p">(</span>readr<span class="p">)</span>
 
   <span class="c1">#url paths changed in 2012</span>
-  years <span class="o">&lt;-</span> list<span class="p">(</span>
+  years <span class="o">&lt;-</span> <span class="kt">list</span><span class="p">(</span>
     <span class="s">&quot;2014&quot;</span><span class="o">=</span><span class="s">&quot;14&quot;</span><span class="p">,</span> <span class="s">&quot;2013&quot;</span><span class="o">=</span><span class="s">&quot;13&quot;</span><span class="p">,</span> <span class="s">&quot;2012&quot;</span><span class="o">=</span><span class="s">&quot;2013&quot;</span><span class="p">,</span> <span class="s">&quot;2011&quot;</span><span class="o">=</span><span class="s">&quot;2012&quot;</span><span class="p">,</span> <span class="s">&quot;2010&quot;</span><span class="o">=</span><span class="s">&quot;2011&quot;</span><span class="p">,</span> <span class="s">&quot;2009&quot;</span><span class="o">=</span><span class="s">&quot;2010&quot;</span><span class="p">,</span> 
     <span class="s">&quot;2008&quot;</span><span class="o">=</span><span class="s">&quot;2009&quot;</span><span class="p">,</span> <span class="s">&quot;2007&quot;</span><span class="o">=</span><span class="s">&quot;2008&quot;</span><span class="p">,</span> <span class="s">&quot;2006&quot;</span><span class="o">=</span><span class="s">&quot;2007&quot;</span><span class="p">,</span> <span class="s">&quot;2005&quot;</span><span class="o">=</span><span class="s">&quot;2006&quot;</span><span class="p">,</span> <span class="s">&quot;2004&quot;</span><span class="o">=</span><span class="s">&quot;2005&quot;</span>
   <span class="p">)</span>
-  parsed_year <span class="o">&lt;-</span> years<span class="p">[[</span>as.character<span class="p">(</span>year<span class="p">)]]</span>
+  parsed_year <span class="o">&lt;-</span> years<span class="p">[[</span><span class="kp">as.character</span><span class="p">(</span>year<span class="p">)]]</span>
 
   <span class="c1">#build url</span>
-  target_url <span class="o">&lt;-</span> paste0<span class="p">(</span>
+  target_url <span class="o">&lt;-</span> <span class="kp">paste0</span><span class="p">(</span>
     <span class="s">&quot;http://www.state.nj.us/education/schools/achievement/&quot;</span><span class="p">,</span> parsed_year<span class="p">,</span> 
     <span class="s">&quot;/njask&quot;</span><span class="p">,</span> grade<span class="p">,</span> <span class="s">&quot;/state_summary.txt&quot;</span>
   <span class="p">)</span>
@@ -178,9 +178,9 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
   df <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
     file <span class="o">=</span> target_url<span class="p">,</span>
     col_positions <span class="o">=</span> readr<span class="o">::</span>fwf_positions<span class="p">(</span>
-      start <span class="o">=</span> layout_njask<span class="o">$</span>field_start_position<span class="p">,</span>
-      end <span class="o">=</span> layout_njask<span class="o">$</span>field_end_position<span class="p">,</span>
-      col_names <span class="o">=</span> layout_njask<span class="o">$</span>final_name
+      start <span class="o">=</span> layout<span class="o">$</span>field_start_position<span class="p">,</span>
+      end <span class="o">=</span> layout<span class="o">$</span>field_end_position<span class="p">,</span>
+      col_names <span class="o">=</span> layout<span class="o">$</span>final_name
     <span class="p">),</span>
     na <span class="o">=</span> <span class="s">&quot;*&quot;</span>
   <span class="p">)</span>
@@ -193,81 +193,69 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
 
 
 <p>Let's give it a try!</p>
-<div class="highlight"><pre>library<span class="p">(</span>magrittr<span class="p">)</span>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>magrittr<span class="p">)</span>
 
 ex <span class="o">&lt;-</span> get_raw_njask<span class="p">(</span><span class="m">2014</span><span class="p">,</span> <span class="m">6</span><span class="p">)</span>
-
-dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">[,</span> sample<span class="p">(</span>c<span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">551</span><span class="p">),</span> <span class="m">10</span><span class="p">)],</span> <span class="m">10</span><span class="p">)</span> <span class="o">%&gt;%</span> as.data.frame<span class="p">()</span>
 </pre></div>
 
 
-<div class="highlight"><pre>##    HISPANIC_Number_Enrolled_ELA
-## 1                            NA
-## 2                            NA
-## 3                            64
-## 4                            NA
-## 5                            58
-## 6                            58
-## 7                            20
-## 8                             0
-## 9                            NA
-## 10                            0
-##    GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present  CDS_Code
-## 1                                                 0 133880110
-## 2                                                 0    093780
-## 3                                                 0 391320280
-## 4                                                 0    375100
-## 5                                                 0 110540060
-## 6                                                 0    315570
-## 7                                                 0 034600100
-## 8                                                NA 250100040
-## 9                                                 0    072560
-## 10                                                0 254770050
-##    MALE_SCIENCE_Number_Not_Present SPECIAL_EDUCATION_Number_Enrolled_ELA
-## 1                               NA                                    NA
-## 2                               NA                                    NA
-## 3                               NA                                    NA
-## 4                               NA                                    NA
-## 5                               NA                                    NA
-## 6                               NA                                   102
-## 7                               NA                                    NA
-## 8                               NA                                     0
-## 9                               NA                                    NA
-## 10                              NA                                    12
-##    ECONOMICALLY_DISADVANTAGED_SCIENCE_Partially_Proficient_Percentage
-## 1                                                                  NA
-## 2                                                                  NA
-## 3                                                                  NA
-## 4                                                                  NA
-## 5                                                                  NA
-## 6                                                                  NA
-## 7                                                                  NA
-## 8                                                                  NA
-## 9                                                                  NA
-## 10                                                                 NA
-##    CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_APA
-## 1                                                         NA
-## 2                                                         NA
-## 3                                                         NA
-## 4                                                         NA
-## 5                                                         NA
-## 6                                                         NA
-## 7                                                         NA
-## 8                                                         NA
-## 9                                                         NA
-## 10                                                        NA
-##    FEMALE_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                    NA
-## 2                                                   163
-## 3                                                   469
-## 4                                                   298
-## 5                                                   674
-## 6                                                   204
-## 7                                                   245
-## 8                                                    NA
-## 9                                                   333
-## 10                                                  108
-##    FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_Not_Present
+<div class="highlight"><pre>## Loading required package: readr
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: package &#39;readr&#39; was built under R version 3.1.3
+</pre></div>
+
+
+<div class="highlight"><pre>dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">[,</span> <span class="kp">sample</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">551</span><span class="p">),</span> <span class="m">10</span><span class="p">)],</span> <span class="m">10</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre>##    CURRENT_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Scale_Score_Mean
+## 1                                                           NA
+## 2                                                           NA
+## 3                                                           NA
+## 4                                                           NA
+## 5                                                           NA
+## 6                                                           NA
+## 7                                                           NA
+## 8                                                           NA
+## 9                                                           NA
+## 10                                                          NA
+##    MALE_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                               NA
+## 2                                              131
+## 3                                               NA
+## 4                                               30
+## 5                                               57
+## 6                                               NA
+## 7                                               65
+## 8                                              220
+## 9                                               28
+## 10                                              NA
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_APA
+## 1                                                                    NA
+## 2                                                                    NA
+## 3                                                                    NA
+## 4                                                                    NA
+## 5                                                                     1
+## 6                                                                    NA
+## 7                                                                    NA
+## 8                                                                    NA
+## 9                                                                    NA
+## 10                                                                   NA
+##    ECONOMICALLY_DISADVANTAGED_Number_Enrolled_ELA
+## 1                                               0
+## 2                                              NA
+## 3                                              21
+## 4                                              49
+## 5                                              89
+## 6                                              NA
+## 7                                              NA
+## 8                                             149
+## 9                                              42
+## 10                                             NA
+##    PACIFIC_ISLANDER_MATHEMATICS_Partially_Proficient_Percentage
 ## 1                                                            NA
 ## 2                                                            NA
 ## 3                                                            NA
@@ -278,31 +266,90 @@ dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">
 ## 8                                                            NA
 ## 9                                                            NA
 ## 10                                                           NA
-##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Number_Not_Present
-## 1                                                                     0
-## 2                                                                     0
-## 3                                                                     0
-## 4                                                                     0
-## 5                                                                     0
-## 6                                                                     0
-## 7                                                                     0
-## 8                                                                     0
-## 9                                                                     0
-## 10                                                                    0
+##    WHITE_LANGUAGE_ARTS_Number_of_Voids
+## 1                                   NA
+## 2                                    0
+## 3                                   NA
+## 4                                   NA
+## 5                                   NA
+## 6                                   NA
+## 7                                    1
+## 8                                    2
+## 9                                    0
+## 10                                  NA
+##    AMERICAN_INDIAN_MATHEMATICS_Number_of_Valid_Scale_Scores
+## 1                                                        NA
+## 2                                                        NA
+## 3                                                        NA
+## 4                                                        NA
+## 5                                                        NA
+## 6                                                        NA
+## 7                                                        NA
+## 8                                                        NA
+## 9                                                        NA
+## 10                                                       NA
+##    PACIFIC_ISLANDER_MATHEMATICS_Number_Enrolled_Math
+## 1                                                  0
+## 2                                                 NA
+## 3                                                 NA
+## 4                                                  0
+## 5                                                  0
+## 6                                                  0
+## 7                                                  0
+## 8                                                 NA
+## 9                                                 NA
+## 10                                                 0
+##    NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Advanced_Proficient_Percentage
+## 1                                                                     NA
+## 2                                                                     NA
+## 3                                                                     NA
+## 4                                                                     NA
+## 5                                                                     NA
+## 6                                                                     NA
+## 7                                                                     NA
+## 8                                                                     NA
+## 9                                                                     NA
+## 10                                                                    NA
+##    MALE_MATHEMATICS_Number_Enrolled_Math
+## 1                                     NA
+## 2                                    133
+## 3                                     NA
+## 4                                     30
+## 5                                     60
+## 6                                     NA
+## 7                                     67
+## 8                                    228
+## 9                                     29
+## 10                                    NA
 </pre></div>
 
 
 <p>Great - we can definitely pull down all the data files we need.  Now let's make sure that we are doing the necessary cleanup.  In particular, there are 228 columns in our layout file that have the comment 'One implied decimal.'  That really matters - it means that <code>255</code> <em>actually</em> means 25.5.  </p>
 <p>For each of those columns, we want to apply a function to each column.  Hadley's <code>dplyr</code> has a nice utility for doing this - <code>mutate_each</code>.</p>
 <p>We'll also need to make sure that we only mutate the columns that are tagged with 'One implied decimal.'</p>
-<div class="highlight"><pre>library<span class="p">(</span>dplyr<span class="p">)</span>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
+</pre></div>
 
-process_njask <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>df<span class="p">,</span> mask<span class="o">=</span>layout_njask<span class="o">$</span>comments <span class="o">==</span> <span class="s">&#39;One implied decimal&#39;</span><span class="p">)</span> <span class="p">{</span>
+
+<div class="highlight"><pre>## 
+## Attaching package: &#39;dplyr&#39;
+## 
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter
+## 
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union
+</pre></div>
+
+
+<div class="highlight"><pre>process_njask <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>df<span class="p">,</span> mask<span class="o">=</span>layout_njask<span class="o">$</span>comments <span class="o">==</span> <span class="s">&#39;One implied decimal&#39;</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">#keep the names to put back in the same order</span>
-  all_names <span class="o">&lt;-</span> names<span class="p">(</span>df<span class="p">)</span>
+  all_names <span class="o">&lt;-</span> <span class="kp">names</span><span class="p">(</span>df<span class="p">)</span>
 
   <span class="c1">#replace any line breaks in last column</span>
-  df<span class="o">$</span>Grade <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&#39;\n&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> df<span class="o">$</span>Grade<span class="p">,</span> fixed <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+  df<span class="o">$</span>Grade <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&#39;\n&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> df<span class="o">$</span>Grade<span class="p">,</span> fixed <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 
   <span class="c1">#put some columns aside</span>
   ignore <span class="o">&lt;-</span> df<span class="p">[,</span> <span class="o">!</span>mask<span class="p">]</span>
@@ -310,22 +357,22 @@ process_njask <span class="o">&lt;-</span> <span class="kr">function</span><span
   <span class="c1">#process the columns that have an implied decimal</span>
   processed <span class="o">&lt;-</span> df<span class="p">[,</span> mask<span class="p">]</span> <span class="o">%&gt;%</span>
     dplyr<span class="o">::</span>mutate_each<span class="p">(</span>
-      dplyr<span class="o">::</span>funs<span class="p">(</span>implied_decimal <span class="o">=</span> . <span class="o">/</span> <span class="m">10</span><span class="p">)</span>  
+      dplyr<span class="o">::</span>funs<span class="p">(</span>implied_decimal <span class="o">=</span> <span class="m">.</span> <span class="o">/</span> <span class="m">10</span><span class="p">)</span>  
     <span class="p">)</span>
 
   <span class="c1">#put back together </span>
-  final <span class="o">&lt;-</span> cbind<span class="p">(</span>ignore<span class="p">,</span> processed<span class="p">)</span>
+  final <span class="o">&lt;-</span> <span class="kp">cbind</span><span class="p">(</span>ignore<span class="p">,</span> processed<span class="p">)</span>
 
   <span class="c1">#reorder and return</span>
   final <span class="o">%&gt;%</span>
     select<span class="p">(</span>
-      one_of<span class="p">(</span>names<span class="p">(</span>df<span class="p">))</span>
+      one_of<span class="p">(</span><span class="kp">names</span><span class="p">(</span>df<span class="p">))</span>
     <span class="p">)</span>
 <span class="p">}</span>
 
 ex_process <span class="o">&lt;-</span> process_njask<span class="p">(</span>ex<span class="p">)</span>
 
-head<span class="p">(</span>ex_process<span class="p">[,</span> <span class="m">1</span><span class="o">:</span><span class="m">15</span><span class="p">])</span>
+<span class="kp">head</span><span class="p">(</span>ex_process<span class="p">[,</span> <span class="m">1</span><span class="o">:</span><span class="m">15</span><span class="p">])</span>
 </pre></div>
 
 
@@ -393,7 +440,7 @@ head<span class="p">(</span>ex_process<span class="p">[,</span> <span class="m">
   get_raw_njask<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span> <span class="o">%&gt;%</span> process_njask<span class="p">()</span>
 <span class="p">}</span>
 
-fetch_njask<span class="p">(</span><span class="m">2014</span><span class="p">,</span> <span class="m">6</span><span class="p">)</span> <span class="o">%&gt;%</span> head<span class="p">()</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span>
+fetch_njask<span class="p">(</span><span class="m">2014</span><span class="p">,</span> <span class="m">6</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span>
 </pre></div>
 
 

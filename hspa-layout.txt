@@ -1,4 +1,4 @@
-Title: Errata: prepping the HSPA layout file
+Title: Errata: prepping the HSPA and GEPA layout files
 Date: 2015-04-16
 Category: education
 Tags: boring, errata
@@ -44,7 +44,6 @@ This.... I can't say anything nice about the decision to do this (_why?!?_) so I
 
 hspa <- readr::read_csv("datasets/hspa_layout.csv")
 names(hspa) <- tolower(gsub(' ', '_', names(hspa)))
-
 
 head(hspa)
 
@@ -136,7 +135,7 @@ process_layout <- function(df) {
   return(layout_wide)
 }
 
-layout_hspa <-process_layout(hspa)
+layout_hspa <- process_layout(hspa)
 
 layout_hspa %>% head()
 
@@ -150,3 +149,64 @@ save(layout_hspa, file = 'datasets/hspa_layout.rda')
 
 ```
 
+# old HSPA
+
+Before 2010 the HSPA used a different layout.  Prep that layout file:
+
+Read:
+
+```{r old_hspa1}
+
+hspa2010 <- readr::read_csv("datasets/hspa2010_layout.csv")
+names(hspa2010) <- tolower(gsub(' ', '_', names(hspa2010)))
+
+head(hspa2010)
+
+```
+
+One note here: the layout at flat file has headers for science, even though it isn't on the HSPA.  I'm omitting the last set of science headers in my layout file, because the raw files on the state website don't appear to be padded with enough blanks for the last NA slots.  
+
+Process:
+```{r old_hspa2}
+
+layout_hspa2010 <- process_layout(hspa2010)
+
+layout_hspa2010 %>% head()
+
+```
+
+Save:
+```{r old_hspa3}
+
+save(layout_hspa2010, file = 'datasets/hspa2010_layout.rda')
+
+```
+
+
+Now do the same for the GEPA layout, using the functions developed above:
+
+Read:
+```{r gepa1}
+
+gepa <- readr::read_csv("datasets/gepa_layout.csv")
+names(gepa) <- tolower(gsub(' ', '_', names(gepa)))
+
+head(gepa)
+
+```
+
+Process:
+```{r gepa2}
+
+layout_gepa <- process_layout(gepa)
+
+layout_gepa %>% head()
+
+```
+
+Save:
+```{r gepa3}
+
+save(layout_gepa, file = 'datasets/gepa_layout.rda')
+
+```

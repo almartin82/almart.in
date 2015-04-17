@@ -1,0 +1,616 @@
+Field Start Position,Field End Position,Field Length,Data Type,Description,Comments,Valid Values,structural
+1,9,9,Text,RECORD KEY,,,FALSE
+1,9,9,Text,CDS Code ,,"CDS codes for schools and districts
+THE FIRST TWO POSITIONS WILL INCLUDE THE FOLLOWING AGGREGATION CODES: NS = Non-Special Needs; SN = Special Needs; ST = State; A = DFG A; B = DFG B; CD= DFG CD….",FALSE
+1,2,2,Text,County Code,,"01, 03, 05, 07, 09, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 80",FALSE
+3,6,4,Text,District Code,Applicable only for district and school aggregations.   ,"0100 to 9999, blank",FALSE
+7,9,3,Text,School Code,Applicable only for school aggregations.,"001 to 999, blank",FALSE
+10,59,50,Text,County Name,,"A to Z, blank;  Applicable only for district and school aggregations",FALSE
+60,109,50,Text,District Name,,"A to Z, blank;  Applicable only for district and school aggregations",FALSE
+110,159,50,Text,School Name,,"A to Z, blank;  Applicable only for school aggregations",FALSE
+160,161,2,Text,DFG,"Applicable only for district and school aggregations.  For the DFG records, the DFG is only shown once, in the County Code field, and not in the DFG field.",A = DFG A; B = DFG B; CD= DFG CD…,FALSE
+162,162,1,Text,Special Needs,Applicable only for District and School aggregations.,"Y = yes, blank if no",FALSE
+163,282,119,TOTAL POPULATION,,,,TRUE
+163,168,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file ,FALSE
+169,202,34,LANGUAGE ARTS,,,,TRUE
+169,174,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+175,180,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+181,186,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+187,190,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+191,194,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+195,198,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+199,202,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+203,242,40,MATHEMATICS,,,,TRUE
+203,208,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+209,214,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+215,220,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+221,226,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+227,230,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+231,234,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+235,238,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+239,242,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+243,282,40,SCIENCE,,,,TRUE
+243,248,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+249,254,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+255,260,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+261,266,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+267,270,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+271,274,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+275,278,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+279,282,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+283,402,119,GENERAL EDUCATION,,,,TRUE
+283,288,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+289,322,34,LANGUAGE ARTS,,,,TRUE
+289,294,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+295,300,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+301,306,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+307,310,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+311,314,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+315,318,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+319,322,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+323,362,40,MATHEMATICS,,,,TRUE
+323,328,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+329,334,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+335,340,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+341,346,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+347,350,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+351,354,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+355,358,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+359,362,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+363,402,40,SCIENCE,,,,TRUE
+363,368,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+369,374,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+375,380,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+381,386,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+387,390,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+391,394,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+395,398,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+399,402,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+403,522,119,SPECIAL EDUCATION,,,,TRUE
+403,408,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+409,442,34,LANGUAGE ARTS,,,,TRUE
+409,414,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+415,420,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+421,426,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+427,430,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+431,434,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+435,438,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+439,442,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+443,482,40,MATHEMATICS,,,,TRUE
+443,448,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+449,454,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+455,460,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+461,466,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+467,470,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+471,474,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+475,478,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+479,482,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+483,522,40,SCIENCE,,,,TRUE
+483,488,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+489,494,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+495,500,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+501,506,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+507,510,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+511,514,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+515,518,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+519,522,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+523,642,119,NOT EXEMPT FROM PASSING,,,,TRUE
+523,528,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+529,562,34,LANGUAGE ARTS,,,,TRUE
+529,534,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+535,540,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+541,546,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+547,550,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+551,554,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+555,558,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+559,562,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+563,602,40,MATHEMATICS,,,,TRUE
+563,568,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+569,574,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+575,580,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+581,586,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+587,590,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+591,594,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+595,598,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+599,602,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+603,642,40,SCIENCE,,,,TRUE
+603,608,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+609,614,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+615,620,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+621,626,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+627,630,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+631,634,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+635,638,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+639,642,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+643,762,119,IEP EXEMPT FROM PASSING,,,,TRUE
+643,648,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+649,682,34,LANGUAGE ARTS,,,,TRUE
+649,654,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+655,660,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+661,666,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+667,670,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+671,674,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+675,678,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+679,682,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+683,722,40,MATHEMATICS,,,,TRUE
+683,688,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+689,694,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+695,700,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+701,706,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+707,710,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+711,714,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+715,718,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+719,722,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+723,762,40,SCIENCE,,,,TRUE
+723,728,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+729,734,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+735,740,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+741,746,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+747,750,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+751,754,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+755,758,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+759,762,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+763,870,107,IEP EXEMPT FROM TAKING,,,,TRUE
+763,768,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+769,798,30,LANGUAGE ARTS,,,,TRUE
+769,774,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+775,780,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+781,786,6,Integer,Number of Valid Classifications,,Blank,FALSE
+787,790,4,Decimal,Partially Proficient Percentage,One implied decimal,Blank,FALSE
+791,794,4,Decimal,Proficient Percentage,One implied decimal,Blank,FALSE
+795,798,4,Decimal,Advanced Proficient Percentage,One implied decimal,Blank,FALSE
+799,834,36,MATHEMATICS,,,,TRUE
+799,804,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+805,810,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+811,816,6,Integer,Number of Voids,,Blank,FALSE
+817,822,6,Integer,Number of Valid Classifications,,Blank,FALSE
+823,826,4,Decimal,Partially Proficient Percentage,One implied decimal,Blank,FALSE
+827,830,4,Decimal,Proficient Percentage,One implied decimal,Blank,FALSE
+831,834,4,Decimal,Advanced Proficient Percentage,One implied decimal,Blank,FALSE
+835,870,36,SCIENCE,,,,TRUE
+835,840,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+841,846,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+847,852,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+853,858,6,Integer,Number of Valid Classifications,,Blank,FALSE
+859,862,4,Decimal,Partially Proficient Percentage,One implied decimal,Blank,FALSE
+863,866,4,Decimal,Proficient Percentage,One implied decimal,Blank,FALSE
+867,870,4,Decimal,Advanced Proficient Percentage,One implied decimal,Blank,FALSE
+871,990,119,LIMITED ENGLISH PROFICIENT,,,,TRUE
+871,876,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+877,910,34,LANGUAGE ARTS,,,,TRUE
+877,882,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+883,888,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+889,894,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+895,898,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+899,902,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+903,906,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+907,910,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+911,950,40,MATHEMATICS,,,,TRUE
+911,916,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+917,922,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+923,928,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+929,934,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+935,938,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+939,942,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+943,946,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+947,950,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+951,990,40,SCIENCE,,,,TRUE
+951,956,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+957,962,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+963,968,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+969,974,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+975,978,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+979,982,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+983,986,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+987,990,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+991,1110,119,CURRENT LIMITED ENGLISH PROFICIENT,,,,TRUE
+991,996,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+997,1030,34,LANGUAGE ARTS,,,,TRUE
+997,1002,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1003,1008,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1009,1014,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1015,1018,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1019,1022,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1023,1026,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1027,1030,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1031,1070,40,MATHEMATICS,,,,TRUE
+1031,1036,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1037,1042,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1043,1048,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1049,1054,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1055,1058,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1059,1062,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1063,1066,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1067,1070,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1071,1110,40,SCIENCE,,,,TRUE
+1071,1076,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1077,1082,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1083,1088,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1089,1094,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1095,1098,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1099,1102,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1103,1106,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1107,1110,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1111,1230,119,FORMER LIMITED ENGLISH PROFICIENT,,,,TRUE
+1111,1116,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1117,1150,34,LANGUAGE ARTS,,,,TRUE
+1117,1122,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1123,1128,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1129,1134,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1135,1138,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1139,1142,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1143,1146,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1147,1150,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1151,1190,40,MATHEMATICS,,,,TRUE
+1151,1156,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1157,1162,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1163,1168,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1169,1174,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1175,1178,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1179,1182,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1183,1186,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1187,1190,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1191,1230,40,SCIENCE,,,,TRUE
+1191,1196,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1197,1202,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1203,1208,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1209,1214,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1215,1218,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1219,1222,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1223,1226,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1227,1230,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1231,1350,119,FEMALE,,,,TRUE
+1231,1236,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1237,1270,34,LANGUAGE ARTS,,,,TRUE
+1237,1242,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1243,1248,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1249,1254,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1255,1258,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1259,1262,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1263,1266,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1267,1270,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1271,1310,40,MATHEMATICS,,,,TRUE
+1271,1276,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1277,1282,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1283,1288,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1289,1294,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1295,1298,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1299,1302,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1303,1306,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1307,1310,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1311,1350,40,SCIENCE,,,,TRUE
+1311,1316,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1317,1322,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1323,1328,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1329,1334,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1335,1338,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1339,1342,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1343,1346,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1347,1350,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1351,1470,119,MALE,,,,TRUE
+1351,1356,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1357,1390,34,LANGUAGE ARTS,,,,TRUE
+1357,1362,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1363,1368,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1369,1374,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1375,1378,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1379,1382,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1383,1386,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1387,1390,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1391,1430,40,MATHEMATICS,,,,TRUE
+1391,1396,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1397,1402,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1403,1408,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1409,1414,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1415,1418,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1419,1422,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1423,1426,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1427,1430,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1431,1470,40,SCIENCE,,,,TRUE
+1431,1436,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1437,1442,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1443,1448,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1449,1454,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1455,1458,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1459,1462,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1463,1466,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1467,1470,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1471,1590,119,MIGRANT,,,,TRUE
+1471,1476,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1477,1510,34,LANGUAGE ARTS,,,,TRUE
+1477,1482,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1483,1488,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1489,1494,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1495,1498,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1499,1502,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1503,1506,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1507,1510,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1511,1550,40,MATHEMATICS,,,,TRUE
+1511,1516,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1517,1522,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1523,1528,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1529,1534,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1535,1538,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1539,1542,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1543,1546,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1547,1550,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1551,1590,40,SCIENCE,,,,TRUE
+1551,1556,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1557,1562,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1563,1568,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1569,1574,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1575,1578,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1579,1582,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1583,1586,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1587,1590,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1591,1710,119,NON-MIGRANT,,,,TRUE
+1591,1596,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1597,1630,34,LANGUAGE ARTS,,,,TRUE
+1597,1602,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1603,1608,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1609,1614,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1615,1618,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1619,1622,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1623,1626,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1627,1630,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1631,1670,40,MATHEMATICS,,,,TRUE
+1631,1636,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1637,1642,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1643,1648,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1649,1654,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1655,1658,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1659,1662,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1663,1666,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1667,1670,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1671,1710,40,SCIENCE,,,,TRUE
+1671,1676,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1677,1682,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1683,1688,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1689,1694,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1695,1698,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1699,1702,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1703,1706,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1707,1710,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1711,1830,119,WHITE,,,,TRUE
+1711,1716,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1717,1750,34,LANGUAGE ARTS,,,,TRUE
+1717,1722,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1723,1728,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1729,1734,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1735,1738,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1739,1742,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1743,1746,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1747,1750,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1751,1790,40,MATHEMATICS,,,,TRUE
+1751,1756,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1757,1762,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1763,1768,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1769,1774,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1775,1778,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1779,1782,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1783,1786,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1787,1790,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1791,1830,40,SCIENCE,,,,TRUE
+1791,1796,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1797,1802,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1803,1808,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1809,1814,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1815,1818,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1819,1822,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1823,1826,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1827,1830,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1831,1950,119,BLACK,,,,TRUE
+1831,1836,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1837,1870,34,LANGUAGE ARTS,,,,TRUE
+1837,1842,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1843,1848,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1849,1854,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1855,1858,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1859,1862,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1863,1866,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1867,1870,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1871,1910,40,MATHEMATICS,,,,TRUE
+1871,1876,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1877,1882,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1883,1888,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1889,1894,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1895,1898,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1899,1902,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1903,1906,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1907,1910,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1911,1950,40,SCIENCE,,,,TRUE
+1911,1916,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1917,1922,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1923,1928,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1929,1934,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1935,1938,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1939,1942,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1943,1946,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1947,1950,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1951,2070,119,ASIAN,,,,TRUE
+1951,1956,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1957,1990,34,LANGUAGE ARTS,,,,TRUE
+1957,1962,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1963,1968,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1969,1974,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+1975,1978,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1979,1982,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1983,1986,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1987,1990,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+1991,2030,40,MATHEMATICS,,,,TRUE
+1991,1996,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+1997,2002,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2003,2008,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2009,2014,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2015,2018,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2019,2022,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2023,2026,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2027,2030,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2031,2070,40,SCIENCE,,,,TRUE
+2031,2036,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2037,2042,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2043,2048,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2049,2054,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2055,2058,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2059,2062,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2063,2066,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2067,2070,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2071,2190,119,PACIFIC ISLANDER,,,,TRUE
+2071,2076,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2077,2110,34,LANGUAGE ARTS,,,,TRUE
+2077,2082,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2083,2088,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2089,2094,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2095,2098,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2099,2102,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2103,2106,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2107,2110,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2111,2150,40,MATHEMATICS,,,,TRUE
+2111,2116,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2117,2122,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2123,2128,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2129,2134,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2135,2138,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2139,2142,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2143,2146,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2147,2150,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2151,2190,40,SCIENCE,,,,TRUE
+2151,2156,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2157,2162,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2163,2168,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2169,2174,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2175,2178,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2179,2182,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2183,2186,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2187,2190,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2191,2310,119,HISPANIC,,,,TRUE
+2191,2196,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2197,2230,34,LANGUAGE ARTS,,,,TRUE
+2197,2202,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2203,2208,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2209,2214,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2215,2218,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2219,2222,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2223,2226,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2227,2230,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2231,2270,40,MATHEMATICS,,,,TRUE
+2231,2236,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2237,2242,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2243,2248,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2249,2254,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2255,2258,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2259,2262,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2263,2266,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2267,2270,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2271,2310,40,SCIENCE,,,,TRUE
+2271,2276,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2277,2282,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2283,2288,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2289,2294,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2295,2298,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2299,2302,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2303,2306,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2307,2310,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2311,2430,119,AMERICAN INDIAN,,,,TRUE
+2311,2316,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2317,2350,34,LANGUAGE ARTS,,,,TRUE
+2317,2322,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2323,2328,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2329,2334,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2335,2338,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2339,2342,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2343,2346,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2347,2350,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2351,2390,40,MATHEMATICS,,,,TRUE
+2351,2356,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2357,2362,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2363,2368,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2369,2374,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2375,2378,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2379,2382,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2383,2386,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2387,2390,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2391,2430,40,SCIENCE,,,,TRUE
+2391,2396,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2397,2402,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2403,2408,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2409,2414,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2415,2418,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2419,2422,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2423,2426,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2427,2430,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2431,2550,119,OTHER,,,,TRUE
+2431,2436,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2437,2470,34,LANGUAGE ARTS,,,,TRUE
+2437,2442,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2443,2448,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2449,2454,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2455,2458,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2459,2462,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2463,2466,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2467,2470,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2471,2510,40,MATHEMATICS,,,,TRUE
+2471,2476,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2477,2482,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2483,2488,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2489,2494,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2495,2498,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2499,2502,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2503,2506,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2507,2510,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2511,2550,40,SCIENCE,,,,TRUE
+2511,2516,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2517,2522,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2523,2528,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2529,2534,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2535,2538,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2539,2542,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2543,2546,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2547,2550,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2551,2670,119,ECONOMICALLY DISADVANTAGED,,,,TRUE
+2551,2556,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2557,2590,34,LANGUAGE ARTS,,,,TRUE
+2557,2562,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2563,2568,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2569,2574,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2575,2578,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2579,2582,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2583,2586,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2587,2590,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2591,2630,40,MATHEMATICS,,,,TRUE
+2591,2596,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2597,2602,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2603,2608,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2609,2614,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2615,2618,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2619,2622,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2623,2626,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2627,2630,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2631,2670,40,SCIENCE,,,,TRUE
+2631,2636,6,Integer,Number Enrolled Science,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2637,2642,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2643,2648,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2649,2654,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2655,2658,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2659,2662,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2663,2666,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2667,2670,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2671,2790,119,NON-ECONOMICALLY DISADVANTAGED,,,,TRUE
+2671,2676,6,Integer,Number Enrolled LAL,Number of enrolled 11th graders,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2677,2710,34,LANGUAGE ARTS,,,,TRUE
+2677,2682,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2683,2688,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2689,2694,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2695,2698,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2699,2702,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2703,2706,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2707,2710,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2711,2750,40,MATHEMATICS,,,,TRUE
+2711,2716,6,Integer,Number Enrolled Math,,0 or greater for spreadsheet and 000000 or greater for text file,FALSE
+2717,2722,6,Integer,Number Not Present,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2723,2728,6,Integer,Number of Voids,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2729,2734,6,Integer,Number of Valid Scale Scores,,0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0,FALSE
+2735,2738,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2739,2742,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2743,2746,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE
+2747,2750,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.,FALSE

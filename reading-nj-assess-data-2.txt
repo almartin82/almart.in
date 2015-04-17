@@ -81,9 +81,9 @@ get_raw_njask <- function(year, grade, layout=layout_njask) {
   df <- readr::read_fwf(
     file = target_url,
     col_positions = readr::fwf_positions(
-      start = layout_njask$field_start_position,
-      end = layout_njask$field_end_position,
-      col_names = layout_njask$final_name
+      start = layout$field_start_position,
+      end = layout$field_end_position,
+      col_names = layout$final_name
     ),
     na = "*"
   )

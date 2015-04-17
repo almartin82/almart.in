@@ -23,134 +23,232 @@ opts_chunk$set(pelican.publish=ready_to_ship)
 
 ```
 
-In my [last post]('/reading-nj-assess-data-2.html'), I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA) and the old Grade Eight Proficiency Assessment (GEPA).
-
-Roughly speaking, we want to:
-
-1. Check that call we made is a valid grade/year combination (raising an informative error if not)
-
-2. Map the grade / year call to the correct `get_blank_data` function (NJASK? HSPA? GEPA?)
-
-3. Fetch, clean, and return the data frame.
-
-But we're getting a little ahead of ourselves.  First we need to look more closely at the HSPA data, and write functions to get and process that data. 
+In my [last post]('/reading-nj-assess-data-2.html'), I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA), and to the old Grade Eight Proficiency Assessment (GEPA).  With functions that can access each of those data sources, we'll be ready to write a general wrapper that simplifies access to relevant state assessment data.
 
 # HSPA
 
+Much like the NJASK data in posts [1]('/reading-nj-assess-data-1.html') and [2]('/reading-nj-assess-data-2.html'), we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some postprocessing.  I wrote up how to process the HSPA metadata [here]('/hspa-layout.html'), if data processing is your thing.
+
+Load in those processed files:
+
+
+```{r libraries, message=FALSE, warning=FALSE}
+library(Hmisc)
+```
+
 ```{r hspa1}
+
+load(file = 'datasets/hspa_layout.rda')
+load(file = 'datasets/hspa2010_layout.rda')
+head(layout_hspa)
+
+```
+
+Use the layout file to process an example HSPA data file:
+
+```{r hspa2}
 
 hspa_url <- 'http://www.state.nj.us/education/schools/achievement/14/hspa/state_summary.txt'
 
-hspa_raw <- readr::read_fwf(
-  file = hspa_url
+hspa_ex <- readr::read_fwf(
+  file = hspa_url,
+  col_positions = readr::fwf_positions(
+    start = layout_hspa$field_start_position,
+    end = layout_hspa$field_end_position,
+    col_names = layout_hspa$final_name
+  ),
+  na = "*"
 )
+
+hspa_ex %>% as.data.frame() %>% select(CDS_Code:TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean) %>% head()
 
 ```
 
+That gets us to a similar state as we were in for the NJASK data - we have all the columns identified, but there's a need for post-processing, especially for the percentage columns, which have 'One implied decimal.'
+
+We can take the formula we wrote to process NJASK data frames and generalize it, so that it can handle both NJASK and HSPA data.
+
+```{r generalize_processing}
+
+process_nj_assess <- function(df, layout) {
+  require(Hmisc)
+  #build a mask
+  mask <- layout$comments == 'One implied decimal'
+    
+  #keep the names to put back in the same order
+  all_names <- names(df)
+  
+  #make sure df is data frame (not dplyr data frame) so that normal subsetting
+  df <- as.data.frame(df)
+
+  #get name of last column and kill \n characters
+  last_col <- names(df)[ncol(df)]
+  df[, last_col] <- gsub('\n', '', df[, last_col], fixed = TRUE)
+    
+#   #sigh, edge case in old HSPA data file where \n randomly exists in one middle column
+#   if ('SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean' %in% names(df)) {
+#     df$SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean <- gsub(
+#       '\n', '', df$SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean, fixed = TRUE
+#     )  
+#   }
+  
+  #put some columns aside
+  ignore <- df[, !mask]
+  
+  implied_decimal_fix <- function(x) {
+    #strip out anything that's not a number.
+    x <- as.numeric(gsub("[^\\d]+", "", x, perl=TRUE))
+    x / 10
+  }
+
+  #process the columns that have an implied decimal
+  processed <- df[, mask] %>%
+    dplyr::mutate_each(
+      dplyr::funs(implied_decimal_fix)  
+    )
+  
+  #put back together 
+  final <- cbind(ignore, processed)
+  
+  #reorder and return
+  final %>%
+    select(
+      one_of(names(df))
+    )
+}
+
+process_nj_assess(hspa_ex, layout_hspa) %>% select(CDS_Code:TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean) %>% head()
+
+```
+
+Yep, that totally works.  Following from the NJASK example, we'll write a function to simplify fetching the HSPA data, and a final wrapper around the fetch/process steps.
+
+```{r fetch_hspa}
+
+get_raw_hspa <- function(year, layout=layout_hspa) {
+  require(readr)
+    
+  #url paths changed in 2012
+  years <- list(
+    "2014"="14", "2013"="13", "2012"="2013", "2011"="2012", "2010"="2011", "2009"="2010", 
+    "2008"="2009", "2007"="2008", "2006"="2007", "2005"="2006", "2004"="2005"
+  )
+  parsed_year <- years[[as.character(year)]]
+  
+  #build url
+  target_url <- paste0(
+    "http://www.state.nj.us/education/schools/achievement/", parsed_year, 
+    "/hspa/state_summary.txt"
+  )
+    
+  #read_fwf
+  df <- readr::read_fwf(
+    file = target_url,
+    col_positions = readr::fwf_positions(
+      start = layout$field_start_position,
+      end = layout$field_end_position,
+      col_names = layout$final_name
+    ),
+    na = "*"
+  )
+  
+  #return df
+  return(df)
+  
+}
+
+#final wrapper
+fetch_hspa <- function(year) {
+  if (year >= 2011) {
+    hspa_df <- get_raw_hspa(year) %>% process_nj_assess(layout=layout_hspa)
+  } else if (year >= 2004) {
+    hspa_df <- get_raw_hspa(year, layout=layout_hspa2010) %>% process_nj_assess(layout=layout_hspa2010) 
+  }
+  
+  return(hspa_df)
+}
+
+fetch_hspa(2010) %>% select(CDS_Code:TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean) %>% head()
+
+```
+
+Nice!  NJASK and HSPA down, GEPA data to go.
 
 # GEPA
 
+Load in the processed GEPA layout file:
+```{r gepa1}
 
-# valid calls
+load(file = 'datasets/gepa_layout.rda')
 
-This function will test if a year/grade call is valid.
+head(layout_gepa)
 
-```{r valid_call}
+```
 
-valid_call <- function(year, grade) {
-  #common core transition started in 2015
-  if(year > 2014) {
-    valid_call <- FALSE
-  #NJASK fully implemented in 2008
-  } else if(year >= 2006) {
-    valid_call <- grade %in% c(3:8, 11)
-  } else if (year >= 2004) {
-    valid_call <- grade %in% c(3, 4, 8, 11)
-  } else if (year < 2004) {
-    valid_call <- FALSE
-  }
+
+A function to get GEPA data:
+
+```{r gepa2}
+
+get_raw_gepa <- function(year, layout=layout_gepa) {
+  require(readr)
+    
+  #url paths changed in 2012
+  years <- list(
+    "2014"="14", "2013"="13", "2012"="2013", "2011"="2012", "2010"="2011", "2009"="2010", 
+    "2008"="2009", "2007"="2008", "2006"="2007", "2005"="2006", "2004"="2005"
+  )
+  parsed_year <- years[[as.character(year)]]
   
-  return(valid_call)
-
+  #build url
+  target_url <- paste0(
+    "http://www.state.nj.us/education/schools/achievement/", parsed_year, 
+    "/gepa/state_summary.txt"
+  )
+    
+  #read_fwf
+  df <- readr::read_fwf(
+    file = target_url,
+    col_positions = readr::fwf_positions(
+      start = layout$field_start_position,
+      end = layout$field_end_position,
+      col_names = layout$final_name
+    ),
+    na = "*"
+  )
+  
+  #return df
+  return(df)
+  
 }
 
-```
+gepa_ex <- get_raw_gepa(2007)
 
-# retrieval
-
-This function does normal retrieval (NJASK for 3-8; HSPA for 11).
-
-```{r}
-
-standard_assess <- function(year, grade) {
-  if(grade %in% c(3:8)) {
-    assess_data <- get_raw_njask(year, grade) %>%
-      process_njask()
-  } else if (grade == 11) {
-    #not yet implemented
-    assess_data <- get_raw_hspa(year) %>%
-      process_hspa
-  }
-  
-  return(assess_data)
-} 
+gepa_ex %>% as.data.frame() %>% select(CDS_Code:TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean) %>% head()
 
 ```
 
-Here is a mapping function that calls the correct retrieval method, given grade and year.
+Can we process the GEPA df using our existing function?
 
-```{r main_wrapper}
+```{r gepa3}
 
-fetch_nj_assess <- function(year, grade) {
+process_nj_assess(gepa_ex, layout_gepa) %>% select(CDS_Code:TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean) %>% head()
 
-  is_valid <- valid_call(year, grade)
+```
+
+Yes, totally.  
+Final step: write all of that into a final wrapper function:
+
+```{r gepa_wrapper}
+
+#final wrapper
+fetch_gepa <- function(year) {
+  get_raw_gepa(year) %>% process_nj_assess(layout=layout_gepa)
   
-  if (year >= 2008) {
-    assess_data <- standard_assess(year, grade)
-  #2006 and 2007: NJASK 3rd-7th, GEPA 8th, HSPA 11th
-  } else if (year %in% c(2006, 2007)) {
-    if (grade %in% c(3:7)) {
-      assess_data <- standard_assess(year, grade)  
-    } else if (grade == 8) {
-      #not yet implemented
-      assess_data <- get_raw_gepa(year) %>%
-        process_gepa()
-    } else if (grade == 11) {
-      #not yet implemented
-      assess_data <- get_raw_hspa(year) %>%
-        process_hspa
-    }
-  #2004 and 2005:  NJASK 3rd & 4th, GEPA 8th, HSPA 11th
-  } else if (year %in% c(2004, 2005)) {
-    if (grade %in% c(3:4)) {
-      assess_data <- standard_assess(year, grade)  
-    } else if (grade == 8) {
-      #not yet implemented
-      assess_data <- get_raw_gepa(year) %>%
-        process_gepa()
-    } else if (grade == 11) {
-      #not yet implemented
-      assess_data <- get_raw_hspa(year) %>%
-        process_hspa 
-    }
-  # if we ever reached this block, there's a problem with our `valid_call()` function
-  } else {
-    #raise an error
-  }
- 
-  return(assess_data)
 }
 
-fetch_nj_assess(2014, 6) %>% head()
+fetch_gepa(2007) %>% as.data.frame() %>% select(CDS_Code:TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean) %>% head()
 
 ```
 
-
-Finally, as a convenience, let's write a function that brings down all of the NJASK data for all years and grades.
-
-```{r all_njask}
-
-
-
-```
-
+In the next post in this series, we'll take these individual NJASK, HSPA, and GEPA functions and write a wrapper to rule them all, allowing data to be easily fetched for any year/grade.
