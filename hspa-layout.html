@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Errata: prepping the HSPA layout file — almart.in</title>
+	<meta name="description" content="Title: Errata: prepping the HSPA layout file; Date: 2015-04-16; Author: Andrew Martin">
+	<meta name="author" content="Andrew Martin">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+		<script src="http://almart.in/theme/html5.js"></script>
+		<![endif]-->
+	<link href="http://almart.in/theme/css/ipython.css" rel="stylesheet">
+	<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+	<!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> -->
+	<!-- <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/simplex/bootstrap.min.css" rel="stylesheet"> -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/simplex/bootstrap.min.css" rel="stylesheet">
+	<link href="http://almart.in/theme/css/local.css" rel="stylesheet">
+	<link href="http://almart.in/theme/css/pygments.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+	<!-- NAVBAR -->
+	<nav class="navbar navbar-default" style="margin-top:2em;">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://almart.in">almart.in</a>
+			</div>			
+			<!-- MENUITEMS: update the MENUITEMS dict in pelicanconf.py -->
+			<div id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="http://almart.in/pages/about.html"><i class="fa fa-user "></i> about</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="http://almart.in/categories.html"><i class="fa fa-archive"></i> categories</a></li>
+					<li><a href="http://almart.in/tags.html"><i class="fa fa-tags"></i> tags</a></li>
+					<li><a href="http://almart.in/feeds/all_atom.xml"><i class="fa fa-rss"></i> rss</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<!-- MAIN CONTENT: edit in base_site.html template -->
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+<div class="article" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="text-center article-header">
+		<h1 itemprop="name headline" class="article-title">Errata: prepping the HSPA layout file</h1>
+		<span>
+			<div itemprop="author" itemscope itemtype="http://schema.org/Person">
+				<span itemprop="name">Andrew Martin</span> 
+				&nbsp;&#124;&nbsp;
+				<time datetime="2015-04-16T00:00:00-04:00" itemprop="datePublished">April 16 2015</time>
+				&nbsp;|&nbsp;
+				<span><a href="http://almart.in/hspa-layout.txt" title="Raw Markdown for Errata: prepping the HSPA layout file">raw</a></span>
+			</div>
+		</span>
+		
+	</div>
+	<div>
+		category:
+		<span itemprop="articleSection">
+			<a href="http://almart.in/category/education.html" rel="category">education</a>
+		</span>
+	</div>
+	
+ 
+	<div>
+		tags:
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/boring.html" rel="tag"> boring</a>&nbsp;&nbsp;
+		</span>
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/errata.html" rel="tag"> errata</a>&nbsp;&nbsp;
+		</span>
+	</div>
+	<div itemprop="articleBody" class="article-body"><!-- PELICAN_END_SUMMARY -->
+
+<p>Attention conservaton notice: this post is just data munging to get a csv with test metadata shipshape.  Tried to set it to <code>status: hidden</code> so it wouldn't show on the front page of the blog, but had some trouble with Pelican.  That said, work has to get done, so better to do it in an .Rmd and write down what I was thinking - I've learned that lesson like a thousand times.  If you are in the small group of people who care about this sort of thing, <a href="" title="mailto:almartin at gmail dot com">get in touch</a>.</p>
+<p>Read in the csv.  Some errata here: </p>
+<p>the format of the HSPA file layout is totally different from the NJASK file (sigh).  The key difference is that the  spanning headers that indicate the subgroup (gen ed, special ed, etc) are indicated as have start/end position across the whole relevant range in the NJASK file, but on the HSPA file they only show up as 6 character fields <em>before</em> the relevant range.  I hand-edited the HSPA file so it would be consistent with the NJASK file.  </p>
+<p><strong>NJASK:</strong></p>
+<p><img src="static_images/06a_njask.png"></p>
+<p><strong>HSPA:</strong></p>
+<p><img src="static_images/06a_hspa.png"></p>
+<p>This.... I can't say anything nice about the decision to do this (<em>why?!?</em>) so I'm just going to move on.  </p>
+<div class="highlight"><pre>hspa <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="s">&quot;datasets/hspa_layout.csv&quot;</span><span class="p">)</span>
+<span class="kp">names</span><span class="p">(</span>hspa<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>hspa<span class="p">)))</span>
+
+
+<span class="kp">head</span><span class="p">(</span>hspa<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="err">##</span>   <span class="nt">field_start_position</span> <span class="nt">field_end_position</span> <span class="nt">field_length</span> <span class="nt">data_type</span>
+<span class="err">##</span> <span class="nt">1</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">2</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">3</span>                    <span class="nt">1</span>                  <span class="nt">2</span>            <span class="nt">2</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">4</span>                    <span class="nt">3</span>                  <span class="nt">6</span>            <span class="nt">4</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">5</span>                    <span class="nt">7</span>                  <span class="nt">9</span>            <span class="nt">3</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">10</span>                 <span class="nt">59</span>           <span class="nt">50</span>      <span class="nt">Text</span>
+<span class="err">##</span>     <span class="nt">description</span>                                                 <span class="nt">comments</span>
+<span class="err">##</span> <span class="nt">1</span>    <span class="nt">RECORD</span> <span class="nt">KEY</span>                                                         
+<span class="err">##</span> <span class="nt">2</span>     <span class="nt">CDS</span> <span class="nt">Code</span>                                                          
+<span class="err">##</span> <span class="nt">3</span>   <span class="nt">County</span> <span class="nt">Code</span>                                                         
+<span class="err">##</span> <span class="nt">4</span> <span class="nt">District</span> <span class="nt">Code</span> <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span><span class="o">.</span>   
+<span class="err">##</span> <span class="nt">5</span>   <span class="nt">School</span> <span class="nt">Code</span>                 <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">school</span> <span class="nt">aggregations</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">6</span>   <span class="nt">County</span> <span class="nt">Name</span>                                                         
+<span class="err">##</span>                                                                                                                                                                                            <span class="nt">valid_values</span>
+<span class="err">##</span> <span class="nt">1</span>                                                                                                                                                                                                      
+<span class="err">##</span> <span class="nt">2</span> <span class="nt">CDS</span> <span class="nt">codes</span> <span class="nt">for</span> <span class="nt">schools</span> <span class="nt">and</span> <span class="nt">districts</span><span class="err">\</span><span class="nt">nTHE</span> <span class="nt">FIRST</span> <span class="nt">TWO</span> <span class="nt">POSITIONS</span> <span class="nt">WILL</span> <span class="nt">INCLUDE</span> <span class="nt">THE</span> <span class="nt">FOLLOWING</span> <span class="nt">AGGREGATION</span> <span class="nt">CODES</span><span class="o">:</span> <span class="nt">NS</span> <span class="o">=</span> <span class="nt">Non-Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">SN</span> <span class="o">=</span> <span class="nt">Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">ST</span> <span class="o">=</span> <span class="nt">State</span><span class="o">;</span> <span class="nt">A</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">A</span><span class="o">;</span> <span class="nt">B</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">B</span><span class="o">;</span> <span class="nt">CD</span><span class="o">=</span> <span class="nt">DFG</span> <span class="nt">CD</span><span class="err">…</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">3</span>                                                                                                    <span class="nt">01</span><span class="o">,</span> <span class="nt">03</span><span class="o">,</span> <span class="nt">05</span><span class="o">,</span> <span class="nt">07</span><span class="o">,</span> <span class="nt">09</span><span class="o">,</span> <span class="nt">11</span><span class="o">,</span> <span class="nt">13</span><span class="o">,</span> <span class="nt">15</span><span class="o">,</span> <span class="nt">17</span><span class="o">,</span> <span class="nt">19</span><span class="o">,</span> <span class="nt">21</span><span class="o">,</span> <span class="nt">23</span><span class="o">,</span> <span class="nt">25</span><span class="o">,</span> <span class="nt">27</span><span class="o">,</span> <span class="nt">29</span><span class="o">,</span> <span class="nt">31</span><span class="o">,</span> <span class="nt">33</span><span class="o">,</span> <span class="nt">35</span><span class="o">,</span> <span class="nt">37</span><span class="o">,</span> <span class="nt">39</span><span class="o">,</span> <span class="nt">41</span><span class="o">,</span> <span class="nt">43</span><span class="o">,</span> <span class="nt">45</span><span class="o">,</span> <span class="nt">47</span><span class="o">,</span> <span class="nt">80</span>
+<span class="err">##</span> <span class="nt">4</span>                                                                                                                                                                                   <span class="nt">0100</span> <span class="nt">to</span> <span class="nt">9999</span><span class="o">,</span> <span class="nt">blank</span>
+<span class="err">##</span> <span class="nt">5</span>                                                                                                                                                                                     <span class="nt">001</span> <span class="nt">to</span> <span class="nt">999</span><span class="o">,</span> <span class="nt">blank</span>
+<span class="err">##</span> <span class="nt">6</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span>   <span class="nt">structural</span>
+<span class="err">##</span> <span class="nt">1</span>      <span class="nt">FALSE</span>
+<span class="err">##</span> <span class="nt">2</span>      <span class="nt">FALSE</span>
+<span class="err">##</span> <span class="nt">3</span>      <span class="nt">FALSE</span>
+<span class="err">##</span> <span class="nt">4</span>      <span class="nt">FALSE</span>
+<span class="err">##</span> <span class="nt">5</span>      <span class="nt">FALSE</span>
+<span class="err">##</span> <span class="nt">6</span>      <span class="nt">FALSE</span>
+</pre></div>
+
+
+<p>Let's rework the code from the first <a href="" title="/reading-nj-assess-data-1.html">post</a> into a proper function.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>sqldf<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>magrittr<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>reshape2<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>process_layout <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>df<span class="p">)</span> <span class="p">{</span>
+  <span class="kn">require</span><span class="p">(</span>sqldf<span class="p">)</span>
+  <span class="kn">require</span><span class="p">(</span>magrittr<span class="p">)</span>
+  <span class="kn">require</span><span class="p">(</span>dplyr<span class="p">)</span>
+  <span class="kn">require</span><span class="p">(</span>reshape2<span class="p">)</span>  
+
+  <span class="c1">#split spanners from keepers</span>
+  spanners <span class="o">&lt;-</span> dplyr<span class="o">::</span>filter<span class="p">(</span>df<span class="p">,</span> structural<span class="o">==</span><span class="kc">TRUE</span><span class="p">)</span>
+  keepers <span class="o">&lt;-</span> dplyr<span class="o">::</span>filter<span class="p">(</span>df<span class="p">,</span> structural<span class="o">==</span><span class="kc">FALSE</span><span class="p">)</span>
+
+  <span class="c1">#join spanners to keepers</span>
+  with_spanners <span class="o">&lt;-</span> sqldf<span class="p">(</span><span class="s">&#39;</span>
+<span class="s">    SELECT keepers.*</span>
+<span class="s">          ,spanners.data_type AS spanner</span>
+<span class="s">          ,spanners.field_length AS spanner_length</span>
+<span class="s">    FROM keepers</span>
+<span class="s">    LEFT OUTER JOIN spanners</span>
+<span class="s">      ON keepers.field_start_position &gt;= spanners.field_start_position</span>
+<span class="s">     AND keepers.field_end_position &lt;= spanners.field_end_position</span>
+<span class="s">  &#39;</span><span class="p">)</span>
+
+  <span class="c1">#tag the joined data frame with a row number to facilitate long -&gt; wide</span>
+  with_rn <span class="o">&lt;-</span> with_spanners <span class="o">%&gt;%</span>
+    dplyr<span class="o">::</span>group_by<span class="p">(</span>
+       field_start_position<span class="p">,</span> field_end_position<span class="p">,</span> field_length<span class="p">,</span> 
+       data_type<span class="p">,</span> description<span class="p">,</span> comments<span class="p">,</span> valid_values  
+    <span class="p">)</span> <span class="o">%&gt;%</span>
+    mutate<span class="p">(</span>
+      rn <span class="o">=</span> <span class="kp">order</span><span class="p">(</span>desc<span class="p">(</span>spanner_length<span class="p">))</span> 
+    <span class="p">)</span> <span class="o">%&gt;%</span>
+    select<span class="p">(</span>
+      field_start_position<span class="p">,</span> field_end_position<span class="p">,</span> field_length<span class="p">,</span> 
+      data_type<span class="p">,</span> description<span class="p">,</span> comments<span class="p">,</span> valid_values<span class="p">,</span> spanner<span class="p">,</span> rn
+    <span class="p">)</span> <span class="o">%&gt;%</span>
+    <span class="kp">as.data.frame</span><span class="p">()</span>
+
+  <span class="c1">#text processing and mask NAs</span>
+  with_rn<span class="o">$</span>rn <span class="o">&lt;-</span> <span class="kp">paste0</span><span class="p">(</span><span class="s">&#39;spanner&#39;</span><span class="p">,</span> with_rn<span class="o">$</span>rn<span class="p">)</span>
+  with_rn<span class="o">$</span>spanner <span class="o">&lt;-</span> <span class="kp">ifelse</span><span class="p">(</span><span class="kp">is.na</span><span class="p">(</span>with_rn<span class="o">$</span>spanner<span class="p">),</span><span class="s">&#39;&#39;</span><span class="p">,</span> with_rn<span class="o">$</span>spanner<span class="p">)</span>
+
+  layout_wide <span class="o">&lt;-</span> dcast<span class="p">(</span>
+    data <span class="o">=</span> with_rn<span class="p">,</span>
+    formula <span class="o">=</span> field_start_position <span class="o">+</span> field_end_position <span class="o">+</span> field_length <span class="o">+</span>
+      data_type <span class="o">+</span> description <span class="o">+</span> comments <span class="o">+</span> valid_values <span class="o">~</span> rn<span class="p">,</span>
+    value.var <span class="o">=</span> <span class="s">&quot;spanner&quot;</span>
+  <span class="p">)</span>
+
+  <span class="c1">#this appears to be a bug in dcast?  should not be needed.</span>
+  layout_wide<span class="o">$</span>spanner2 <span class="o">&lt;-</span> <span class="kp">ifelse</span><span class="p">(</span><span class="kp">is.na</span><span class="p">(</span>layout_wide<span class="o">$</span>spanner2<span class="p">),</span><span class="s">&#39;&#39;</span><span class="p">,</span> layout_wide<span class="o">$</span>spanner2<span class="p">)</span>
+
+  reserved_chars <span class="o">&lt;-</span> <span class="kt">list</span><span class="p">(</span><span class="s">&#39;+&#39;</span> <span class="o">=</span> <span class="s">&#39;and&#39;</span><span class="p">,</span> <span class="s">&#39;(&#39;</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;)&#39;</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+  <span class="kr">for</span> <span class="p">(</span>i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>reserved_chars<span class="p">))</span> <span class="p">{</span>
+    layout_wide<span class="o">$</span>spanner1 <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="kp">names</span><span class="p">(</span>reserved_chars<span class="p">)[</span>i<span class="p">],</span> reserved_chars<span class="p">[</span>i<span class="p">],</span> layout_wide<span class="o">$</span>spanner1<span class="p">,</span> fixed <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="c1">#make final name</span>
+  layout_wide<span class="o">$</span>final_name <span class="o">&lt;-</span> layout_wide <span class="o">%$%</span> <span class="kp">paste</span><span class="p">(</span>spanner1<span class="p">,</span> spanner2<span class="p">,</span> description<span class="p">,</span> sep<span class="o">=</span><span class="s">&#39;_&#39;</span><span class="p">)</span>
+
+  <span class="c1">#kill double underscores</span>
+  layout_wide<span class="o">$</span>final_name <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&#39;__&#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> layout_wide<span class="o">$</span>final_name<span class="p">)</span>
+  <span class="c1">#kill leading or trailer underscores</span>
+  layout_wide<span class="o">$</span>final_name <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot;(^_+|_+$)&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_wide<span class="o">$</span>final_name<span class="p">)</span>
+  <span class="c1">#trim any remaining whitespace</span>
+  layout_wide<span class="o">$</span>final_name <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_wide<span class="o">$</span>final_name<span class="p">)</span>
+  <span class="c1">#all whitespace becomes underscore</span>
+  layout_wide<span class="o">$</span>final_name <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> layout_wide<span class="o">$</span>final_name<span class="p">)</span>
+
+  <span class="c1">#more whitespace cleanup</span>
+  layout_wide<span class="o">$</span>comments <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_wide<span class="o">$</span>comments<span class="p">)</span>
+  layout_wide<span class="o">$</span>description <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_wide<span class="o">$</span>description<span class="p">)</span>
+  layout_wide<span class="o">$</span>valid_values <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_wide<span class="o">$</span>valid_values<span class="p">)</span>
+
+  <span class="kr">return</span><span class="p">(</span>layout_wide<span class="p">)</span>
+<span class="p">}</span>
+
+layout_hspa <span class="o">&lt;-</span>process_layout<span class="p">(</span>hspa<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Loading required package: tcltk
+</pre></div>
+
+
+<div class="highlight"><pre>layout_hspa <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="err">##</span>   <span class="nt">field_start_position</span> <span class="nt">field_end_position</span> <span class="nt">field_length</span> <span class="nt">data_type</span>
+<span class="err">##</span> <span class="nt">1</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">2</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">3</span>                    <span class="nt">1</span>                  <span class="nt">2</span>            <span class="nt">2</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">4</span>                    <span class="nt">3</span>                  <span class="nt">6</span>            <span class="nt">4</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">5</span>                    <span class="nt">7</span>                  <span class="nt">9</span>            <span class="nt">3</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">10</span>                 <span class="nt">59</span>           <span class="nt">50</span>      <span class="nt">Text</span>
+<span class="err">##</span>     <span class="nt">description</span>                                              <span class="nt">comments</span>
+<span class="err">##</span> <span class="nt">1</span>    <span class="nt">RECORD</span> <span class="nt">KEY</span>                                                      
+<span class="err">##</span> <span class="nt">2</span>      <span class="nt">CDS</span> <span class="nt">Code</span>                                                      
+<span class="err">##</span> <span class="nt">3</span>   <span class="nt">County</span> <span class="nt">Code</span>                                                      
+<span class="err">##</span> <span class="nt">4</span> <span class="nt">District</span> <span class="nt">Code</span> <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">5</span>   <span class="nt">School</span> <span class="nt">Code</span>              <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">school</span> <span class="nt">aggregations</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">6</span>   <span class="nt">County</span> <span class="nt">Name</span>                                                      
+<span class="err">##</span>                                                                                                                                                                                            <span class="nt">valid_values</span>
+<span class="err">##</span> <span class="nt">1</span>                                                                                                                                                                                                      
+<span class="err">##</span> <span class="nt">2</span> <span class="nt">CDS</span> <span class="nt">codes</span> <span class="nt">for</span> <span class="nt">schools</span> <span class="nt">and</span> <span class="nt">districts</span><span class="err">\</span><span class="nt">nTHE</span> <span class="nt">FIRST</span> <span class="nt">TWO</span> <span class="nt">POSITIONS</span> <span class="nt">WILL</span> <span class="nt">INCLUDE</span> <span class="nt">THE</span> <span class="nt">FOLLOWING</span> <span class="nt">AGGREGATION</span> <span class="nt">CODES</span><span class="o">:</span> <span class="nt">NS</span> <span class="o">=</span> <span class="nt">Non-Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">SN</span> <span class="o">=</span> <span class="nt">Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">ST</span> <span class="o">=</span> <span class="nt">State</span><span class="o">;</span> <span class="nt">A</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">A</span><span class="o">;</span> <span class="nt">B</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">B</span><span class="o">;</span> <span class="nt">CD</span><span class="o">=</span> <span class="nt">DFG</span> <span class="nt">CD</span><span class="err">…</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">3</span>                                                                                                    <span class="nt">01</span><span class="o">,</span> <span class="nt">03</span><span class="o">,</span> <span class="nt">05</span><span class="o">,</span> <span class="nt">07</span><span class="o">,</span> <span class="nt">09</span><span class="o">,</span> <span class="nt">11</span><span class="o">,</span> <span class="nt">13</span><span class="o">,</span> <span class="nt">15</span><span class="o">,</span> <span class="nt">17</span><span class="o">,</span> <span class="nt">19</span><span class="o">,</span> <span class="nt">21</span><span class="o">,</span> <span class="nt">23</span><span class="o">,</span> <span class="nt">25</span><span class="o">,</span> <span class="nt">27</span><span class="o">,</span> <span class="nt">29</span><span class="o">,</span> <span class="nt">31</span><span class="o">,</span> <span class="nt">33</span><span class="o">,</span> <span class="nt">35</span><span class="o">,</span> <span class="nt">37</span><span class="o">,</span> <span class="nt">39</span><span class="o">,</span> <span class="nt">41</span><span class="o">,</span> <span class="nt">43</span><span class="o">,</span> <span class="nt">45</span><span class="o">,</span> <span class="nt">47</span><span class="o">,</span> <span class="nt">80</span>
+<span class="err">##</span> <span class="nt">4</span>                                                                                                                                                                                   <span class="nt">0100</span> <span class="nt">to</span> <span class="nt">9999</span><span class="o">,</span> <span class="nt">blank</span>
+<span class="err">##</span> <span class="nt">5</span>                                                                                                                                                                                     <span class="nt">001</span> <span class="nt">to</span> <span class="nt">999</span><span class="o">,</span> <span class="nt">blank</span>
+<span class="err">##</span> <span class="nt">6</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span>   <span class="nt">spanner1</span> <span class="nt">spanner2</span>    <span class="nt">final_name</span>
+<span class="err">##</span> <span class="nt">1</span>                      <span class="nt">RECORD_KEY</span>
+<span class="err">##</span> <span class="nt">2</span>                        <span class="nt">CDS_Code</span>
+<span class="err">##</span> <span class="nt">3</span>                     <span class="nt">County_Code</span>
+<span class="err">##</span> <span class="nt">4</span>                   <span class="nt">District_Code</span>
+<span class="err">##</span> <span class="nt">5</span>                     <span class="nt">School_Code</span>
+<span class="err">##</span> <span class="nt">6</span>                     <span class="nt">County_Name</span>
+</pre></div>
+
+
+<p>Finally, save the hspa layout as an .rda file.</p>
+<div class="highlight"><pre><span class="kp">save</span><span class="p">(</span>layout_hspa<span class="p">,</span> file <span class="o">=</span> <span class="s">&#39;datasets/hspa_layout.rda&#39;</span><span class="p">)</span>
+</pre></div></div>
+	<hr>
+
+	
+</div>
+		</div>
+	</div>
+</div>
+
+<!-- FOOTER -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-11 text-center center-block aw-bottom">
+			<p>almart.in is built with <a href="http://docs.getpelican.com/en/3.5.0/#">pelican</a></p>
+		</div>
+	</div>
+</div>
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$("div.collapseheader").click(function () {
+		$header = $(this).children("span").first();
+		$codearea = $(this).children(".input_area");
+		$codearea.slideToggle(500, function () {
+			$header.text(function () {
+				return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+			});
+		});
+	});
+});
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61809650-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+ 
+</body>
+</html>

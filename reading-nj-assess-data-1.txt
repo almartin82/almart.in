@@ -80,9 +80,8 @@ I think we can do some dplyr tricks and recover the nested aspects of this data.
 ```{r read_layout}
 
 layout <- readr::read_csv("datasets/njask_layout.csv")
-
-head(layout)
 names(layout) <- tolower(gsub(' ', '_', names(layout)))
+head(layout)
 
 ```
 

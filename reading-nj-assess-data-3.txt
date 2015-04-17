@@ -1,0 +1,156 @@
+Title: Getting NJ assessment data into R: part 3 in a series.
+Date: 2015-04-16
+Category: education
+Tags: NJ, assessment, NJASK, HSPA, data_management, tutorial
+Slug: reading-nj-assess-data-3
+Author: Andrew Martin
+
+```{r, echo=FALSE}
+#SET THIS TO TRUE WHEN READY TO PUBLISH
+ready_to_ship = TRUE
+
+library(knitr)
+hook_plot <- knit_hooks$get('plot')
+
+knit_hooks$set(plot=function(x, options) {
+    if (!is.null(options$pelican.publish) && options$pelican.publish) {
+        x <- paste0("{filename}", x)
+    }
+    hook_plot(x, options)
+})
+opts_chunk$set(dev='Cairo_svg')
+opts_chunk$set(pelican.publish=ready_to_ship)
+
+```
+
+In my [last post]('/reading-nj-assess-data-2.html'), I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA) and the old Grade Eight Proficiency Assessment (GEPA).
+
+Roughly speaking, we want to:
+
+1. Check that call we made is a valid grade/year combination (raising an informative error if not)
+
+2. Map the grade / year call to the correct `get_blank_data` function (NJASK? HSPA? GEPA?)
+
+3. Fetch, clean, and return the data frame.
+
+But we're getting a little ahead of ourselves.  First we need to look more closely at the HSPA data, and write functions to get and process that data. 
+
+# HSPA
+
+```{r hspa1}
+
+hspa_url <- 'http://www.state.nj.us/education/schools/achievement/14/hspa/state_summary.txt'
+
+hspa_raw <- readr::read_fwf(
+  file = hspa_url
+)
+
+```
+
+
+# GEPA
+
+
+# valid calls
+
+This function will test if a year/grade call is valid.
+
+```{r valid_call}
+
+valid_call <- function(year, grade) {
+  #common core transition started in 2015
+  if(year > 2014) {
+    valid_call <- FALSE
+  #NJASK fully implemented in 2008
+  } else if(year >= 2006) {
+    valid_call <- grade %in% c(3:8, 11)
+  } else if (year >= 2004) {
+    valid_call <- grade %in% c(3, 4, 8, 11)
+  } else if (year < 2004) {
+    valid_call <- FALSE
+  }
+  
+  return(valid_call)
+
+}
+
+```
+
+# retrieval
+
+This function does normal retrieval (NJASK for 3-8; HSPA for 11).
+
+```{r}
+
+standard_assess <- function(year, grade) {
+  if(grade %in% c(3:8)) {
+    assess_data <- get_raw_njask(year, grade) %>%
+      process_njask()
+  } else if (grade == 11) {
+    #not yet implemented
+    assess_data <- get_raw_hspa(year) %>%
+      process_hspa
+  }
+  
+  return(assess_data)
+} 
+
+```
+
+Here is a mapping function that calls the correct retrieval method, given grade and year.
+
+```{r main_wrapper}
+
+fetch_nj_assess <- function(year, grade) {
+
+  is_valid <- valid_call(year, grade)
+  
+  if (year >= 2008) {
+    assess_data <- standard_assess(year, grade)
+  #2006 and 2007: NJASK 3rd-7th, GEPA 8th, HSPA 11th
+  } else if (year %in% c(2006, 2007)) {
+    if (grade %in% c(3:7)) {
+      assess_data <- standard_assess(year, grade)  
+    } else if (grade == 8) {
+      #not yet implemented
+      assess_data <- get_raw_gepa(year) %>%
+        process_gepa()
+    } else if (grade == 11) {
+      #not yet implemented
+      assess_data <- get_raw_hspa(year) %>%
+        process_hspa
+    }
+  #2004 and 2005:  NJASK 3rd & 4th, GEPA 8th, HSPA 11th
+  } else if (year %in% c(2004, 2005)) {
+    if (grade %in% c(3:4)) {
+      assess_data <- standard_assess(year, grade)  
+    } else if (grade == 8) {
+      #not yet implemented
+      assess_data <- get_raw_gepa(year) %>%
+        process_gepa()
+    } else if (grade == 11) {
+      #not yet implemented
+      assess_data <- get_raw_hspa(year) %>%
+        process_hspa 
+    }
+  # if we ever reached this block, there's a problem with our `valid_call()` function
+  } else {
+    #raise an error
+  }
+ 
+  return(assess_data)
+}
+
+fetch_nj_assess(2014, 6) %>% head()
+
+```
+
+
+Finally, as a convenience, let's write a function that brings down all of the NJASK data for all years and grades.
+
+```{r all_njask}
+
+
+
+```
+

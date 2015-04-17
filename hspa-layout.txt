@@ -1,0 +1,152 @@
+Title: Errata: prepping the HSPA layout file
+Date: 2015-04-16
+Category: education
+Tags: boring, errata
+Slug: hspa-layout
+Author: Andrew Martin
+
+```{r, echo=FALSE}
+#SET THIS TO TRUE WHEN READY TO PUBLISH
+ready_to_ship = TRUE
+
+library(knitr)
+hook_plot <- knit_hooks$get('plot')
+
+knit_hooks$set(plot=function(x, options) {
+    if (!is.null(options$pelican.publish) && options$pelican.publish) {
+        x <- paste0("{filename}", x)
+    }
+    hook_plot(x, options)
+})
+opts_chunk$set(dev='Cairo_svg')
+opts_chunk$set(pelican.publish=ready_to_ship)
+
+```
+
+<!-- PELICAN_END_SUMMARY -->
+Attention conservaton notice: this post is just data munging to get a csv with test metadata shipshape.  Tried to set it to `status: hidden` so it wouldn't show on the front page of the blog, but had some trouble with Pelican.  That said, work has to get done, so better to do it in an .Rmd and write down what I was thinking - I've learned that lesson like a thousand times.  If you are in the small group of people who care about this sort of thing, [get in touch]('mailto:almartin at gmail dot com').
+
+Read in the csv.  Some errata here: 
+
+the format of the HSPA file layout is totally different from the NJASK file (sigh).  The key difference is that the  spanning headers that indicate the subgroup (gen ed, special ed, etc) are indicated as have start/end position across the whole relevant range in the NJASK file, but on the HSPA file they only show up as 6 character fields _before_ the relevant range.  I hand-edited the HSPA file so it would be consistent with the NJASK file.  
+
+**NJASK:**
+
+<img src="static_images/06a_njask.png">
+
+**HSPA:**
+
+<img src="static_images/06a_hspa.png">
+
+This.... I can't say anything nice about the decision to do this (_why?!?_) so I'm just going to move on.  
+
+```{r hspa1}
+
+hspa <- readr::read_csv("datasets/hspa_layout.csv")
+names(hspa) <- tolower(gsub(' ', '_', names(hspa)))
+
+
+head(hspa)
+
+```
+
+Let's rework the code from the first [post]('/reading-nj-assess-data-1.html') into a proper function.
+
+```{r libraries, message=FALSE, warning=FALSE}
+library(sqldf)
+library(magrittr)
+library(dplyr)
+library(reshape2)
+```
+
+```{r hspa2}
+
+process_layout <- function(df) {
+  require(sqldf)
+  require(magrittr)
+  require(dplyr)
+  require(reshape2)  
+  
+  #split spanners from keepers
+  spanners <- dplyr::filter(df, structural==TRUE)
+  keepers <- dplyr::filter(df, structural==FALSE)
+  
+  #join spanners to keepers
+  with_spanners <- sqldf('
+    SELECT keepers.*
+          ,spanners.data_type AS spanner
+          ,spanners.field_length AS spanner_length
+    FROM keepers
+    LEFT OUTER JOIN spanners
+      ON keepers.field_start_position >= spanners.field_start_position
+     AND keepers.field_end_position <= spanners.field_end_position
+  ')
+
+  #tag the joined data frame with a row number to facilitate long -> wide
+  with_rn <- with_spanners %>%
+    dplyr::group_by(
+       field_start_position, field_end_position, field_length, 
+       data_type, description, comments, valid_values  
+    ) %>%
+    mutate(
+      rn = order(desc(spanner_length)) 
+    ) %>%
+    select(
+      field_start_position, field_end_position, field_length, 
+      data_type, description, comments, valid_values, spanner, rn
+    ) %>%
+    as.data.frame()
+
+  #text processing and mask NAs
+  with_rn$rn <- paste0('spanner', with_rn$rn)
+  with_rn$spanner <- ifelse(is.na(with_rn$spanner),'', with_rn$spanner)
+
+  layout_wide <- dcast(
+    data = with_rn,
+    formula = field_start_position + field_end_position + field_length +
+      data_type + description + comments + valid_values ~ rn,
+    value.var = "spanner"
+  )
+  
+  #this appears to be a bug in dcast?  should not be needed.
+  layout_wide$spanner2 <- ifelse(is.na(layout_wide$spanner2),'', layout_wide$spanner2)
+
+  reserved_chars <- list('+' = 'and', '(' = '', ')' = '')
+  for (i in 1:length(reserved_chars)) {
+    layout_wide$spanner1 <- gsub(names(reserved_chars)[i], reserved_chars[i], layout_wide$spanner1, fixed = TRUE)
+  }
+  
+  #make final name
+  layout_wide$final_name <- layout_wide %$% paste(spanner1, spanner2, description, sep='_')
+
+  #kill double underscores
+  layout_wide$final_name <- gsub('__', '_', layout_wide$final_name)
+  #kill leading or trailer underscores
+  layout_wide$final_name <- gsub("(^_+|_+$)", "", layout_wide$final_name)
+  #trim any remaining whitespace
+  layout_wide$final_name <- gsub("^\\s+|\\s+$", "", layout_wide$final_name)
+  #all whitespace becomes underscore
+  layout_wide$final_name <- gsub(' ', '_', layout_wide$final_name)
+  
+  #more whitespace cleanup
+  layout_wide$comments <- gsub("^\\s+|\\s+$", "", layout_wide$comments)
+  layout_wide$description <- gsub("^\\s+|\\s+$", "", layout_wide$description)
+  layout_wide$valid_values <- gsub("^\\s+|\\s+$", "", layout_wide$valid_values)
+  
+  return(layout_wide)
+}
+
+layout_hspa <-process_layout(hspa)
+
+layout_hspa %>% head()
+
+```
+
+Finally, save the hspa layout as an .rda file.
+
+```{r save_layout}
+
+save(layout_hspa, file = 'datasets/hspa_layout.rda')
+
+```
+

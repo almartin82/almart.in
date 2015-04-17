@@ -58,7 +58,7 @@
 			<div itemprop="author" itemscope itemtype="http://schema.org/Person">
 				<span itemprop="name">Andrew Martin</span> 
 				&nbsp;&#124;&nbsp;
-				<time datetime="2015-04-13T00:00:00" itemprop="datePublished">April 13 2015</time>
+				<time datetime="2015-04-13T00:00:00-04:00" itemprop="datePublished">April 13 2015</time>
 				&nbsp;|&nbsp;
 				<span><a href="http://almart.in/reading-nj-assess-data-1.txt" title="Raw Markdown for Getting NJ assessment data into R: part 1 in a series.">raw</a></span>
 			</div>
@@ -181,26 +181,22 @@ as.data.frame<span class="p">(</span>njask14_gr8<span class="p">)[</span><span c
 <p><img src="static_images/04_njask_layout.png"></p>
 <p>I think we can do some dplyr tricks and recover the nested aspects of this data.  First, read the excel file in as a data frame:</p>
 <div class="highlight"><pre>layout <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="s">&quot;datasets/njask_layout.csv&quot;</span><span class="p">)</span>
-
+names<span class="p">(</span>layout<span class="p">)</span> <span class="o">&lt;-</span> tolower<span class="p">(</span>gsub<span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> names<span class="p">(</span>layout<span class="p">)))</span>
 head<span class="p">(</span>layout<span class="p">)</span>
 </pre></div>
 
 
 <div class="highlight"><pre>## Source: local data frame [6 x 8]
 ## 
-##   Field Start Position Field End Position Field Length Data Type
+##   field_start_position field_end_position field_length data_type
 ## 1                    1                  9            9      Text
 ## 2                    1                  2            2      Text
 ## 3                    3                  6            4      Text
 ## 4                    7                  9            3      Text
 ## 5                   10                 59           50      Text
 ## 6                   60                109           50      Text
-## Variables not shown: Description (chr), Comments (chr), Valid Values
+## Variables not shown: description (chr), comments (chr), valid_values
 ##   (chr), structural (lgl)
-</pre></div>
-
-
-<div class="highlight"><pre>names<span class="p">(</span>layout<span class="p">)</span> <span class="o">&lt;-</span> tolower<span class="p">(</span>gsub<span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> names<span class="p">(</span>layout<span class="p">)))</span>
 </pre></div>
 
 
@@ -584,105 +580,116 @@ let's look at just a sample of 10 rows and 10 columns from that:</p>
 </pre></div>
 
 
-<div class="highlight"><pre>##    FORMER_LIMITED_ENGLISH_PROFICIENT_Number_Enrolled_ELA
-## 1                                                      0
-## 2                                                      0
-## 3                                                      0
-## 4                                                      0
+<div class="highlight"><pre>##    FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_Not_Present
+## 1                                                            NA
+## 2                                                            NA
+## 3                                                            NA
+## 4                                                            NA
+## 5                                                            NA
+## 6                                                            NA
+## 7                                                            NA
+## 8                                                            NA
+## 9                                                            NA
+## 10                                                           NA
+##    TOTAL_POPULATION_Number_Enrolled_ELA
+## 1                                    68
+## 2                                   444
+## 3                                    NA
+## 4                                    55
+## 5                                   214
+## 6                                   417
+## 7                                   141
+## 8                                    96
+## 9                                   359
+## 10                                  183
+##    CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                                                 NA
+## 2                                                               1910
+## 3                                                                 NA
+## 4                                                                 NA
+## 5                                                                 NA
+## 6                                                                 NA
+## 7                                                                 NA
+## 8                                                                 NA
+## 9                                                                 NA
+## 10                                                                NA
+##    GENERAL_EDUCATION_SCIENCE_Number_Not_Present
+## 1                                             0
+## 2                                             0
+## 3                                            NA
+## 4                                             1
+## 5                                             1
+## 6                                             2
+## 7                                             0
+## 8                                             0
+## 9                                             1
+## 10                                            0
+##    MIGRANT_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                     NA
+## 2                                                     NA
+## 3                                                     NA
+## 4                                                     NA
 ## 5                                                     NA
-## 6                                                      0
+## 6                                                     NA
 ## 7                                                     NA
-## 8                                                      0
-## 9                                                      0
+## 8                                                     NA
+## 9                                                     NA
 ## 10                                                    NA
-##    SPECIAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                              1788
-## 2                                              1924
-## 3                                                NA
-## 4                                                NA
-## 5                                                NA
-## 6                                              1965
-## 7                                              2169
-## 8                                                NA
-## 9                                                NA
-## 10                                               NA
-##    OTHER_MATHEMATICS_Number_APA FEMALE_MATHEMATICS_Number_Enrolled_Math
-## 1                            NA                                      47
-## 2                            NA                                      66
-## 3                            NA                                      73
-## 4                            NA                                      58
-## 5                            NA                                     133
-## 6                            NA                                      55
-## 7                            NA                                     195
-## 8                            NA                                     117
-## 9                            NA                                      27
-## 10                           NA                                     177
-##    LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_Enrolled_Science
-## 1                                                                             NA
-## 2                                                                              0
-## 3                                                                             NA
-## 4                                                                             NA
-## 5                                                                             NA
-## 6                                                                              0
-## 7                                                                             NA
-## 8                                                                             NA
-## 9                                                                              0
-## 10                                                                            NA
-##    CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Proficient_Percentage
-## 1                                                                    NA
-## 2                                                                    NA
-## 3                                                                    NA
-## 4                                                                    NA
-## 5                                                                    NA
-## 6                                                                    NA
-## 7                                                                    NA
-## 8                                                                    NA
-## 9                                                                    NA
-## 10                                                                   NA
-##    ECONOMICALLY_DISADVANTAGED_SCIENCE_Partially_Proficient_Percentage
-## 1                                                                 426
-## 2                                                                 333
-## 3                                                                 154
-## 4                                                                 353
-## 5                                                                  NA
-## 6                                                                 400
-## 7                                                                  77
-## 8                                                                 348
-## 9                                                                 154
-## 10                                                                179
-##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Scale_Score_Mean
-## 1                                                                  NA
-## 2                                                                  NA
-## 3                                                                  NA
-## 4                                                                  NA
-## 5                                                                  NA
-## 6                                                                  NA
-## 7                                                                  NA
-## 8                                                                  NA
-## 9                                                                  NA
-## 10                                                                 NA
-##    HISPANIC_SCIENCE_Number_Not_Present
-## 1                                    0
+##    FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Partially_Proficient_Percentage
+## 1                                                                         NA
+## 2                                                                         NA
+## 3                                                                         NA
+## 4                                                                         NA
+## 5                                                                         NA
+## 6                                                                         NA
+## 7                                                                         NA
+## 8                                                                         NA
+## 9                                                                         NA
+## 10                                                                        NA
+##    MIGRANT_MATHEMATICS_Number_of_Voids
+## 1                                   NA
 ## 2                                   NA
 ## 3                                   NA
-## 4                                    0
+## 4                                   NA
 ## 5                                   NA
-## 6                                    0
+## 6                                   NA
 ## 7                                   NA
-## 8                                    1
-## 9                                    0
-## 10                                   0
-##    WHITE_MATHEMATICS_Advanced_Proficient_Percentage
-## 1                                               176
-## 2                                               232
-## 3                                               360
-## 4                                               342
-## 5                                               413
-## 6                                               346
-## 7                                               576
-## 8                                               299
-## 9                                                NA
-## 10                                              505
+## 8                                   NA
+## 9                                   NA
+## 10                                  NA
+##    FORMER_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Scale_Score_Mean
+## 1                                                              NA
+## 2                                                              NA
+## 3                                                              NA
+## 4                                                              NA
+## 5                                                              NA
+## 6                                                              NA
+## 7                                                              NA
+## 8                                                              NA
+## 9                                                              NA
+## 10                                                             NA
+##    GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                              2130
+## 2                                              2212
+## 3                                                NA
+## 4                                              2049
+## 5                                              2148
+## 6                                              2270
+## 7                                              2341
+## 8                                              2181
+## 9                                              2491
+## 10                                             2391
+##    ASIAN_MATHEMATICS_Number_of_Valid_Scale_Scores
+## 1                                              NA
+## 2                                              NA
+## 3                                              NA
+## 4                                              NA
+## 5                                              NA
+## 6                                              53
+## 7                                              NA
+## 8                                              NA
+## 9                                             222
+## 10                                             NA
 </pre></div>
 
 
