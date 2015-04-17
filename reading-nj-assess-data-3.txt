@@ -73,7 +73,6 @@ We can take the formula we wrote to process NJASK data frames and generalize it,
 ```{r generalize_processing}
 
 process_nj_assess <- function(df, layout) {
-  require(Hmisc)
   #build a mask
   mask <- layout$comments == 'One implied decimal'
     

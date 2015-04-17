@@ -234,7 +234,6 @@ hspa_ex <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span
 <p>That gets us to a similar state as we were in for the NJASK data - we have all the columns identified, but there's a need for post-processing, especially for the percentage columns, which have 'One implied decimal.'</p>
 <p>We can take the formula we wrote to process NJASK data frames and generalize it, so that it can handle both NJASK and HSPA data.</p>
 <div class="highlight"><pre>process_nj_assess <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>df<span class="p">,</span> layout<span class="p">)</span> <span class="p">{</span>
-  <span class="kn">require</span><span class="p">(</span>Hmisc<span class="p">)</span>
   <span class="c1">#build a mask</span>
   mask <span class="o">&lt;-</span> layout<span class="o">$</span>comments <span class="o">==</span> <span class="s">&#39;One implied decimal&#39;</span>
 
@@ -281,40 +280,6 @@ hspa_ex <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span
 <span class="p">}</span>
 
 process_nj_assess<span class="p">(</span>hspa_ex<span class="p">,</span> layout_hspa<span class="p">)</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
-</pre></div>
-
-
-<div class="highlight"><pre>## Loading required package: Hmisc
-</pre></div>
-
-
-<div class="highlight"><pre>## Warning: package &#39;Hmisc&#39; was built under R version 3.1.3
-</pre></div>
-
-
-<div class="highlight"><pre>## Loading required package: grid
-## Loading required package: lattice
-## Loading required package: survival
-## Loading required package: splines
-## Loading required package: Formula
-</pre></div>
-
-
-<div class="highlight"><pre>## Warning: package &#39;Formula&#39; was built under R version 3.1.3
-</pre></div>
-
-
-<div class="highlight"><pre>## Loading required package: ggplot2
-## 
-## Attaching package: &#39;Hmisc&#39;
-## 
-## The following objects are masked from &#39;package:dplyr&#39;:
-## 
-##     src, summarize
-## 
-## The following objects are masked from &#39;package:base&#39;:
-## 
-##     format.pval, round.POSIXt, trunc.POSIXt, units
 </pre></div>
 
 

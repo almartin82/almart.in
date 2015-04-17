@@ -139,7 +139,6 @@ hspa_ex &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.
 &lt;p&gt;That gets us to a similar state as we were in for the NJASK data - we have all the columns identified, but there's a need for post-processing, especially for the percentage columns, which have 'One implied decimal.'&lt;/p&gt;
 &lt;p&gt;We can take the formula we wrote to process NJASK data frames and generalize it, so that it can handle both NJASK and HSPA data.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;process_nj_assess &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="kn"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;Hmisc&lt;span class="p"&gt;)&lt;/span&gt;
   &lt;span class="c1"&gt;#build a mask&lt;/span&gt;
   mask &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; layout&lt;span class="o"&gt;$&lt;/span&gt;comments &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;One implied decimal&amp;#39;&lt;/span&gt;
 
@@ -186,40 +185,6 @@ hspa_ex &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.
 &lt;span class="p"&gt;}&lt;/span&gt;
 
 process_nj_assess&lt;span class="p"&gt;(&lt;/span&gt;hspa_ex&lt;span class="p"&gt;,&lt;/span&gt; layout_hspa&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Loading required package: Hmisc
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: package &amp;#39;Hmisc&amp;#39; was built under R version 3.1.3
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Loading required package: grid
-## Loading required package: lattice
-## Loading required package: survival
-## Loading required package: splines
-## Loading required package: Formula
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: package &amp;#39;Formula&amp;#39; was built under R version 3.1.3
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Loading required package: ggplot2
-## 
-## Attaching package: &amp;#39;Hmisc&amp;#39;
-## 
-## The following objects are masked from &amp;#39;package:dplyr&amp;#39;:
-## 
-##     src, summarize
-## 
-## The following objects are masked from &amp;#39;package:base&amp;#39;:
-## 
-##     format.pval, round.POSIXt, trunc.POSIXt, units
 &lt;/pre&gt;&lt;/div&gt;
 
 
