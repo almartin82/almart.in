@@ -33,7 +33,9 @@ Load in those processed files:
 
 
 ```{r libraries, message=FALSE, warning=FALSE}
-library(Hmisc)
+library(readr)
+library(dplyr)
+library(magrittr)
 ```
 
 ```{r hspa1}

@@ -3,7 +3,9 @@
 &lt;h1&gt;HSPA&lt;/h1&gt;
 &lt;p&gt;Much like the NJASK data in posts &lt;a href="" title="/reading-nj-assess-data-1.html"&gt;1&lt;/a&gt; and &lt;a href="" title="/reading-nj-assess-data-2.html"&gt;2&lt;/a&gt;, we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some postprocessing.  I wrote up how to process the HSPA metadata &lt;a href="" title="/hspa-layout.html"&gt;here&lt;/a&gt;, if data processing is your thing.&lt;/p&gt;
 &lt;p&gt;Load in those processed files:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;Hmisc&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;readr&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;dplyr&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;magrittr&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -187,6 +189,40 @@ process_nj_assess&lt;span class="p"&gt;(&lt;/span&gt;hspa_ex&lt;span class="p"&g
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;div class="highlight"&gt;&lt;pre&gt;## Loading required package: Hmisc
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: package &amp;#39;Hmisc&amp;#39; was built under R version 3.1.3
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Loading required package: grid
+## Loading required package: lattice
+## Loading required package: survival
+## Loading required package: splines
+## Loading required package: Formula
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: package &amp;#39;Formula&amp;#39; was built under R version 3.1.3
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Loading required package: ggplot2
+## 
+## Attaching package: &amp;#39;Hmisc&amp;#39;
+## 
+## The following objects are masked from &amp;#39;package:dplyr&amp;#39;:
+## 
+##     src, summarize
+## 
+## The following objects are masked from &amp;#39;package:base&amp;#39;:
+## 
+##     format.pval, round.POSIXt, trunc.POSIXt, units
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;div class="highlight"&gt;&lt;pre&gt;##   CDS_Code County_Code District_Code School_Code County_Name
 ## 1       ST          ST            NA          NA            
 ## 2       SN          SN            NA          NA            
@@ -305,14 +341,6 @@ fetch_hspa &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;f
 &lt;span class="p"&gt;}&lt;/span&gt;
 
 fetch_hspa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2010&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Loading required package: readr
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: package &amp;#39;readr&amp;#39; was built under R version 3.1.3
 &lt;/pre&gt;&lt;/div&gt;
 
 

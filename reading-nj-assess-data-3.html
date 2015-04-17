@@ -98,7 +98,9 @@
 <h1>HSPA</h1>
 <p>Much like the NJASK data in posts <a href="" title="/reading-nj-assess-data-1.html">1</a> and <a href="" title="/reading-nj-assess-data-2.html">2</a>, we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some postprocessing.  I wrote up how to process the HSPA metadata <a href="" title="/hspa-layout.html">here</a>, if data processing is your thing.</p>
 <p>Load in those processed files:</p>
-<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>Hmisc<span class="p">)</span>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>readr<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>magrittr<span class="p">)</span>
 </pre></div>
 
 
@@ -282,6 +284,40 @@ process_nj_assess<span class="p">(</span>hspa_ex<span class="p">,</span> layout_
 </pre></div>
 
 
+<div class="highlight"><pre>## Loading required package: Hmisc
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: package &#39;Hmisc&#39; was built under R version 3.1.3
+</pre></div>
+
+
+<div class="highlight"><pre>## Loading required package: grid
+## Loading required package: lattice
+## Loading required package: survival
+## Loading required package: splines
+## Loading required package: Formula
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: package &#39;Formula&#39; was built under R version 3.1.3
+</pre></div>
+
+
+<div class="highlight"><pre>## Loading required package: ggplot2
+## 
+## Attaching package: &#39;Hmisc&#39;
+## 
+## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     src, summarize
+## 
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     format.pval, round.POSIXt, trunc.POSIXt, units
+</pre></div>
+
+
 <div class="highlight"><pre>##   CDS_Code County_Code District_Code School_Code County_Name
 ## 1       ST          ST            NA          NA            
 ## 2       SN          SN            NA          NA            
@@ -400,14 +436,6 @@ fetch_hspa <span class="o">&lt;-</span> <span class="kr">function</span><span cl
 <span class="p">}</span>
 
 fetch_hspa<span class="p">(</span><span class="m">2010</span><span class="p">)</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
-</pre></div>
-
-
-<div class="highlight"><pre>## Loading required package: readr
-</pre></div>
-
-
-<div class="highlight"><pre>## Warning: package &#39;readr&#39; was built under R version 3.1.3
 </pre></div>
 
 
