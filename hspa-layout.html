@@ -85,7 +85,7 @@
 	<div itemprop="articleBody" class="article-body"><!-- PELICAN_END_SUMMARY -->
 
 <p><strong>Attention conservaton notice:</strong> this post is just data munging to get a csv with HSPA metadata shipshape.  Tried to set it to <code>status: hidden</code> so it wouldn't show on the front page of the blog, but had some trouble with Pelican.  That said, work has to get done, so better to do it in an .Rmd and write down what I was thinking - I've learned that lesson like a thousand times.  If you are in the small group of people who care about this sort of thing, <a href="" title="mailto:almartin at gmail dot com">get in touch</a>.</p>
-<p>First, read in the csv.  Some errata here: </p>
+<p>First, read in the csv.  This proved to be kind of a headache:</p>
 <p>the format of the HSPA file layout is totally different from the NJASK file (sigh).  The key difference is that the  spanning headers that indicate the subgroup (gen ed, special ed, etc) are indicated as have start/end position across the whole relevant range in the NJASK file, but on the HSPA file they only show up as 6 character fields <em>before</em> the relevant range.  I hand-edited the HSPA file so it would be consistent with the NJASK file.  </p>
 <p><strong>NJASK:</strong></p>
 <p><img src="static_images/06a_njask.png"></p>

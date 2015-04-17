@@ -109,6 +109,7 @@
 </ol>
 <p>But we're getting a little ahead of ourselves.  First we need to look more closely at the HSPA data, and write functions to get and process that data. </p>
 <h1>HSPA</h1>
+<p>Much like the NJASK data in posts <a href="" title="/reading-nj-assess-data-1.html">1</a> and <a href="" title="/reading-nj-assess-data-2.html">2</a>, we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some postprocessing.  I wrote up how to process the HSPA metadata <a href="" title="/hspa-layout.html">here</a>, if data processing is your thing.</p>
 <div class="highlight"><pre>hspa_url <span class="o">&lt;-</span> <span class="s">&#39;http://www.state.nj.us/education/schools/achievement/14/hspa/state_summary.txt&#39;</span>
 
 hspa_raw <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
