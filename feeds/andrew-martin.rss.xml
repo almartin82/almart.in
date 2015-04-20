@@ -1159,11 +1159,11 @@ fetch_njask&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2014&lt;/sp
 &lt;h2&gt;&lt;i class="fa fa-music"&gt;&lt;/i&gt; welcome to the &lt;a href="https://barryrowlingson.github.io/hadleyverse/#1"&gt;Hadleyverse &lt;/a&gt;&lt;i class="fa fa-music"&gt;&lt;/i&gt;&lt;/h2&gt;
 &lt;p&gt;We can use the &lt;code&gt;read_fwf()&lt;/code&gt; function from &lt;a href="https://github.com/hadley/readr"&gt;&lt;code&gt;hadley/readr&lt;/code&gt;&lt;/a&gt; to quickly read fixed width files into R.&lt;/p&gt;
 &lt;p&gt;First let's load some libraries:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;library&lt;span class="p"&gt;(&lt;/span&gt;readr&lt;span class="p"&gt;)&lt;/span&gt;
-library&lt;span class="p"&gt;(&lt;/span&gt;dplyr&lt;span class="p"&gt;)&lt;/span&gt;
-library&lt;span class="p"&gt;(&lt;/span&gt;sqldf&lt;span class="p"&gt;)&lt;/span&gt;
-library&lt;span class="p"&gt;(&lt;/span&gt;reshape2&lt;span class="p"&gt;)&lt;/span&gt;
-library&lt;span class="p"&gt;(&lt;/span&gt;magrittr&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;readr&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;dplyr&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;sqldf&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;reshape2&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;magrittr&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1174,7 +1174,7 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
   file &lt;span class="o"&gt;=&lt;/span&gt; sample_file&lt;span class="p"&gt;,&lt;/span&gt;
   col_positions &lt;span class="o"&gt;=&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;fwf_empty&lt;span class="p"&gt;(&lt;/span&gt;file&lt;span class="o"&gt;=&lt;/span&gt;sample_file&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;)&lt;/span&gt;
-as.data.frame&lt;span class="p"&gt;(&lt;/span&gt;njask14_gr8&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;11&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;15&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;njask14_gr8&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;11&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;15&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1235,8 +1235,8 @@ as.data.frame&lt;span class="p"&gt;(&lt;/span&gt;njask14_gr8&lt;span class="p"&g
 &lt;p&gt;&lt;img src="static_images/04_njask_layout.png"&gt;&lt;/p&gt;
 &lt;p&gt;I think we can do some dplyr tricks and recover the nested aspects of this data.  First, read the excel file in as a data frame:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;layout &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;read_csv&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;datasets/njask_layout.csv&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-names&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; tolower&lt;span class="p"&gt;(&lt;/span&gt;gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; names&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)))&lt;/span&gt;
-head&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kp"&gt;names&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;tolower&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kp"&gt;names&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1260,7 +1260,7 @@ head&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)&lt;/span&g
 &lt;div class="highlight"&gt;&lt;pre&gt;spanners &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; dplyr&lt;span class="o"&gt;::&lt;/span&gt;filter&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;,&lt;/span&gt; structural&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 keepers &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; dplyr&lt;span class="o"&gt;::&lt;/span&gt;filter&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;,&lt;/span&gt; structural&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="kc"&gt;FALSE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-head&lt;span class="p"&gt;(&lt;/span&gt;spanners&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;spanners&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1295,7 +1295,7 @@ head&lt;span class="p"&gt;(&lt;/span&gt;spanners&lt;span class="p"&gt;)&lt;/span
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;with_spanners&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; c&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;8&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;with_spanners&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;8&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1373,18 +1373,18 @@ head&lt;span class="p"&gt;(&lt;/span&gt;spanners&lt;span class="p"&gt;)&lt;/span
      data_type&lt;span class="p"&gt;,&lt;/span&gt; description&lt;span class="p"&gt;,&lt;/span&gt; comments&lt;span class="p"&gt;,&lt;/span&gt; valid_values  
   &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt;
   mutate&lt;span class="p"&gt;(&lt;/span&gt;
-    rn &lt;span class="o"&gt;=&lt;/span&gt; order&lt;span class="p"&gt;(&lt;/span&gt;desc&lt;span class="p"&gt;(&lt;/span&gt;spanner_length&lt;span class="p"&gt;))&lt;/span&gt; 
+    rn &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;order&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;desc&lt;span class="p"&gt;(&lt;/span&gt;spanner_length&lt;span class="p"&gt;))&lt;/span&gt; 
   &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt;
   select&lt;span class="p"&gt;(&lt;/span&gt;
     field_start_position&lt;span class="p"&gt;,&lt;/span&gt; field_end_position&lt;span class="p"&gt;,&lt;/span&gt; field_length&lt;span class="p"&gt;,&lt;/span&gt; 
     data_type&lt;span class="p"&gt;,&lt;/span&gt; description&lt;span class="p"&gt;,&lt;/span&gt; comments&lt;span class="p"&gt;,&lt;/span&gt; valid_values&lt;span class="p"&gt;,&lt;/span&gt; spanner&lt;span class="p"&gt;,&lt;/span&gt; rn
   &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt;
-  as.data.frame&lt;span class="p"&gt;()&lt;/span&gt;
+  &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
-with_rn&lt;span class="o"&gt;$&lt;/span&gt;rn &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; paste0&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;spanner&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; with_rn&lt;span class="o"&gt;$&lt;/span&gt;rn&lt;span class="p"&gt;)&lt;/span&gt;
+with_rn&lt;span class="o"&gt;$&lt;/span&gt;rn &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;paste0&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;spanner&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; with_rn&lt;span class="o"&gt;$&lt;/span&gt;rn&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="c1"&gt;#mask NAS&lt;/span&gt;
-with_rn&lt;span class="o"&gt;$&lt;/span&gt;spanner &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; ifelse&lt;span class="p"&gt;(&lt;/span&gt;is.na&lt;span class="p"&gt;(&lt;/span&gt;with_rn&lt;span class="o"&gt;$&lt;/span&gt;spanner&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; with_rn&lt;span class="o"&gt;$&lt;/span&gt;spanner&lt;span class="p"&gt;)&lt;/span&gt;
-head&lt;span class="p"&gt;(&lt;/span&gt;with_rn&lt;span class="p"&gt;)&lt;/span&gt;
+with_rn&lt;span class="o"&gt;$&lt;/span&gt;spanner &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;ifelse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;is.na&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;with_rn&lt;span class="o"&gt;$&lt;/span&gt;spanner&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; with_rn&lt;span class="o"&gt;$&lt;/span&gt;spanner&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;with_rn&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1435,7 +1435,7 @@ head&lt;span class="p"&gt;(&lt;/span&gt;with_rn&lt;span class="p"&gt;)&lt;/span&
 &lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="c1"&gt;#this appears to be a bug in dcast?  should not be needed.&lt;/span&gt;
-layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner2 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; ifelse&lt;span class="p"&gt;(&lt;/span&gt;is.na&lt;span class="p"&gt;(&lt;/span&gt;layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner2&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner2&lt;span class="p"&gt;)&lt;/span&gt;
+layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner2 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;ifelse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;is.na&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner2&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner2&lt;span class="p"&gt;)&lt;/span&gt;
 
 layout_njask&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -1551,27 +1551,27 @@ layout_njask&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span
 
 &lt;p&gt;Success!  Now we just concatenate &lt;code&gt;description&lt;/code&gt;, &lt;code&gt;spanner1&lt;/code&gt;, and &lt;code&gt;spanner2&lt;/code&gt; into a single value, do a little cleanup, and we have our headers.  For cleanup, we want to get rid of weird whitespace, and convert reserved characters (like &lt;code&gt;+&lt;/code&gt;) to words.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;#no plus or () symbols&lt;/span&gt;
-layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner1 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;+&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;and&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner1&lt;span class="p"&gt;,&lt;/span&gt; fixed &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner1 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;(&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner1&lt;span class="p"&gt;,&lt;/span&gt; fixed &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner1 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;)&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner1&lt;span class="p"&gt;,&lt;/span&gt; fixed &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner1 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;+&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;and&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner1&lt;span class="p"&gt;,&lt;/span&gt; fixed &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner1 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;(&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner1&lt;span class="p"&gt;,&lt;/span&gt; fixed &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner1 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;)&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;spanner1&lt;span class="p"&gt;,&lt;/span&gt; fixed &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; layout_njask &lt;span class="o"&gt;%$%&lt;/span&gt; paste&lt;span class="p"&gt;(&lt;/span&gt;spanner1&lt;span class="p"&gt;,&lt;/span&gt; spanner2&lt;span class="p"&gt;,&lt;/span&gt; description&lt;span class="p"&gt;,&lt;/span&gt; sep&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; layout_njask &lt;span class="o"&gt;%$%&lt;/span&gt; &lt;span class="kp"&gt;paste&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;spanner1&lt;span class="p"&gt;,&lt;/span&gt; spanner2&lt;span class="p"&gt;,&lt;/span&gt; description&lt;span class="p"&gt;,&lt;/span&gt; sep&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="c1"&gt;#kill double underscores&lt;/span&gt;
-layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name&lt;span class="p"&gt;)&lt;/span&gt;
+layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="c1"&gt;#kill leading or trailer underscores&lt;/span&gt;
-layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;(^_+|_+$)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name&lt;span class="p"&gt;)&lt;/span&gt;
+layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;(^_+|_+$)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="c1"&gt;#trim any remaining whitespace&lt;/span&gt;
-layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;^\\s+|\\s+$&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name&lt;span class="p"&gt;)&lt;/span&gt;
+layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;^\\s+|\\s+$&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="c1"&gt;#all whitespace becomes underscore&lt;/span&gt;
-layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name&lt;span class="p"&gt;)&lt;/span&gt;
+layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;final_name&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="c1"&gt;#more whitespace cleanup&lt;/span&gt;
-layout_njask&lt;span class="o"&gt;$&lt;/span&gt;comments &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;^\\s+|\\s+$&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;comments&lt;span class="p"&gt;)&lt;/span&gt;
-layout_njask&lt;span class="o"&gt;$&lt;/span&gt;description &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;^\\s+|\\s+$&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;description&lt;span class="p"&gt;)&lt;/span&gt;
-layout_njask&lt;span class="o"&gt;$&lt;/span&gt;valid_values &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;^\\s+|\\s+$&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;valid_values&lt;span class="p"&gt;)&lt;/span&gt;
+layout_njask&lt;span class="o"&gt;$&lt;/span&gt;comments &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;^\\s+|\\s+$&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;comments&lt;span class="p"&gt;)&lt;/span&gt;
+layout_njask&lt;span class="o"&gt;$&lt;/span&gt;description &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;^\\s+|\\s+$&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;description&lt;span class="p"&gt;)&lt;/span&gt;
+layout_njask&lt;span class="o"&gt;$&lt;/span&gt;valid_values &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;^\\s+|\\s+$&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; layout_njask&lt;span class="o"&gt;$&lt;/span&gt;valid_values&lt;span class="p"&gt;)&lt;/span&gt;
 
 
-head&lt;span class="p"&gt;(&lt;/span&gt;layout_njask&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout_njask&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1630,125 +1630,125 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
 
 &lt;p&gt;success!
 let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;dplyr&lt;span class="o"&gt;::&lt;/span&gt;sample_n&lt;span class="p"&gt;(&lt;/span&gt;njask14_gr8&lt;span class="p"&gt;[,&lt;/span&gt; sample&lt;span class="p"&gt;(&lt;/span&gt;c&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;551&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)],&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; as.data.frame&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;dplyr&lt;span class="o"&gt;::&lt;/span&gt;sample_n&lt;span class="p"&gt;(&lt;/span&gt;njask14_gr8&lt;span class="p"&gt;[,&lt;/span&gt; &lt;span class="kp"&gt;sample&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;551&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)],&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_Not_Present
-## 1                                                            NA
-## 2                                                            NA
-## 3                                                            NA
-## 4                                                            NA
-## 5                                                            NA
-## 6                                                            NA
-## 7                                                            NA
-## 8                                                            NA
-## 9                                                            NA
-## 10                                                           NA
-##    TOTAL_POPULATION_Number_Enrolled_ELA
-## 1                                    68
-## 2                                   444
-## 3                                    NA
-## 4                                    55
-## 5                                   214
-## 6                                   417
-## 7                                   141
-## 8                                    96
-## 9                                   359
-## 10                                  183
-##    CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                                                 NA
-## 2                                                               1910
-## 3                                                                 NA
-## 4                                                                 NA
-## 5                                                                 NA
-## 6                                                                 NA
-## 7                                                                 NA
-## 8                                                                 NA
-## 9                                                                 NA
-## 10                                                                NA
-##    GENERAL_EDUCATION_SCIENCE_Number_Not_Present
-## 1                                             0
-## 2                                             0
-## 3                                            NA
-## 4                                             1
-## 5                                             1
-## 6                                             2
-## 7                                             0
-## 8                                             0
-## 9                                             1
-## 10                                            0
-##    MIGRANT_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                     NA
-## 2                                                     NA
-## 3                                                     NA
-## 4                                                     NA
-## 5                                                     NA
-## 6                                                     NA
-## 7                                                     NA
-## 8                                                     NA
-## 9                                                     NA
-## 10                                                    NA
-##    FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Partially_Proficient_Percentage
-## 1                                                                         NA
-## 2                                                                         NA
-## 3                                                                         NA
-## 4                                                                         NA
-## 5                                                                         NA
-## 6                                                                         NA
-## 7                                                                         NA
-## 8                                                                         NA
-## 9                                                                         NA
-## 10                                                                        NA
-##    MIGRANT_MATHEMATICS_Number_of_Voids
-## 1                                   NA
-## 2                                   NA
-## 3                                   NA
-## 4                                   NA
-## 5                                   NA
-## 6                                   NA
-## 7                                   NA
-## 8                                   NA
-## 9                                   NA
-## 10                                  NA
-##    FORMER_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Scale_Score_Mean
-## 1                                                              NA
-## 2                                                              NA
-## 3                                                              NA
-## 4                                                              NA
-## 5                                                              NA
-## 6                                                              NA
-## 7                                                              NA
-## 8                                                              NA
-## 9                                                              NA
-## 10                                                             NA
-##    GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                              2130
-## 2                                              2212
-## 3                                                NA
-## 4                                              2049
-## 5                                              2148
-## 6                                              2270
-## 7                                              2341
-## 8                                              2181
-## 9                                              2491
-## 10                                             2391
-##    ASIAN_MATHEMATICS_Number_of_Valid_Scale_Scores
-## 1                                              NA
-## 2                                              NA
-## 3                                              NA
-## 4                                              NA
-## 5                                              NA
-## 6                                              53
-## 7                                              NA
-## 8                                              NA
-## 9                                             222
-## 10                                             NA
+&lt;div class="highlight"&gt;&lt;pre&gt;##    MIGRANT_MATHEMATICS_Number_Enrolled_Math
+## 1                                         0
+## 2                                         0
+## 3                                         0
+## 4                                         0
+## 5                                         0
+## 6                                         0
+## 7                                         0
+## 8                                         0
+## 9                                         0
+## 10                                        0
+##    ASIAN_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                        565
+## 2                                        429
+## 3                                        580
+## 4                                         NA
+## 5                                         NA
+## 6                                         NA
+## 7                                         NA
+## 8                                         NA
+## 9                                         NA
+## 10                                        NA
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_Enrolled_Science
+## 1                                                                             NA
+## 2                                                                             NA
+## 3                                                                             NA
+## 4                                                                             NA
+## 5                                                                             NA
+## 6                                                                             14
+## 7                                                                             NA
+## 8                                                                              0
+## 9                                                                              0
+## 10                                                                            NA
+##    NON-ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                                 658
+## 2                                                                 681
+## 3                                                                 740
+## 4                                                                 775
+## 5                                                                 750
+## 6                                                                 800
+## 7                                                                  NA
+## 8                                                                 771
+## 9                                                                 636
+## 10                                                                704
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_Enrolled_Math
+## 1                                                                              NA
+## 2                                                                              NA
+## 3                                                                              NA
+## 4                                                                              NA
+## 5                                                                              NA
+## 6                                                                              14
+## 7                                                                              NA
+## 8                                                                               0
+## 9                                                                               0
+## 10                                                                             NA
+##    WHITE_MATHEMATICS_Partially_Proficient_Percentage
+## 1                                                100
+## 2                                                306
+## 3                                                159
+## 4                                                212
+## 5                                                164
+## 6                                                 NA
+## 7                                                 NA
+## 8                                                208
+## 9                                                 NA
+## 10                                               193
+##    ASIAN_MATHEMATICS_Advanced_Proficient_Percentage
+## 1                                               696
+## 2                                               679
+## 3                                               780
+## 4                                                NA
+## 5                                                NA
+## 6                                                NA
+## 7                                                NA
+## 8                                                NA
+## 9                                                NA
+## 10                                               NA
+##    SPECIAL_EDUCATION_SCIENCE_Number_Enrolled_Science
+## 1                                                 38
+## 2                                                 NA
+## 3                                                 NA
+## 4                                                 NA
+## 5                                                 NA
+## 6                                                 NA
+## 7                                                 NA
+## 8                                                 13
+## 9                                                 17
+## 10                                                NA
+##    TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                                  0
+## 2                                                  0
+## 3                                                  0
+## 4                                                  0
+## 5                                                  1
+## 6                                                  0
+## 7                                                  0
+## 8                                                  0
+## 9                                                  0
+## 10                                                 1
+##    NON-MIGRANT_SCIENCE_Scale_Score_Mean
+## 1                                  2455
+## 2                                  2280
+## 3                                  2418
+## 4                                  2451
+## 5                                  2376
+## 6                                  2049
+## 7                                  2126
+## 8                                  2193
+## 9                                  2088
+## 10                                 2306
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;In the &lt;a href="" title="/reading-nj-assess-data-2.html"&gt;next post&lt;/a&gt;, I'll talk about how to turn this linear script into a function that can process all of the state data.  In preparation, let's dump the layout data frame that we cleaned up here to an &lt;code&gt;.rda&lt;/code&gt; object so that we can easily use it later.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;save&lt;span class="p"&gt;(&lt;/span&gt;layout_njask&lt;span class="p"&gt;,&lt;/span&gt; file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/njask_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;p&gt;In the &lt;a href="http://almart.in/reading-nj-assess-data-2.html"&gt;next post&lt;/a&gt;, I'll talk about how to turn this linear script into a function that can process all of the state data.  In preparation, let's dump the layout data frame that we cleaned up here to an &lt;code&gt;.rda&lt;/code&gt; object so that we can easily use it later.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout_njask&lt;span class="p"&gt;,&lt;/span&gt; file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/njask_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 

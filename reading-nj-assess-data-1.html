@@ -105,11 +105,11 @@
 <h2><i class="fa fa-music"></i> welcome to the <a href="https://barryrowlingson.github.io/hadleyverse/#1">Hadleyverse </a><i class="fa fa-music"></i></h2>
 <p>We can use the <code>read_fwf()</code> function from <a href="https://github.com/hadley/readr"><code>hadley/readr</code></a> to quickly read fixed width files into R.</p>
 <p>First let's load some libraries:</p>
-<div class="highlight"><pre>library<span class="p">(</span>readr<span class="p">)</span>
-library<span class="p">(</span>dplyr<span class="p">)</span>
-library<span class="p">(</span>sqldf<span class="p">)</span>
-library<span class="p">(</span>reshape2<span class="p">)</span>
-library<span class="p">(</span>magrittr<span class="p">)</span>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>readr<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>sqldf<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>reshape2<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>magrittr<span class="p">)</span>
 </pre></div>
 
 
@@ -120,7 +120,7 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
   file <span class="o">=</span> sample_file<span class="p">,</span>
   col_positions <span class="o">=</span> readr<span class="o">::</span>fwf_empty<span class="p">(</span>file<span class="o">=</span>sample_file<span class="p">)</span>
 <span class="p">)</span>
-as.data.frame<span class="p">(</span>njask14_gr8<span class="p">)[</span><span class="m">1</span><span class="o">:</span><span class="m">11</span><span class="p">,</span><span class="m">1</span><span class="o">:</span><span class="m">15</span><span class="p">]</span>
+<span class="kp">as.data.frame</span><span class="p">(</span>njask14_gr8<span class="p">)[</span><span class="m">1</span><span class="o">:</span><span class="m">11</span><span class="p">,</span><span class="m">1</span><span class="o">:</span><span class="m">15</span><span class="p">]</span>
 </pre></div>
 
 
@@ -181,8 +181,8 @@ as.data.frame<span class="p">(</span>njask14_gr8<span class="p">)[</span><span c
 <p><img src="static_images/04_njask_layout.png"></p>
 <p>I think we can do some dplyr tricks and recover the nested aspects of this data.  First, read the excel file in as a data frame:</p>
 <div class="highlight"><pre>layout <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="s">&quot;datasets/njask_layout.csv&quot;</span><span class="p">)</span>
-names<span class="p">(</span>layout<span class="p">)</span> <span class="o">&lt;-</span> tolower<span class="p">(</span>gsub<span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> names<span class="p">(</span>layout<span class="p">)))</span>
-head<span class="p">(</span>layout<span class="p">)</span>
+<span class="kp">names</span><span class="p">(</span>layout<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>layout<span class="p">)))</span>
+<span class="kp">head</span><span class="p">(</span>layout<span class="p">)</span>
 </pre></div>
 
 
@@ -206,7 +206,7 @@ head<span class="p">(</span>layout<span class="p">)</span>
 <div class="highlight"><pre>spanners <span class="o">&lt;-</span> dplyr<span class="o">::</span>filter<span class="p">(</span>layout<span class="p">,</span> structural<span class="o">==</span><span class="kc">TRUE</span><span class="p">)</span>
 keepers <span class="o">&lt;-</span> dplyr<span class="o">::</span>filter<span class="p">(</span>layout<span class="p">,</span> structural<span class="o">==</span><span class="kc">FALSE</span><span class="p">)</span>
 
-head<span class="p">(</span>spanners<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>spanners<span class="p">)</span>
 </pre></div>
 
 
@@ -241,7 +241,7 @@ head<span class="p">(</span>spanners<span class="p">)</span>
 </pre></div>
 
 
-<div class="highlight"><pre>with_spanners<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span> c<span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="m">8</span><span class="o">:</span><span class="m">10</span><span class="p">)]</span>
+<div class="highlight"><pre>with_spanners<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="m">8</span><span class="o">:</span><span class="m">10</span><span class="p">)]</span>
 </pre></div>
 
 
@@ -319,18 +319,18 @@ head<span class="p">(</span>spanners<span class="p">)</span>
      data_type<span class="p">,</span> description<span class="p">,</span> comments<span class="p">,</span> valid_values  
   <span class="p">)</span> <span class="o">%&gt;%</span>
   mutate<span class="p">(</span>
-    rn <span class="o">=</span> order<span class="p">(</span>desc<span class="p">(</span>spanner_length<span class="p">))</span> 
+    rn <span class="o">=</span> <span class="kp">order</span><span class="p">(</span>desc<span class="p">(</span>spanner_length<span class="p">))</span> 
   <span class="p">)</span> <span class="o">%&gt;%</span>
   select<span class="p">(</span>
     field_start_position<span class="p">,</span> field_end_position<span class="p">,</span> field_length<span class="p">,</span> 
     data_type<span class="p">,</span> description<span class="p">,</span> comments<span class="p">,</span> valid_values<span class="p">,</span> spanner<span class="p">,</span> rn
   <span class="p">)</span> <span class="o">%&gt;%</span>
-  as.data.frame<span class="p">()</span>
+  <span class="kp">as.data.frame</span><span class="p">()</span>
 
-with_rn<span class="o">$</span>rn <span class="o">&lt;-</span> paste0<span class="p">(</span><span class="s">&#39;spanner&#39;</span><span class="p">,</span> with_rn<span class="o">$</span>rn<span class="p">)</span>
+with_rn<span class="o">$</span>rn <span class="o">&lt;-</span> <span class="kp">paste0</span><span class="p">(</span><span class="s">&#39;spanner&#39;</span><span class="p">,</span> with_rn<span class="o">$</span>rn<span class="p">)</span>
 <span class="c1">#mask NAS</span>
-with_rn<span class="o">$</span>spanner <span class="o">&lt;-</span> ifelse<span class="p">(</span>is.na<span class="p">(</span>with_rn<span class="o">$</span>spanner<span class="p">),</span><span class="s">&#39;&#39;</span><span class="p">,</span> with_rn<span class="o">$</span>spanner<span class="p">)</span>
-head<span class="p">(</span>with_rn<span class="p">)</span>
+with_rn<span class="o">$</span>spanner <span class="o">&lt;-</span> <span class="kp">ifelse</span><span class="p">(</span><span class="kp">is.na</span><span class="p">(</span>with_rn<span class="o">$</span>spanner<span class="p">),</span><span class="s">&#39;&#39;</span><span class="p">,</span> with_rn<span class="o">$</span>spanner<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>with_rn<span class="p">)</span>
 </pre></div>
 
 
@@ -381,7 +381,7 @@ head<span class="p">(</span>with_rn<span class="p">)</span>
 <span class="p">)</span>
 
 <span class="c1">#this appears to be a bug in dcast?  should not be needed.</span>
-layout_njask<span class="o">$</span>spanner2 <span class="o">&lt;-</span> ifelse<span class="p">(</span>is.na<span class="p">(</span>layout_njask<span class="o">$</span>spanner2<span class="p">),</span><span class="s">&#39;&#39;</span><span class="p">,</span> layout_njask<span class="o">$</span>spanner2<span class="p">)</span>
+layout_njask<span class="o">$</span>spanner2 <span class="o">&lt;-</span> <span class="kp">ifelse</span><span class="p">(</span><span class="kp">is.na</span><span class="p">(</span>layout_njask<span class="o">$</span>spanner2<span class="p">),</span><span class="s">&#39;&#39;</span><span class="p">,</span> layout_njask<span class="o">$</span>spanner2<span class="p">)</span>
 
 layout_njask<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span> <span class="p">]</span>
 </pre></div>
@@ -497,27 +497,27 @@ layout_njask<span class="p">[</span><span class="m">1</span><span class="o">:</s
 
 <p>Success!  Now we just concatenate <code>description</code>, <code>spanner1</code>, and <code>spanner2</code> into a single value, do a little cleanup, and we have our headers.  For cleanup, we want to get rid of weird whitespace, and convert reserved characters (like <code>+</code>) to words.</p>
 <div class="highlight"><pre><span class="c1">#no plus or () symbols</span>
-layout_njask<span class="o">$</span>spanner1 <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&#39;+&#39;</span><span class="p">,</span> <span class="s">&#39;and&#39;</span><span class="p">,</span> layout_njask<span class="o">$</span>spanner1<span class="p">,</span> fixed <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-layout_njask<span class="o">$</span>spanner1 <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&#39;(&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> layout_njask<span class="o">$</span>spanner1<span class="p">,</span> fixed <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-layout_njask<span class="o">$</span>spanner1 <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&#39;)&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> layout_njask<span class="o">$</span>spanner1<span class="p">,</span> fixed <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+layout_njask<span class="o">$</span>spanner1 <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&#39;+&#39;</span><span class="p">,</span> <span class="s">&#39;and&#39;</span><span class="p">,</span> layout_njask<span class="o">$</span>spanner1<span class="p">,</span> fixed <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+layout_njask<span class="o">$</span>spanner1 <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&#39;(&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> layout_njask<span class="o">$</span>spanner1<span class="p">,</span> fixed <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+layout_njask<span class="o">$</span>spanner1 <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&#39;)&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> layout_njask<span class="o">$</span>spanner1<span class="p">,</span> fixed <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 
-layout_njask<span class="o">$</span>final_name <span class="o">&lt;-</span> layout_njask <span class="o">%$%</span> paste<span class="p">(</span>spanner1<span class="p">,</span> spanner2<span class="p">,</span> description<span class="p">,</span> sep<span class="o">=</span><span class="s">&#39;_&#39;</span><span class="p">)</span>
+layout_njask<span class="o">$</span>final_name <span class="o">&lt;-</span> layout_njask <span class="o">%$%</span> <span class="kp">paste</span><span class="p">(</span>spanner1<span class="p">,</span> spanner2<span class="p">,</span> description<span class="p">,</span> sep<span class="o">=</span><span class="s">&#39;_&#39;</span><span class="p">)</span>
 <span class="c1">#kill double underscores</span>
-layout_njask<span class="o">$</span>final_name <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&#39;__&#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> layout_njask<span class="o">$</span>final_name<span class="p">)</span>
+layout_njask<span class="o">$</span>final_name <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&#39;__&#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> layout_njask<span class="o">$</span>final_name<span class="p">)</span>
 <span class="c1">#kill leading or trailer underscores</span>
-layout_njask<span class="o">$</span>final_name <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&quot;(^_+|_+$)&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_njask<span class="o">$</span>final_name<span class="p">)</span>
+layout_njask<span class="o">$</span>final_name <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot;(^_+|_+$)&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_njask<span class="o">$</span>final_name<span class="p">)</span>
 <span class="c1">#trim any remaining whitespace</span>
-layout_njask<span class="o">$</span>final_name <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_njask<span class="o">$</span>final_name<span class="p">)</span>
+layout_njask<span class="o">$</span>final_name <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_njask<span class="o">$</span>final_name<span class="p">)</span>
 <span class="c1">#all whitespace becomes underscore</span>
-layout_njask<span class="o">$</span>final_name <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> layout_njask<span class="o">$</span>final_name<span class="p">)</span>
+layout_njask<span class="o">$</span>final_name <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> layout_njask<span class="o">$</span>final_name<span class="p">)</span>
 
 <span class="c1">#more whitespace cleanup</span>
-layout_njask<span class="o">$</span>comments <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_njask<span class="o">$</span>comments<span class="p">)</span>
-layout_njask<span class="o">$</span>description <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_njask<span class="o">$</span>description<span class="p">)</span>
-layout_njask<span class="o">$</span>valid_values <span class="o">&lt;-</span> gsub<span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_njask<span class="o">$</span>valid_values<span class="p">)</span>
+layout_njask<span class="o">$</span>comments <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_njask<span class="o">$</span>comments<span class="p">)</span>
+layout_njask<span class="o">$</span>description <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_njask<span class="o">$</span>description<span class="p">)</span>
+layout_njask<span class="o">$</span>valid_values <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot;^\\s+|\\s+$&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> layout_njask<span class="o">$</span>valid_values<span class="p">)</span>
 
 
-head<span class="p">(</span>layout_njask<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>layout_njask<span class="p">)</span>
 </pre></div>
 
 
@@ -576,125 +576,125 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
 
 <p>success!
 let's look at just a sample of 10 rows and 10 columns from that:</p>
-<div class="highlight"><pre>dplyr<span class="o">::</span>sample_n<span class="p">(</span>njask14_gr8<span class="p">[,</span> sample<span class="p">(</span>c<span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">551</span><span class="p">),</span> <span class="m">10</span><span class="p">)],</span> <span class="m">10</span><span class="p">)</span> <span class="o">%&gt;%</span> as.data.frame<span class="p">()</span>
+<div class="highlight"><pre>dplyr<span class="o">::</span>sample_n<span class="p">(</span>njask14_gr8<span class="p">[,</span> <span class="kp">sample</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">551</span><span class="p">),</span> <span class="m">10</span><span class="p">)],</span> <span class="m">10</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span>
 </pre></div>
 
 
-<div class="highlight"><pre>##    FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_Not_Present
-## 1                                                            NA
-## 2                                                            NA
-## 3                                                            NA
-## 4                                                            NA
-## 5                                                            NA
-## 6                                                            NA
-## 7                                                            NA
-## 8                                                            NA
-## 9                                                            NA
-## 10                                                           NA
-##    TOTAL_POPULATION_Number_Enrolled_ELA
-## 1                                    68
-## 2                                   444
-## 3                                    NA
-## 4                                    55
-## 5                                   214
-## 6                                   417
-## 7                                   141
-## 8                                    96
-## 9                                   359
-## 10                                  183
-##    CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                                                 NA
-## 2                                                               1910
-## 3                                                                 NA
-## 4                                                                 NA
-## 5                                                                 NA
-## 6                                                                 NA
-## 7                                                                 NA
-## 8                                                                 NA
-## 9                                                                 NA
-## 10                                                                NA
-##    GENERAL_EDUCATION_SCIENCE_Number_Not_Present
-## 1                                             0
-## 2                                             0
-## 3                                            NA
-## 4                                             1
-## 5                                             1
-## 6                                             2
-## 7                                             0
-## 8                                             0
-## 9                                             1
-## 10                                            0
-##    MIGRANT_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                     NA
-## 2                                                     NA
-## 3                                                     NA
-## 4                                                     NA
-## 5                                                     NA
-## 6                                                     NA
-## 7                                                     NA
-## 8                                                     NA
-## 9                                                     NA
-## 10                                                    NA
-##    FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Partially_Proficient_Percentage
-## 1                                                                         NA
-## 2                                                                         NA
-## 3                                                                         NA
-## 4                                                                         NA
-## 5                                                                         NA
-## 6                                                                         NA
-## 7                                                                         NA
-## 8                                                                         NA
-## 9                                                                         NA
-## 10                                                                        NA
-##    MIGRANT_MATHEMATICS_Number_of_Voids
-## 1                                   NA
-## 2                                   NA
-## 3                                   NA
-## 4                                   NA
-## 5                                   NA
-## 6                                   NA
-## 7                                   NA
-## 8                                   NA
-## 9                                   NA
-## 10                                  NA
-##    FORMER_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Scale_Score_Mean
-## 1                                                              NA
-## 2                                                              NA
-## 3                                                              NA
-## 4                                                              NA
-## 5                                                              NA
-## 6                                                              NA
-## 7                                                              NA
-## 8                                                              NA
-## 9                                                              NA
-## 10                                                             NA
-##    GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                              2130
-## 2                                              2212
-## 3                                                NA
-## 4                                              2049
-## 5                                              2148
-## 6                                              2270
-## 7                                              2341
-## 8                                              2181
-## 9                                              2491
-## 10                                             2391
-##    ASIAN_MATHEMATICS_Number_of_Valid_Scale_Scores
-## 1                                              NA
-## 2                                              NA
-## 3                                              NA
-## 4                                              NA
-## 5                                              NA
-## 6                                              53
-## 7                                              NA
-## 8                                              NA
-## 9                                             222
-## 10                                             NA
+<div class="highlight"><pre>##    MIGRANT_MATHEMATICS_Number_Enrolled_Math
+## 1                                         0
+## 2                                         0
+## 3                                         0
+## 4                                         0
+## 5                                         0
+## 6                                         0
+## 7                                         0
+## 8                                         0
+## 9                                         0
+## 10                                        0
+##    ASIAN_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                        565
+## 2                                        429
+## 3                                        580
+## 4                                         NA
+## 5                                         NA
+## 6                                         NA
+## 7                                         NA
+## 8                                         NA
+## 9                                         NA
+## 10                                        NA
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_Enrolled_Science
+## 1                                                                             NA
+## 2                                                                             NA
+## 3                                                                             NA
+## 4                                                                             NA
+## 5                                                                             NA
+## 6                                                                             14
+## 7                                                                             NA
+## 8                                                                              0
+## 9                                                                              0
+## 10                                                                            NA
+##    NON-ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                                 658
+## 2                                                                 681
+## 3                                                                 740
+## 4                                                                 775
+## 5                                                                 750
+## 6                                                                 800
+## 7                                                                  NA
+## 8                                                                 771
+## 9                                                                 636
+## 10                                                                704
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_Enrolled_Math
+## 1                                                                              NA
+## 2                                                                              NA
+## 3                                                                              NA
+## 4                                                                              NA
+## 5                                                                              NA
+## 6                                                                              14
+## 7                                                                              NA
+## 8                                                                               0
+## 9                                                                               0
+## 10                                                                             NA
+##    WHITE_MATHEMATICS_Partially_Proficient_Percentage
+## 1                                                100
+## 2                                                306
+## 3                                                159
+## 4                                                212
+## 5                                                164
+## 6                                                 NA
+## 7                                                 NA
+## 8                                                208
+## 9                                                 NA
+## 10                                               193
+##    ASIAN_MATHEMATICS_Advanced_Proficient_Percentage
+## 1                                               696
+## 2                                               679
+## 3                                               780
+## 4                                                NA
+## 5                                                NA
+## 6                                                NA
+## 7                                                NA
+## 8                                                NA
+## 9                                                NA
+## 10                                               NA
+##    SPECIAL_EDUCATION_SCIENCE_Number_Enrolled_Science
+## 1                                                 38
+## 2                                                 NA
+## 3                                                 NA
+## 4                                                 NA
+## 5                                                 NA
+## 6                                                 NA
+## 7                                                 NA
+## 8                                                 13
+## 9                                                 17
+## 10                                                NA
+##    TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                                  0
+## 2                                                  0
+## 3                                                  0
+## 4                                                  0
+## 5                                                  1
+## 6                                                  0
+## 7                                                  0
+## 8                                                  0
+## 9                                                  0
+## 10                                                 1
+##    NON-MIGRANT_SCIENCE_Scale_Score_Mean
+## 1                                  2455
+## 2                                  2280
+## 3                                  2418
+## 4                                  2451
+## 5                                  2376
+## 6                                  2049
+## 7                                  2126
+## 8                                  2193
+## 9                                  2088
+## 10                                 2306
 </pre></div>
 
 
-<p>In the <a href="" title="/reading-nj-assess-data-2.html">next post</a>, I'll talk about how to turn this linear script into a function that can process all of the state data.  In preparation, let's dump the layout data frame that we cleaned up here to an <code>.rda</code> object so that we can easily use it later.</p>
-<div class="highlight"><pre>save<span class="p">(</span>layout_njask<span class="p">,</span> file <span class="o">=</span> <span class="s">&#39;datasets/njask_layout.rda&#39;</span><span class="p">)</span>
+<p>In the <a href="http://almart.in/reading-nj-assess-data-2.html">next post</a>, I'll talk about how to turn this linear script into a function that can process all of the state data.  In preparation, let's dump the layout data frame that we cleaned up here to an <code>.rda</code> object so that we can easily use it later.</p>
+<div class="highlight"><pre><span class="kp">save</span><span class="p">(</span>layout_njask<span class="p">,</span> file <span class="o">=</span> <span class="s">&#39;datasets/njask_layout.rda&#39;</span><span class="p">)</span>
 </pre></div>
 
 

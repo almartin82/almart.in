@@ -219,7 +219,7 @@ dplyr::sample_n(njask14_gr8[, sample(c(1:551), 10)], 10) %>% as.data.frame()
 
 ```
 
-In the [next post]('/reading-nj-assess-data-2.html'), I'll talk about how to turn this linear script into a function that can process all of the state data.  In preparation, let's dump the layout data frame that we cleaned up here to an `.rda` object so that we can easily use it later.
+In the [next post]({filename}/05_njask-data-2.Rmd), I'll talk about how to turn this linear script into a function that can process all of the state data.  In preparation, let's dump the layout data frame that we cleaned up here to an `.rda` object so that we can easily use it later.
 
 ```{r export}
 
