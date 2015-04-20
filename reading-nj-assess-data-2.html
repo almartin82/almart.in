@@ -94,7 +94,7 @@
 			<a href="http://almart.in/tag/tutorial.html" rel="tag"> tutorial</a>&nbsp;&nbsp;
 		</span>
 	</div>
-	<div itemprop="articleBody" class="article-body"><p>In my <a href="" title="/reading-nj-assess-1.html">last post</a>, I showed how to read a fixed width file into R.  In this post, I'll refactor that code into a function that takes year/grade as a parameter.</p>
+	<div itemprop="articleBody" class="article-body"><p>In my <a href="http://almart.in/reading-nj-assess-data-1.html">last post</a>, I showed how to read a fixed width file into R.  In this post, I'll refactor that code into a function that takes year/grade as a parameter.</p>
 <p>First, read in the layout data frame.  This contains the column headers for NJASK fixed with files.</p>
 <div class="highlight"><pre><span class="kp">load</span><span class="p">(</span>file <span class="o">=</span> <span class="s">&#39;datasets/njask_layout.rda&#39;</span><span class="p">)</span>
 
@@ -211,116 +211,105 @@ ex <span class="o">&lt;-</span> get_raw_njask<span class="p">(</span><span class
 </pre></div>
 
 
-<div class="highlight"><pre>##    CURRENT_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Scale_Score_Mean
-## 1                                                           NA
-## 2                                                           NA
-## 3                                                           NA
-## 4                                                           NA
-## 5                                                           NA
-## 6                                                           NA
-## 7                                                           NA
-## 8                                                           NA
-## 9                                                           NA
-## 10                                                          NA
-##    MALE_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                               NA
-## 2                                              131
-## 3                                               NA
-## 4                                               30
-## 5                                               57
-## 6                                               NA
-## 7                                               65
-## 8                                              220
-## 9                                               28
-## 10                                              NA
-##    LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_APA
-## 1                                                                    NA
-## 2                                                                    NA
-## 3                                                                    NA
-## 4                                                                    NA
-## 5                                                                     1
-## 6                                                                    NA
-## 7                                                                    NA
-## 8                                                                    NA
-## 9                                                                    NA
-## 10                                                                   NA
-##    ECONOMICALLY_DISADVANTAGED_Number_Enrolled_ELA
-## 1                                               0
-## 2                                              NA
-## 3                                              21
-## 4                                              49
-## 5                                              89
-## 6                                              NA
-## 7                                              NA
-## 8                                             149
-## 9                                              42
-## 10                                             NA
-##    PACIFIC_ISLANDER_MATHEMATICS_Partially_Proficient_Percentage
-## 1                                                            NA
-## 2                                                            NA
-## 3                                                            NA
-## 4                                                            NA
-## 5                                                            NA
-## 6                                                            NA
-## 7                                                            NA
-## 8                                                            NA
-## 9                                                            NA
-## 10                                                           NA
-##    WHITE_LANGUAGE_ARTS_Number_of_Voids
+<div class="highlight"><pre>##    BLACK_SCIENCE_Proficient_Percentage
 ## 1                                   NA
-## 2                                    0
+## 2                                   NA
 ## 3                                   NA
 ## 4                                   NA
 ## 5                                   NA
 ## 6                                   NA
-## 7                                    1
-## 8                                    2
-## 9                                    0
+## 7                                   NA
+## 8                                   NA
+## 9                                   NA
 ## 10                                  NA
-##    AMERICAN_INDIAN_MATHEMATICS_Number_of_Valid_Scale_Scores
-## 1                                                        NA
-## 2                                                        NA
-## 3                                                        NA
-## 4                                                        NA
-## 5                                                        NA
-## 6                                                        NA
+##    NON-MIGRANT_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                        36
+## 2                                                       252
+## 3                                                        47
+## 4                                                       231
+## 5                                                       100
+## 6                                                        61
 ## 7                                                        NA
-## 8                                                        NA
-## 9                                                        NA
-## 10                                                       NA
-##    PACIFIC_ISLANDER_MATHEMATICS_Number_Enrolled_Math
-## 1                                                  0
-## 2                                                 NA
-## 3                                                 NA
-## 4                                                  0
-## 5                                                  0
-## 6                                                  0
-## 7                                                  0
-## 8                                                 NA
-## 9                                                 NA
-## 10                                                 0
-##    NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Advanced_Proficient_Percentage
-## 1                                                                     NA
-## 2                                                                     NA
-## 3                                                                     NA
-## 4                                                                     NA
-## 5                                                                     NA
-## 6                                                                     NA
-## 7                                                                     NA
-## 8                                                                     NA
-## 9                                                                     NA
-## 10                                                                    NA
-##    MALE_MATHEMATICS_Number_Enrolled_Math
-## 1                                     NA
-## 2                                    133
-## 3                                     NA
-## 4                                     30
-## 5                                     60
-## 6                                     NA
-## 7                                     67
-## 8                                    228
-## 9                                     29
-## 10                                    NA
+## 8                                                         0
+## 9                                                        44
+## 10                                                       16
+##    MALE_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                               29
+## 2                                               76
+## 3                                              104
+## 4                                               NA
+## 5                                               31
+## 6                                               59
+## 7                                               NA
+## 8                                               20
+## 9                                               32
+## 10                                              35
+##    MIGRANT_MATHEMATICS_Number_APA OTHER_LANGUAGE_ARTS_Number_Not_Present
+## 1                              NA                                     NA
+## 2                              NA                                     NA
+## 3                              NA                                     NA
+## 4                              NA                                     NA
+## 5                              NA                                     NA
+## 6                              NA                                     NA
+## 7                              NA                                     NA
+## 8                              NA                                     NA
+## 9                              NA                                     NA
+## 10                             NA                                     NA
+##    FEMALE_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                   2114
+## 2                                   2401
+## 3                                   2160
+## 4                                     NA
+## 5                                   2294
+## 6                                   2149
+## 7                                     NA
+## 8                                   2074
+## 9                                   2138
+## 10                                  1883
+##    OTHER_SCIENCE_Number_of_Valid_Scale_Scores
+## 1                                          NA
+## 2                                          NA
+## 3                                          NA
+## 4                                          NA
+## 5                                          NA
+## 6                                          NA
+## 7                                          NA
+## 8                                          NA
+## 9                                          NA
+## 10                                         NA
+##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Number_Enrolled_Math
+## 1                                                                       9
+## 2                                                                      15
+## 3                                                                      17
+## 4                                                                       0
+## 5                                                                       6
+## 6                                                                      15
+## 7                                                                       1
+## 8                                                                       3
+## 9                                                                       2
+## 10                                                                     13
+##    GENERAL_EDUCATION_SCIENCE_Proficient_Percentage
+## 1                                               NA
+## 2                                               NA
+## 3                                               NA
+## 4                                               NA
+## 5                                               NA
+## 6                                               NA
+## 7                                               NA
+## 8                                               NA
+## 9                                               NA
+## 10                                              NA
+##    OTHER_LANGUAGE_ARTS_Number_APA
+## 1                              NA
+## 2                              NA
+## 3                              NA
+## 4                              NA
+## 5                              NA
+## 6                              NA
+## 7                              NA
+## 8                              NA
+## 9                              NA
+## 10                             NA
 </pre></div>
 
 
@@ -524,7 +513,7 @@ fetch_njask<span class="p">(</span><span class="m">2014</span><span class="p">,<
 </pre></div>
 
 
-<p>There's a more data out there than just the grade 3 NJASK, though.  In my next post, we'll tackle the HSPA, and dive into some older data - the 'Grade Eight Proficiency Assessment' (GEPA) that used to be offered to students at the end of middle school.  We'll also look at some ways to stitch all those functions together to provide a simplified interface for bringing NJ assessment data into R.</p></div>
+<p>There's a more data out there than just the grade 3 NJASK, though.  In my<a href="http://almart.in/reading-nj-assess-data-3.html">next post</a>, we'll tackle the HSPA, and dive into some older data - the 'Grade Eight Proficiency Assessment' (GEPA) that used to be offered to students at the end of middle school, with the ultimate goal of stitching everything together into a simplified R interface for NJ assessment data.</p></div>
 	<hr>
 
 	

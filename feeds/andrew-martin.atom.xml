@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>almart.in</title><link href="http://almart.in/" rel="alternate"></link><link href="http://almart.in/feeds%5Candrew-martin.atom.xml" rel="self"></link><id>http://almart.in/</id><updated>2015-04-16T00:00:00-04:00</updated><entry><title>Getting NJ assessment data into R: part 3 in a series.</title><link href="http://almart.in/reading-nj-assess-data-3.html" rel="alternate"></link><updated>2015-04-16T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-16:reading-nj-assess-data-3.html</id><summary type="html">&lt;p&gt;In my &lt;a href="" title="/reading-nj-assess-data-2.html"&gt;last post&lt;/a&gt;, I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA), and to the old Grade Eight Proficiency Assessment (GEPA).  With functions that can access each of those data sources, we'll be ready to write a general wrapper that simplifies access to relevant state assessment data.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>almart.in</title><link href="http://almart.in/" rel="alternate"></link><link href="http://almart.in/feeds%5Candrew-martin.atom.xml" rel="self"></link><id>http://almart.in/</id><updated>2015-04-16T00:00:00-04:00</updated><entry><title>Getting NJ assessment data into R: part 3 in a series.</title><link href="http://almart.in/reading-nj-assess-data-3.html" rel="alternate"></link><updated>2015-04-16T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-16:reading-nj-assess-data-3.html</id><summary type="html">&lt;p&gt;In my &lt;a href="http://almart.in/reading-nj-assess-data-3.html"&gt;last post&lt;/a&gt;, I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA), and to the old Grade Eight Proficiency Assessment (GEPA).  With functions that can access each of those data sources, we'll be ready to write a general wrapper that simplifies access to relevant state assessment data.&lt;/p&gt;
 &lt;h1&gt;HSPA&lt;/h1&gt;
-&lt;p&gt;Much like the NJASK data in posts &lt;a href="" title="/reading-nj-assess-data-1.html"&gt;1&lt;/a&gt; and &lt;a href="" title="/reading-nj-assess-data-2.html"&gt;2&lt;/a&gt;, we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some post-processing.  I also &lt;a href="" title="hspa-layout.html"&gt;wrote up&lt;/a&gt; how to process the HSPA metadata, if data processing is your thing.&lt;/p&gt;
+&lt;p&gt;Much like the NJASK data in posts &lt;a href="http://almart.in/reading-nj-assess-data-1.html"&gt;1&lt;/a&gt; and &lt;a href="http://almart.in/reading-nj-assess-data-2.html"&gt;2&lt;/a&gt;, we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some post-processing.  I also &lt;a href="http://almart.in/pages/hspa-layout.html"&gt;wrote up&lt;/a&gt; how to process the HSPA metadata, if data processing is your thing.&lt;/p&gt;
 &lt;p&gt;Load in those processed files:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;readr&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;dplyr&lt;span class="p"&gt;)&lt;/span&gt;
@@ -718,7 +718,7 @@ fetch_gepa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2007&lt;/spa
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;In the next post in this series, we'll take these individual NJASK, HSPA, and GEPA functions and write a wrapper to rule them all, allowing data to be easily fetched for any year/grade.&lt;/p&gt;</summary><category term="NJ"></category><category term="assessment"></category><category term="NJASK"></category><category term="HSPA"></category><category term="data_management"></category><category term="tutorial"></category></entry><entry><title>Getting NJ assessment data into R: part 2 in a series</title><link href="http://almart.in/reading-nj-assess-data-2.html" rel="alternate"></link><updated>2015-04-15T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-15:reading-nj-assess-data-2.html</id><summary type="html">&lt;p&gt;In my &lt;a href="" title="/reading-nj-assess-1.html"&gt;last post&lt;/a&gt;, I showed how to read a fixed width file into R.  In this post, I'll refactor that code into a function that takes year/grade as a parameter.&lt;/p&gt;
+&lt;p&gt;In the &lt;a href="http://almart.in/reading-nj-assess-data-4.html"&gt;next post&lt;/a&gt; in this series, we'll take these individual NJASK, HSPA, and GEPA functions and write one wrapper to rule them all, allowing data to be easily fetched for any year/grade.&lt;/p&gt;</summary><category term="NJ"></category><category term="assessment"></category><category term="NJASK"></category><category term="HSPA"></category><category term="data_management"></category><category term="tutorial"></category></entry><entry><title>Getting NJ assessment data into R: part 2 in a series</title><link href="http://almart.in/reading-nj-assess-data-2.html" rel="alternate"></link><updated>2015-04-15T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-15:reading-nj-assess-data-2.html</id><summary type="html">&lt;p&gt;In my &lt;a href="http://almart.in/reading-nj-assess-data-1.html"&gt;last post&lt;/a&gt;, I showed how to read a fixed width file into R.  In this post, I'll refactor that code into a function that takes year/grade as a parameter.&lt;/p&gt;
 &lt;p&gt;First, read in the layout data frame.  This contains the column headers for NJASK fixed with files.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/njask_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
@@ -835,116 +835,105 @@ ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    CURRENT_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Scale_Score_Mean
-## 1                                                           NA
-## 2                                                           NA
-## 3                                                           NA
-## 4                                                           NA
-## 5                                                           NA
-## 6                                                           NA
-## 7                                                           NA
-## 8                                                           NA
-## 9                                                           NA
-## 10                                                          NA
-##    MALE_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                               NA
-## 2                                              131
-## 3                                               NA
-## 4                                               30
-## 5                                               57
-## 6                                               NA
-## 7                                               65
-## 8                                              220
-## 9                                               28
-## 10                                              NA
-##    LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_APA
-## 1                                                                    NA
-## 2                                                                    NA
-## 3                                                                    NA
-## 4                                                                    NA
-## 5                                                                     1
-## 6                                                                    NA
-## 7                                                                    NA
-## 8                                                                    NA
-## 9                                                                    NA
-## 10                                                                   NA
-##    ECONOMICALLY_DISADVANTAGED_Number_Enrolled_ELA
-## 1                                               0
-## 2                                              NA
-## 3                                              21
-## 4                                              49
-## 5                                              89
-## 6                                              NA
-## 7                                              NA
-## 8                                             149
-## 9                                              42
-## 10                                             NA
-##    PACIFIC_ISLANDER_MATHEMATICS_Partially_Proficient_Percentage
-## 1                                                            NA
-## 2                                                            NA
-## 3                                                            NA
-## 4                                                            NA
-## 5                                                            NA
-## 6                                                            NA
-## 7                                                            NA
-## 8                                                            NA
-## 9                                                            NA
-## 10                                                           NA
-##    WHITE_LANGUAGE_ARTS_Number_of_Voids
+&lt;div class="highlight"&gt;&lt;pre&gt;##    BLACK_SCIENCE_Proficient_Percentage
 ## 1                                   NA
-## 2                                    0
+## 2                                   NA
 ## 3                                   NA
 ## 4                                   NA
 ## 5                                   NA
 ## 6                                   NA
-## 7                                    1
-## 8                                    2
-## 9                                    0
+## 7                                   NA
+## 8                                   NA
+## 9                                   NA
 ## 10                                  NA
-##    AMERICAN_INDIAN_MATHEMATICS_Number_of_Valid_Scale_Scores
-## 1                                                        NA
-## 2                                                        NA
-## 3                                                        NA
-## 4                                                        NA
-## 5                                                        NA
-## 6                                                        NA
+##    NON-MIGRANT_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                        36
+## 2                                                       252
+## 3                                                        47
+## 4                                                       231
+## 5                                                       100
+## 6                                                        61
 ## 7                                                        NA
-## 8                                                        NA
-## 9                                                        NA
-## 10                                                       NA
-##    PACIFIC_ISLANDER_MATHEMATICS_Number_Enrolled_Math
-## 1                                                  0
-## 2                                                 NA
-## 3                                                 NA
-## 4                                                  0
-## 5                                                  0
-## 6                                                  0
-## 7                                                  0
-## 8                                                 NA
-## 9                                                 NA
-## 10                                                 0
-##    NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Advanced_Proficient_Percentage
-## 1                                                                     NA
-## 2                                                                     NA
-## 3                                                                     NA
-## 4                                                                     NA
-## 5                                                                     NA
-## 6                                                                     NA
-## 7                                                                     NA
-## 8                                                                     NA
-## 9                                                                     NA
-## 10                                                                    NA
-##    MALE_MATHEMATICS_Number_Enrolled_Math
-## 1                                     NA
-## 2                                    133
-## 3                                     NA
-## 4                                     30
-## 5                                     60
-## 6                                     NA
-## 7                                     67
-## 8                                    228
-## 9                                     29
-## 10                                    NA
+## 8                                                         0
+## 9                                                        44
+## 10                                                       16
+##    MALE_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                               29
+## 2                                               76
+## 3                                              104
+## 4                                               NA
+## 5                                               31
+## 6                                               59
+## 7                                               NA
+## 8                                               20
+## 9                                               32
+## 10                                              35
+##    MIGRANT_MATHEMATICS_Number_APA OTHER_LANGUAGE_ARTS_Number_Not_Present
+## 1                              NA                                     NA
+## 2                              NA                                     NA
+## 3                              NA                                     NA
+## 4                              NA                                     NA
+## 5                              NA                                     NA
+## 6                              NA                                     NA
+## 7                              NA                                     NA
+## 8                              NA                                     NA
+## 9                              NA                                     NA
+## 10                             NA                                     NA
+##    FEMALE_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                   2114
+## 2                                   2401
+## 3                                   2160
+## 4                                     NA
+## 5                                   2294
+## 6                                   2149
+## 7                                     NA
+## 8                                   2074
+## 9                                   2138
+## 10                                  1883
+##    OTHER_SCIENCE_Number_of_Valid_Scale_Scores
+## 1                                          NA
+## 2                                          NA
+## 3                                          NA
+## 4                                          NA
+## 5                                          NA
+## 6                                          NA
+## 7                                          NA
+## 8                                          NA
+## 9                                          NA
+## 10                                         NA
+##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Number_Enrolled_Math
+## 1                                                                       9
+## 2                                                                      15
+## 3                                                                      17
+## 4                                                                       0
+## 5                                                                       6
+## 6                                                                      15
+## 7                                                                       1
+## 8                                                                       3
+## 9                                                                       2
+## 10                                                                     13
+##    GENERAL_EDUCATION_SCIENCE_Proficient_Percentage
+## 1                                               NA
+## 2                                               NA
+## 3                                               NA
+## 4                                               NA
+## 5                                               NA
+## 6                                               NA
+## 7                                               NA
+## 8                                               NA
+## 9                                               NA
+## 10                                              NA
+##    OTHER_LANGUAGE_ARTS_Number_APA
+## 1                              NA
+## 2                              NA
+## 3                              NA
+## 4                              NA
+## 5                              NA
+## 6                              NA
+## 7                              NA
+## 8                              NA
+## 9                              NA
+## 10                             NA
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1148,7 +1137,7 @@ fetch_njask&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2014&lt;/sp
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;There's a more data out there than just the grade 3 NJASK, though.  In my next post, we'll tackle the HSPA, and dive into some older data - the 'Grade Eight Proficiency Assessment' (GEPA) that used to be offered to students at the end of middle school.  We'll also look at some ways to stitch all those functions together to provide a simplified interface for bringing NJ assessment data into R.&lt;/p&gt;</summary><category term="NJ"></category><category term="assessment"></category><category term="NJASK"></category><category term="HSPA"></category><category term="data_management"></category><category term="tutorial"></category></entry><entry><title>Getting NJ assessment data into R: part 1 in a series.</title><link href="http://almart.in/reading-nj-assess-data-1.html" rel="alternate"></link><updated>2015-04-13T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-13:reading-nj-assess-data-1.html</id><summary type="html">&lt;p&gt;New Jersey has switched over to the PARCC assessment, but from roughly 2005-2014 New Jersey took the "New Jersey Assessment of Skills and Knowledge," or more simply "the NJASK."&lt;/p&gt;
+&lt;p&gt;There's a more data out there than just the grade 3 NJASK, though.  In my&lt;a href="http://almart.in/reading-nj-assess-data-3.html"&gt;next post&lt;/a&gt;, we'll tackle the HSPA, and dive into some older data - the 'Grade Eight Proficiency Assessment' (GEPA) that used to be offered to students at the end of middle school, with the ultimate goal of stitching everything together into a simplified R interface for NJ assessment data.&lt;/p&gt;</summary><category term="NJ"></category><category term="assessment"></category><category term="NJASK"></category><category term="HSPA"></category><category term="data_management"></category><category term="tutorial"></category></entry><entry><title>Getting NJ assessment data into R: part 1 in a series.</title><link href="http://almart.in/reading-nj-assess-data-1.html" rel="alternate"></link><updated>2015-04-13T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-13:reading-nj-assess-data-1.html</id><summary type="html">&lt;p&gt;New Jersey has switched over to the PARCC assessment, but from roughly 2005-2014 New Jersey took the "New Jersey Assessment of Skills and Knowledge," or more simply "the NJASK."&lt;/p&gt;
 &lt;p&gt;This data is a bit of a pain to work with.  There's a page for each &lt;a href="http://www.state.nj.us/education/schools/achievement/14/"&gt;year&lt;/a&gt; of assessment data, and for each year there's a &lt;a href="http://www.state.nj.us/education/schools/achievement/14/njask8/"&gt;page&lt;/a&gt; per grade level.  But wait!  It gets better!  If you download the Excel spreadsheet for each grade level (helpfully titled &lt;code&gt;state_summary.xls&lt;/code&gt; for &lt;em&gt;every&lt;/em&gt; year and grade!), you'll find &lt;strong&gt;5&lt;/strong&gt; tabs per file, because there are simply too many demographic/subject subgroups for Excel 2003 to handle.
 &lt;/p&gt;
 &lt;p&gt;&lt;img src="static_images/04_njask_excel.png"&gt;&lt;/p&gt;

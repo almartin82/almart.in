@@ -23,7 +23,7 @@ opts_chunk$set(pelican.publish=ready_to_ship)
 
 ```
 
-In my [last post]('/reading-nj-assess-1.html'), I showed how to read a fixed width file into R.  In this post, I'll refactor that code into a function that takes year/grade as a parameter.
+In my [last post]({filename}/04_njask-data-1.Rmd), I showed how to read a fixed width file into R.  In this post, I'll refactor that code into a function that takes year/grade as a parameter.
 
 First, read in the layout data frame.  This contains the column headers for NJASK fixed with files.<!-- PELICAN_END_SUMMARY -->
 
@@ -159,4 +159,4 @@ fetch_njask(2014, 6) %>% head() %>% select(CDS_Code:TOTAL_POPULATION_LANGUAGE_AR
 
 ```
 
-There's a more data out there than just the grade 3 NJASK, though.  In my next post, we'll tackle the HSPA, and dive into some older data - the 'Grade Eight Proficiency Assessment' (GEPA) that used to be offered to students at the end of middle school.  We'll also look at some ways to stitch all those functions together to provide a simplified interface for bringing NJ assessment data into R.
+There's a more data out there than just the grade 3 NJASK, though.  In my[next post]({filename}/06_njask-data-3.Rmd), we'll tackle the HSPA, and dive into some older data - the 'Grade Eight Proficiency Assessment' (GEPA) that used to be offered to students at the end of middle school, with the ultimate goal of stitching everything together into a simplified R interface for NJ assessment data.

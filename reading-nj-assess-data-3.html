@@ -94,9 +94,9 @@
 			<a href="http://almart.in/tag/tutorial.html" rel="tag"> tutorial</a>&nbsp;&nbsp;
 		</span>
 	</div>
-	<div itemprop="articleBody" class="article-body"><p>In my <a href="" title="/reading-nj-assess-data-2.html">last post</a>, I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA), and to the old Grade Eight Proficiency Assessment (GEPA).  With functions that can access each of those data sources, we'll be ready to write a general wrapper that simplifies access to relevant state assessment data.</p>
+	<div itemprop="articleBody" class="article-body"><p>In my <a href="http://almart.in/reading-nj-assess-data-3.html">last post</a>, I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA), and to the old Grade Eight Proficiency Assessment (GEPA).  With functions that can access each of those data sources, we'll be ready to write a general wrapper that simplifies access to relevant state assessment data.</p>
 <h1>HSPA</h1>
-<p>Much like the NJASK data in posts <a href="" title="/reading-nj-assess-data-1.html">1</a> and <a href="" title="/reading-nj-assess-data-2.html">2</a>, we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some post-processing.  I also <a href="" title="hspa-layout.html">wrote up</a> how to process the HSPA metadata, if data processing is your thing.</p>
+<p>Much like the NJASK data in posts <a href="http://almart.in/reading-nj-assess-data-1.html">1</a> and <a href="http://almart.in/reading-nj-assess-data-2.html">2</a>, we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some post-processing.  I also <a href="http://almart.in/pages/hspa-layout.html">wrote up</a> how to process the HSPA metadata, if data processing is your thing.</p>
 <p>Load in those processed files:</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>readr<span class="p">)</span>
 <span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
@@ -813,7 +813,7 @@ fetch_gepa<span class="p">(</span><span class="m">2007</span><span class="p">)</
 </pre></div>
 
 
-<p>In the next post in this series, we'll take these individual NJASK, HSPA, and GEPA functions and write a wrapper to rule them all, allowing data to be easily fetched for any year/grade.</p></div>
+<p>In the <a href="http://almart.in/reading-nj-assess-data-4.html">next post</a> in this series, we'll take these individual NJASK, HSPA, and GEPA functions and write one wrapper to rule them all, allowing data to be easily fetched for any year/grade.</p></div>
 	<hr>
 
 	

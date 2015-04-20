@@ -23,11 +23,11 @@ opts_chunk$set(pelican.publish=ready_to_ship)
 
 ```
 
-In my [last post]('/reading-nj-assess-data-2.html'), I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA), and to the old Grade Eight Proficiency Assessment (GEPA).  With functions that can access each of those data sources, we'll be ready to write a general wrapper that simplifies access to relevant state assessment data.<!-- PELICAN_END_SUMMARY -->
+In my [last post]({filename}/06_njask-data-3.Rmd), I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA), and to the old Grade Eight Proficiency Assessment (GEPA).  With functions that can access each of those data sources, we'll be ready to write a general wrapper that simplifies access to relevant state assessment data.<!-- PELICAN_END_SUMMARY -->
 
 # HSPA
 
-Much like the NJASK data in posts [1]('/reading-nj-assess-data-1.html') and [2]('/reading-nj-assess-data-2.html'), we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some post-processing.  I also [wrote up]('hspa-layout.html') how to process the HSPA metadata, if data processing is your thing.
+Much like the NJASK data in posts [1]({filename}/04_njask-data-1.Rmd) and [2]({filename}/05_njask-data-2.Rmd), we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some post-processing.  I also [wrote up]({filename}pages/06a_hspa-layout.Rmd) how to process the HSPA metadata, if data processing is your thing.
 
 Load in those processed files:
 
@@ -252,4 +252,4 @@ fetch_gepa(2007) %>% as.data.frame() %>% select(CDS_Code:TOTAL_POPULATION_LANGUA
 
 ```
 
-In the next post in this series, we'll take these individual NJASK, HSPA, and GEPA functions and write a wrapper to rule them all, allowing data to be easily fetched for any year/grade.
+In the [next post]({filename}/07_njask-data-4.Rmd) in this series, we'll take these individual NJASK, HSPA, and GEPA functions and write one wrapper to rule them all, allowing data to be easily fetched for any year/grade.
