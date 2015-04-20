@@ -27,7 +27,7 @@ In my [last post]('/reading-nj-assess-data-2.html'), I talked about how to progr
 
 # HSPA
 
-Much like the NJASK data in posts [1]('/reading-nj-assess-data-1.html') and [2]('/reading-nj-assess-data-2.html'), we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some post-processing.  I wrote up how to process the HSPA metadata [here]('http://almart.in/hspa-layout.html'), if data processing is your thing.
+Much like the NJASK data in posts [1]('/reading-nj-assess-data-1.html') and [2]('/reading-nj-assess-data-2.html'), we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some post-processing.  I also [wrote up]('hspa-layout.html') how to process the HSPA metadata, if data processing is your thing.
 
 Load in those processed files:
 
