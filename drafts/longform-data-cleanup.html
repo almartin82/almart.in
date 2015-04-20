@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>data cleanup for longform post — almart.in</title>
+	<meta name="description" content="Title: data cleanup for longform post; Date: 2015-04-19; Author: Andrew Martin">
+	<meta name="author" content="Andrew Martin">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+		<script src="http://almart.in/theme/html5.js"></script>
+		<![endif]-->
+	<link href="http://almart.in/theme/css/ipython.css" rel="stylesheet">
+	<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+	<!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> -->
+	<!-- <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/simplex/bootstrap.min.css" rel="stylesheet"> -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/simplex/bootstrap.min.css" rel="stylesheet">
+	<link href="http://almart.in/theme/css/local.css" rel="stylesheet">
+	<link href="http://almart.in/theme/css/pygments.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+	<!-- NAVBAR -->
+	<nav class="navbar navbar-default" style="margin-top:2em;">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://almart.in">almart.in</a>
+			</div>			
+			<!-- MENUITEMS: update the MENUITEMS dict in pelicanconf.py -->
+			<div id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="http://almart.in/pages/about.html"><i class="fa fa-user "></i> about</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="http://almart.in/categories.html"><i class="fa fa-archive"></i> categories</a></li>
+					<li><a href="http://almart.in/tags.html"><i class="fa fa-tags"></i> tags</a></li>
+					<li><a href="http://almart.in/feeds/all_atom.xml"><i class="fa fa-rss"></i> rss</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<!-- MAIN CONTENT: edit in base_site.html template -->
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+<div class="article" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="text-center article-header">
+		<h1 itemprop="name headline" class="article-title">data cleanup for longform post</h1>
+		<span>
+			<div itemprop="author" itemscope itemtype="http://schema.org/Person">
+				<span itemprop="name">Andrew Martin</span> 
+				&nbsp;&#124;&nbsp;
+				<time datetime="2015-04-19T00:00:00-04:00" itemprop="datePublished">April 19 2015</time>
+				&nbsp;|&nbsp;
+				<span><a href="http://almart.in/longform-data-cleanup.txt" title="Raw Markdown for data cleanup for longform post">raw</a></span>
+			</div>
+		</span>
+		
+	</div>
+	<div>
+		category:
+		<span itemprop="articleSection">
+			<a href="http://almart.in/category/data_prep.html" rel="category">data_prep</a>
+		</span>
+	</div>
+	
+	<div itemprop="articleBody" class="article-body"><p>Read in the file.</p>
+<div class="highlight"><pre>lf <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&#39;datasets/longform_sources.csv&#39;</span><span class="p">,</span> stringsAsFactors<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+
+<span class="c1">#html cleanup</span>
+lf<span class="o">$</span>publication <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&#39;&amp;#x27;&#39;</span><span class="p">,</span> <span class="s">&quot;&#39;&quot;</span><span class="p">,</span> lf<span class="o">$</span>publication<span class="p">)</span>
+
+<span class="kp">head</span><span class="p">(</span>lf<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>##   X           author    posted_at    publication pub_date
+## 1 1  Suzanna Andrews Oct 26, 0008    Vanity Fair   Mar-08
+## 2 2   Justin Heckert    14-Jun-14  Men&#39;s Journal   Nov-09
+## 3 3          Ed Peto     1-Apr-10   The Register   Nov-07
+## 4 4       Sheri Fink     1-Apr-10 New York Times   Aug-09
+## 5 5       Kevin Gray     2-Apr-10        Details   Feb-09
+## 6 6 Jeffrey Goldberg     2-Apr-10     New Yorker   Apr-10
+##                                                                                                                                                                                                           summary
+## 1                                   The secret history of the Wildensteins, the art worldâ€™s richest and most powerful family, whose legendary vaults likely include counterfeits and works stolen by the Nazis.
+## 2 Swept out to sea by a riptide, a father and his 12-year-old autistic son struggle to stay alive. As night falls, the dad comes to a devastating realization: If they remain together, theyâ€™ll drown together.
+## 3                                               As labels big and small attempt to gain traction in the worldâ€™s largest market, theyâ€™re learning that selling pop is never simple in the epicenter of piracy.
+## 4          Katrinaâ€™s floodwaters had knocked out the power. Evacuation of the sickest patients seemed impossible. So the doctors at Memorial did what they thought was right, even if they knew it was a crime.
+## 5     When Nazi-sympathizing politician Jorg Haider died in a crash, his 27-year-old protÃ©gÃ© Stefan Petzner was left to lead the Austrian far rightâ€”and to mourn the boss who he revealed was also his lover.
+## 6                                                                                                                          The inside story of how an ABC nature shoot in Africa end up producingÂ  a snuff film.
+##                                title
+## 1                      Bitter Spoils
+## 2                  Lost in the Waves
+## 3 Inside the music business in China
+## 4       A Hospitalâ€™s Deadly Choice
+## 5           The fascist who loved me
+## 6                         The Hunted
+</pre></div>
+
+
+<p>There are some magazine names in there that are obvious duplicates.  There are a whole host of de-duping/text processing methods that we could use here, but in this case I'm just going to fix the obvious ones and move on.</p>
+<p>The most common dupes have the format 'X' and '<em>The</em> X'.  We can look for those patterns in one go:</p>
+<div class="highlight"><pre>pubs <span class="o">&lt;-</span> <span class="kp">unique</span><span class="p">(</span>lf<span class="o">$</span>publication<span class="p">)</span>
+
+dupes <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">()</span>
+
+<span class="kr">for</span> <span class="p">(</span>i <span class="kr">in</span> pubs<span class="p">)</span> <span class="p">{</span>
+  <span class="kr">if</span> <span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&#39;The&#39;</span><span class="p">,</span> i<span class="p">)</span> <span class="o">%in%</span> pubs<span class="p">)</span> <span class="p">{</span>
+    dupes <span class="o">&lt;-</span> <span class="kp">append</span><span class="p">(</span>dupes<span class="p">,</span> i<span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">#print(dupes)</span>
+</pre></div>
+
+
+<p>We can just loop over that list of dupe titles and make sure they all have the same name.</p>
+<div class="highlight"><pre><span class="kr">for</span> <span class="p">(</span>j <span class="kr">in</span> dupes<span class="p">)</span> <span class="p">{</span>
+  lf<span class="o">$</span>publication <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&#39;The&#39;</span><span class="p">,</span> j<span class="p">),</span> j<span class="p">,</span> lf<span class="o">$</span>publication<span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Turn <code>posted_at</code> into a proper date:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>lubridate<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>magrittr<span class="p">)</span>
+
+lf<span class="o">$</span>posted_at <span class="o">&lt;-</span> lubridate<span class="o">::</span>parse_date_time<span class="p">(</span>
+  lf<span class="o">$</span>posted_at<span class="p">,</span> orders<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="s">&#39;d-m-y&#39;</span><span class="p">,</span><span class="s">&#39;d-M-y&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>Filter out bad records:</p>
+<div class="highlight"><pre>lf <span class="o">&lt;-</span> lf <span class="o">%&gt;%</span>
+  dplyr<span class="o">::</span>filter<span class="p">(</span>
+    lubridate<span class="o">::</span>year<span class="p">(</span>lf<span class="o">$</span>posted_at<span class="p">)</span> <span class="o">&gt;=</span> <span class="m">2010</span>  
+  <span class="p">)</span>
+</pre></div>
+
+
+<p>Percentage share by year:</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## 
+## Attaching package: &#39;dplyr&#39;
+## 
+## The following objects are masked from &#39;package:lubridate&#39;:
+## 
+##     intersect, setdiff, union
+## 
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter
+## 
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union
+</pre></div>
+
+
+<div class="highlight"><pre>lf<span class="o">$</span>year_posted <span class="o">&lt;-</span> lubridate<span class="o">::</span>year<span class="p">(</span>lf<span class="o">$</span>posted_at<span class="p">)</span>
+
+lf_yr <span class="o">&lt;-</span> lf <span class="o">%&gt;%</span>
+  group_by<span class="p">(</span>year_posted<span class="p">)</span> <span class="o">%&gt;%</span>
+  summarize<span class="p">(</span>
+    n <span class="o">=</span> n<span class="p">()</span>
+  <span class="p">)</span>
+
+<span class="kp">names</span><span class="p">(</span>lf_yr<span class="p">)[</span><span class="m">2</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&#39;yr_total&#39;</span>
+
+lf_pub_yr <span class="o">&lt;-</span> lf <span class="o">%&gt;%</span>
+  group_by<span class="p">(</span>publication<span class="p">,</span> year_posted<span class="p">)</span> <span class="o">%&gt;%</span>
+  summarize<span class="p">(</span>
+    n_pub <span class="o">=</span> n<span class="p">()</span>  
+  <span class="p">)</span>
+
+lf_pub_disp <span class="o">&lt;-</span> lf_pub_yr
+lf_pub_disp<span class="o">$</span>publication <span class="o">&lt;-</span> <span class="kp">ifelse</span><span class="p">(</span>
+  <span class="p">(</span>lf_pub_disp<span class="o">$</span>year <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">2011</span><span class="p">,</span> <span class="m">2012</span><span class="p">,</span> <span class="m">2013</span><span class="p">,</span> <span class="m">2014</span><span class="p">)</span> <span class="o">&amp;</span> lf_pub_disp<span class="o">$</span>n <span class="o">&lt;</span> <span class="m">5</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span>lf_pub_disp<span class="o">$</span>year <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">2010</span><span class="p">,</span> <span class="m">2015</span><span class="p">)</span> <span class="o">&amp;</span> lf_pub_disp<span class="o">$</span>n <span class="o">&lt;</span> <span class="m">3</span><span class="p">),</span> <span class="s">&#39;Other&#39;</span><span class="p">,</span> lf_pub_disp<span class="o">$</span>publication<span class="p">)</span>
+
+lf_pub_disp <span class="o">&lt;-</span> lf_pub_disp <span class="o">%&gt;%</span>
+  group_by<span class="p">(</span>publication<span class="p">,</span> year_posted<span class="p">)</span> <span class="o">%&gt;%</span>
+  summarize<span class="p">(</span>
+    n_pub <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>n_pub<span class="p">)</span>
+  <span class="p">)</span> <span class="o">%&gt;%</span>
+  group_by<span class="p">(</span>year_posted<span class="p">)</span> <span class="o">%&gt;%</span>
+  mutate<span class="p">(</span>
+    rank_pub <span class="o">=</span> <span class="kp">rank</span><span class="p">(</span>desc<span class="p">(</span>n_pub<span class="p">),</span> ties.method<span class="o">=</span><span class="s">&#39;first&#39;</span><span class="p">)</span>  
+  <span class="p">)</span>
+</pre></div>
+
+
+<p>Join back on year_posted</p>
+<div class="highlight"><pre><span class="c1">#all</span>
+lf_pub_yr <span class="o">&lt;-</span> dplyr<span class="o">::</span>left_join<span class="p">(</span>
+  lf_pub_yr<span class="p">,</span> lf_yr  
+<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Joining by: &quot;year_posted&quot;
+</pre></div>
+
+
+<div class="highlight"><pre><span class="c1">#display formatted</span>
+lf_pub_disp <span class="o">&lt;-</span> dplyr<span class="o">::</span>left_join<span class="p">(</span>
+  lf_pub_disp<span class="p">,</span> lf_yr  
+<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Joining by: &quot;year_posted&quot;
+</pre></div>
+
+
+<div class="highlight"><pre>lf_pub_yr<span class="o">$</span>pct_year_total <span class="o">&lt;-</span> <span class="p">(</span>lf_pub_yr<span class="o">$</span>n_pub <span class="o">/</span> lf_pub_yr<span class="o">$</span>yr_total<span class="p">)</span> <span class="o">*</span> <span class="m">100</span>
+lf_pub_disp<span class="o">$</span>pct_year_total <span class="o">&lt;-</span> <span class="p">(</span>lf_pub_disp<span class="o">$</span>n_pub <span class="o">/</span> lf_pub_disp<span class="o">$</span>yr_total<span class="p">)</span> <span class="o">*</span> <span class="m">100</span>
+
+<span class="kp">head</span><span class="p">(</span>lf_pub_yr<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Source: local data frame [6 x 5]
+## Groups: publication
+## 
+##   year_posted   publication n_pub yr_total pct_year_total
+## 1        2011             -     1     1384     0.07225434
+## 2        2012     360hiphop     1     1468     0.06811989
+## 3        2011 3:AM Magazine     1     1384     0.07225434
+## 4        2013 3:AM Magazine     2     1403     0.14255167
+## 5        2014 3:AM Magazine     1     1545     0.06472492
+## 6        2010  3quarksdaily     1      754     0.13262599
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">head</span><span class="p">(</span>lf_pub_disp<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Source: local data frame [6 x 6]
+## Groups: year_posted
+## 
+##   year_posted       publication n_pub rank_pub yr_total pct_year_total
+## 1        2012              5280     6       41     1468      0.4087193
+## 2        2010           AV Club     3       40      754      0.3978780
+## 3        2011           AV Club     5       47     1384      0.3612717
+## 4        2013              Aeon    12       26     1403      0.8553100
+## 5        2014              Aeon    14       21     1545      0.9061489
+## 6        2013 American Prospect     6       45     1403      0.4276550
+</pre></div></div>
+	<hr>
+
+	
+</div>
+		</div>
+	</div>
+</div>
+
+<!-- FOOTER -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-11 text-center center-block aw-bottom">
+			<p>almart.in is built with <a href="http://docs.getpelican.com/en/3.5.0/#">pelican</a></p>
+		</div>
+	</div>
+</div>
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$("div.collapseheader").click(function () {
+		$header = $(this).children("span").first();
+		$codearea = $(this).children(".input_area");
+		$codearea.slideToggle(500, function () {
+			$header.text(function () {
+				return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+			});
+		});
+	});
+});
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61809650-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+ 
+</body>
+</html>

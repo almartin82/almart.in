@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>"The pool of publications just keeps getting wider..." — almart.in</title>
+	<meta name="description" content="Title: "The pool of publications just keeps getting wider..."; Date: 2015-04-19; Author: Andrew Martin">
+	<meta name="author" content="Andrew Martin">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+		<script src="http://almart.in/theme/html5.js"></script>
+		<![endif]-->
+	<link href="http://almart.in/theme/css/ipython.css" rel="stylesheet">
+	<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+	<!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> -->
+	<!-- <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/simplex/bootstrap.min.css" rel="stylesheet"> -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/simplex/bootstrap.min.css" rel="stylesheet">
+	<link href="http://almart.in/theme/css/local.css" rel="stylesheet">
+	<link href="http://almart.in/theme/css/pygments.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+	<!-- NAVBAR -->
+	<nav class="navbar navbar-default" style="margin-top:2em;">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://almart.in">almart.in</a>
+			</div>			
+			<!-- MENUITEMS: update the MENUITEMS dict in pelicanconf.py -->
+			<div id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="http://almart.in/pages/about.html"><i class="fa fa-user "></i> about</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="http://almart.in/categories.html"><i class="fa fa-archive"></i> categories</a></li>
+					<li><a href="http://almart.in/tags.html"><i class="fa fa-tags"></i> tags</a></li>
+					<li><a href="http://almart.in/feeds/all_atom.xml"><i class="fa fa-rss"></i> rss</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<!-- MAIN CONTENT: edit in base_site.html template -->
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+<div class="article" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="text-center article-header">
+		<h1 itemprop="name headline" class="article-title">"The pool of publications just keeps getting wider..."</h1>
+		<span>
+			<div itemprop="author" itemscope itemtype="http://schema.org/Person">
+				<span itemprop="name">Andrew Martin</span> 
+				&nbsp;&#124;&nbsp;
+				<time datetime="2015-04-19T00:00:00-04:00" itemprop="datePublished">April 19 2015</time>
+				&nbsp;|&nbsp;
+				<span><a href="http://almart.in/longform-sources.txt" title="Raw Markdown for "The pool of publications just keeps getting wider..."">raw</a></span>
+			</div>
+		</span>
+		
+	</div>
+	<div>
+		category:
+		<span itemprop="articleSection">
+			<a href="http://almart.in/category/projects.html" rel="category">projects</a>
+		</span>
+	</div>
+	
+ 
+	<div>
+		tags:
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/webscraper.html" rel="tag"> webscraper</a>&nbsp;&nbsp;
+		</span>
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/podcast.html" rel="tag"> podcast</a>&nbsp;&nbsp;
+		</span>
+	</div>
+	<div itemprop="articleBody" class="article-body"><h1>the idea</h1>
+<p>In this week's <a href="https://longform.org/">Longform</a> <a href="https://longform.org/podcast">podcast</a> there was an interesting aside about the different outlets for journalism in 2015.  <a href="https://twitter.com/aaronlammer">Aaron Lammer</a> was interviewing Rachel Syme, and they were talking about career paths - about how journalists in their late 20s/30s are the last cohort who started as interns at traditional publications.</p>
+<p>Rachel:</p>
+<blockquote>
+<p>my same generation of journalists [who] were last ones to arrive during  these weird cusp years, where there was no buzzfeed, no vice, really, no awl, no - none of these places that young people could just enter into and get a job or write or have exposure - you had to pay your dues.  It was still this last generation [where] getting an editiorial assistant as a conde naste magizine was <em>the thing</em> that everyone wanted to do when you arrived on campus.</p>
+</blockquote>
+<p>Aaron:</p>
+<blockquote>
+<p>Longform has only existed five years, and actually when you just look at the annual statistics of it you can see this happening - you can see that the first year it's new yorker, new york times, new republic, and the pool of publications that have over, say, five articles recommended during the year just keeps getting wider and wider every year...</p>
+</blockquote>
+<p>That's interesting!  How <em>has</em> the universe of longform journalism changed in the past 5 years?</p>
+<p>I wrote a python script to read over the articles on longform and record their author, publication, and date.  You can look at the code <a href="https://github.com/almartin82/longform-scrape">here</a> if that's your thing.  There's also some detail about the post-processing that I did <a href="" title="/longform-data-cleanup.html">here</a>.</p>
+<div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
+
+knitr<span class="o">::</span>knit<span class="p">(</span><span class="s">&#39;08a_longform-data-prep.rmd&#39;</span><span class="p">,</span> tangle<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## processing file: 08a_longform-data-prep.rmd
+## output file: 08a_longform-data-prep.R
+</pre></div>
+
+
+<div class="highlight"><pre>## [1] &quot;08a_longform-data-prep.R&quot;
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kn">source</span><span class="p">(</span><span class="s">&#39;08a_longform-data-prep.R&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Joining by: &quot;year_posted&quot;
+## Joining by: &quot;year_posted&quot;
+</pre></div>
+
+
+<h1>about the data</h1>
+<p>The first longform.org stories were published in April of 2010; there have been about ~8230 posts since then.  We have 6974 of those posts represented in our data set; the missing ones are posts that don't conform to the standard article/publisher/title format.  These could be <a href="http://longform.org/posts/3219">sponsor content</a>, <a href="http://longform.org/posts/3224">podcasts</a>, <a href="http://longform.org/posts/3419">author archives</a>, <a href="http://longform.org/posts/3493">book excerpts</a>, <a href="http://longform.org/posts/3515">older stories</a>, and <a href="http://longform.org/posts/4286">longform-guide-to-X</a> collections.</p>
+<p>Excluding these seems like the right move; there are a few places where the scraper <a href="http://longform.org/posts/3269">missed out</a> on a two-part article that probably should have been included in our data set, but those seemed to be the rare exception.  If you want to try to fix these edge cases, <a href="https://yangsu.github.io/pull-request-tutorial/">pull requests</a> are welcome!</p>
+<h1>what's inside</h1>
+<p>The top twenty publications include some familiar faces:</p>
+<div class="highlight"><pre>ranked_pubs <span class="o">&lt;-</span> <span class="kp">table</span><span class="p">(</span>lf<span class="o">$</span>publication<span class="p">)[</span><span class="kp">order</span><span class="p">(</span><span class="o">-</span><span class="kp">table</span><span class="p">(</span>lf<span class="o">$</span>publication<span class="p">))]</span>
+
+ranked_pubs<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## 
+##               New Yorker  New York Times Magazine                 New York 
+##                      524                      347                      268 
+##                       GQ              Vanity Fair             The Atlantic 
+##                      238                      225                      198 
+##           New York Times                    Wired            Rolling Stone 
+##                      160                      133                      130 
+##                  Esquire New York Review of Books             Businessweek 
+##                      123                      105                       90 
+##             New Republic                Grantland                 Harper&#39;s 
+##                       90                       87                       87 
+##          Washington Post                  Outside                 Guardian 
+##                       87                       83                       76 
+##       Sports Illustrated            Texas Monthly 
+##                       75                       72
+</pre></div>
+
+
+<p>...though I was definitely suprised to see GQ in the #4 spot.</p>
+<div class="highlight"><pre>ranked_auth <span class="o">&lt;-</span> <span class="kp">table</span><span class="p">(</span>lf<span class="o">$</span>author<span class="p">)[</span><span class="kp">order</span><span class="p">(</span><span class="o">-</span><span class="kp">table</span><span class="p">(</span>lf<span class="o">$</span>author<span class="p">))]</span>
+
+ranked_auth<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## 
+##          Wil S. Hylton   William Langewiesche    Vanessa Grigoriadis 
+##                     32                     25                     22 
+##          Michael Lewis John Jeremiah Sullivan          David Kushner 
+##                     21                     20                     18 
+##        Matthieu Aikins              Tom Junod            Amy Wallace 
+##                     18                     17                     16 
+##             Eli Saslow      Michael Paterniti          Robert Draper 
+##                     16                     16                     16 
+##     Skip Hollandsworth            Zadie Smith            Chris Jones 
+##                     16                     16                     15 
+##             Dan P. Lee           James Verini    Jeanne Marie Laskas 
+##                     15                     15                     15 
+##            Mark Bowden             Sean Flynn 
+##                     15                     15
+</pre></div>
+
+
+<p>William Langewiesche, Tom Junod, Robert Draper, Skip Hollandsworth, Zadie Smith, James Verini and Mark Bowden have not appeared on the longform podcast.</p>
+<h1>on to the charts</h1>
+<p>To try to get some visuals for the phenomenon that Aaron was describing, I think we want to show the each publication's percentage share of total links, for each year.  We're expecting the relative share of the Times magazine, New Yorker, etc to go down, and the web outlets to go up.</p>
+<div class="highlight"><pre> <span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+
+top_2010 <span class="o">&lt;-</span> lf_pub_disp <span class="o">%&gt;%</span>
+  dplyr<span class="o">::</span>filter<span class="p">(</span>
+    year_posted <span class="o">==</span> <span class="m">2010</span> <span class="o">&amp;</span> publication <span class="o">!=</span> <span class="s">&#39;Other&#39;</span>
+  <span class="p">)</span> <span class="o">%&gt;%</span>
+  mutate<span class="p">(</span>
+    rank_2010 <span class="o">=</span> <span class="kp">rank</span><span class="p">(</span>desc<span class="p">(</span>n_pub<span class="p">),</span> ties.method<span class="o">=</span><span class="s">&#39;first&#39;</span><span class="p">)</span>
+  <span class="p">)</span> <span class="o">%&gt;%</span>
+  arrange<span class="p">(</span>
+    desc<span class="p">(</span>rank_pub<span class="p">)</span>
+  <span class="p">)</span> <span class="o">%&gt;%</span> 
+  <span class="kp">as.data.frame</span><span class="p">()</span>
+
+<span class="c1">#bring in esquire zero year</span>
+lf_pub_disp <span class="o">&lt;-</span> <span class="kp">rbind</span><span class="p">(</span>
+  lf_pub_disp<span class="p">,</span>
+  <span class="kt">data.frame</span><span class="p">(</span>
+    <span class="s">&#39;year_posted&#39;</span><span class="o">=</span><span class="m">2014</span><span class="p">,</span>
+    <span class="s">&#39;publication&#39;</span><span class="o">=</span><span class="s">&#39;Esquire&#39;</span><span class="p">,</span>
+    <span class="s">&#39;n_pub&#39;</span><span class="o">=</span><span class="m">0</span><span class="p">,</span>
+    <span class="s">&#39;rank_pub&#39;</span><span class="o">=</span><span class="kc">NA</span><span class="p">,</span>
+    <span class="s">&#39;yr_total&#39;</span><span class="o">=</span><span class="m">1545</span><span class="p">,</span>
+    <span class="s">&#39;pct_year_total&#39;</span><span class="o">=</span><span class="m">0</span>
+  <span class="p">)</span>
+<span class="p">)</span>
+
+lf_pub_disp <span class="o">&lt;-</span> dplyr<span class="o">::</span>left_join<span class="p">(</span>
+  lf_pub_disp<span class="p">,</span> top_2010<span class="p">[,</span> <span class="kt">c</span><span class="p">(</span><span class="s">&#39;publication&#39;</span><span class="p">,</span> <span class="s">&#39;rank_2010&#39;</span><span class="p">)]</span>  
+<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Joining by: &quot;publication&quot;
+</pre></div>
+
+
+<div class="highlight"><pre>lf_pub_disp <span class="o">&lt;-</span> lf_pub_disp <span class="o">%&gt;%</span>
+  arrange<span class="p">(</span>
+    rank_2010<span class="p">,</span> publication<span class="p">,</span> year_posted  
+  <span class="p">)</span>
+
+top_N <span class="o">&lt;-</span> top_2010<span class="p">[</span>top_2010<span class="o">$</span>rank_2010 <span class="o">&lt;=</span> <span class="m">10</span><span class="p">,</span> <span class="s">&#39;publication&#39;</span><span class="p">]</span>
+
+ggplot<span class="p">(</span>
+  data<span class="o">=</span>lf_pub_disp<span class="p">[</span>lf_pub_disp<span class="o">$</span>publication <span class="o">%in%</span> top_N <span class="o">&amp;</span>
+    lf_pub_disp<span class="o">$</span>year_posted <span class="o">&lt;</span> <span class="m">2015</span><span class="p">,</span> <span class="p">],</span> 
+  aes<span class="p">(</span>
+    x<span class="o">=</span>year_posted<span class="p">,</span> 
+    y<span class="o">=</span>pct_year_total<span class="p">,</span> 
+    fill<span class="o">=</span>publication
+  <span class="p">)</span>
+<span class="p">)</span> <span class="o">+</span>
+geom_area<span class="p">(</span>
+  colour<span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span> 
+  size<span class="o">=</span><span class="m">.2</span><span class="p">,</span> 
+  alpha<span class="o">=</span><span class="m">.4</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">+</span>
+theme_bw<span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="plot of chunk unnamed-chunk-1" src="figure/unnamed-chunk-1-1.png" /> </p>
+<h1>other directions?</h1>
+<p>We have author, publication, publication date, post date, title, and a summary for each of those 7,000-odd links.  Here's what the raw data looks like:</p>
+<div class="highlight"><pre>sample_n<span class="p">(</span>lf<span class="p">,</span> <span class="m">5</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>##         X               author  posted_at         publication pub_date
+## 2966 3119     J. R. Moehringer 2012-08-29                ESPN   Aug-12
+## 4518 5140           Gary Smith 2013-08-15  Sports Illustrated   Feb-91
+## 2451 2547        Nathan Heller 2012-04-09          New Yorker   Apr-12
+## 6262 7319 Robert James Russell 2014-10-21 Bull: Men&#39;s Fiction   Oct-14
+## 4129 4646      Lisa Margonelli 2013-05-14    Pacific Standard   Apr-13
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               summary
+## 2966                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 A sport in flux.
+## 4518                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Basketball on a Crow reservation and a player named Jonathan Takes Enemy trying to escape.
+## 2451                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             On living alone, which more people are doing today than ever before.
+## 6262 A mini epic of murder, theft, and nature in the Old West.&quot;He trotted down the steep slope and across the range, passing monuments of salt cedar and sagebrush and croppings of bouldered limestone and sandstone.  Everett marched on, glancing back to the pass like clockwork.  His vision began to blur and he mistook shadows of dashing clouds overhead as armies of villains bent on doing him harm.  He crept on as his headache worsened and soon he forgot his sentried errand.  He kept low to the ground and stopped himself twice from collapsing completely, bracing himself on passing man-made edifices of rock and earth.  His limp had worsened and he stumbled upon wreckage of some wrecked wagonette and used a long timber from the wagon-bed as a crutch until it snapped in half ten minutes later.  The sun was hot and without his hat or coat he felt the full effects of it on the nape of his neck.&quot;
+## 4129                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Rethinking mobile homes as senior housing.
+##                                       title year_posted
+## 2966  Football Is Dead. Long Live Football.        2012
+## 4518                     Shadow of a Nation        2013
+## 2451      Why Are So Many Americans Single?        2012
+## 6262                  Recompensate, He Said        2014
+## 4129 How the Trailer Park Could Save Us All        2013
+</pre></div>
+
+
+<p>If you have other ideas for things to do with this data set, have at it, or shoot me a message at <a href="http://www.twitter.com/moneywithwings">@moneywithwings</a>.</p></div>
+	<hr>
+
+	
+</div>
+		</div>
+	</div>
+</div>
+
+<!-- FOOTER -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-11 text-center center-block aw-bottom">
+			<p>almart.in is built with <a href="http://docs.getpelican.com/en/3.5.0/#">pelican</a></p>
+		</div>
+	</div>
+</div>
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$("div.collapseheader").click(function () {
+		$header = $(this).children("span").first();
+		$codearea = $(this).children(".input_area");
+		$codearea.slideToggle(500, function () {
+			$header.text(function () {
+				return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+			});
+		});
+	});
+});
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61809650-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+ 
+</body>
+</html>
