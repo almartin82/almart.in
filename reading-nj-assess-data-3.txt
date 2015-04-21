@@ -5,7 +5,7 @@ Tags: NJ, assessment, NJASK, HSPA, data_management, tutorial
 Slug: reading-nj-assess-data-3
 Author: Andrew Martin
 
-```{r, echo=FALSE}
+```{r pelican_conf, echo=FALSE}
 #SET THIS TO TRUE WHEN READY TO PUBLISH
 ready_to_ship = TRUE
 
@@ -177,10 +177,11 @@ Nice!  NJASK and HSPA down, GEPA data to go.
 
 # GEPA
 
-Load in the processed GEPA layout file:
+Load in the processed GEPA layout file, and the old NJASK layout file.
 ```{r gepa1}
 
 load(file = 'datasets/gepa_layout.rda')
+load(file = 'datasets/njask05_layout.rda')
 
 head(layout_gepa)
 

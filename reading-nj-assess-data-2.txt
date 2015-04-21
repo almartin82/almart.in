@@ -30,6 +30,10 @@ First, read in the layout data frame.  This contains the column headers for NJAS
 ```{r load_layout}
 
 load(file = 'datasets/njask_layout.rda')
+#also read in the old NJASK layouts
+load(file = 'datasets/njask05_layout.rda')
+load(file = 'datasets/njask04_layout.rda')
+load(file = 'datasets/njask07gr3_layout.rda')
 
 head(layout_njask)
 
@@ -71,10 +75,19 @@ get_raw_njask <- function(year, grade, layout=layout_njask) {
   )
   parsed_year <- years[[as.character(year)]]
   
+  #filenames are also inconsistent 
+  filename <- list(
+    "2014"="state_summary.txt", "2013"="state_summary.txt", "2012"="state_summary.txt",
+    "2011"="state_summary.txt", "2010"="state_summary.txt", "2009"="state_summary.txt",
+    "2008"="state_summary.txt", "2007"="state_summary.txt", "2006"="state_summary.txt",
+    "2005"="njask2005_state_summary4.txt", "2004"="njask404state_summary.txt"    
+  )
+  parsed_filename <- filename[[as.character(year)]]
+  
   #build url
   target_url <- paste0(
     "http://www.state.nj.us/education/schools/achievement/", parsed_year, 
-    "/njask", grade, "/state_summary.txt"
+    "/njask", grade, "/", parsed_filename
   )
   
   #read_fwf
@@ -115,18 +128,19 @@ We'll also need to make sure that we only mutate the columns that are tagged wit
 ```{r limit_df}
 library(dplyr)
 
-process_njask <- function(df, mask=layout_njask$comments == 'One implied decimal') {
+process_njask <- function(df, mask=layout_njask$comments) {
   #keep the names to put back in the same order
   all_names <- names(df)
   
   #replace any line breaks in last column
   df$Grade <- gsub('\n', '', df$Grade, fixed = TRUE)
   
+  mask_boolean <- mask == 'One implied decimal'
   #put some columns aside
-  ignore <- df[, !mask]
+  ignore <- df[, !mask_boolean]
   
   #process the columns that have an implied decimal
-  processed <- df[, mask] %>%
+  processed <- df[, mask_boolean] %>%
     dplyr::mutate_each(
       dplyr::funs(implied_decimal = . / 10)  
     )
@@ -152,7 +166,22 @@ Now we put it all together, with a little wrapper function around the `get_raw_n
 ```{r wrapper}
 
 fetch_njask <- function(year, grade) {
-  get_raw_njask(year, grade) %>% process_njask()
+  if (year == 2004) {
+    df <- get_raw_njask(year, grade, layout=layout_njask04)  %>% 
+      process_njask(mask=layout_njask04$comments)
+  }
+  else if (year == 2005) {
+    df <- get_raw_njask(year, grade, layout=layout_njask05)  %>% 
+      process_njask(mask=layout_njask05$comments) 
+  } else if (year %in% c(2006, 2007, 2008) & grade %in% c(3, 4)) {
+    df <- get_raw_njask(year, grade, layout=layout_njask07gr3)  %>% 
+      process_njask(mask=layout_njask07gr3$comments) 
+  }
+  else {
+    df <- get_raw_njask(year, grade) %>% process_njask()    
+  }
+
+  return(df)
 }
 
 fetch_njask(2014, 6) %>% head() %>% select(CDS_Code:TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean)

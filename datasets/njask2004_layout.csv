@@ -1,0 +1,428 @@
+Field Start Position,Field End Position,Field Length,Data Type,Description,Comments,Valid Values,structural
+1,9,9,Text,CDS Code ,,"CDS codes for schools and districts
+THE FIRST TWO POSITIONS WILL INCLUDE THE FOLLOWING AGGREGATION CODES: NS = Non-Special Needs; SN = Special Needs; ST = State; A = DFG A; B = DFG B; CD= DFG CD….",FALSE
+1,2,2,Text,County Code,,"01, 03, 05, 07, 09, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 80, 90",FALSE
+3,6,4,Text,District Code,,0100 to 9999,FALSE
+7,9,3,Text,School Code,,001 to 999,FALSE
+10,59,50,Text,County Name,,"A to Z, blank;  Applicable only for district and school aggregations",FALSE
+60,109,50,Text,District Name,,"A to Z, blank;  Applicable only for district and school aggregations",FALSE
+110,159,50,Text,School Name,,"A to Z, blank;  Applicable only for district and school aggregations",FALSE
+160,161,2,Text,DFG Flag ,,Applicable only for district and school aggregateions DFG A-J and DFG R,FALSE
+162,162,1,Text,Special Needs (Abbott) district flag,, Y=special need     Otherwise blank,FALSE
+163,270,6,TOTAL POPULATION,,,,TRUE
+163,168,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+169,202,34,LANGUAGE ARTS,,,,TRUE
+169,174,6,Integer,Number Not Present,,0 or greater,FALSE
+175,180,6,Integer,Number of Voids,,0 or greater,FALSE
+181,186,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+187,190,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+191,194,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+195,198,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+199,202,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+203,236,34,MATHEMATICS,,,,TRUE
+203,208,6,Integer,Number Not Present,,0 or greater,FALSE
+209,214,6,Integer,Number of Voids,,0 or greater,FALSE
+215,220,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+221,224,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+225,228,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+229,232,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+233,236,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+237,270,34,SCIENCE,,,,TRUE
+237,242,6,Integer,Number Not Present,,0 or greater,FALSE
+243,248,6,Integer,Number of Voids,,0 or greater,FALSE
+249,254,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+255,258,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+259,262,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+263,266,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+267,270,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+271,378,6,GENERAL EDUCATION,,,,TRUE
+271,276,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+277,310,34,LANGUAGE ARTS,,,,TRUE
+277,282,6,Integer,Number Not Present,,0 or greater,FALSE
+283,288,6,Integer,Number of Voids,,0 or greater,FALSE
+289,294,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+295,298,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+299,302,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+303,306,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+307,310,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+311,344,34,MATHEMATICS,,,,TRUE
+311,316,6,Integer,Number Not Present,,0 or greater,FALSE
+317,322,6,Integer,Number of Voids,,0 or greater,FALSE
+323,328,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+329,332,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+333,336,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+337,340,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+341,344,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+345,378,34,SCIENCE,,,,TRUE
+345,350,6,Integer,Number Not Present,,0 or greater,FALSE
+351,356,6,Integer,Number of Voids,,0 or greater,FALSE
+357,362,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+363,366,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+367,370,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+371,374,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+375,378,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+379,486,6,SPECIAL EDUCATION,,,,TRUE
+379,384,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+385,418,34,LANGUAGE ARTS,,,,TRUE
+385,390,6,Integer,Number Not Present,,0 or greater,FALSE
+391,396,6,Integer,Number of Voids,,0 or greater,FALSE
+397,402,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+403,406,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+407,410,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+411,414,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+415,418,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+419,452,34,MATHEMATICS,,,,TRUE
+419,424,6,Integer,Number Not Present,,0 or greater,FALSE
+425,430,6,Integer,Number of Voids,,0 or greater,FALSE
+431,436,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+437,440,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+441,444,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+445,448,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+449,452,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+453,486,34,SCIENCE,,,,TRUE
+453,458,6,Integer,Number Not Present,,0 or greater,FALSE
+459,464,6,Integer,Number of Voids,,0 or greater,FALSE
+465,470,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+471,474,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+475,478,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+479,482,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+483,486,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+487,594,6,LIMITED ENGLISH PROFICIENT,,,,TRUE
+487,492,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+493,526,34,LANGUAGE ARTS,,,,TRUE
+493,498,6,Integer,Number Not Present,,0 or greater,FALSE
+499,504,6,Integer,Number of Voids,,0 or greater,FALSE
+505,510,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+511,514,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+515,518,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+519,522,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+523,526,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+527,560,34,MATHEMATICS,,,,TRUE
+527,532,6,Integer,Number Not Present,,0 or greater,FALSE
+533,538,6,Integer,Number of Voids,,0 or greater,FALSE
+539,544,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+545,548,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+549,552,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+553,556,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+557,560,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+561,594,34,SCIENCE,,,,TRUE
+561,566,6,Integer,Number Not Present,,0 or greater,FALSE
+567,572,6,Integer,Number of Voids,,0 or greater,FALSE
+573,578,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+579,582,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+583,586,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+587,590,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+591,594,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+595,702,6,FEMALE,,,,TRUE
+595,600,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+601,634,34,LANGUAGE ARTS,,,,TRUE
+601,606,6,Integer,Number Not Present,,0 or greater,FALSE
+607,612,6,Integer,Number of Voids,,0 or greater,FALSE
+613,618,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+619,622,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+623,626,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+627,630,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+631,634,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+635,668,34,MATHEMATICS,,,,TRUE
+635,640,6,Integer,Number Not Present,,0 or greater,FALSE
+641,646,6,Integer,Number of Voids,,0 or greater,FALSE
+647,652,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+653,656,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+657,660,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+661,664,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+665,668,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+669,702,34,SCIENCE,,,,TRUE
+669,674,6,Integer,Number Not Present,,0 or greater,FALSE
+675,680,6,Integer,Number of Voids,,0 or greater,FALSE
+681,686,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+687,690,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+691,694,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+695,698,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+699,702,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+703,810,6,MALE,,,,TRUE
+703,708,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+709,742,34,LANGUAGE ARTS,,,,TRUE
+709,714,6,Integer,Number Not Present,,0 or greater,FALSE
+715,720,6,Integer,Number of Voids,,0 or greater,FALSE
+721,726,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+727,730,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+731,734,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+735,738,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+739,742,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+743,776,34,MATHEMATICS,,,,TRUE
+743,748,6,Integer,Number Not Present,,0 or greater,FALSE
+749,754,6,Integer,Number of Voids,,0 or greater,FALSE
+755,760,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+761,764,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+765,768,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+769,772,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+773,776,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+777,810,34,SCIENCE,,,,TRUE
+777,782,6,Integer,Number Not Present,,0 or greater,FALSE
+783,788,6,Integer,Number of Voids,,0 or greater,FALSE
+789,794,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+795,798,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+799,802,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+803,806,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+807,810,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+811,918,6,MIGRANT,,,,TRUE
+811,816,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+817,850,34,LANGUAGE ARTS,,,,TRUE
+817,822,6,Integer,Number Not Present,,0 or greater,FALSE
+823,828,6,Integer,Number of Voids,,0 or greater,FALSE
+829,834,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+835,838,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+839,842,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+843,846,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+847,850,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+851,884,34,MATHEMATICS,,,,TRUE
+851,856,6,Integer,Number Not Present,,0 or greater,FALSE
+857,862,6,Integer,Number of Voids,,0 or greater,FALSE
+863,868,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+869,872,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+873,876,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+877,880,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+881,884,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+885,918,34,SCIENCE,,,,TRUE
+885,890,6,Integer,Number Not Present,,0 or greater,FALSE
+891,896,6,Integer,Number of Voids,,0 or greater,FALSE
+897,902,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+903,906,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+907,910,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+911,914,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+915,918,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+919,1026,6,NON-MIGRANT,,,,TRUE
+919,924,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+925,958,34,LANGUAGE ARTS,,,,TRUE
+925,930,6,Integer,Number Not Present,,0 or greater,FALSE
+931,936,6,Integer,Number of Voids,,0 or greater,FALSE
+937,942,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+943,946,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+947,950,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+951,954,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+955,958,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+959,992,34,MATHEMATICS,,,,TRUE
+959,964,6,Integer,Number Not Present,,0 or greater,FALSE
+965,970,6,Integer,Number of Voids,,0 or greater,FALSE
+971,976,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+977,980,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+981,984,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+985,988,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+989,992,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+993,1026,34,SCIENCE,,,,TRUE
+993,998,6,Integer,Number Not Present,,0 or greater,FALSE
+999,1004,6,Integer,Number of Voids,,0 or greater,FALSE
+1005,1010,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1011,1014,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1015,1018,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1019,1022,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1023,1026,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1027,1134,6,WHITE,,,,TRUE
+1027,1032,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+1033,1066,34,LANGUAGE ARTS,,,,TRUE
+1033,1038,6,Integer,Number Not Present,,0 or greater,FALSE
+1039,1044,6,Integer,Number of Voids,,0 or greater,FALSE
+1045,1050,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1051,1054,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1055,1058,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1059,1062,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1063,1066,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1067,1100,34,MATHEMATICS,,,,TRUE
+1067,1072,6,Integer,Number Not Present,,0 or greater,FALSE
+1073,1078,6,Integer,Number of Voids,,0 or greater,FALSE
+1079,1084,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1085,1088,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1089,1092,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1093,1096,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1097,1100,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1101,1134,34,SCIENCE,,,,TRUE
+1101,1106,6,Integer,Number Not Present,,0 or greater,FALSE
+1107,1112,6,Integer,Number of Voids,,0 or greater,FALSE
+1113,1118,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1119,1122,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1123,1126,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1127,1130,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1131,1134,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1135,1242,6,BLACK,,,,TRUE
+1135,1140,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+1141,1174,34,LANGUAGE ARTS,,,,TRUE
+1141,1146,6,Integer,Number Not Present,,0 or greater,FALSE
+1147,1152,6,Integer,Number of Voids,,0 or greater,FALSE
+1153,1158,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1159,1162,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1163,1166,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1167,1170,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1171,1174,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1175,1208,34,MATHEMATICS,,,,TRUE
+1175,1180,6,Integer,Number Not Present,,0 or greater,FALSE
+1181,1186,6,Integer,Number of Voids,,0 or greater,FALSE
+1187,1192,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1193,1196,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1197,1200,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1201,1204,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1205,1208,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1209,1242,34,SCIENCE,,,,TRUE
+1209,1214,6,Integer,Number Not Present,,0 or greater,FALSE
+1215,1220,6,Integer,Number of Voids,,0 or greater,FALSE
+1221,1226,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1227,1230,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1231,1234,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1235,1238,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1239,1242,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1243,1350,6,ASIAN,,,,TRUE
+1243,1248,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+1249,1282,34,LANGUAGE ARTS,,,,TRUE
+1249,1254,6,Integer,Number Not Present,,0 or greater,FALSE
+1255,1260,6,Integer,Number of Voids,,0 or greater,FALSE
+1261,1266,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1267,1270,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1271,1274,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1275,1278,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1279,1282,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1283,1316,34,MATHEMATICS,,,,TRUE
+1283,1288,6,Integer,Number Not Present,,0 or greater,FALSE
+1289,1294,6,Integer,Number of Voids,,0 or greater,FALSE
+1295,1300,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1301,1304,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1305,1308,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1309,1312,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1313,1316,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1317,1350,34,SCIENCE,,,,TRUE
+1317,1322,6,Integer,Number Not Present,,0 or greater,FALSE
+1323,1328,6,Integer,Number of Voids,,0 or greater,FALSE
+1329,1334,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1335,1338,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1339,1342,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1343,1346,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1347,1350,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1351,1458,6,PACIFIC ISLANDER,,,,TRUE
+1351,1356,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+1357,1390,34,LANGUAGE ARTS,,,,TRUE
+1357,1362,6,Integer,Number Not Present,,0 or greater,FALSE
+1363,1368,6,Integer,Number of Voids,,0 or greater,FALSE
+1369,1374,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1375,1378,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1379,1382,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1383,1386,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1387,1390,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1391,1424,34,MATHEMATICS,,,,TRUE
+1391,1396,6,Integer,Number Not Present,,0 or greater,FALSE
+1397,1402,6,Integer,Number of Voids,,0 or greater,FALSE
+1403,1408,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1409,1412,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1413,1416,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1417,1420,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1421,1424,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1425,1458,34,SCIENCE,,,,TRUE
+1425,1430,6,Integer,Number Not Present,,0 or greater,FALSE
+1431,1436,6,Integer,Number of Voids,,0 or greater,FALSE
+1437,1442,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1443,1446,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1447,1450,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1451,1454,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1455,1458,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1459,1566,6,HISPANIC,,,,TRUE
+1459,1464,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+1465,1498,34,LANGUAGE ARTS,,,,TRUE
+1465,1470,6,Integer,Number Not Present,,0 or greater,FALSE
+1471,1476,6,Integer,Number of Voids,,0 or greater,FALSE
+1477,1482,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1483,1486,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1487,1490,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1491,1494,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1495,1498,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1499,1532,34,MATHEMATICS,,,,TRUE
+1499,1504,6,Integer,Number Not Present,,0 or greater,FALSE
+1505,1510,6,Integer,Number of Voids,,0 or greater,FALSE
+1511,1516,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1517,1520,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1521,1524,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1525,1528,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1529,1532,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1533,1566,34,SCIENCE,,,,TRUE
+1533,1538,6,Integer,Number Not Present,,0 or greater,FALSE
+1539,1544,6,Integer,Number of Voids,,0 or greater,FALSE
+1545,1550,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1551,1554,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1555,1558,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1559,1562,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1563,1566,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1567,1674,6,AMERICAN INDIAN,,,,TRUE
+1567,1572,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+1573,1606,34,LANGUAGE ARTS,,,,TRUE
+1573,1578,6,Integer,Number Not Present,,0 or greater,FALSE
+1579,1584,6,Integer,Number of Voids,,0 or greater,FALSE
+1585,1590,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1591,1594,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1595,1598,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1599,1602,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1603,1606,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1607,1640,34,MATHEMATICS,,,,TRUE
+1607,1612,6,Integer,Number Not Present,,0 or greater,FALSE
+1613,1618,6,Integer,Number of Voids,,0 or greater,FALSE
+1619,1624,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1625,1628,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1629,1632,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1633,1636,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1637,1640,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1641,1674,34,SCIENCE,,,,TRUE
+1641,1646,6,Integer,Number Not Present,,0 or greater,FALSE
+1647,1652,6,Integer,Number of Voids,,0 or greater,FALSE
+1653,1658,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1659,1662,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1663,1666,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1667,1670,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1671,1674,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1675,1782,6,ECONOMICALLY DISADVANTAGED,,,,TRUE
+1675,1680,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+1681,1714,34,LANGUAGE ARTS,,,,TRUE
+1681,1686,6,Integer,Number Not Present,,0 or greater,FALSE
+1687,1692,6,Integer,Number of Voids,,0 or greater,FALSE
+1693,1698,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1699,1702,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1703,1706,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1707,1710,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1711,1714,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1715,1748,34,MATHEMATICS,,,,TRUE
+1715,1720,6,Integer,Number Not Present,,0 or greater,FALSE
+1721,1726,6,Integer,Number of Voids,,0 or greater,FALSE
+1727,1732,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1733,1736,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1737,1740,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1741,1744,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1745,1748,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1749,1782,34,SCIENCE,,,,TRUE
+1749,1754,6,Integer,Number Not Present,,0 or greater,FALSE
+1755,1760,6,Integer,Number of Voids,,0 or greater,FALSE
+1761,1766,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1767,1770,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1771,1774,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1775,1778,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1779,1782,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1783,1890,6,NON-ECONOMICALLY DISADVANTAGED,,,,TRUE
+1783,1788,6,Integer,Number Enrolled,Number of enrolled students,0 or greater,FALSE
+1789,1822,34,LANGUAGE ARTS,,,,TRUE
+1789,1794,6,Integer,Number Not Present,,0 or greater,FALSE
+1795,1800,6,Integer,Number of Voids,,0 or greater,FALSE
+1801,1806,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1807,1810,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1811,1814,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1815,1818,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1819,1822,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1823,1856,34,MATHEMATICS,,,,TRUE
+1823,1828,6,Integer,Number Not Present,,0 or greater,FALSE
+1829,1834,6,Integer,Number of Voids,,0 or greater,FALSE
+1835,1840,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1841,1844,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1845,1848,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1849,1852,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1853,1856,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1857,1890,34,SCIENCE,,,,TRUE
+1857,1862,6,Integer,Number Not Present,,0 or greater,FALSE
+1863,1868,6,Integer,Number of Voids,,0 or greater,FALSE
+1869,1874,6,Integer,Number of Valid Scale Scores,,0 or greater,FALSE
+1875,1878,4,Decimal,Partially Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1879,1882,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1883,1886,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0,FALSE
+1887,1890,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0,FALSE
+1891,1892,2,Integer,Grade,Located in text file only,"03, 04",FALSE

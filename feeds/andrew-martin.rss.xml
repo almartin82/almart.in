@@ -384,8 +384,9 @@ fetch_hspa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2010&lt;/spa
 
 &lt;p&gt;Nice!  NJASK and HSPA down, GEPA data to go.&lt;/p&gt;
 &lt;h1&gt;GEPA&lt;/h1&gt;
-&lt;p&gt;Load in the processed GEPA layout file:&lt;/p&gt;
+&lt;p&gt;Load in the processed GEPA layout file, and the old NJASK layout file.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/gepa_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/njask05_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout_gepa&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -721,6 +722,10 @@ fetch_gepa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2007&lt;/spa
 &lt;p&gt;In the &lt;a href="http://almart.in/reading-nj-assess-data-4.html"&gt;next post&lt;/a&gt; in this series, we'll take these individual NJASK, HSPA, and GEPA functions and write one wrapper to rule them all, allowing data to be easily fetched for any year/grade.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew Martin</dc:creator><pubDate>Thu, 16 Apr 2015 00:00:00 -0400</pubDate><guid>tag:almart.in,2015-04-16:reading-nj-assess-data-3.html</guid><category>NJ</category><category>assessment</category><category>NJASK</category><category>HSPA</category><category>data_management</category><category>tutorial</category></item><item><title>Getting NJ assessment data into R: part 2 in a series</title><link>http://almart.in/reading-nj-assess-data-2.html</link><description>&lt;p&gt;In my &lt;a href="http://almart.in/reading-nj-assess-data-1.html"&gt;last post&lt;/a&gt;, I showed how to read a fixed width file into R.  In this post, I'll refactor that code into a function that takes year/grade as a parameter.&lt;/p&gt;
 &lt;p&gt;First, read in the layout data frame.  This contains the column headers for NJASK fixed with files.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/njask_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c1"&gt;#also read in the old NJASK layouts&lt;/span&gt;
+&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/njask05_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/njask04_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/njask07gr3_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout_njask&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -792,10 +797,19 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
   &lt;span class="p"&gt;)&lt;/span&gt;
   parsed_year &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; years&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="kp"&gt;as.character&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;)]]&lt;/span&gt;
 
+  &lt;span class="c1"&gt;#filenames are also inconsistent &lt;/span&gt;
+  filename &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kt"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;quot;2014&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;state_summary.txt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2013&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;state_summary.txt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2012&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;state_summary.txt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;quot;2011&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;state_summary.txt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2010&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;state_summary.txt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2009&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;state_summary.txt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;quot;2008&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;state_summary.txt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2007&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;state_summary.txt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2006&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;state_summary.txt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;quot;2005&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;njask2005_state_summary4.txt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;2004&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;njask404state_summary.txt&amp;quot;&lt;/span&gt;    
+  &lt;span class="p"&gt;)&lt;/span&gt;
+  parsed_filename &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; filename&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="kp"&gt;as.character&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;)]]&lt;/span&gt;
+
   &lt;span class="c1"&gt;#build url&lt;/span&gt;
   target_url &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;paste0&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
     &lt;span class="s"&gt;&amp;quot;http://www.state.nj.us/education/schools/achievement/&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; parsed_year&lt;span class="p"&gt;,&lt;/span&gt; 
-    &lt;span class="s"&gt;&amp;quot;/njask&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; grade&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/state_summary.txt&amp;quot;&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;quot;/njask&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; grade&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; parsed_filename
   &lt;span class="p"&gt;)&lt;/span&gt;
 
   &lt;span class="c1"&gt;#read_fwf&lt;/span&gt;
@@ -835,105 +849,116 @@ ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    BLACK_SCIENCE_Proficient_Percentage
-## 1                                   NA
-## 2                                   NA
-## 3                                   NA
-## 4                                   NA
-## 5                                   NA
-## 6                                   NA
-## 7                                   NA
-## 8                                   NA
-## 9                                   NA
-## 10                                  NA
-##    NON-MIGRANT_LANGUAGE_ARTS_Advanced_Proficient_Percentage
-## 1                                                        36
-## 2                                                       252
-## 3                                                        47
-## 4                                                       231
-## 5                                                       100
-## 6                                                        61
+&lt;div class="highlight"&gt;&lt;pre&gt;##    AMERICAN_INDIAN_SCIENCE_Number_of_Valid_Scale_Scores
+## 1                                                    NA
+## 2                                                    NA
+## 3                                                    NA
+## 4                                                    NA
+## 5                                                    NA
+## 6                                                    NA
+## 7                                                    NA
+## 8                                                    NA
+## 9                                                    NA
+## 10                                                   NA
+##    BLACK_MATHEMATICS_Scale_Score_Mean
+## 1                                  NA
+## 2                                  NA
+## 3                                  NA
+## 4                                  NA
+## 5                                  NA
+## 6                                2501
+## 7                                  NA
+## 8                                  NA
+## 9                                  NA
+## 10                                 NA
+##    NON-MIGRANT_MATHEMATICS_Number_of_Valid_Scale_Scores
+## 1                                                    NA
+## 2                                                    78
+## 3                                                    29
+## 4                                                   199
+## 5                                                    NA
+## 6                                                    27
+## 7                                                   435
+## 8                                                     0
+## 9                                                    13
+## 10                                                   23
+##    TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                              NA
+## 2                                                             156
+## 3                                                             241
+## 4                                                             162
+## 5                                                              NA
+## 6                                                              37
+## 7                                                              88
+## 8                                                              NA
+## 9                                                              77
+## 10                                                            304
+##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Number_APA
+## 1                                                        NA
+## 2                                                        NA
+## 3                                                        NA
+## 4                                                        NA
+## 5                                                        NA
+## 6                                                        NA
 ## 7                                                        NA
-## 8                                                         0
-## 9                                                        44
-## 10                                                       16
-##    MALE_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                               29
-## 2                                               76
-## 3                                              104
-## 4                                               NA
-## 5                                               31
-## 6                                               59
-## 7                                               NA
-## 8                                               20
-## 9                                               32
-## 10                                              35
-##    MIGRANT_MATHEMATICS_Number_APA OTHER_LANGUAGE_ARTS_Number_Not_Present
-## 1                              NA                                     NA
-## 2                              NA                                     NA
-## 3                              NA                                     NA
-## 4                              NA                                     NA
-## 5                              NA                                     NA
-## 6                              NA                                     NA
-## 7                              NA                                     NA
-## 8                              NA                                     NA
-## 9                              NA                                     NA
-## 10                             NA                                     NA
-##    FEMALE_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                   2114
-## 2                                   2401
-## 3                                   2160
-## 4                                     NA
-## 5                                   2294
-## 6                                   2149
-## 7                                     NA
-## 8                                   2074
-## 9                                   2138
-## 10                                  1883
-##    OTHER_SCIENCE_Number_of_Valid_Scale_Scores
-## 1                                          NA
-## 2                                          NA
-## 3                                          NA
-## 4                                          NA
-## 5                                          NA
-## 6                                          NA
-## 7                                          NA
-## 8                                          NA
-## 9                                          NA
-## 10                                         NA
-##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_MATHEMATICS_Number_Enrolled_Math
-## 1                                                                       9
-## 2                                                                      15
-## 3                                                                      17
-## 4                                                                       0
-## 5                                                                       6
-## 6                                                                      15
-## 7                                                                       1
-## 8                                                                       3
-## 9                                                                       2
-## 10                                                                     13
-##    GENERAL_EDUCATION_SCIENCE_Proficient_Percentage
-## 1                                               NA
-## 2                                               NA
-## 3                                               NA
-## 4                                               NA
-## 5                                               NA
-## 6                                               NA
-## 7                                               NA
-## 8                                               NA
-## 9                                               NA
-## 10                                              NA
-##    OTHER_LANGUAGE_ARTS_Number_APA
-## 1                              NA
-## 2                              NA
-## 3                              NA
-## 4                              NA
-## 5                              NA
-## 6                              NA
-## 7                              NA
-## 8                              NA
-## 9                              NA
-## 10                             NA
+## 8                                                        NA
+## 9                                                        NA
+## 10                                                       NA
+##    ASIAN_MATHEMATICS_Scale_Score_Mean
+## 1                                  NA
+## 2                                  NA
+## 3                                  NA
+## 4                                2566
+## 5                                  NA
+## 6                                  NA
+## 7                                2813
+## 8                                  NA
+## 9                                  NA
+## 10                                 NA
+##    FEMALE_MATHEMATICS_Partially_Proficient_Percentage
+## 1                                                  NA
+## 2                                                 200
+## 3                                                 111
+## 4                                                  44
+## 5                                                  NA
+## 6                                                   0
+## 7                                                  42
+## 8                                                  NA
+## 9                                                  NA
+## 10                                                  0
+##    ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                                       NA
+## 2                                                                       NA
+## 3                                                                        0
+## 4                                                                       NA
+## 5                                                                       NA
+## 6                                                                      300
+## 7                                                                       NA
+## 8                                                                       NA
+## 9                                                                       NA
+## 10                                                                      77
+##    MALE_MATHEMATICS_Scale_Score_Mean
+## 1                                 NA
+## 2                               2384
+## 3                               2385
+## 4                               2428
+## 5                                 NA
+## 6                               2598
+## 7                               2605
+## 8                                 NA
+## 9                                 NA
+## 10                              2124
+##    FORMER_LIMITED_ENGLISH_PROFICIENT_Number_Enrolled_ELA
+## 1                                                      0
+## 2                                                      0
+## 3                                                      0
+## 4                                                     NA
+## 5                                                      0
+## 6                                                      0
+## 7                                                     NA
+## 8                                                      0
+## 9                                                      0
+## 10                                                     0
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -957,18 +982,19 @@ ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;process_njask &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;,&lt;/span&gt; mask&lt;span class="o"&gt;=&lt;/span&gt;layout_njask&lt;span class="o"&gt;$&lt;/span&gt;comments &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;One implied decimal&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;process_njask &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;,&lt;/span&gt; mask&lt;span class="o"&gt;=&lt;/span&gt;layout_njask&lt;span class="o"&gt;$&lt;/span&gt;comments&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="c1"&gt;#keep the names to put back in the same order&lt;/span&gt;
   all_names &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;names&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;)&lt;/span&gt;
 
   &lt;span class="c1"&gt;#replace any line breaks in last column&lt;/span&gt;
   df&lt;span class="o"&gt;$&lt;/span&gt;Grade &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;\n&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; df&lt;span class="o"&gt;$&lt;/span&gt;Grade&lt;span class="p"&gt;,&lt;/span&gt; fixed &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
+  mask_boolean &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; mask &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;One implied decimal&amp;#39;&lt;/span&gt;
   &lt;span class="c1"&gt;#put some columns aside&lt;/span&gt;
-  ignore &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; df&lt;span class="p"&gt;[,&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;mask&lt;span class="p"&gt;]&lt;/span&gt;
+  ignore &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; df&lt;span class="p"&gt;[,&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;mask_boolean&lt;span class="p"&gt;]&lt;/span&gt;
 
   &lt;span class="c1"&gt;#process the columns that have an implied decimal&lt;/span&gt;
-  processed &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; df&lt;span class="p"&gt;[,&lt;/span&gt; mask&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt;
+  processed &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; df&lt;span class="p"&gt;[,&lt;/span&gt; mask_boolean&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt;
     dplyr&lt;span class="o"&gt;::&lt;/span&gt;mutate_each&lt;span class="p"&gt;(&lt;/span&gt;
       dplyr&lt;span class="o"&gt;::&lt;/span&gt;funs&lt;span class="p"&gt;(&lt;/span&gt;implied_decimal &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;.&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  
     &lt;span class="p"&gt;)&lt;/span&gt;
@@ -1050,7 +1076,22 @@ ex_process &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; process_njask&lt;span cl
 
 &lt;p&gt;Now we put it all together, with a little wrapper function around the &lt;code&gt;get_raw_njask&lt;/code&gt; and &lt;code&gt;process_njask&lt;/code&gt; functions:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;fetch_njask &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; grade&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  get_raw_njask&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; grade&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; process_njask&lt;span class="p"&gt;()&lt;/span&gt;
+  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;year &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="m"&gt;2004&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; grade&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="o"&gt;=&lt;/span&gt;layout_njask04&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; 
+      process_njask&lt;span class="p"&gt;(&lt;/span&gt;mask&lt;span class="o"&gt;=&lt;/span&gt;layout_njask04&lt;span class="o"&gt;$&lt;/span&gt;comments&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;year &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="m"&gt;2005&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; grade&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="o"&gt;=&lt;/span&gt;layout_njask05&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; 
+      process_njask&lt;span class="p"&gt;(&lt;/span&gt;mask&lt;span class="o"&gt;=&lt;/span&gt;layout_njask05&lt;span class="o"&gt;$&lt;/span&gt;comments&lt;span class="p"&gt;)&lt;/span&gt; 
+  &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;year &lt;span class="o"&gt;%in%&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2006&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;2007&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;2008&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; grade &lt;span class="o"&gt;%in%&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; grade&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="o"&gt;=&lt;/span&gt;layout_njask07gr3&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; 
+      process_njask&lt;span class="p"&gt;(&lt;/span&gt;mask&lt;span class="o"&gt;=&lt;/span&gt;layout_njask07gr3&lt;span class="o"&gt;$&lt;/span&gt;comments&lt;span class="p"&gt;)&lt;/span&gt; 
+  &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; grade&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; process_njask&lt;span class="p"&gt;()&lt;/span&gt;    
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="kr"&gt;return&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 
 fetch_njask&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2014&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;6&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt;

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Errata: prepping the HSPA and GEPA layout files — almart.in </title>
+	<title>Errata: prepping the HSPA, GEPA, and old NJASK layout files — almart.in </title>
 	<meta name="description" content="">
 	<meta name="author" content="Andrew Martin">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -88,40 +88,26 @@
 <p><img src="../static_images/06a_hspa.png"></p>
 <p>This.... I can't say anything nice about the decision to do this (<em>why?!?</em>) so I'm just going to move on.  </p>
 <div class="highlight"><pre>hspa <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="kp">paste0</span><span class="p">(</span>final_path<span class="p">,</span> <span class="s">&quot;datasets/hspa_layout.csv&quot;</span><span class="p">))</span>
-<span class="kp">names</span><span class="p">(</span>hspa<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>hspa<span class="p">)))</span>
-
-<span class="kp">head</span><span class="p">(</span>hspa<span class="p">)</span>
 </pre></div>
 
 
-<div class="highlight"><pre><span class="err">##</span>   <span class="nt">field_start_position</span> <span class="nt">field_end_position</span> <span class="nt">field_length</span> <span class="nt">data_type</span>
-<span class="err">##</span> <span class="nt">1</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
-<span class="err">##</span> <span class="nt">2</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
-<span class="err">##</span> <span class="nt">3</span>                    <span class="nt">1</span>                  <span class="nt">2</span>            <span class="nt">2</span>      <span class="nt">Text</span>
-<span class="err">##</span> <span class="nt">4</span>                    <span class="nt">3</span>                  <span class="nt">6</span>            <span class="nt">4</span>      <span class="nt">Text</span>
-<span class="err">##</span> <span class="nt">5</span>                    <span class="nt">7</span>                  <span class="nt">9</span>            <span class="nt">3</span>      <span class="nt">Text</span>
-<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">10</span>                 <span class="nt">59</span>           <span class="nt">50</span>      <span class="nt">Text</span>
-<span class="err">##</span>     <span class="nt">description</span>                                                 <span class="nt">comments</span>
-<span class="err">##</span> <span class="nt">1</span>    <span class="nt">RECORD</span> <span class="nt">KEY</span>                                                         
-<span class="err">##</span> <span class="nt">2</span>     <span class="nt">CDS</span> <span class="nt">Code</span>                                                          
-<span class="err">##</span> <span class="nt">3</span>   <span class="nt">County</span> <span class="nt">Code</span>                                                         
-<span class="err">##</span> <span class="nt">4</span> <span class="nt">District</span> <span class="nt">Code</span> <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span><span class="o">.</span>   
-<span class="err">##</span> <span class="nt">5</span>   <span class="nt">School</span> <span class="nt">Code</span>                 <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">school</span> <span class="nt">aggregations</span><span class="o">.</span>
-<span class="err">##</span> <span class="nt">6</span>   <span class="nt">County</span> <span class="nt">Name</span>                                                         
-<span class="err">##</span>                                                                                                                                                                                            <span class="nt">valid_values</span>
-<span class="err">##</span> <span class="nt">1</span>                                                                                                                                                                                                      
-<span class="err">##</span> <span class="nt">2</span> <span class="nt">CDS</span> <span class="nt">codes</span> <span class="nt">for</span> <span class="nt">schools</span> <span class="nt">and</span> <span class="nt">districts</span><span class="err">\</span><span class="nt">nTHE</span> <span class="nt">FIRST</span> <span class="nt">TWO</span> <span class="nt">POSITIONS</span> <span class="nt">WILL</span> <span class="nt">INCLUDE</span> <span class="nt">THE</span> <span class="nt">FOLLOWING</span> <span class="nt">AGGREGATION</span> <span class="nt">CODES</span><span class="o">:</span> <span class="nt">NS</span> <span class="o">=</span> <span class="nt">Non-Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">SN</span> <span class="o">=</span> <span class="nt">Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">ST</span> <span class="o">=</span> <span class="nt">State</span><span class="o">;</span> <span class="nt">A</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">A</span><span class="o">;</span> <span class="nt">B</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">B</span><span class="o">;</span> <span class="nt">CD</span><span class="o">=</span> <span class="nt">DFG</span> <span class="nt">CD</span><span class="err">…</span><span class="o">.</span>
-<span class="err">##</span> <span class="nt">3</span>                                                                                                    <span class="nt">01</span><span class="o">,</span> <span class="nt">03</span><span class="o">,</span> <span class="nt">05</span><span class="o">,</span> <span class="nt">07</span><span class="o">,</span> <span class="nt">09</span><span class="o">,</span> <span class="nt">11</span><span class="o">,</span> <span class="nt">13</span><span class="o">,</span> <span class="nt">15</span><span class="o">,</span> <span class="nt">17</span><span class="o">,</span> <span class="nt">19</span><span class="o">,</span> <span class="nt">21</span><span class="o">,</span> <span class="nt">23</span><span class="o">,</span> <span class="nt">25</span><span class="o">,</span> <span class="nt">27</span><span class="o">,</span> <span class="nt">29</span><span class="o">,</span> <span class="nt">31</span><span class="o">,</span> <span class="nt">33</span><span class="o">,</span> <span class="nt">35</span><span class="o">,</span> <span class="nt">37</span><span class="o">,</span> <span class="nt">39</span><span class="o">,</span> <span class="nt">41</span><span class="o">,</span> <span class="nt">43</span><span class="o">,</span> <span class="nt">45</span><span class="o">,</span> <span class="nt">47</span><span class="o">,</span> <span class="nt">80</span>
-<span class="err">##</span> <span class="nt">4</span>                                                                                                                                                                                   <span class="nt">0100</span> <span class="nt">to</span> <span class="nt">9999</span><span class="o">,</span> <span class="nt">blank</span>
-<span class="err">##</span> <span class="nt">5</span>                                                                                                                                                                                     <span class="nt">001</span> <span class="nt">to</span> <span class="nt">999</span><span class="o">,</span> <span class="nt">blank</span>
-<span class="err">##</span> <span class="nt">6</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
-<span class="err">##</span>   <span class="nt">structural</span>
-<span class="err">##</span> <span class="nt">1</span>      <span class="nt">FALSE</span>
-<span class="err">##</span> <span class="nt">2</span>      <span class="nt">FALSE</span>
-<span class="err">##</span> <span class="nt">3</span>      <span class="nt">FALSE</span>
-<span class="err">##</span> <span class="nt">4</span>      <span class="nt">FALSE</span>
-<span class="err">##</span> <span class="nt">5</span>      <span class="nt">FALSE</span>
-<span class="err">##</span> <span class="nt">6</span>      <span class="nt">FALSE</span>
+<div class="highlight"><pre>## Error: &#39;datasets/hspa_layout.csv&#39; does not exist in current working directory (&#39;c:/Users/AMartin/Google Drive/pelican/almart dot in/content/pages&#39;).
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">names</span><span class="p">(</span>hspa<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>hspa<span class="p">)))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in gsub(&quot; &quot;, &quot;_&quot;, names(hspa)): object &#39;hspa&#39; not found
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">head</span><span class="p">(</span>hspa<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in head(hspa): object &#39;hspa&#39; not found
 </pre></div>
 
 
@@ -217,7 +203,7 @@ layout_hspa <span class="o">&lt;-</span> process_layout<span class="p">(</span>h
 </pre></div>
 
 
-<div class="highlight"><pre>## Loading required package: tcltk
+<div class="highlight"><pre>## Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object &#39;hspa&#39; not found
 </pre></div>
 
 
@@ -261,35 +247,53 @@ layout_hspa <span class="o">&lt;-</span> process_layout<span class="p">(</span>h
 </pre></div>
 
 
+<div class="highlight"><pre>## Warning in gzfile(file, &quot;wb&quot;): cannot open compressed file
+## &#39;datasets/hspa_layout.rda&#39;, probable reason &#39;No such file or directory&#39;
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in gzfile(file, &quot;wb&quot;): cannot open the connection
+</pre></div>
+
+
 <h1>old HSPA</h1>
 <p>Before 2010 the HSPA used a different layout.  Prep that layout file:</p>
 <p>Read:</p>
 <div class="highlight"><pre>hspa2010 <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="kp">paste0</span><span class="p">(</span>final_path<span class="p">,</span> <span class="s">&quot;datasets/hspa2010_layout.csv&quot;</span><span class="p">))</span>
-<span class="kp">names</span><span class="p">(</span>hspa2010<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>hspa2010<span class="p">)))</span>
-
-<span class="kp">head</span><span class="p">(</span>hspa2010<span class="p">)</span>
 </pre></div>
 
 
-<div class="highlight"><pre>## Source: local data frame [6 x 8]
-## 
-##   field_start_position field_end_position field_length data_type
-## 1                    1                  9            9      Text
-## 2                    1                  9            9      Text
-## 3                    1                  2            2      Text
-## 4                    3                  6            4      Text
-## 5                    7                  9            3      Text
-## 6                   10                 59           50      Text
-## Variables not shown: description (chr), comments (chr), valid_values
-##   (chr), structural (lgl)
+<div class="highlight"><pre>## Error: &#39;datasets/hspa2010_layout.csv&#39; does not exist in current working directory (&#39;c:/Users/AMartin/Google Drive/pelican/almart dot in/content/pages&#39;).
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">names</span><span class="p">(</span>hspa2010<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>hspa2010<span class="p">)))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in gsub(&quot; &quot;, &quot;_&quot;, names(hspa2010)): object &#39;hspa2010&#39; not found
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">head</span><span class="p">(</span>hspa2010<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in head(hspa2010): object &#39;hspa2010&#39; not found
 </pre></div>
 
 
 <p>One note here: the layout at flat file has headers for science, even though it isn't on the HSPA.  I'm omitting the last set of science headers in my layout file, because the raw files on the state website don't appear to be padded with enough blanks for the last NA slots.  </p>
 <p>Process:</p>
 <div class="highlight"><pre>layout_hspa2010 <span class="o">&lt;-</span> process_layout<span class="p">(</span>hspa2010<span class="p">)</span>
+</pre></div>
 
-layout_hspa2010 <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+
+<div class="highlight"><pre>## Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object &#39;hspa2010&#39; not found
+</pre></div>
+
+
+<div class="highlight"><pre>layout_hspa2010 <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
 </pre></div>
 
 
@@ -329,33 +333,53 @@ layout_hspa2010 <span class="o">%&gt;%</span> <span class="kp">head</span><span 
 </pre></div>
 
 
-<p>Now do the same for the GEPA layout, using the functions developed above:</p>
-<p>Read:</p>
-<div class="highlight"><pre>gepa <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="kp">paste0</span><span class="p">(</span>final_path<span class="p">,</span> <span class="s">&#39;datasets/gepa_layout.csv&#39;</span><span class="p">))</span>
-<span class="kp">names</span><span class="p">(</span>gepa<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>gepa<span class="p">)))</span>
-
-<span class="kp">head</span><span class="p">(</span>gepa<span class="p">)</span>
+<div class="highlight"><pre>## Warning in gzfile(file, &quot;wb&quot;): cannot open compressed file
+## &#39;datasets/hspa2010_layout.rda&#39;, probable reason &#39;No such file or
+## directory&#39;
 </pre></div>
 
 
-<div class="highlight"><pre>## Source: local data frame [6 x 8]
-## 
-##   field_start_position field_end_position field_length data_type
-## 1                    1                  9            9      Text
-## 2                    1                  2            2      Text
-## 3                    3                  6            4      Text
-## 4                    7                  9            3      Text
-## 5                   10                 59           50      Text
-## 6                   60                109           50      Text
-## Variables not shown: description (chr), comments (chr), valid_values
-##   (chr), structural (lgl)
+<div class="highlight"><pre>## Error in gzfile(file, &quot;wb&quot;): cannot open the connection
+</pre></div>
+
+
+<h1>GEPA</h1>
+<p>Now do the same for the GEPA layout, using the functions developed above:</p>
+<p>Read:</p>
+<div class="highlight"><pre>gepa <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="kp">paste0</span><span class="p">(</span>final_path<span class="p">,</span> <span class="s">&#39;datasets/gepa_layout.csv&#39;</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error: &#39;datasets/gepa_layout.csv&#39; does not exist in current working directory (&#39;c:/Users/AMartin/Google Drive/pelican/almart dot in/content/pages&#39;).
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">names</span><span class="p">(</span>gepa<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>gepa<span class="p">)))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in gsub(&quot; &quot;, &quot;_&quot;, names(gepa)): object &#39;gepa&#39; not found
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">head</span><span class="p">(</span>gepa<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in head(gepa): object &#39;gepa&#39; not found
 </pre></div>
 
 
 <p>Process:</p>
 <div class="highlight"><pre>layout_gepa <span class="o">&lt;-</span> process_layout<span class="p">(</span>gepa<span class="p">)</span>
+</pre></div>
 
-layout_gepa <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+
+<div class="highlight"><pre>## Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object &#39;gepa&#39; not found
+</pre></div>
+
+
+<div class="highlight"><pre>layout_gepa <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
 </pre></div>
 
 
@@ -392,6 +416,383 @@ layout_gepa <span class="o">%&gt;%</span> <span class="kp">head</span><span clas
 
 <p>Save:</p>
 <div class="highlight"><pre><span class="kp">save</span><span class="p">(</span>layout_gepa<span class="p">,</span> file <span class="o">=</span> <span class="kp">paste0</span><span class="p">(</span>final_path<span class="p">,</span> <span class="s">&#39;datasets/gepa_layout.rda&#39;</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning in gzfile(file, &quot;wb&quot;): cannot open compressed file
+## &#39;datasets/gepa_layout.rda&#39;, probable reason &#39;No such file or directory&#39;
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in gzfile(file, &quot;wb&quot;): cannot open the connection
+</pre></div>
+
+
+<h1>old NJASK</h1>
+<p>repeat for old NJASK</p>
+<p>Read:</p>
+<div class="highlight"><pre>njask05 <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="kp">paste0</span><span class="p">(</span>final_path<span class="p">,</span> <span class="s">&#39;datasets/njask2005_layout.csv&#39;</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error: &#39;datasets/njask2005_layout.csv&#39; does not exist in current working directory (&#39;c:/Users/AMartin/Google Drive/pelican/almart dot in/content/pages&#39;).
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">names</span><span class="p">(</span>njask05<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>njask05<span class="p">)))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in gsub(&quot; &quot;, &quot;_&quot;, names(njask05)): object &#39;njask05&#39; not found
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">head</span><span class="p">(</span>njask05<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in head(njask05): object &#39;njask05&#39; not found
+</pre></div>
+
+
+<p>Process:</p>
+<div class="highlight"><pre>layout_njask05 <span class="o">&lt;-</span> process_layout<span class="p">(</span>njask05<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object &#39;njask05&#39; not found
+</pre></div>
+
+
+<div class="highlight"><pre>layout_njask05 <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="err">##</span>   <span class="nt">field_start_position</span> <span class="nt">field_end_position</span> <span class="nt">field_length</span> <span class="nt">data_type</span>
+<span class="err">##</span> <span class="nt">1</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">2</span>                    <span class="nt">1</span>                  <span class="nt">2</span>            <span class="nt">2</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">3</span>                    <span class="nt">3</span>                  <span class="nt">6</span>            <span class="nt">4</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">4</span>                    <span class="nt">7</span>                  <span class="nt">9</span>            <span class="nt">3</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">5</span>                   <span class="nt">10</span>                 <span class="nt">59</span>           <span class="nt">50</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">60</span>                <span class="nt">109</span>           <span class="nt">50</span>      <span class="nt">Text</span>
+<span class="err">##</span>     <span class="nt">description</span> <span class="nt">comments</span>
+<span class="err">##</span> <span class="nt">1</span>      <span class="nt">CDS</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">2</span>   <span class="nt">County</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">3</span> <span class="nt">District</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">4</span>   <span class="nt">School</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">5</span>   <span class="nt">County</span> <span class="nt">Name</span>         
+<span class="err">##</span> <span class="nt">6</span> <span class="nt">District</span> <span class="nt">Name</span>         
+<span class="err">##</span>                                                                                                                                                                                            <span class="nt">valid_values</span>
+<span class="err">##</span> <span class="nt">1</span> <span class="nt">CDS</span> <span class="nt">codes</span> <span class="nt">for</span> <span class="nt">schools</span> <span class="nt">and</span> <span class="nt">districts</span><span class="err">\</span><span class="nt">nTHE</span> <span class="nt">FIRST</span> <span class="nt">TWO</span> <span class="nt">POSITIONS</span> <span class="nt">WILL</span> <span class="nt">INCLUDE</span> <span class="nt">THE</span> <span class="nt">FOLLOWING</span> <span class="nt">AGGREGATION</span> <span class="nt">CODES</span><span class="o">:</span> <span class="nt">NS</span> <span class="o">=</span> <span class="nt">Non-Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">SN</span> <span class="o">=</span> <span class="nt">Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">ST</span> <span class="o">=</span> <span class="nt">State</span><span class="o">;</span> <span class="nt">A</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">A</span><span class="o">;</span> <span class="nt">B</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">B</span><span class="o">;</span> <span class="nt">CD</span><span class="o">=</span> <span class="nt">DFG</span> <span class="nt">CD</span><span class="err">…</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">2</span>                                                                                                <span class="nt">01</span><span class="o">,</span> <span class="nt">03</span><span class="o">,</span> <span class="nt">05</span><span class="o">,</span> <span class="nt">07</span><span class="o">,</span> <span class="nt">09</span><span class="o">,</span> <span class="nt">11</span><span class="o">,</span> <span class="nt">13</span><span class="o">,</span> <span class="nt">15</span><span class="o">,</span> <span class="nt">17</span><span class="o">,</span> <span class="nt">19</span><span class="o">,</span> <span class="nt">21</span><span class="o">,</span> <span class="nt">23</span><span class="o">,</span> <span class="nt">25</span><span class="o">,</span> <span class="nt">27</span><span class="o">,</span> <span class="nt">29</span><span class="o">,</span> <span class="nt">31</span><span class="o">,</span> <span class="nt">33</span><span class="o">,</span> <span class="nt">35</span><span class="o">,</span> <span class="nt">37</span><span class="o">,</span> <span class="nt">39</span><span class="o">,</span> <span class="nt">41</span><span class="o">,</span> <span class="nt">43</span><span class="o">,</span> <span class="nt">45</span><span class="o">,</span> <span class="nt">47</span><span class="o">,</span> <span class="nt">80</span><span class="o">,</span> <span class="nt">90</span>
+<span class="err">##</span> <span class="nt">3</span>                                                                                                                                                                                          <span class="nt">0100</span> <span class="nt">to</span> <span class="nt">9999</span>
+<span class="err">##</span> <span class="nt">4</span>                                                                                                                                                                                            <span class="nt">001</span> <span class="nt">to</span> <span class="nt">999</span>
+<span class="err">##</span> <span class="nt">5</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span> <span class="nt">6</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span>   <span class="nt">spanner1</span> <span class="nt">spanner2</span>    <span class="nt">final_name</span>
+<span class="err">##</span> <span class="nt">1</span>                        <span class="nt">CDS_Code</span>
+<span class="err">##</span> <span class="nt">2</span>                     <span class="nt">County_Code</span>
+<span class="err">##</span> <span class="nt">3</span>                   <span class="nt">District_Code</span>
+<span class="err">##</span> <span class="nt">4</span>                     <span class="nt">School_Code</span>
+<span class="err">##</span> <span class="nt">5</span>                     <span class="nt">County_Name</span>
+<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">District_Name</span>
+</pre></div>
+
+
+<div class="highlight"><pre>layout_njask05 <span class="o">%&gt;%</span> <span class="kp">tail</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre>##     field_start_position field_end_position field_length data_type
+## 430                 2283               2288            6   Integer
+## 431                 2289               2292            4   Decimal
+## 432                 2293               2296            4   Decimal
+## 433                 2297               2300            4   Decimal
+## 434                 2301               2304            4   Decimal
+## 435                 2305               2306            2   Integer
+##                         description                  comments
+## 430    Number of Valid Scale Scores                          
+## 431 Partially Proficient Percentage       One implied decimal
+## 432           Proficient Percentage       One implied decimal
+## 433  Advanced Proficient Percentage       One implied decimal
+## 434                Scale Score Mean       One implied decimal
+## 435                           Grade Located in text file only
+##       valid_values spanner1                       spanner2
+## 430   0 or greater  SCIENCE NON-ECONOMICALLY DISADVANTAGED
+## 431   0.0 to 100.0  SCIENCE NON-ECONOMICALLY DISADVANTAGED
+## 432   0.0 to 100.0  SCIENCE NON-ECONOMICALLY DISADVANTAGED
+## 433   0.0 to 100.0  SCIENCE NON-ECONOMICALLY DISADVANTAGED
+## 434 100.0 to 300.0  SCIENCE NON-ECONOMICALLY DISADVANTAGED
+## 435         03, 04                                        
+##                                                                 final_name
+## 430    SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Number_of_Valid_Scale_Scores
+## 431 SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Partially_Proficient_Percentage
+## 432           SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Proficient_Percentage
+## 433  SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Advanced_Proficient_Percentage
+## 434                SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean
+## 435                                                                  Grade
+</pre></div>
+
+
+<p>Save:</p>
+<div class="highlight"><pre><span class="kp">save</span><span class="p">(</span>layout_njask05<span class="p">,</span> file <span class="o">=</span> <span class="kp">paste0</span><span class="p">(</span>final_path<span class="p">,</span> <span class="s">&#39;datasets/njask05_layout.rda&#39;</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning in gzfile(file, &quot;wb&quot;): cannot open compressed file
+## &#39;datasets/njask05_layout.rda&#39;, probable reason &#39;No such file or directory&#39;
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in gzfile(file, &quot;wb&quot;): cannot open the connection
+</pre></div>
+
+
+<h1>(2004) old NJASK</h1>
+<p>once more for 2004 NJASK</p>
+<p>Read:</p>
+<div class="highlight"><pre>njask04 <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="kp">paste0</span><span class="p">(</span>final_path<span class="p">,</span> <span class="s">&#39;datasets/njask2004_layout.csv&#39;</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error: &#39;datasets/njask2004_layout.csv&#39; does not exist in current working directory (&#39;c:/Users/AMartin/Google Drive/pelican/almart dot in/content/pages&#39;).
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">names</span><span class="p">(</span>njask04<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>njask04<span class="p">)))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in gsub(&quot; &quot;, &quot;_&quot;, names(njask04)): object &#39;njask04&#39; not found
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">head</span><span class="p">(</span>njask04<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in head(njask04): object &#39;njask04&#39; not found
+</pre></div>
+
+
+<p>Process:</p>
+<div class="highlight"><pre>layout_njask04 <span class="o">&lt;-</span> process_layout<span class="p">(</span>njask04<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object &#39;njask04&#39; not found
+</pre></div>
+
+
+<div class="highlight"><pre>layout_njask04 <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="err">##</span>   <span class="nt">field_start_position</span> <span class="nt">field_end_position</span> <span class="nt">field_length</span> <span class="nt">data_type</span>
+<span class="err">##</span> <span class="nt">1</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">2</span>                    <span class="nt">1</span>                  <span class="nt">2</span>            <span class="nt">2</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">3</span>                    <span class="nt">3</span>                  <span class="nt">6</span>            <span class="nt">4</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">4</span>                    <span class="nt">7</span>                  <span class="nt">9</span>            <span class="nt">3</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">5</span>                   <span class="nt">10</span>                 <span class="nt">59</span>           <span class="nt">50</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">60</span>                <span class="nt">109</span>           <span class="nt">50</span>      <span class="nt">Text</span>
+<span class="err">##</span>     <span class="nt">description</span> <span class="nt">comments</span>
+<span class="err">##</span> <span class="nt">1</span>      <span class="nt">CDS</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">2</span>   <span class="nt">County</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">3</span> <span class="nt">District</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">4</span>   <span class="nt">School</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">5</span>   <span class="nt">County</span> <span class="nt">Name</span>         
+<span class="err">##</span> <span class="nt">6</span> <span class="nt">District</span> <span class="nt">Name</span>         
+<span class="err">##</span>                                                                                                                                                                                            <span class="nt">valid_values</span>
+<span class="err">##</span> <span class="nt">1</span> <span class="nt">CDS</span> <span class="nt">codes</span> <span class="nt">for</span> <span class="nt">schools</span> <span class="nt">and</span> <span class="nt">districts</span><span class="err">\</span><span class="nt">nTHE</span> <span class="nt">FIRST</span> <span class="nt">TWO</span> <span class="nt">POSITIONS</span> <span class="nt">WILL</span> <span class="nt">INCLUDE</span> <span class="nt">THE</span> <span class="nt">FOLLOWING</span> <span class="nt">AGGREGATION</span> <span class="nt">CODES</span><span class="o">:</span> <span class="nt">NS</span> <span class="o">=</span> <span class="nt">Non-Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">SN</span> <span class="o">=</span> <span class="nt">Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">ST</span> <span class="o">=</span> <span class="nt">State</span><span class="o">;</span> <span class="nt">A</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">A</span><span class="o">;</span> <span class="nt">B</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">B</span><span class="o">;</span> <span class="nt">CD</span><span class="o">=</span> <span class="nt">DFG</span> <span class="nt">CD</span><span class="err">…</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">2</span>                                                                                                <span class="nt">01</span><span class="o">,</span> <span class="nt">03</span><span class="o">,</span> <span class="nt">05</span><span class="o">,</span> <span class="nt">07</span><span class="o">,</span> <span class="nt">09</span><span class="o">,</span> <span class="nt">11</span><span class="o">,</span> <span class="nt">13</span><span class="o">,</span> <span class="nt">15</span><span class="o">,</span> <span class="nt">17</span><span class="o">,</span> <span class="nt">19</span><span class="o">,</span> <span class="nt">21</span><span class="o">,</span> <span class="nt">23</span><span class="o">,</span> <span class="nt">25</span><span class="o">,</span> <span class="nt">27</span><span class="o">,</span> <span class="nt">29</span><span class="o">,</span> <span class="nt">31</span><span class="o">,</span> <span class="nt">33</span><span class="o">,</span> <span class="nt">35</span><span class="o">,</span> <span class="nt">37</span><span class="o">,</span> <span class="nt">39</span><span class="o">,</span> <span class="nt">41</span><span class="o">,</span> <span class="nt">43</span><span class="o">,</span> <span class="nt">45</span><span class="o">,</span> <span class="nt">47</span><span class="o">,</span> <span class="nt">80</span><span class="o">,</span> <span class="nt">90</span>
+<span class="err">##</span> <span class="nt">3</span>                                                                                                                                                                                          <span class="nt">0100</span> <span class="nt">to</span> <span class="nt">9999</span>
+<span class="err">##</span> <span class="nt">4</span>                                                                                                                                                                                            <span class="nt">001</span> <span class="nt">to</span> <span class="nt">999</span>
+<span class="err">##</span> <span class="nt">5</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span> <span class="nt">6</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span>   <span class="nt">spanner1</span> <span class="nt">spanner2</span>    <span class="nt">final_name</span>
+<span class="err">##</span> <span class="nt">1</span>                        <span class="nt">CDS_Code</span>
+<span class="err">##</span> <span class="nt">2</span>                     <span class="nt">County_Code</span>
+<span class="err">##</span> <span class="nt">3</span>                   <span class="nt">District_Code</span>
+<span class="err">##</span> <span class="nt">4</span>                     <span class="nt">School_Code</span>
+<span class="err">##</span> <span class="nt">5</span>                     <span class="nt">County_Name</span>
+<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">District_Name</span>
+</pre></div>
+
+
+<div class="highlight"><pre>layout_njask04 <span class="o">%&gt;%</span> <span class="kp">tail</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre>##     field_start_position field_end_position field_length data_type
+## 357                 1869               1874            6   Integer
+## 358                 1875               1878            4   Decimal
+## 359                 1879               1882            4   Decimal
+## 360                 1883               1886            4   Decimal
+## 361                 1887               1890            4   Decimal
+## 362                 1891               1892            2   Integer
+##                         description                  comments
+## 357    Number of Valid Scale Scores                          
+## 358 Partially Proficient Percentage       One implied decimal
+## 359           Proficient Percentage       One implied decimal
+## 360  Advanced Proficient Percentage       One implied decimal
+## 361                Scale Score Mean       One implied decimal
+## 362                           Grade Located in text file only
+##       valid_values spanner1                       spanner2
+## 357   0 or greater  SCIENCE NON-ECONOMICALLY DISADVANTAGED
+## 358   0.0 to 100.0  SCIENCE NON-ECONOMICALLY DISADVANTAGED
+## 359   0.0 to 100.0  SCIENCE NON-ECONOMICALLY DISADVANTAGED
+## 360   0.0 to 100.0  SCIENCE NON-ECONOMICALLY DISADVANTAGED
+## 361 100.0 to 300.0  SCIENCE NON-ECONOMICALLY DISADVANTAGED
+## 362         03, 04                                        
+##                                                                 final_name
+## 357    SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Number_of_Valid_Scale_Scores
+## 358 SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Partially_Proficient_Percentage
+## 359           SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Proficient_Percentage
+## 360  SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Advanced_Proficient_Percentage
+## 361                SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean
+## 362                                                                  Grade
+</pre></div>
+
+
+<p>Save:</p>
+<div class="highlight"><pre><span class="kp">save</span><span class="p">(</span>layout_njask04<span class="p">,</span> file <span class="o">=</span> <span class="kp">paste0</span><span class="p">(</span>final_path<span class="p">,</span> <span class="s">&#39;datasets/njask04_layout.rda&#39;</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning in gzfile(file, &quot;wb&quot;): cannot open compressed file
+## &#39;datasets/njask04_layout.rda&#39;, probable reason &#39;No such file or directory&#39;
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in gzfile(file, &quot;wb&quot;): cannot open the connection
+</pre></div>
+
+
+<h1>2007 gr 3 NJASK</h1>
+<p>this one used a slightly different layout.</p>
+<p>Read:</p>
+<div class="highlight"><pre>njask07gr3 <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="kp">paste0</span><span class="p">(</span>final_path<span class="p">,</span> <span class="s">&#39;datasets/njask2007gr3_layout.csv&#39;</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error: &#39;datasets/njask2007gr3_layout.csv&#39; does not exist in current working directory (&#39;c:/Users/AMartin/Google Drive/pelican/almart dot in/content/pages&#39;).
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">names</span><span class="p">(</span>njask07gr3<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>njask07gr3<span class="p">)))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in gsub(&quot; &quot;, &quot;_&quot;, names(njask07gr3)): object &#39;njask07gr3&#39; not found
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">head</span><span class="p">(</span>njask07gr3<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in head(njask07gr3): object &#39;njask07gr3&#39; not found
+</pre></div>
+
+
+<p>Process:</p>
+<div class="highlight"><pre>layout_njask07gr3 <span class="o">&lt;-</span> process_layout<span class="p">(</span>njask07gr3<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object &#39;njask07gr3&#39; not found
+</pre></div>
+
+
+<div class="highlight"><pre>layout_njask07gr3 <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="err">##</span>   <span class="nt">field_start_position</span> <span class="nt">field_end_position</span> <span class="nt">field_length</span> <span class="nt">data_type</span>
+<span class="err">##</span> <span class="nt">1</span>                    <span class="nt">1</span>                  <span class="nt">9</span>            <span class="nt">9</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">2</span>                    <span class="nt">1</span>                  <span class="nt">2</span>            <span class="nt">2</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">3</span>                    <span class="nt">3</span>                  <span class="nt">6</span>            <span class="nt">4</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">4</span>                    <span class="nt">7</span>                  <span class="nt">9</span>            <span class="nt">3</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">5</span>                   <span class="nt">10</span>                 <span class="nt">59</span>           <span class="nt">50</span>      <span class="nt">Text</span>
+<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">60</span>                <span class="nt">109</span>           <span class="nt">50</span>      <span class="nt">Text</span>
+<span class="err">##</span>     <span class="nt">description</span> <span class="nt">comments</span>
+<span class="err">##</span> <span class="nt">1</span>      <span class="nt">CDS</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">2</span>   <span class="nt">County</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">3</span> <span class="nt">District</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">4</span>   <span class="nt">School</span> <span class="nt">Code</span>         
+<span class="err">##</span> <span class="nt">5</span>   <span class="nt">County</span> <span class="nt">Name</span>         
+<span class="err">##</span> <span class="nt">6</span> <span class="nt">District</span> <span class="nt">Name</span>         
+<span class="err">##</span>                                                                                                                                                                                            <span class="nt">valid_values</span>
+<span class="err">##</span> <span class="nt">1</span> <span class="nt">CDS</span> <span class="nt">codes</span> <span class="nt">for</span> <span class="nt">schools</span> <span class="nt">and</span> <span class="nt">districts</span><span class="err">\</span><span class="nt">nTHE</span> <span class="nt">FIRST</span> <span class="nt">TWO</span> <span class="nt">POSITIONS</span> <span class="nt">WILL</span> <span class="nt">INCLUDE</span> <span class="nt">THE</span> <span class="nt">FOLLOWING</span> <span class="nt">AGGREGATION</span> <span class="nt">CODES</span><span class="o">:</span> <span class="nt">NS</span> <span class="o">=</span> <span class="nt">Non-Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">SN</span> <span class="o">=</span> <span class="nt">Special</span> <span class="nt">Needs</span><span class="o">;</span> <span class="nt">ST</span> <span class="o">=</span> <span class="nt">State</span><span class="o">;</span> <span class="nt">A</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">A</span><span class="o">;</span> <span class="nt">B</span> <span class="o">=</span> <span class="nt">DFG</span> <span class="nt">B</span><span class="o">;</span> <span class="nt">CD</span><span class="o">=</span> <span class="nt">DFG</span> <span class="nt">CD</span><span class="err">…</span><span class="o">.</span>
+<span class="err">##</span> <span class="nt">2</span>                                                                                                <span class="nt">01</span><span class="o">,</span> <span class="nt">03</span><span class="o">,</span> <span class="nt">05</span><span class="o">,</span> <span class="nt">07</span><span class="o">,</span> <span class="nt">09</span><span class="o">,</span> <span class="nt">11</span><span class="o">,</span> <span class="nt">13</span><span class="o">,</span> <span class="nt">15</span><span class="o">,</span> <span class="nt">17</span><span class="o">,</span> <span class="nt">19</span><span class="o">,</span> <span class="nt">21</span><span class="o">,</span> <span class="nt">23</span><span class="o">,</span> <span class="nt">25</span><span class="o">,</span> <span class="nt">27</span><span class="o">,</span> <span class="nt">29</span><span class="o">,</span> <span class="nt">31</span><span class="o">,</span> <span class="nt">33</span><span class="o">,</span> <span class="nt">35</span><span class="o">,</span> <span class="nt">37</span><span class="o">,</span> <span class="nt">39</span><span class="o">,</span> <span class="nt">41</span><span class="o">,</span> <span class="nt">43</span><span class="o">,</span> <span class="nt">45</span><span class="o">,</span> <span class="nt">47</span><span class="o">,</span> <span class="nt">80</span><span class="o">,</span> <span class="nt">90</span>
+<span class="err">##</span> <span class="nt">3</span>                                                                                                                                   <span class="nt">0100</span> <span class="nt">to</span> <span class="nt">9999</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span> <span class="nt">4</span>                                                                                                                                                   <span class="nt">001</span> <span class="nt">to</span> <span class="nt">999</span><span class="o">;</span> <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span> <span class="nt">5</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span> <span class="nt">6</span>                                                                                                                                  <span class="nt">A</span> <span class="nt">to</span> <span class="nt">Z</span><span class="o">,</span> <span class="nt">blank</span><span class="o">;</span>  <span class="nt">Applicable</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">district</span> <span class="nt">and</span> <span class="nt">school</span> <span class="nt">aggregations</span>
+<span class="err">##</span>   <span class="nt">spanner1</span> <span class="nt">spanner2</span>    <span class="nt">final_name</span>
+<span class="err">##</span> <span class="nt">1</span>                        <span class="nt">CDS_Code</span>
+<span class="err">##</span> <span class="nt">2</span>                     <span class="nt">County_Code</span>
+<span class="err">##</span> <span class="nt">3</span>                   <span class="nt">District_Code</span>
+<span class="err">##</span> <span class="nt">4</span>                     <span class="nt">School_Code</span>
+<span class="err">##</span> <span class="nt">5</span>                     <span class="nt">County_Name</span>
+<span class="err">##</span> <span class="nt">6</span>                   <span class="nt">District_Name</span>
+</pre></div>
+
+
+<div class="highlight"><pre>layout_njask07gr3 <span class="o">%&gt;%</span> <span class="kp">tail</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre>##     field_start_position field_end_position field_length data_type
+## 483                 2549               2552            4   Decimal
+## 484                 2553               2556            4   Decimal
+## 485                 2557               2558            2   Integer
+## 486                 2557               2558            2   Integer
+## 487                 2559               2562            4   Integer
+## 488                 2559               2562            4   Integer
+##                        description                  comments
+## 483 Advanced Proficient Percentage       One implied decimal
+## 484               Scale Score Mean       One implied decimal
+## 485                                              GRADE LEVEL
+## 486                    Grade Level Located in text file only
+## 487                                                TEST YEAR
+## 488                      Test Year                          
+##                                                                                                                                                                         valid_values
+## 483   0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scales Scores = 0 for both unsuppressed and suppressed files.
+## 484 100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scales Scores = 0 for both unsuppressed and suppressed files.
+## 485                                                                                                                                                                                 
+## 486                                                                                                                                                                           03, 04
+## 487                                                                                                                                                                                 
+## 488                                                                                                                                                                             2007
+##                           spanner1 spanner2
+## 483 NON-ECONOMICALLY DISADVANTAGED  SCIENCE
+## 484 NON-ECONOMICALLY DISADVANTAGED  SCIENCE
+## 485                                        
+## 486                                        
+## 487                                        
+## 488                                        
+##                                                                final_name
+## 483 NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Advanced_Proficient_Percentage
+## 484               NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Scale_Score_Mean
+## 485                                                                      
+## 486                                                           Grade_Level
+## 487                                                                      
+## 488                                                             Test_Year
+</pre></div>
+
+
+<p>Save:</p>
+<div class="highlight"><pre><span class="kp">save</span><span class="p">(</span>layout_njask07gr3<span class="p">,</span> file <span class="o">=</span> <span class="kp">paste0</span><span class="p">(</span>final_path<span class="p">,</span> <span class="s">&#39;datasets/njask07gr3_layout.rda&#39;</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning in gzfile(file, &quot;wb&quot;): cannot open compressed file
+## &#39;datasets/njask07gr3_layout.rda&#39;, probable reason &#39;No such file or
+## directory&#39;
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in gzfile(file, &quot;wb&quot;): cannot open the connection
 </pre></div>
 </section>
 		</div>

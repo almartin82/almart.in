@@ -631,5 +631,4 @@ ST = Statewide, NS = Non-Special Needs, SN = Special Needs",FALSE
 2915,2918,4,Decimal,Advanced Proficient Percentage,,Blank,FALSE
 2919,2922,4,Decimal,Scale Score Mean,,Blank,FALSE
 2923,2926,4,Text,Testing Year,,"2009, 2010, 2011",FALSE
-2927,2928,2,Text,Grade,,"""3 "" or ""4 "" or ""5 "" or ""6 "" or ""7 "" or ""8 "" ",FALSE
-,,,,,,,
+2927,2927,1,Text,Grade,,"""3 "" or ""4 "" or ""5 "" or ""6 "" or ""7 "" or ""8 "" ",FALSE
