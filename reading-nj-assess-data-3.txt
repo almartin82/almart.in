@@ -85,14 +85,7 @@ process_nj_assess <- function(df, layout) {
   #get name of last column and kill \n characters
   last_col <- names(df)[ncol(df)]
   df[, last_col] <- gsub('\n', '', df[, last_col], fixed = TRUE)
-    
-#   #sigh, edge case in old HSPA data file where \n randomly exists in one middle column
-#   if ('SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean' %in% names(df)) {
-#     df$SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean <- gsub(
-#       '\n', '', df$SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean, fixed = TRUE
-#     )  
-#   }
-  
+      
   #put some columns aside
   ignore <- df[, !mask]
   
@@ -136,12 +129,23 @@ get_raw_hspa <- function(year, layout=layout_hspa) {
   )
   parsed_year <- years[[as.character(year)]]
   
+  #filenames are screwy
+  parsed_filename <- if(year > 2005) {
+    "state_summary.txt"
+  } else if (year == 2005) {
+    "2005hspa_state_summary.txt" 
+  } else if (year == 2004) {
+    "hspa04state_summary.txt"
+  }
+      
   #build url
   target_url <- paste0(
     "http://www.state.nj.us/education/schools/achievement/", parsed_year, 
-    "/hspa/state_summary.txt"
+    "/hspa/", parsed_filename
   )
-    
+  
+  print(target_url)
+  
   #read_fwf
   df <- readr::read_fwf(
     file = target_url,
@@ -197,17 +201,24 @@ get_raw_gepa <- function(year, layout=layout_gepa) {
     
   #url paths changed in 2012
   years <- list(
-    "2014"="14", "2013"="13", "2012"="2013", "2011"="2012", "2010"="2011", "2009"="2010", 
-    "2008"="2009", "2007"="2008", "2006"="2007", "2005"="2006", "2004"="2005"
+    "2007"="2008", "2006"="2007", "2005"="2006", "2004"="2005"
   )
   parsed_year <- years[[as.character(year)]]
   
+  filename <- list(
+    "2007"="state_summary.txt", "2006"="state_summary.txt",
+    "2005"="2005njgepa_state_summary.txt", "2004"="gepa04state_summary.txt"   
+  )
+  parsed_filename <- filename[[as.character(year)]]
+
   #build url
   target_url <- paste0(
     "http://www.state.nj.us/education/schools/achievement/", parsed_year, 
-    "/gepa/state_summary.txt"
+    "/gepa/", parsed_filename
   )
     
+  print(target_url)
+  
   #read_fwf
   df <- readr::read_fwf(
     file = target_url,

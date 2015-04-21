@@ -560,7 +560,5 @@ THE FIRST TWO POSITIONS WILL INCLUDE THE FOLLOWING AGGREGATION CODES: NS = Non-S
 2545,2548,4,Decimal,Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scales Scores = 0 for both unsuppressed and suppressed files. ,FALSE
 2549,2552,4,Decimal,Advanced Proficient Percentage,One implied decimal,0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scales Scores = 0 for both unsuppressed and suppressed files. ,FALSE
 2553,2556,4,Decimal,Scale Score Mean,One implied decimal,100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scales Scores = 0 for both unsuppressed and suppressed files. ,FALSE
-2557,2558,2,Integer,,             GRADE LEVEL,,FALSE
 2557,2558,2,Integer,Grade Level,Located in text file only,"03, 04",FALSE
-2559,2562,4,Integer,,TEST YEAR,,FALSE
 2559,2562,4,Integer,Test Year,,2007,FALSE

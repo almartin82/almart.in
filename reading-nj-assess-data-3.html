@@ -247,13 +247,6 @@ hspa_ex <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span
   last_col <span class="o">&lt;-</span> <span class="kp">names</span><span class="p">(</span>df<span class="p">)[</span><span class="kp">ncol</span><span class="p">(</span>df<span class="p">)]</span>
   df<span class="p">[,</span> last_col<span class="p">]</span> <span class="o">&lt;-</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&#39;\n&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> df<span class="p">[,</span> last_col<span class="p">],</span> fixed <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 
-<span class="c1">#   #sigh, edge case in old HSPA data file where \n randomly exists in one middle column</span>
-<span class="c1">#   if (&#39;SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean&#39; %in% names(df)) {</span>
-<span class="c1">#     df$SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean &lt;- gsub(</span>
-<span class="c1">#       &#39;\n&#39;, &#39;&#39;, df$SCIENCE_NON-ECONOMICALLY_DISADVANTAGED_Scale_Score_Mean, fixed = TRUE</span>
-<span class="c1">#     )  </span>
-<span class="c1">#   }</span>
-
   <span class="c1">#put some columns aside</span>
   ignore <span class="o">&lt;-</span> df<span class="p">[,</span> <span class="o">!</span>mask<span class="p">]</span>
 
@@ -367,11 +360,22 @@ process_nj_assess<span class="p">(</span>hspa_ex<span class="p">,</span> layout_
   <span class="p">)</span>
   parsed_year <span class="o">&lt;-</span> years<span class="p">[[</span><span class="kp">as.character</span><span class="p">(</span>year<span class="p">)]]</span>
 
+  <span class="c1">#filenames are screwy</span>
+  parsed_filename <span class="o">&lt;-</span> <span class="kr">if</span><span class="p">(</span>year <span class="o">&gt;</span> <span class="m">2005</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s">&quot;state_summary.txt&quot;</span>
+  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year <span class="o">==</span> <span class="m">2005</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s">&quot;2005hspa_state_summary.txt&quot;</span> 
+  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year <span class="o">==</span> <span class="m">2004</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s">&quot;hspa04state_summary.txt&quot;</span>
+  <span class="p">}</span>
+
   <span class="c1">#build url</span>
   target_url <span class="o">&lt;-</span> <span class="kp">paste0</span><span class="p">(</span>
     <span class="s">&quot;http://www.state.nj.us/education/schools/achievement/&quot;</span><span class="p">,</span> parsed_year<span class="p">,</span> 
-    <span class="s">&quot;/hspa/state_summary.txt&quot;</span>
+    <span class="s">&quot;/hspa/&quot;</span><span class="p">,</span> parsed_filename
   <span class="p">)</span>
+
+  <span class="kp">print</span><span class="p">(</span>target_url<span class="p">)</span>
 
   <span class="c1">#read_fwf</span>
   df <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
@@ -401,6 +405,10 @@ fetch_hspa <span class="o">&lt;-</span> <span class="kr">function</span><span cl
 <span class="p">}</span>
 
 fetch_hspa<span class="p">(</span><span class="m">2010</span><span class="p">)</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/hspa/state_summary.txt&quot;
 </pre></div>
 
 
@@ -524,16 +532,23 @@ fetch_hspa<span class="p">(</span><span class="m">2010</span><span class="p">)</
 
   <span class="c1">#url paths changed in 2012</span>
   years <span class="o">&lt;-</span> <span class="kt">list</span><span class="p">(</span>
-    <span class="s">&quot;2014&quot;</span><span class="o">=</span><span class="s">&quot;14&quot;</span><span class="p">,</span> <span class="s">&quot;2013&quot;</span><span class="o">=</span><span class="s">&quot;13&quot;</span><span class="p">,</span> <span class="s">&quot;2012&quot;</span><span class="o">=</span><span class="s">&quot;2013&quot;</span><span class="p">,</span> <span class="s">&quot;2011&quot;</span><span class="o">=</span><span class="s">&quot;2012&quot;</span><span class="p">,</span> <span class="s">&quot;2010&quot;</span><span class="o">=</span><span class="s">&quot;2011&quot;</span><span class="p">,</span> <span class="s">&quot;2009&quot;</span><span class="o">=</span><span class="s">&quot;2010&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;2008&quot;</span><span class="o">=</span><span class="s">&quot;2009&quot;</span><span class="p">,</span> <span class="s">&quot;2007&quot;</span><span class="o">=</span><span class="s">&quot;2008&quot;</span><span class="p">,</span> <span class="s">&quot;2006&quot;</span><span class="o">=</span><span class="s">&quot;2007&quot;</span><span class="p">,</span> <span class="s">&quot;2005&quot;</span><span class="o">=</span><span class="s">&quot;2006&quot;</span><span class="p">,</span> <span class="s">&quot;2004&quot;</span><span class="o">=</span><span class="s">&quot;2005&quot;</span>
+    <span class="s">&quot;2007&quot;</span><span class="o">=</span><span class="s">&quot;2008&quot;</span><span class="p">,</span> <span class="s">&quot;2006&quot;</span><span class="o">=</span><span class="s">&quot;2007&quot;</span><span class="p">,</span> <span class="s">&quot;2005&quot;</span><span class="o">=</span><span class="s">&quot;2006&quot;</span><span class="p">,</span> <span class="s">&quot;2004&quot;</span><span class="o">=</span><span class="s">&quot;2005&quot;</span>
   <span class="p">)</span>
   parsed_year <span class="o">&lt;-</span> years<span class="p">[[</span><span class="kp">as.character</span><span class="p">(</span>year<span class="p">)]]</span>
+
+  filename <span class="o">&lt;-</span> <span class="kt">list</span><span class="p">(</span>
+    <span class="s">&quot;2007&quot;</span><span class="o">=</span><span class="s">&quot;state_summary.txt&quot;</span><span class="p">,</span> <span class="s">&quot;2006&quot;</span><span class="o">=</span><span class="s">&quot;state_summary.txt&quot;</span><span class="p">,</span>
+    <span class="s">&quot;2005&quot;</span><span class="o">=</span><span class="s">&quot;2005njgepa_state_summary.txt&quot;</span><span class="p">,</span> <span class="s">&quot;2004&quot;</span><span class="o">=</span><span class="s">&quot;gepa04state_summary.txt&quot;</span>   
+  <span class="p">)</span>
+  parsed_filename <span class="o">&lt;-</span> filename<span class="p">[[</span><span class="kp">as.character</span><span class="p">(</span>year<span class="p">)]]</span>
 
   <span class="c1">#build url</span>
   target_url <span class="o">&lt;-</span> <span class="kp">paste0</span><span class="p">(</span>
     <span class="s">&quot;http://www.state.nj.us/education/schools/achievement/&quot;</span><span class="p">,</span> parsed_year<span class="p">,</span> 
-    <span class="s">&quot;/gepa/state_summary.txt&quot;</span>
+    <span class="s">&quot;/gepa/&quot;</span><span class="p">,</span> parsed_filename
   <span class="p">)</span>
+
+  <span class="kp">print</span><span class="p">(</span>target_url<span class="p">)</span>
 
   <span class="c1">#read_fwf</span>
   df <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
@@ -552,8 +567,14 @@ fetch_hspa<span class="p">(</span><span class="m">2010</span><span class="p">)</
 <span class="p">}</span>
 
 gepa_ex <span class="o">&lt;-</span> get_raw_gepa<span class="p">(</span><span class="m">2007</span><span class="p">)</span>
+</pre></div>
 
-gepa_ex <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+
+<div class="highlight"><pre>## [1] &quot;http://www.state.nj.us/education/schools/achievement/2008/gepa/state_summary.txt&quot;
+</pre></div>
+
+
+<div class="highlight"><pre>gepa_ex <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
 </pre></div>
 
 
@@ -731,6 +752,10 @@ fetch_gepa <span class="o">&lt;-</span> <span class="kr">function</span><span cl
 <span class="p">}</span>
 
 fetch_gepa<span class="p">(</span><span class="m">2007</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## [1] &quot;http://www.state.nj.us/education/schools/achievement/2008/gepa/state_summary.txt&quot;
 </pre></div>
 
 

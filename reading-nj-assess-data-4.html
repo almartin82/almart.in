@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Getting NJ assessment data into R: part 4 in a series. — almart.in</title>
+	<meta name="description" content="Title: Getting NJ assessment data into R: part 4 in a series.; Date: 2015-04-21; Author: Andrew Martin">
+	<meta name="author" content="Andrew Martin">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+		<script src="http://almart.in/theme/html5.js"></script>
+		<![endif]-->
+	<link href="http://almart.in/theme/css/ipython.css" rel="stylesheet">
+	<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+	<!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> -->
+	<!-- <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/simplex/bootstrap.min.css" rel="stylesheet"> -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/simplex/bootstrap.min.css" rel="stylesheet">
+	<link href="http://almart.in/theme/css/local.css" rel="stylesheet">
+	<link href="http://almart.in/theme/css/pygments.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+	<!-- NAVBAR -->
+	<nav class="navbar navbar-default" style="margin-top:2em;">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://almart.in">almart.in</a>
+			</div>			
+			<!-- MENUITEMS: update the MENUITEMS dict in pelicanconf.py -->
+			<div id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="http://almart.in/pages/about.html"><i class="fa fa-user "></i> about</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="http://almart.in/categories.html"><i class="fa fa-archive"></i> categories</a></li>
+					<li><a href="http://almart.in/tags.html"><i class="fa fa-tags"></i> tags</a></li>
+					<li><a href="http://almart.in/feeds/all_atom.xml"><i class="fa fa-rss"></i> rss</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<!-- MAIN CONTENT: edit in base_site.html template -->
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+<div class="article" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="text-center article-header">
+		<h1 itemprop="name headline" class="article-title">Getting NJ assessment data into R: part 4 in a series.</h1>
+		<span>
+			<div itemprop="author" itemscope itemtype="http://schema.org/Person">
+				<span itemprop="name">Andrew Martin</span> 
+				&nbsp;&#124;&nbsp;
+				<time datetime="2015-04-21T00:00:00-04:00" itemprop="datePublished">April 21 2015</time>
+				&nbsp;|&nbsp;
+				<span><a href="http://almart.in/reading-nj-assess-data-4.txt" title="Raw Markdown for Getting NJ assessment data into R: part 4 in a series.">raw</a></span>
+			</div>
+		</span>
+		
+	</div>
+	<div>
+		category:
+		<span itemprop="articleSection">
+			<a href="http://almart.in/category/education.html" rel="category">education</a>
+		</span>
+	</div>
+	
+ 
+	<div>
+		tags:
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/nj.html" rel="tag"> NJ</a>&nbsp;&nbsp;
+		</span>
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/assessment.html" rel="tag"> assessment</a>&nbsp;&nbsp;
+		</span>
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/njask.html" rel="tag"> NJASK</a>&nbsp;&nbsp;
+		</span>
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/hspa.html" rel="tag"> HSPA</a>&nbsp;&nbsp;
+		</span>
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/data_management.html" rel="tag"> data_management</a>&nbsp;&nbsp;
+		</span>
+		<span itemprop="keywords">
+			<a href="http://almart.in/tag/tutorial.html" rel="tag"> tutorial</a>&nbsp;&nbsp;
+		</span>
+	</div>
+	<div itemprop="articleBody" class="article-body"><p>In my <a href="" title="/reading-nj-assess-data-3.html">last post</a>, I showed how to extend the functions I developed for NJASK data to other state assessments.  In this post, I'll tie eveything together, and write some general functions that bring a wide variety of NJ state assessment data into R.</p>
+<p>Roughly speaking, we're tying to write a function that will return data given a <code>year</code> and a <code>grade</code>.  Here are the big things that need to happen:</p>
+<ol>
+<li>
+<p>Check that call we made is a valid grade/year combination (raising an informative error if not)</p>
+</li>
+<li>
+<p>Map the grade / year call to the correct <code>get_blank_data</code> function (NJASK? HSPA? GEPA?)</p>
+</li>
+<li>
+<p>Fetch, clean, and return the data frame.</p>
+</li>
+</ol>
+<p>Let's tackle each of these in turn:</p>
+<h1>valid calls</h1>
+<p>Before we do anything, let's source in all of the functions <code>fetch_hspa()</code>, <code>fetch_gepa()</code> created in the previous two posts.</p>
+<div class="highlight"><pre>knitr<span class="o">::</span>knit<span class="p">(</span><span class="s">&#39;05_njask-data-2.rmd&#39;</span><span class="p">,</span> tangle<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## processing file: 05_njask-data-2.rmd
+## output file: 05_njask-data-2.R
+</pre></div>
+
+
+<div class="highlight"><pre>## [1] &quot;05_njask-data-2.R&quot;
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kn">source</span><span class="p">(</span><span class="s">&#39;05_njask-data-2.R&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## [1] &quot;http://www.state.nj.us/education/schools/achievement/14/njask6/state_summary.txt&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/14/njask6/state_summary.txt&quot;
+</pre></div>
+
+
+<div class="highlight"><pre>knitr<span class="o">::</span>knit<span class="p">(</span><span class="s">&#39;06_njask-data-3.rmd&#39;</span><span class="p">,</span> tangle<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## processing file: 06_njask-data-3.rmd
+## output file: 06_njask-data-3.R
+</pre></div>
+
+
+<div class="highlight"><pre>## [1] &quot;06_njask-data-3.R&quot;
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kn">source</span><span class="p">(</span><span class="s">&#39;06_njask-data-3.R&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/hspa/state_summary.txt&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2008/gepa/state_summary.txt&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2008/gepa/state_summary.txt&quot;
+</pre></div>
+
+
+<p>This function will test if a year/grade call is valid.</p>
+<div class="highlight"><pre>valid_call <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span> <span class="p">{</span>
+  <span class="c1">#common core transition started in 2015</span>
+  <span class="kr">if</span><span class="p">(</span>year <span class="o">&gt;</span> <span class="m">2014</span><span class="p">)</span> <span class="p">{</span>
+    valid_call <span class="o">&lt;-</span> <span class="kc">FALSE</span>
+  <span class="c1">#assessment coverage 3:8 from 2006 on.</span>
+  <span class="c1">#NJASK fully implemented in 2008</span>
+  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span><span class="p">(</span>year <span class="o">&gt;=</span> <span class="m">2006</span><span class="p">)</span> <span class="p">{</span>
+    valid_call <span class="o">&lt;-</span> grade <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="o">:</span><span class="m">8</span><span class="p">,</span> <span class="m">11</span><span class="p">)</span>
+  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year <span class="o">&gt;=</span> <span class="m">2004</span><span class="p">)</span> <span class="p">{</span>
+    valid_call <span class="o">&lt;-</span> grade <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">11</span><span class="p">)</span>
+  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year <span class="o">&lt;</span> <span class="m">2004</span><span class="p">)</span> <span class="p">{</span>
+    valid_call <span class="o">&lt;-</span> <span class="kc">FALSE</span>
+  <span class="p">}</span>
+
+  <span class="kr">return</span><span class="p">(</span>valid_call<span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h1>map for retrieval</h1>
+<p>This function does normal retrieval (NJASK for 3-8; HSPA for 11).</p>
+<div class="highlight"><pre>standard_assess <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span> <span class="p">{</span>
+  <span class="kr">if</span><span class="p">(</span>grade <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="o">:</span><span class="m">8</span><span class="p">))</span> <span class="p">{</span>
+    assess_data <span class="o">&lt;-</span> fetch_njask<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span>
+  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade <span class="o">==</span> <span class="m">11</span><span class="p">)</span> <span class="p">{</span>
+    assess_data <span class="o">&lt;-</span> fetch_hspa<span class="p">(</span>year<span class="p">)</span> 
+  <span class="p">}</span>
+
+  <span class="kr">return</span><span class="p">(</span>assess_data<span class="p">)</span>
+<span class="p">}</span> 
+</pre></div>
+
+
+<p>Here is a mapping function that calls the correct retrieval method, given grade and year.</p>
+<div class="highlight"><pre>fetch_nj_assess <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span> <span class="p">{</span>
+  <span class="kn">require</span><span class="p">(</span>ensurer<span class="p">)</span>
+
+  <span class="c1">#only allow valid calls</span>
+  valid_call<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span> <span class="o">%&gt;%</span>
+    ensure_that<span class="p">(</span>
+      <span class="kp">all</span><span class="p">(</span><span class="m">.</span><span class="p">)</span> <span class="o">~</span> <span class="s">&quot;invalid grade/year parameter passed&quot;</span><span class="p">)</span>
+
+  <span class="kr">if</span> <span class="p">(</span>year <span class="o">&gt;=</span> <span class="m">2008</span><span class="p">)</span> <span class="p">{</span>
+    assess_data <span class="o">&lt;-</span> standard_assess<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span>
+  <span class="c1">#2006 and 2007: NJASK 3rd-7th, GEPA 8th, HSPA 11th</span>
+  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">2006</span><span class="p">,</span> <span class="m">2007</span><span class="p">))</span> <span class="p">{</span>
+    <span class="kr">if</span> <span class="p">(</span>grade <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="o">:</span><span class="m">7</span><span class="p">))</span> <span class="p">{</span>
+      assess_data <span class="o">&lt;-</span> standard_assess<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span>  
+    <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade <span class="o">==</span> <span class="m">8</span><span class="p">)</span> <span class="p">{</span>
+      assess_data <span class="o">&lt;-</span> fetch_gepa<span class="p">(</span>year<span class="p">)</span>
+    <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade <span class="o">==</span> <span class="m">11</span><span class="p">)</span> <span class="p">{</span>
+      assess_data <span class="o">&lt;-</span> fetch_hspa<span class="p">(</span>year<span class="p">)</span>
+    <span class="p">}</span>
+  <span class="c1">#2004 and 2005:  NJASK 3rd &amp; 4th, GEPA 8th, HSPA 11th</span>
+  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">2004</span><span class="p">,</span> <span class="m">2005</span><span class="p">))</span> <span class="p">{</span>
+    <span class="kr">if</span> <span class="p">(</span>grade <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="o">:</span><span class="m">4</span><span class="p">))</span> <span class="p">{</span>
+      assess_data <span class="o">&lt;-</span> standard_assess<span class="p">(</span>year<span class="p">,</span> grade<span class="p">)</span>  
+    <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade <span class="o">==</span> <span class="m">8</span><span class="p">)</span> <span class="p">{</span>
+      assess_data <span class="o">&lt;-</span> fetch_gepa<span class="p">(</span>year<span class="p">)</span>
+    <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade <span class="o">==</span> <span class="m">11</span><span class="p">)</span> <span class="p">{</span>
+      assess_data <span class="o">&lt;-</span> fetch_hspa<span class="p">(</span>year<span class="p">)</span>
+    <span class="p">}</span>
+
+  <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+    <span class="c1">#if we ever reached this block, there&#39;s a problem with our `valid_call()` function</span>
+    <span class="kp">stop</span><span class="p">(</span><span class="s">&quot;unable to match your grade/year parameters to the appropriate function.&quot;</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="kr">return</span><span class="p">(</span>assess_data<span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>try it out:</p>
+<div class="highlight"><pre>fetch_nj_assess<span class="p">(</span><span class="m">2014</span><span class="p">,</span> <span class="m">6</span><span class="p">)</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Loading required package: ensurer
+</pre></div>
+
+
+<div class="highlight"><pre>## [1] &quot;http://www.state.nj.us/education/schools/achievement/14/njask6/state_summary.txt&quot;
+</pre></div>
+
+
+<div class="highlight"><pre>##    CDS_Code County_Code/DFG/Aggregation_Code District_Code School_Code
+## 1        ST                               ST            NA          NA
+## 2        SN                               SN            NA          NA
+## 3         A                                A            NA          NA
+## 4    250100                               25           100          NA
+## 5 250100040                               25           100          40
+## 6 010110050                               01           110          50
+##   County_Name District_Name        School_Name DFG Special_Needs
+## 1                                                               
+## 2                                                               
+## 3                                                               
+## 4    MONMOUTH   ASBURY PARK                      A             Y
+## 5    MONMOUTH   ASBURY PARK BRADLEY ELEMENTARY   A             Y
+## 6    ATLANTIC ATLANTIC CITY    CHELSEA HEIGHTS   A              
+##   TOTAL_POPULATION_Number_Enrolled_ELA
+## 1                               102513
+## 2                                19683
+## 3                                16949
+## 4                                  121
+## 5                                   NA
+## 6                                   27
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                               212
+## 2                                                52
+## 3                                                41
+## 4                                                 0
+## 5                                                NA
+## 6                                                 0
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
+## 1                                            494
+## 2                                            139
+## 3                                            114
+## 4                                              4
+## 5                                             NA
+## 6                                              1
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_APA
+## 1                                      1016
+## 2                                       248
+## 3                                       215
+## 4                                         0
+## 5                                        NA
+## 6                                         0
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                      100791
+## 2                                                       19244
+## 3                                                       16579
+## 4                                                         117
+## 5                                                          NA
+## 6                                                          26
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                           33.0
+## 2                                                           60.3
+## 3                                                           61.4
+## 4                                                           87.2
+## 5                                                             NA
+## 6                                                            7.7
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                 58.1
+## 2                                                 38.2
+## 3                                                 37.3
+## 4                                                 12.8
+## 5                                                   NA
+## 6                                                 92.3
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                           8.8
+## 2                                                           1.5
+## 3                                                           1.3
+## 4                                                           0.0
+## 5                                                            NA
+## 6                                                           0.0
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                           211.2
+## 2                                           193.2
+## 3                                           192.3
+## 4                                           175.4
+## 5                                              NA
+## 6                                           215.8
+</pre></div>
+
+
+<h1>all together</h1>
+<p>Finally, as a convenience, let's write a function that brings down all of the NJASK data for all years and grades.</p>
+<div class="highlight"><pre>fetch_all_nj <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="c1">#make the df of years and grades to iterate over  </span>
+  post2006_years <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">2006</span><span class="o">:</span><span class="m">2013</span><span class="p">)</span>
+  post2006_grades <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="o">:</span><span class="m">8</span><span class="p">,</span> <span class="m">11</span><span class="p">)</span>
+
+  pre2006_years <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">2004</span><span class="p">,</span> <span class="m">2005</span><span class="p">)</span>
+  pre2006_grades <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">11</span><span class="p">)</span>
+
+  <span class="c1">#subset just for testing</span>
+  <span class="c1">#post2006_years &lt;- c(2006)</span>
+  <span class="c1">#post2006_grades &lt;- c(8, 11)</span>
+  <span class="c1">#pre2006_grades &lt;- c(4)</span>
+
+  df <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>
+    year <span class="o">=</span> <span class="kt">vector</span><span class="p">(</span>mode<span class="o">=</span><span class="s">&quot;numeric&quot;</span><span class="p">,</span> length<span class="o">=</span><span class="m">0</span><span class="p">),</span>
+    grade <span class="o">=</span> <span class="kt">vector</span><span class="p">(</span>mode<span class="o">=</span><span class="s">&quot;numeric&quot;</span><span class="p">,</span> length<span class="o">=</span><span class="m">0</span><span class="p">)</span>
+  <span class="p">)</span>
+
+  <span class="kr">for</span> <span class="p">(</span>i <span class="kr">in</span> post2006_years<span class="p">)</span> <span class="p">{</span>
+    <span class="c1">#use R recycling to make df</span>
+    int_df <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>
+      year <span class="o">=</span> i<span class="p">,</span>
+      grade <span class="o">=</span> post2006_grades
+    <span class="p">)</span>
+
+    df <span class="o">&lt;-</span> <span class="kp">rbind</span><span class="p">(</span>df<span class="p">,</span> int_df<span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="kr">for</span> <span class="p">(</span>j <span class="kr">in</span> pre2006_years<span class="p">)</span> <span class="p">{</span>
+    <span class="c1">#use R recycling to make df</span>
+    int_df <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span>
+      year <span class="o">=</span> j<span class="p">,</span>
+      grade <span class="o">=</span> pre2006_grades
+    <span class="p">)</span>
+
+    df <span class="o">&lt;-</span> <span class="kp">rbind</span><span class="p">(</span>df<span class="p">,</span> int_df<span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="c1">#sort the df</span>
+  df <span class="o">&lt;-</span> df <span class="o">%&gt;%</span> dplyr<span class="o">::</span>arrange<span class="p">(</span>
+    desc<span class="p">(</span>year<span class="p">),</span> grade
+  <span class="p">)</span>
+
+  <span class="c1">#to hold the results</span>
+  results <span class="o">&lt;-</span> <span class="kt">list</span><span class="p">()</span>
+
+  <span class="c1">#iterate over the df and get the data</span>
+  <span class="kr">for</span> <span class="p">(</span>i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span><span class="kp">nrow</span><span class="p">(</span>df<span class="p">))</span> <span class="p">{</span>
+    this_row <span class="o">&lt;-</span> df<span class="p">[</span>i<span class="p">,</span> <span class="p">]</span>
+    <span class="c1">#be verbose</span>
+    row_key <span class="o">&lt;-</span> <span class="kp">paste0</span><span class="p">(</span><span class="s">&#39;nj&#39;</span><span class="p">,</span> this_row<span class="o">$</span>year<span class="p">,</span> <span class="s">&#39;gr&#39;</span><span class="p">,</span> this_row<span class="o">$</span>grade<span class="p">)</span>
+    <span class="kp">print</span><span class="p">(</span>row_key<span class="p">)</span>
+
+    <span class="c1">#call this grade/year and attach to results list</span>
+    results<span class="p">[[</span>row_key<span class="p">]]</span> <span class="o">&lt;-</span>  fetch_nj_assess<span class="p">(</span>this_row<span class="o">$</span>year<span class="p">,</span> this_row<span class="o">$</span>grade<span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="kr">return</span><span class="p">(</span>results<span class="p">)</span>  
+<span class="p">}</span>
+</pre></div>
+
+
+<p>test it:</p>
+<div class="highlight"><pre>all_nj <span class="o">&lt;-</span> fetch_all_nj<span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## [1] &quot;nj2013gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/13/njask3/state_summary.txt&quot;
+## [1] &quot;nj2013gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/13/njask4/state_summary.txt&quot;
+## [1] &quot;nj2013gr5&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/13/njask5/state_summary.txt&quot;
+## [1] &quot;nj2013gr6&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/13/njask6/state_summary.txt&quot;
+## [1] &quot;nj2013gr7&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/13/njask7/state_summary.txt&quot;
+## [1] &quot;nj2013gr8&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/13/njask8/state_summary.txt&quot;
+## [1] &quot;nj2013gr11&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/13/hspa/state_summary.txt&quot;
+## [1] &quot;nj2012gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2013/njask3/state_summary.txt&quot;
+## [1] &quot;nj2012gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2013/njask4/state_summary.txt&quot;
+## [1] &quot;nj2012gr5&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2013/njask5/state_summary.txt&quot;
+## [1] &quot;nj2012gr6&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2013/njask6/state_summary.txt&quot;
+## [1] &quot;nj2012gr7&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2013/njask7/state_summary.txt&quot;
+## [1] &quot;nj2012gr8&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2013/njask8/state_summary.txt&quot;
+## [1] &quot;nj2012gr11&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2013/hspa/state_summary.txt&quot;
+## [1] &quot;nj2011gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2012/njask3/state_summary.txt&quot;
+## [1] &quot;nj2011gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2012/njask4/state_summary.txt&quot;
+## [1] &quot;nj2011gr5&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2012/njask5/state_summary.txt&quot;
+## [1] &quot;nj2011gr6&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2012/njask6/state_summary.txt&quot;
+## [1] &quot;nj2011gr7&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2012/njask7/state_summary.txt&quot;
+## [1] &quot;nj2011gr8&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2012/njask8/state_summary.txt&quot;
+## [1] &quot;nj2011gr11&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2012/hspa/state_summary.txt&quot;
+## [1] &quot;nj2010gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/njask3/state_summary.txt&quot;
+## [1] &quot;nj2010gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/njask4/state_summary.txt&quot;
+## [1] &quot;nj2010gr5&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/njask5/state_summary.txt&quot;
+## [1] &quot;nj2010gr6&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/njask6/state_summary.txt&quot;
+## [1] &quot;nj2010gr7&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/njask7/state_summary.txt&quot;
+## [1] &quot;nj2010gr8&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/njask8/state_summary.txt&quot;
+## [1] &quot;nj2010gr11&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/hspa/state_summary.txt&quot;
+## [1] &quot;nj2009gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2010/njask3/state_summary.txt&quot;
+## [1] &quot;nj2009gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2010/njask4/state_summary.txt&quot;
+## [1] &quot;nj2009gr5&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2010/njask5/state_summary.txt&quot;
+## [1] &quot;nj2009gr6&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2010/njask6/state_summary.txt&quot;
+## [1] &quot;nj2009gr7&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2010/njask7/state_summary.txt&quot;
+## [1] &quot;nj2009gr8&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2010/njask8/state_summary.txt&quot;
+## [1] &quot;nj2009gr11&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2010/hspa/state_summary.txt&quot;
+## [1] &quot;nj2008gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2009/njask3/state_summary.txt&quot;
+## [1] &quot;nj2008gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2009/njask4/state_summary.txt&quot;
+## [1] &quot;nj2008gr5&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2009/njask58/g5/state_summary.txt&quot;
+## [1] &quot;nj2008gr6&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2009/njask58/g6/state_summary.txt&quot;
+## [1] &quot;nj2008gr7&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2009/njask58/g7/state_summary.txt&quot;
+## [1] &quot;nj2008gr8&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2009/njask58/g8/state_summary.txt&quot;
+## [1] &quot;nj2008gr11&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2009/hspa/state_summary.txt&quot;
+## [1] &quot;nj2007gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2008/njask3/state_summary.txt&quot;
+## [1] &quot;nj2007gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2008/njask4/state_summary.txt&quot;
+## [1] &quot;nj2007gr5&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2008/njask5/state_summary.txt&quot;
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in open.connection(con, &quot;rb&quot;): HTTP error 404.
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">length</span><span class="p">(</span>all_nj<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in eval(expr, envir, enclos): object &#39;all_nj&#39; not found
+</pre></div></div>
+	<hr>
+
+	
+</div>
+		</div>
+	</div>
+</div>
+
+<!-- FOOTER -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-11 text-center center-block aw-bottom">
+			<p>almart.in is built with <a href="http://docs.getpelican.com/en/3.5.0/#">pelican</a></p>
+		</div>
+	</div>
+</div>
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$("div.collapseheader").click(function () {
+		$header = $(this).children("span").first();
+		$codearea = $(this).children(".input_area");
+		$codearea.slideToggle(500, function () {
+			$header.text(function () {
+				return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+			});
+		});
+	});
+});
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61809650-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+ 
+</body>
+</html>
