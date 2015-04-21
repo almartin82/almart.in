@@ -34,6 +34,8 @@ load(file = 'datasets/njask_layout.rda')
 load(file = 'datasets/njask05_layout.rda')
 load(file = 'datasets/njask04_layout.rda')
 load(file = 'datasets/njask07gr3_layout.rda')
+load(file = 'datasets/njask06gr3_layout.rda')
+load(file = 'datasets/njask06gr5_layout.rda')
 
 head(layout_njask)
 
@@ -78,7 +80,7 @@ get_raw_njask <- function(year, grade, layout=layout_njask) {
   #2008 follows a totally unique pattern
   grade_str <- if (year==2008 & grade >=5) {
     paste0('58/g', grade)
-  } else if (year==2007 & grade %in% c(5, 6, 7)) {
+  } else if (year %in% c(2006, 2007) & grade %in% c(5, 6, 7)) {
     '57'
   } else {
     grade
@@ -93,8 +95,12 @@ get_raw_njask <- function(year, grade, layout=layout_njask) {
       } else {
         "state_summary.txt"
       }, 
-    "2006"="state_summary.txt",
-    "2005"= if(grade==3) {
+      "2006"=if(grade >= 5) {
+        paste0('G', grade, 'state_summary.txt')
+      } else {
+        "state_summary.txt"
+      }, 
+      "2005"= if(grade==3) {
         "njask005_state_summary3.txt"
       } else if (grade==4) {
         "njask2005_state_summary4.txt"
@@ -109,6 +115,8 @@ get_raw_njask <- function(year, grade, layout=layout_njask) {
     "/njask", grade_str, "/", parsed_filename
   )
     
+  print(target_url)
+  
   #read_fwf
   df <- readr::read_fwf(
     file = target_url,
@@ -192,9 +200,19 @@ fetch_njask <- function(year, grade) {
   else if (year == 2005) {
     df <- get_raw_njask(year, grade, layout=layout_njask05)  %>% 
       process_njask(mask=layout_njask05$comments) 
-  } else if (year %in% c(2006, 2007, 2008) & grade %in% c(3, 4)) {
+  } else if (year %in% c(2007, 2008) & grade %in% c(3, 4)) {
     df <- get_raw_njask(year, grade, layout=layout_njask07gr3)  %>% 
       process_njask(mask=layout_njask07gr3$comments) 
+  }
+  else if (year == 2006 & grade %in% c(3, 4)) {
+    df <- get_raw_njask(year, grade, layout=layout_njask06gr3)  %>% 
+      process_njask(mask=layout_njask06gr3$comments)
+  } else if (year == 2006 & grade >= 5) {
+    #fetch
+    df <- get_raw_njask(year, grade, layout=layout_njask06gr5)  
+    #inexplicably 2006 data has no Grade column
+    df$Grade <- grade
+    df <- df %>% process_njask(mask=layout_njask06gr5$comments)    
   }
   else {
     df <- get_raw_njask(year, grade) %>% process_njask()    

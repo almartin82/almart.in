@@ -114,18 +114,20 @@
 </pre></div>
 
 
-<div class="highlight"><pre>## processing file: 05_njask-data-2.rmd
-## output file: 05_njask-data-2.R
-</pre></div>
-
-
 <div class="highlight"><pre>## [1] &quot;05_njask-data-2.R&quot;
 </pre></div>
 
 
 <div class="highlight"><pre><span class="kn">source</span><span class="p">(</span><span class="s">&#39;05_njask-data-2.R&#39;</span><span class="p">)</span>
+</pre></div>
 
-knitr<span class="o">::</span>knit<span class="p">(</span><span class="s">&#39;06_njask-data-3.rmd&#39;</span><span class="p">,</span> tangle<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+
+<div class="highlight"><pre>## [1] &quot;http://www.state.nj.us/education/schools/achievement/14/njask6/state_summary.txt&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/14/njask6/state_summary.txt&quot;
+</pre></div>
+
+
+<div class="highlight"><pre>knitr<span class="o">::</span>knit<span class="p">(</span><span class="s">&#39;06_njask-data-3.rmd&#39;</span><span class="p">,</span> tangle<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 
 
@@ -217,6 +219,10 @@ knitr<span class="o">::</span>knit<span class="p">(</span><span class="s">&#39;0
 
 
 <div class="highlight"><pre>## Loading required package: ensurer
+</pre></div>
+
+
+<div class="highlight"><pre>## [1] &quot;http://www.state.nj.us/education/schools/achievement/14/njask6/state_summary.txt&quot;
 </pre></div>
 
 
@@ -312,7 +318,7 @@ knitr<span class="o">::</span>knit<span class="p">(</span><span class="s">&#39;0
   pre2006_grades <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">11</span><span class="p">)</span>
 
   <span class="c1">#subset just for testing</span>
-  <span class="c1">#post2006_years &lt;- c(2007)</span>
+  <span class="c1">#post2006_years &lt;- c(2006)</span>
   <span class="c1">#post2006_grades &lt;- c(8, 11)</span>
   <span class="c1">#pre2006_grades &lt;- c(4)</span>
 
@@ -366,66 +372,124 @@ knitr<span class="o">::</span>knit<span class="p">(</span><span class="s">&#39;0
 
 
 <p>test it:</p>
-<div class="highlight"><pre>foo <span class="o">&lt;-</span> fetch_nj_assess<span class="p">(</span><span class="m">2007</span><span class="p">,</span> <span class="m">5</span><span class="p">)</span>
-
-all_nj <span class="o">&lt;-</span> fetch_all_nj<span class="p">()</span>
+<div class="highlight"><pre>all_nj <span class="o">&lt;-</span> fetch_all_nj<span class="p">()</span>
 </pre></div>
 
 
 <div class="highlight"><pre>## [1] &quot;nj2013gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/13/njask3/state_summary.txt&quot;
 ## [1] &quot;nj2013gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/13/njask4/state_summary.txt&quot;
 ## [1] &quot;nj2013gr5&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/13/njask5/state_summary.txt&quot;
 ## [1] &quot;nj2013gr6&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/13/njask6/state_summary.txt&quot;
 ## [1] &quot;nj2013gr7&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/13/njask7/state_summary.txt&quot;
 ## [1] &quot;nj2013gr8&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/13/njask8/state_summary.txt&quot;
 ## [1] &quot;nj2013gr11&quot;
 ## [1] &quot;nj2012gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2013/njask3/state_summary.txt&quot;
 ## [1] &quot;nj2012gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2013/njask4/state_summary.txt&quot;
 ## [1] &quot;nj2012gr5&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2013/njask5/state_summary.txt&quot;
 ## [1] &quot;nj2012gr6&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2013/njask6/state_summary.txt&quot;
 ## [1] &quot;nj2012gr7&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2013/njask7/state_summary.txt&quot;
 ## [1] &quot;nj2012gr8&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2013/njask8/state_summary.txt&quot;
 ## [1] &quot;nj2012gr11&quot;
 ## [1] &quot;nj2011gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2012/njask3/state_summary.txt&quot;
 ## [1] &quot;nj2011gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2012/njask4/state_summary.txt&quot;
 ## [1] &quot;nj2011gr5&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2012/njask5/state_summary.txt&quot;
 ## [1] &quot;nj2011gr6&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2012/njask6/state_summary.txt&quot;
 ## [1] &quot;nj2011gr7&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2012/njask7/state_summary.txt&quot;
 ## [1] &quot;nj2011gr8&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2012/njask8/state_summary.txt&quot;
 ## [1] &quot;nj2011gr11&quot;
 ## [1] &quot;nj2010gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/njask3/state_summary.txt&quot;
 ## [1] &quot;nj2010gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/njask4/state_summary.txt&quot;
 ## [1] &quot;nj2010gr5&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/njask5/state_summary.txt&quot;
 ## [1] &quot;nj2010gr6&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/njask6/state_summary.txt&quot;
 ## [1] &quot;nj2010gr7&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/njask7/state_summary.txt&quot;
 ## [1] &quot;nj2010gr8&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/njask8/state_summary.txt&quot;
 ## [1] &quot;nj2010gr11&quot;
 ## [1] &quot;nj2009gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2010/njask3/state_summary.txt&quot;
 ## [1] &quot;nj2009gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2010/njask4/state_summary.txt&quot;
 ## [1] &quot;nj2009gr5&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2010/njask5/state_summary.txt&quot;
 ## [1] &quot;nj2009gr6&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2010/njask6/state_summary.txt&quot;
 ## [1] &quot;nj2009gr7&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2010/njask7/state_summary.txt&quot;
 ## [1] &quot;nj2009gr8&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2010/njask8/state_summary.txt&quot;
 ## [1] &quot;nj2009gr11&quot;
 ## [1] &quot;nj2008gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2009/njask3/state_summary.txt&quot;
 ## [1] &quot;nj2008gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2009/njask4/state_summary.txt&quot;
 ## [1] &quot;nj2008gr5&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2009/njask58/g5/state_summary.txt&quot;
 ## [1] &quot;nj2008gr6&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2009/njask58/g6/state_summary.txt&quot;
 ## [1] &quot;nj2008gr7&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2009/njask58/g7/state_summary.txt&quot;
 ## [1] &quot;nj2008gr8&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2009/njask58/g8/state_summary.txt&quot;
 ## [1] &quot;nj2008gr11&quot;
 ## [1] &quot;nj2007gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2008/njask3/state_summary.txt&quot;
 ## [1] &quot;nj2007gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2008/njask4/state_summary.txt&quot;
 ## [1] &quot;nj2007gr5&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2008/njask57/G5state_summary.txt&quot;
 ## [1] &quot;nj2007gr6&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2008/njask57/G6state_summary.txt&quot;
 ## [1] &quot;nj2007gr7&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2008/njask57/G7state_summary.txt&quot;
 ## [1] &quot;nj2007gr8&quot;
 ## [1] &quot;nj2007gr11&quot;
 ## [1] &quot;nj2006gr3&quot;
-</pre></div>
-
-
-<div class="highlight"><pre>## Error in c(&quot;CITY&quot;, &quot;CIT&quot;, &quot;CIT&quot;, &quot;CIT&quot;, &quot;CIT&quot;, &quot;NE C&quot;, &quot;GION&quot;, &quot;GION&quot;, : non-numeric argument to binary operator
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2007/njask3/state_summary.txt&quot;
+## [1] &quot;nj2006gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2007/njask4/state_summary.txt&quot;
+## [1] &quot;nj2006gr5&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2007/njask57/G5state_summary.txt&quot;
+## [1] &quot;nj2006gr6&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2007/njask57/G6state_summary.txt&quot;
+## [1] &quot;nj2006gr7&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2007/njask57/G7state_summary.txt&quot;
+## [1] &quot;nj2006gr8&quot;
+## [1] &quot;nj2006gr11&quot;
+## [1] &quot;nj2005gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2006/njask3/njask005_state_summary3.txt&quot;
+## [1] &quot;nj2005gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2006/njask4/njask2005_state_summary4.txt&quot;
+## [1] &quot;nj2005gr8&quot;
+## [1] &quot;nj2005gr11&quot;
+## [1] &quot;nj2004gr3&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2005/njask3/njask304state_summary.txt&quot;
+## [1] &quot;nj2004gr4&quot;
+## [1] &quot;http://www.state.nj.us/education/schools/achievement/2005/njask4/njask404state_summary.txt&quot;
+## [1] &quot;nj2004gr8&quot;
+## [1] &quot;nj2004gr11&quot;
 </pre></div>
 
 
@@ -433,7 +497,7 @@ all_nj <span class="o">&lt;-</span> fetch_all_nj<span class="p">()</span>
 </pre></div>
 
 
-<div class="highlight"><pre>## Error in eval(expr, envir, enclos): object &#39;all_nj&#39; not found
+<div class="highlight"><pre>## [1] 64
 </pre></div></div>
 	<hr>
 

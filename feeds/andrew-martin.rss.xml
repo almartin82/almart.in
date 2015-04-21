@@ -19,18 +19,20 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## processing file: 05_njask-data-2.rmd
-## output file: 05_njask-data-2.R
-&lt;/pre&gt;&lt;/div&gt;
-
-
 &lt;div class="highlight"&gt;&lt;pre&gt;## [1] &amp;quot;05_njask-data-2.R&amp;quot;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;source&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;05_njask-data-2.R&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
-knitr&lt;span class="o"&gt;::&lt;/span&gt;knit&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;06_njask-data-3.rmd&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; tangle&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/14/njask6/state_summary.txt&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/14/njask6/state_summary.txt&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;knitr&lt;span class="o"&gt;::&lt;/span&gt;knit&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;06_njask-data-3.rmd&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; tangle&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -122,6 +124,10 @@ knitr&lt;span class="o"&gt;::&lt;/span&gt;knit&lt;span class="p"&gt;(&lt;/span&g
 
 
 &lt;div class="highlight"&gt;&lt;pre&gt;## Loading required package: ensurer
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/14/njask6/state_summary.txt&amp;quot;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -217,7 +223,7 @@ knitr&lt;span class="o"&gt;::&lt;/span&gt;knit&lt;span class="p"&gt;(&lt;/span&g
   pre2006_grades &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;11&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
   &lt;span class="c1"&gt;#subset just for testing&lt;/span&gt;
-  &lt;span class="c1"&gt;#post2006_years &amp;lt;- c(2007)&lt;/span&gt;
+  &lt;span class="c1"&gt;#post2006_years &amp;lt;- c(2006)&lt;/span&gt;
   &lt;span class="c1"&gt;#post2006_grades &amp;lt;- c(8, 11)&lt;/span&gt;
   &lt;span class="c1"&gt;#pre2006_grades &amp;lt;- c(4)&lt;/span&gt;
 
@@ -271,66 +277,124 @@ knitr&lt;span class="o"&gt;::&lt;/span&gt;knit&lt;span class="p"&gt;(&lt;/span&g
 
 
 &lt;p&gt;test it:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;foo &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; fetch_nj_assess&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2007&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-all_nj &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; fetch_all_nj&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;all_nj &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; fetch_all_nj&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;div class="highlight"&gt;&lt;pre&gt;## [1] &amp;quot;nj2013gr3&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/13/njask3/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2013gr4&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/13/njask4/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2013gr5&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/13/njask5/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2013gr6&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/13/njask6/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2013gr7&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/13/njask7/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2013gr8&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/13/njask8/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2013gr11&amp;quot;
 ## [1] &amp;quot;nj2012gr3&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2013/njask3/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2012gr4&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2013/njask4/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2012gr5&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2013/njask5/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2012gr6&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2013/njask6/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2012gr7&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2013/njask7/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2012gr8&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2013/njask8/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2012gr11&amp;quot;
 ## [1] &amp;quot;nj2011gr3&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2012/njask3/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2011gr4&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2012/njask4/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2011gr5&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2012/njask5/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2011gr6&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2012/njask6/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2011gr7&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2012/njask7/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2011gr8&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2012/njask8/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2011gr11&amp;quot;
 ## [1] &amp;quot;nj2010gr3&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2011/njask3/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2010gr4&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2011/njask4/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2010gr5&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2011/njask5/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2010gr6&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2011/njask6/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2010gr7&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2011/njask7/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2010gr8&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2011/njask8/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2010gr11&amp;quot;
 ## [1] &amp;quot;nj2009gr3&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2010/njask3/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2009gr4&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2010/njask4/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2009gr5&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2010/njask5/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2009gr6&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2010/njask6/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2009gr7&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2010/njask7/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2009gr8&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2010/njask8/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2009gr11&amp;quot;
 ## [1] &amp;quot;nj2008gr3&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2009/njask3/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2008gr4&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2009/njask4/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2008gr5&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2009/njask58/g5/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2008gr6&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2009/njask58/g6/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2008gr7&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2009/njask58/g7/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2008gr8&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2009/njask58/g8/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2008gr11&amp;quot;
 ## [1] &amp;quot;nj2007gr3&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2008/njask3/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2007gr4&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2008/njask4/state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2007gr5&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2008/njask57/G5state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2007gr6&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2008/njask57/G6state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2007gr7&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2008/njask57/G7state_summary.txt&amp;quot;
 ## [1] &amp;quot;nj2007gr8&amp;quot;
 ## [1] &amp;quot;nj2007gr11&amp;quot;
 ## [1] &amp;quot;nj2006gr3&amp;quot;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in c(&amp;quot;CITY&amp;quot;, &amp;quot;CIT&amp;quot;, &amp;quot;CIT&amp;quot;, &amp;quot;CIT&amp;quot;, &amp;quot;CIT&amp;quot;, &amp;quot;NE C&amp;quot;, &amp;quot;GION&amp;quot;, &amp;quot;GION&amp;quot;, : non-numeric argument to binary operator
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2007/njask3/state_summary.txt&amp;quot;
+## [1] &amp;quot;nj2006gr4&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2007/njask4/state_summary.txt&amp;quot;
+## [1] &amp;quot;nj2006gr5&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2007/njask57/G5state_summary.txt&amp;quot;
+## [1] &amp;quot;nj2006gr6&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2007/njask57/G6state_summary.txt&amp;quot;
+## [1] &amp;quot;nj2006gr7&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2007/njask57/G7state_summary.txt&amp;quot;
+## [1] &amp;quot;nj2006gr8&amp;quot;
+## [1] &amp;quot;nj2006gr11&amp;quot;
+## [1] &amp;quot;nj2005gr3&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2006/njask3/njask005_state_summary3.txt&amp;quot;
+## [1] &amp;quot;nj2005gr4&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2006/njask4/njask2005_state_summary4.txt&amp;quot;
+## [1] &amp;quot;nj2005gr8&amp;quot;
+## [1] &amp;quot;nj2005gr11&amp;quot;
+## [1] &amp;quot;nj2004gr3&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2005/njask3/njask304state_summary.txt&amp;quot;
+## [1] &amp;quot;nj2004gr4&amp;quot;
+## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/2005/njask4/njask404state_summary.txt&amp;quot;
+## [1] &amp;quot;nj2004gr8&amp;quot;
+## [1] &amp;quot;nj2004gr11&amp;quot;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -338,7 +402,7 @@ all_nj &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; fetch_all_nj&lt;span class="
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Error in eval(expr, envir, enclos): object &amp;#39;all_nj&amp;#39; not found
+&lt;div class="highlight"&gt;&lt;pre&gt;## [1] 64
 &lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew Martin</dc:creator><pubDate>Tue, 21 Apr 2015 00:00:00 -0400</pubDate><guid>tag:almart.in,2015-04-21:reading-nj-assess-data-4.html</guid><category>NJ</category><category>assessment</category><category>NJASK</category><category>HSPA</category><category>data_management</category><category>tutorial</category></item><item><title>Getting NJ assessment data into R: part 3 in a series.</title><link>http://almart.in/reading-nj-assess-data-3.html</link><description>&lt;p&gt;In my &lt;a href="http://almart.in/reading-nj-assess-data-3.html"&gt;last post&lt;/a&gt;, I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA), and to the old Grade Eight Proficiency Assessment (GEPA).  With functions that can access each of those data sources, we'll be ready to write a general wrapper that simplifies access to relevant state assessment data.&lt;/p&gt;
 &lt;h1&gt;HSPA&lt;/h1&gt;
 &lt;p&gt;Much like the NJASK data in posts &lt;a href="http://almart.in/reading-nj-assess-data-1.html"&gt;1&lt;/a&gt; and &lt;a href="http://almart.in/reading-nj-assess-data-2.html"&gt;2&lt;/a&gt;, we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some post-processing.  I also &lt;a href="http://almart.in/pages/hspa-layout.html"&gt;wrote up&lt;/a&gt; how to process the HSPA metadata, if data processing is your thing.&lt;/p&gt;
@@ -1073,6 +1137,8 @@ fetch_gepa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2007&lt;/spa
 &lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/njask05_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/njask04_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/njask07gr3_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/njask06gr3_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kp"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;file &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;datasets/njask06gr5_layout.rda&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout_njask&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -1147,7 +1213,7 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
   &lt;span class="c1"&gt;#2008 follows a totally unique pattern&lt;/span&gt;
   grade_str &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="m"&gt;2008&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; grade &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kp"&gt;paste0&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;58/g&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; grade&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="m"&gt;2007&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; grade &lt;span class="o"&gt;%in%&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;7&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;year &lt;span class="o"&gt;%in%&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2006&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;2007&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; grade &lt;span class="o"&gt;%in%&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;7&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="s"&gt;&amp;#39;57&amp;#39;&lt;/span&gt;
   &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     grade
@@ -1162,8 +1228,12 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
       &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="s"&gt;&amp;quot;state_summary.txt&amp;quot;&lt;/span&gt;
       &lt;span class="p"&gt;},&lt;/span&gt; 
-    &lt;span class="s"&gt;&amp;quot;2006&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;state_summary.txt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;2005&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;grade&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="s"&gt;&amp;quot;2006&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kr"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;grade &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="kp"&gt;paste0&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;G&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; grade&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;state_summary.txt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+      &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;quot;state_summary.txt&amp;quot;&lt;/span&gt;
+      &lt;span class="p"&gt;},&lt;/span&gt; 
+      &lt;span class="s"&gt;&amp;quot;2005&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;grade&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="s"&gt;&amp;quot;njask005_state_summary3.txt&amp;quot;&lt;/span&gt;
       &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;grade&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="s"&gt;&amp;quot;njask2005_state_summary4.txt&amp;quot;&lt;/span&gt;
@@ -1177,6 +1247,8 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
     &lt;span class="s"&gt;&amp;quot;http://www.state.nj.us/education/schools/achievement/&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; parsed_year&lt;span class="p"&gt;,&lt;/span&gt; 
     &lt;span class="s"&gt;&amp;quot;/njask&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; grade_str&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; parsed_filename
   &lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="kp"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;target_url&lt;span class="p"&gt;)&lt;/span&gt;
 
   &lt;span class="c1"&gt;#read_fwf&lt;/span&gt;
   df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;read_fwf&lt;span class="p"&gt;(&lt;/span&gt;
@@ -1211,120 +1283,113 @@ ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;div class="highlight"&gt;&lt;pre&gt;## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/14/njask6/state_summary.txt&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;div class="highlight"&gt;&lt;pre&gt;dplyr&lt;span class="o"&gt;::&lt;/span&gt;sample_n&lt;span class="p"&gt;(&lt;/span&gt;ex&lt;span class="p"&gt;[,&lt;/span&gt; &lt;span class="kp"&gt;sample&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;551&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)],&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    BLACK_MATHEMATICS_Number_of_Voids
-## 1                                 NA
-## 2                                 NA
-## 3                                  0
-## 4                                 NA
-## 5                                  0
-## 6                                  0
-## 7                                 NA
-## 8                                 NA
-## 9                                 NA
-## 10                                NA
-##    NON-ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_Not_Present
-## 1                                                              0
-## 2                                                              0
-## 3                                                              0
-## 4                                                              0
-## 5                                                              0
-## 6                                                             NA
-## 7                                                              1
-## 8                                                              0
-## 9                                                              0
-## 10                                                             0
-##    OTHER_MATHEMATICS_Number_Not_Present
-## 1                                    NA
-## 2                                    NA
-## 3                                    NA
-## 4                                    NA
-## 5                                    NA
-## 6                                    NA
-## 7                                    NA
-## 8                                    NA
-## 9                                    NA
-## 10                                   NA
-##    NON-MIGRANT_MATHEMATICS_Partially_Proficient_Percentage
-## 1                                                      315
-## 2                                                       57
-## 3                                                      405
-## 4                                                      253
-## 5                                                      348
-## 6                                                      380
-## 7                                                      256
-## 8                                                       82
-## 9                                                      213
-## 10                                                     138
-##    NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Scale_Score_Mean
-## 1                                                       NA
-## 2                                                       NA
-## 3                                                       NA
-## 4                                                       NA
-## 5                                                       NA
-## 6                                                       NA
-## 7                                                       NA
-## 8                                                       NA
-## 9                                                       NA
-## 10                                                      NA
-##    FEMALE_MATHEMATICS_Proficient_Percentage
-## 1                                       371
-## 2                                       600
-## 3                                       576
-## 4                                       531
-## 5                                       500
-## 6                                       615
-## 7                                       278
-## 8                                       214
-## 9                                       545
-## 10                                      444
-##    HISPANIC_SCIENCE_Number_Enrolled_Science
-## 1                                        NA
-## 2                                        NA
-## 3                                        NA
-## 4                                        NA
-## 5                                        NA
-## 6                                        NA
-## 7                                        NA
-## 8                                        NA
-## 9                                        NA
-## 10                                       NA
-##    NON-ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                                           2127
-## 2                                                           2239
-## 3                                                           2010
-## 4                                                           2227
-## 5                                                           2031
-## 6                                                             NA
-## 7                                                           2161
-## 8                                                           2267
-## 9                                                           2185
-## 10                                                          2234
-##    LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_of_Valid_Scale_Scores
-## 1                                                                                      NA
-## 2                                                                                      NA
-## 3                                                                                      NA
-## 4                                                                                      11
-## 5                                                                                      20
-## 6                                                                                      NA
-## 7                                                                                      NA
-## 8                                                                                      NA
-## 9                                                                                      NA
-## 10                                                                                     NA
-##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Number_of_Voids
-## 1                                                             NA
-## 2                                                             NA
-## 3                                                             NA
-## 4                                                             NA
-## 5                                                             NA
-## 6                                                             NA
-## 7                                                             NA
-## 8                                                             NA
-## 9                                                             NA
-## 10                                                            NA
+&lt;div class="highlight"&gt;&lt;pre&gt;##    ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_APA
+## 1                                                  0
+## 2                                                  0
+## 3                                                  2
+## 4                                                  0
+## 5                                                 NA
+## 6                                                  1
+## 7                                                  0
+## 8                                                  0
+## 9                                                  0
+## 10                                                 0
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Scale_Score_Mean
+## 1                                                                          NA
+## 2                                                                          NA
+## 3                                                                          NA
+## 4                                                                          NA
+## 5                                                                        2677
+## 6                                                                          NA
+## 7                                                                          NA
+## 8                                                                          NA
+## 9                                                                          NA
+## 10                                                                         NA
+##    CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                                      NA
+## 2                                                                      NA
+## 3                                                                      NA
+## 4                                                                      NA
+## 5                                                                     636
+## 6                                                                      NA
+## 7                                                                      NA
+## 8                                                                      NA
+## 9                                                                      NA
+## 10                                                                     NA
+##    AMERICAN_INDIAN_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
+## 1                                                          NA
+## 2                                                          NA
+## 3                                                          NA
+## 4                                                          NA
+## 5                                                          NA
+## 6                                                          NA
+## 7                                                          NA
+## 8                                                          NA
+## 9                                                          NA
+## 10                                                         NA
+##    BLACK_SCIENCE_Number_Enrolled_Science BLACK_Number_Enrolled_ELA
+## 1                                     NA                        14
+## 2                                     NA                        33
+## 3                                     NA                        15
+## 4                                     NA                        NA
+## 5                                     NA                        NA
+## 6                                     NA                        NA
+## 7                                     NA                        NA
+## 8                                     NA                        11
+## 9                                     NA                        12
+## 10                                    NA                        NA
+##    WHITE_LANGUAGE_ARTS_Number_APA
+## 1                               0
+## 2                              NA
+## 3                               4
+## 4                               0
+## 5                               0
+## 6                               3
+## 7                               1
+## 8                               0
+## 9                               0
+## 10                              3
+##    CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                                                 NA
+## 2                                                                 NA
+## 3                                                                 NA
+## 4                                                                 NA
+## 5                                                               2221
+## 6                                                                 NA
+## 7                                                                 NA
+## 8                                                                 NA
+## 9                                                                 NA
+## 10                                                                NA
+##    FORMER_LIMITED_ENGLISH_PROFICIENT_SCIENCE_Number_APA
+## 1                                                    NA
+## 2                                                    NA
+## 3                                                    NA
+## 4                                                    NA
+## 5                                                    NA
+## 6                                                    NA
+## 7                                                    NA
+## 8                                                    NA
+## 9                                                    NA
+## 10                                                   NA
+##    MALE_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                       667
+## 2                                       167
+## 3                                       683
+## 4                                       528
+## 5                                       685
+## 6                                       680
+## 7                                       703
+## 8                                       610
+## 9                                       744
+## 10                                      701
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1449,9 +1514,19 @@ ex_process &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; process_njask&lt;span cl
   &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;year &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="m"&gt;2005&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; grade&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="o"&gt;=&lt;/span&gt;layout_njask05&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; 
       process_njask&lt;span class="p"&gt;(&lt;/span&gt;mask&lt;span class="o"&gt;=&lt;/span&gt;layout_njask05&lt;span class="o"&gt;$&lt;/span&gt;comments&lt;span class="p"&gt;)&lt;/span&gt; 
-  &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;year &lt;span class="o"&gt;%in%&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2006&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;2007&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;2008&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; grade &lt;span class="o"&gt;%in%&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;year &lt;span class="o"&gt;%in%&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2007&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;2008&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; grade &lt;span class="o"&gt;%in%&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; grade&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="o"&gt;=&lt;/span&gt;layout_njask07gr3&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; 
       process_njask&lt;span class="p"&gt;(&lt;/span&gt;mask&lt;span class="o"&gt;=&lt;/span&gt;layout_njask07gr3&lt;span class="o"&gt;$&lt;/span&gt;comments&lt;span class="p"&gt;)&lt;/span&gt; 
+  &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;year &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="m"&gt;2006&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; grade &lt;span class="o"&gt;%in%&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; grade&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="o"&gt;=&lt;/span&gt;layout_njask06gr3&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; 
+      process_njask&lt;span class="p"&gt;(&lt;/span&gt;mask&lt;span class="o"&gt;=&lt;/span&gt;layout_njask06gr3&lt;span class="o"&gt;$&lt;/span&gt;comments&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;year &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="m"&gt;2006&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; grade &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;#fetch&lt;/span&gt;
+    df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; grade&lt;span class="p"&gt;,&lt;/span&gt; layout&lt;span class="o"&gt;=&lt;/span&gt;layout_njask06gr5&lt;span class="p"&gt;)&lt;/span&gt;  
+    &lt;span class="c1"&gt;#inexplicably 2006 data has no Grade column&lt;/span&gt;
+    df&lt;span class="o"&gt;$&lt;/span&gt;Grade &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; grade
+    df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; df &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; process_njask&lt;span class="p"&gt;(&lt;/span&gt;mask&lt;span class="o"&gt;=&lt;/span&gt;layout_njask06gr5&lt;span class="o"&gt;$&lt;/span&gt;comments&lt;span class="p"&gt;)&lt;/span&gt;    
   &lt;span class="p"&gt;}&lt;/span&gt;
   &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     df &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&gt;(&lt;/span&gt;year&lt;span class="p"&gt;,&lt;/span&gt; grade&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; process_njask&lt;span class="p"&gt;()&lt;/span&gt;    
@@ -1461,6 +1536,10 @@ ex_process &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; process_njask&lt;span cl
 &lt;span class="p"&gt;}&lt;/span&gt;
 
 fetch_njask&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2014&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;6&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## [1] &amp;quot;http://www.state.nj.us/education/schools/achievement/14/njask6/state_summary.txt&amp;quot;
 &lt;/pre&gt;&lt;/div&gt;
 
 
