@@ -175,6 +175,8 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
   <span class="c1">#2008 follows a totally unique pattern</span>
   grade_str <span class="o">&lt;-</span> <span class="kr">if</span> <span class="p">(</span>year<span class="o">==</span><span class="m">2008</span> <span class="o">&amp;</span> grade <span class="o">&gt;=</span><span class="m">5</span><span class="p">)</span> <span class="p">{</span>
     <span class="kp">paste0</span><span class="p">(</span><span class="s">&#39;58/g&#39;</span><span class="p">,</span> grade<span class="p">)</span>
+  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>year<span class="o">==</span><span class="m">2007</span> <span class="o">&amp;</span> grade <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">7</span><span class="p">))</span> <span class="p">{</span>
+    <span class="s">&#39;57&#39;</span>
   <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
     grade
   <span class="p">}</span>
@@ -183,7 +185,12 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
   filename <span class="o">&lt;-</span> <span class="kt">list</span><span class="p">(</span>
     <span class="s">&quot;2014&quot;</span><span class="o">=</span><span class="s">&quot;state_summary.txt&quot;</span><span class="p">,</span> <span class="s">&quot;2013&quot;</span><span class="o">=</span><span class="s">&quot;state_summary.txt&quot;</span><span class="p">,</span> <span class="s">&quot;2012&quot;</span><span class="o">=</span><span class="s">&quot;state_summary.txt&quot;</span><span class="p">,</span>
     <span class="s">&quot;2011&quot;</span><span class="o">=</span><span class="s">&quot;state_summary.txt&quot;</span><span class="p">,</span> <span class="s">&quot;2010&quot;</span><span class="o">=</span><span class="s">&quot;state_summary.txt&quot;</span><span class="p">,</span> <span class="s">&quot;2009&quot;</span><span class="o">=</span><span class="s">&quot;state_summary.txt&quot;</span><span class="p">,</span>
-    <span class="s">&quot;2008&quot;</span><span class="o">=</span><span class="s">&quot;state_summary.txt&quot;</span><span class="p">,</span> <span class="s">&quot;2007&quot;</span><span class="o">=</span><span class="s">&quot;state_summary.txt&quot;</span><span class="p">,</span> <span class="s">&quot;2006&quot;</span><span class="o">=</span><span class="s">&quot;state_summary.txt&quot;</span><span class="p">,</span>
+    <span class="s">&quot;2008&quot;</span><span class="o">=</span><span class="s">&quot;state_summary.txt&quot;</span><span class="p">,</span> <span class="s">&quot;2007&quot;</span><span class="o">=</span><span class="kr">if</span><span class="p">(</span>grade <span class="o">&gt;=</span> <span class="m">5</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kp">paste0</span><span class="p">(</span><span class="s">&#39;G&#39;</span><span class="p">,</span> grade<span class="p">,</span> <span class="s">&#39;state_summary.txt&#39;</span><span class="p">)</span>
+      <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+        <span class="s">&quot;state_summary.txt&quot;</span>
+      <span class="p">},</span> 
+    <span class="s">&quot;2006&quot;</span><span class="o">=</span><span class="s">&quot;state_summary.txt&quot;</span><span class="p">,</span>
     <span class="s">&quot;2005&quot;</span><span class="o">=</span> <span class="kr">if</span><span class="p">(</span>grade<span class="o">==</span><span class="m">3</span><span class="p">)</span> <span class="p">{</span>
         <span class="s">&quot;njask005_state_summary3.txt&quot;</span>
       <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span>grade<span class="o">==</span><span class="m">4</span><span class="p">)</span> <span class="p">{</span>
@@ -198,8 +205,6 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
     <span class="s">&quot;http://www.state.nj.us/education/schools/achievement/&quot;</span><span class="p">,</span> parsed_year<span class="p">,</span> 
     <span class="s">&quot;/njask&quot;</span><span class="p">,</span> grade_str<span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">,</span> parsed_filename
   <span class="p">)</span>
-
-  <span class="kp">print</span><span class="p">(</span>target_url<span class="p">)</span>
 
   <span class="c1">#read_fwf</span>
   df <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
@@ -234,124 +239,120 @@ ex <span class="o">&lt;-</span> get_raw_njask<span class="p">(</span><span class
 </pre></div>
 
 
-<div class="highlight"><pre>## [1] &quot;http://www.state.nj.us/education/schools/achievement/14/njask6/state_summary.txt&quot;
-</pre></div>
-
-
 <div class="highlight"><pre>dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">[,</span> <span class="kp">sample</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">551</span><span class="p">),</span> <span class="m">10</span><span class="p">)],</span> <span class="m">10</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span>
 </pre></div>
 
 
-<div class="highlight"><pre>##    SPECIAL_EDUCATION_SCIENCE_Number_Enrolled_Science
-## 1                                                 NA
-## 2                                                 NA
-## 3                                                 NA
-## 4                                                 NA
-## 5                                                 NA
-## 6                                                 NA
-## 7                                                 NA
-## 8                                                 NA
-## 9                                                 NA
-## 10                                                NA
-##    CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_Not_Present
-## 1                                                                   NA
-## 2                                                                   NA
-## 3                                                                   NA
-## 4                                                                   NA
-## 5                                                                   NA
-## 6                                                                   NA
-## 7                                                                   NA
-## 8                                                                   NA
-## 9                                                                   NA
-## 10                                                                  NA
-##    NON-MIGRANT_LANGUAGE_ARTS_Advanced_Proficient_Percentage
-## 1                                                       150
-## 2                                                         0
-## 3                                                         0
-## 4                                                        53
-## 5                                                       209
-## 6                                                        71
-## 7                                                         9
-## 8                                                        70
-## 9                                                        NA
-## 10                                                       96
-##    MALE_LANGUAGE_ARTS_Proficient_Percentage
+<div class="highlight"><pre>##    BLACK_MATHEMATICS_Number_of_Voids
+## 1                                 NA
+## 2                                 NA
+## 3                                  0
+## 4                                 NA
+## 5                                  0
+## 6                                  0
+## 7                                 NA
+## 8                                 NA
+## 9                                 NA
+## 10                                NA
+##    NON-ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_Not_Present
+## 1                                                              0
+## 2                                                              0
+## 3                                                              0
+## 4                                                              0
+## 5                                                              0
+## 6                                                             NA
+## 7                                                              1
+## 8                                                              0
+## 9                                                              0
+## 10                                                             0
+##    OTHER_MATHEMATICS_Number_Not_Present
+## 1                                    NA
+## 2                                    NA
+## 3                                    NA
+## 4                                    NA
+## 5                                    NA
+## 6                                    NA
+## 7                                    NA
+## 8                                    NA
+## 9                                    NA
+## 10                                   NA
+##    NON-MIGRANT_MATHEMATICS_Partially_Proficient_Percentage
+## 1                                                      315
+## 2                                                       57
+## 3                                                      405
+## 4                                                      253
+## 5                                                      348
+## 6                                                      380
+## 7                                                      256
+## 8                                                       82
+## 9                                                      213
+## 10                                                     138
+##    NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Scale_Score_Mean
+## 1                                                       NA
+## 2                                                       NA
+## 3                                                       NA
+## 4                                                       NA
+## 5                                                       NA
+## 6                                                       NA
+## 7                                                       NA
+## 8                                                       NA
+## 9                                                       NA
+## 10                                                      NA
+##    FEMALE_MATHEMATICS_Proficient_Percentage
+## 1                                       371
+## 2                                       600
+## 3                                       576
+## 4                                       531
+## 5                                       500
+## 6                                       615
+## 7                                       278
+## 8                                       214
+## 9                                       545
+## 10                                      444
+##    HISPANIC_SCIENCE_Number_Enrolled_Science
 ## 1                                        NA
 ## 2                                        NA
-## 3                                       294
-## 4                                       320
-## 5                                       721
-## 6                                       646
-## 7                                       320
-## 8                                       585
+## 3                                        NA
+## 4                                        NA
+## 5                                        NA
+## 6                                        NA
+## 7                                        NA
+## 8                                        NA
 ## 9                                        NA
-## 10                                      655
-##    NON-MIGRANT_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                        2264
-## 2                                        1810
-## 3                                        1911
-## 4                                        1952
-## 5                                        2285
-## 6                                        2132
-## 7                                        1941
-## 8                                        2074
-## 9                                          NA
-## 10                                       2166
-##    AMERICAN_INDIAN_Number_Enrolled_ELA
-## 1                                   NA
-## 2                                   NA
-## 3                                   NA
-## 4                                    0
-## 5                                    0
-## 6                                   NA
-## 7                                   NA
-## 8                                   NA
-## 9                                    0
-## 10                                  NA
-##    AMERICAN_INDIAN_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                          NA
-## 2                                                          NA
-## 3                                                          NA
-## 4                                                          NA
-## 5                                                          NA
-## 6                                                          NA
-## 7                                                          NA
-## 8                                                          NA
-## 9                                                          NA
-## 10                                                         NA
-##    ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Number_of_Voids
-## 1                                                        NA
-## 2                                                         0
-## 3                                                        NA
-## 4                                                         0
-## 5                                                        NA
-## 6                                                         0
-## 7                                                         1
-## 8                                                         0
-## 9                                                        NA
-## 10                                                        1
-##    TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math
-## 1                                                 22
-## 2                                                 57
-## 3                                                 36
-## 4                                                 39
-## 5                                                143
-## 6                                                128
-## 7                                                114
-## 8                                                 71
-## 9                                                 NA
-## 10                                               684
-##    PACIFIC_ISLANDER_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                    NA
-## 2                                                    NA
-## 3                                                    NA
-## 4                                                    NA
-## 5                                                    NA
-## 6                                                    NA
-## 7                                                    NA
-## 8                                                    NA
-## 9                                                    NA
-## 10                                                   NA
+## 10                                       NA
+##    NON-ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                                           2127
+## 2                                                           2239
+## 3                                                           2010
+## 4                                                           2227
+## 5                                                           2031
+## 6                                                             NA
+## 7                                                           2161
+## 8                                                           2267
+## 9                                                           2185
+## 10                                                          2234
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_of_Valid_Scale_Scores
+## 1                                                                                      NA
+## 2                                                                                      NA
+## 3                                                                                      NA
+## 4                                                                                      11
+## 5                                                                                      20
+## 6                                                                                      NA
+## 7                                                                                      NA
+## 8                                                                                      NA
+## 9                                                                                      NA
+## 10                                                                                     NA
+##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Number_of_Voids
+## 1                                                             NA
+## 2                                                             NA
+## 3                                                             NA
+## 4                                                             NA
+## 5                                                             NA
+## 6                                                             NA
+## 7                                                             NA
+## 8                                                             NA
+## 9                                                             NA
+## 10                                                            NA
 </pre></div>
 
 
@@ -488,10 +489,6 @@ ex_process <span class="o">&lt;-</span> process_njask<span class="p">(</span>ex<
 <span class="p">}</span>
 
 fetch_njask<span class="p">(</span><span class="m">2014</span><span class="p">,</span> <span class="m">6</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span>
-</pre></div>
-
-
-<div class="highlight"><pre>## [1] &quot;http://www.state.nj.us/education/schools/achievement/14/njask6/state_summary.txt&quot;
 </pre></div>
 
 

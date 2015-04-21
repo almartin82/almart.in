@@ -144,8 +144,6 @@ get_raw_hspa <- function(year, layout=layout_hspa) {
     "/hspa/", parsed_filename
   )
   
-  print(target_url)
-  
   #read_fwf
   df <- readr::read_fwf(
     file = target_url,
@@ -216,9 +214,7 @@ get_raw_gepa <- function(year, layout=layout_gepa) {
     "http://www.state.nj.us/education/schools/achievement/", parsed_year, 
     "/gepa/", parsed_filename
   )
-    
-  print(target_url)
-  
+      
   #read_fwf
   df <- readr::read_fwf(
     file = target_url,

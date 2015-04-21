@@ -375,8 +375,6 @@ process_nj_assess<span class="p">(</span>hspa_ex<span class="p">,</span> layout_
     <span class="s">&quot;/hspa/&quot;</span><span class="p">,</span> parsed_filename
   <span class="p">)</span>
 
-  <span class="kp">print</span><span class="p">(</span>target_url<span class="p">)</span>
-
   <span class="c1">#read_fwf</span>
   df <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
     file <span class="o">=</span> target_url<span class="p">,</span>
@@ -405,10 +403,6 @@ fetch_hspa <span class="o">&lt;-</span> <span class="kr">function</span><span cl
 <span class="p">}</span>
 
 fetch_hspa<span class="p">(</span><span class="m">2010</span><span class="p">)</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
-</pre></div>
-
-
-<div class="highlight"><pre>## [1] &quot;http://www.state.nj.us/education/schools/achievement/2011/hspa/state_summary.txt&quot;
 </pre></div>
 
 
@@ -548,8 +542,6 @@ fetch_hspa<span class="p">(</span><span class="m">2010</span><span class="p">)</
     <span class="s">&quot;/gepa/&quot;</span><span class="p">,</span> parsed_filename
   <span class="p">)</span>
 
-  <span class="kp">print</span><span class="p">(</span>target_url<span class="p">)</span>
-
   <span class="c1">#read_fwf</span>
   df <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<span class="p">(</span>
     file <span class="o">=</span> target_url<span class="p">,</span>
@@ -567,14 +559,8 @@ fetch_hspa<span class="p">(</span><span class="m">2010</span><span class="p">)</
 <span class="p">}</span>
 
 gepa_ex <span class="o">&lt;-</span> get_raw_gepa<span class="p">(</span><span class="m">2007</span><span class="p">)</span>
-</pre></div>
 
-
-<div class="highlight"><pre>## [1] &quot;http://www.state.nj.us/education/schools/achievement/2008/gepa/state_summary.txt&quot;
-</pre></div>
-
-
-<div class="highlight"><pre>gepa_ex <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
+gepa_ex <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
 </pre></div>
 
 
@@ -752,10 +738,6 @@ fetch_gepa <span class="o">&lt;-</span> <span class="kr">function</span><span cl
 <span class="p">}</span>
 
 fetch_gepa<span class="p">(</span><span class="m">2007</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span> <span class="o">%&gt;%</span> select<span class="p">(</span>CDS_Code<span class="o">:</span>TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">head</span><span class="p">()</span>
-</pre></div>
-
-
-<div class="highlight"><pre>## [1] &quot;http://www.state.nj.us/education/schools/achievement/2008/gepa/state_summary.txt&quot;
 </pre></div>
 
 

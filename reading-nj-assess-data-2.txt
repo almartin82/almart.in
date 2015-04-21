@@ -78,6 +78,8 @@ get_raw_njask <- function(year, grade, layout=layout_njask) {
   #2008 follows a totally unique pattern
   grade_str <- if (year==2008 & grade >=5) {
     paste0('58/g', grade)
+  } else if (year==2007 & grade %in% c(5, 6, 7)) {
+    '57'
   } else {
     grade
   }
@@ -86,7 +88,12 @@ get_raw_njask <- function(year, grade, layout=layout_njask) {
   filename <- list(
     "2014"="state_summary.txt", "2013"="state_summary.txt", "2012"="state_summary.txt",
     "2011"="state_summary.txt", "2010"="state_summary.txt", "2009"="state_summary.txt",
-    "2008"="state_summary.txt", "2007"="state_summary.txt", "2006"="state_summary.txt",
+    "2008"="state_summary.txt", "2007"=if(grade >= 5) {
+        paste0('G', grade, 'state_summary.txt')
+      } else {
+        "state_summary.txt"
+      }, 
+    "2006"="state_summary.txt",
     "2005"= if(grade==3) {
         "njask005_state_summary3.txt"
       } else if (grade==4) {
@@ -95,14 +102,12 @@ get_raw_njask <- function(year, grade, layout=layout_njask) {
     "2004"=paste0("njask", grade, "04state_summary.txt")   
   )
   parsed_filename <- filename[[as.character(year)]]
-  
+    
   #build url
   target_url <- paste0(
     "http://www.state.nj.us/education/schools/achievement/", parsed_year, 
     "/njask", grade_str, "/", parsed_filename
   )
-  
-  print(target_url)
     
   #read_fwf
   df <- readr::read_fwf(

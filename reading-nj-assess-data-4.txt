@@ -33,7 +33,7 @@ Roughly speaking, we're tying to write a function that will return data given a 
 
 3. Fetch, clean, and return the data frame.
 
-Let's tackle each of these in turn:
+Let's tackle each of these in turn:.<!-- PELICAN_END_SUMMARY -->
 
 # valid calls
 
@@ -157,7 +157,7 @@ fetch_all_nj <- function() {
   pre2006_grades <- c(3, 4, 8, 11)
 
   #subset just for testing
-  #post2006_years <- c(2006)
+  #post2006_years <- c(2007)
   #post2006_grades <- c(8, 11)
   #pre2006_grades <- c(4)
   
@@ -213,6 +213,7 @@ fetch_all_nj <- function() {
 test it:
 
 ```{r test_all_data}
+foo <- fetch_nj_assess(2007, 5)
 
 all_nj <- fetch_all_nj()
 
