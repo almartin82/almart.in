@@ -54,7 +54,8 @@ This function will test if a year/grade call is valid.
 ```{r valid_call}
 
 valid_call <- function(year, grade) {
-  #common core transition started in 2015
+  #data for 2015 school year doesn't exist yet
+  #common core transition started in 2015 (njask is no more)
   if(year > 2014) {
     valid_call <- FALSE
   #assessment coverage 3:8 from 2006 on.
@@ -76,7 +77,7 @@ valid_call <- function(year, grade) {
 
 This function does normal retrieval (NJASK for 3-8; HSPA for 11).
 
-```{r}
+```{r standard_grades}
 
 standard_assess <- function(year, grade) {
   if(grade %in% c(3:8)) {
@@ -102,8 +103,10 @@ fetch_nj_assess <- function(year, grade) {
     ensure_that(
       all(.) ~ "invalid grade/year parameter passed")
   
+  #everything post 2008 has the same grade coverage
   if (year >= 2008) {
     assess_data <- standard_assess(year, grade)
+    
   #2006 and 2007: NJASK 3rd-7th, GEPA 8th, HSPA 11th
   } else if (year %in% c(2006, 2007)) {
     if (grade %in% c(3:7)) {
@@ -113,6 +116,7 @@ fetch_nj_assess <- function(year, grade) {
     } else if (grade == 11) {
       assess_data <- fetch_hspa(year)
     }
+    
   #2004 and 2005:  NJASK 3rd & 4th, GEPA 8th, HSPA 11th
   } else if (year %in% c(2004, 2005)) {
     if (grade %in% c(3:4)) {
