@@ -94,7 +94,7 @@
 			<a href="http://almart.in/tag/tutorial.html" rel="tag"> tutorial</a>&nbsp;&nbsp;
 		</span>
 	</div>
-	<div itemprop="articleBody" class="article-body"><p>In my <a href="" title="/reading-nj-assess-data-3.html">last post</a>, I showed how to extend the functions I developed for NJASK data to other state assessments.  In this post, I'll tie eveything together, and write some general functions that bring a wide variety of NJ state assessment data into R.</p>
+	<div itemprop="articleBody" class="article-body"><p>In my <a href="http://almart.in/reading-nj-assess-data-3.html">last post</a>, I showed how to extend the functions I developed for NJASK data to other state assessments.  In this post, I'll tie eveything together, and write some general functions that bring a wide variety of NJ state assessment data into R.</p>
 <p>Roughly speaking, we're tying to write a function that will return data given a <code>year</code> and a <code>grade</code>.  Here are the big things that need to happen:</p>
 <ol>
 <li>
@@ -111,11 +111,6 @@
 <h1>valid calls</h1>
 <p>Before we do anything, let's source in all of the functions <code>fetch_hspa()</code>, <code>fetch_gepa()</code> created in the previous two posts.</p>
 <div class="highlight"><pre>knitr<span class="o">::</span>knit<span class="p">(</span><span class="s">&#39;05_njask-data-2.rmd&#39;</span><span class="p">,</span> tangle<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
-</pre></div>
-
-
-<div class="highlight"><pre>## processing file: 05_njask-data-2.rmd
-## output file: 05_njask-data-2.R
 </pre></div>
 
 

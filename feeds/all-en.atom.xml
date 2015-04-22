@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>almart.in</title><link href="http://almart.in/" rel="alternate"></link><link href="http://almart.in/feeds%5Call-en.atom.xml" rel="self"></link><id>http://almart.in/</id><updated>2015-04-21T00:00:00-04:00</updated><entry><title>Getting NJ assessment data into R: part 4 in a series.</title><link href="http://almart.in/reading-nj-assess-data-4.html" rel="alternate"></link><updated>2015-04-21T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-21:reading-nj-assess-data-4.html</id><summary type="html">&lt;p&gt;In my &lt;a href="" title="/reading-nj-assess-data-3.html"&gt;last post&lt;/a&gt;, I showed how to extend the functions I developed for NJASK data to other state assessments.  In this post, I'll tie eveything together, and write some general functions that bring a wide variety of NJ state assessment data into R.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>almart.in</title><link href="http://almart.in/" rel="alternate"></link><link href="http://almart.in/feeds%5Call-en.atom.xml" rel="self"></link><id>http://almart.in/</id><updated>2015-04-21T00:00:00-04:00</updated><entry><title>Getting NJ assessment data into R: part 4 in a series.</title><link href="http://almart.in/reading-nj-assess-data-4.html" rel="alternate"></link><updated>2015-04-21T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-21:reading-nj-assess-data-4.html</id><summary type="html">&lt;p&gt;In my &lt;a href="http://almart.in/reading-nj-assess-data-3.html"&gt;last post&lt;/a&gt;, I showed how to extend the functions I developed for NJASK data to other state assessments.  In this post, I'll tie eveything together, and write some general functions that bring a wide variety of NJ state assessment data into R.&lt;/p&gt;
 &lt;p&gt;Roughly speaking, we're tying to write a function that will return data given a &lt;code&gt;year&lt;/code&gt; and a &lt;code&gt;grade&lt;/code&gt;.  Here are the big things that need to happen:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -16,11 +16,6 @@
 &lt;h1&gt;valid calls&lt;/h1&gt;
 &lt;p&gt;Before we do anything, let's source in all of the functions &lt;code&gt;fetch_hspa()&lt;/code&gt;, &lt;code&gt;fetch_gepa()&lt;/code&gt; created in the previous two posts.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;knitr&lt;span class="o"&gt;::&lt;/span&gt;knit&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;05_njask-data-2.rmd&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; tangle&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## processing file: 05_njask-data-2.rmd
-## output file: 05_njask-data-2.R
 &lt;/pre&gt;&lt;/div&gt;
 
 

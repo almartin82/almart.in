@@ -23,7 +23,7 @@ opts_chunk$set(pelican.publish=ready_to_ship)
 
 ```
 
-In my [last post]('/reading-nj-assess-data-3.html'), I showed how to extend the functions I developed for NJASK data to other state assessments.  In this post, I'll tie eveything together, and write some general functions that bring a wide variety of NJ state assessment data into R.
+In my [last post]({filename}/06_njask-data-3.Rmd), I showed how to extend the functions I developed for NJASK data to other state assessments.  In this post, I'll tie eveything together, and write some general functions that bring a wide variety of NJ state assessment data into R.
 
 Roughly speaking, we're tying to write a function that will return data given a `year` and a `grade`.  Here are the big things that need to happen:
 
