@@ -154,7 +154,7 @@ Finally, as a convenience, let's write a function that brings down all of the NJ
 fetch_all_nj <- function() {
   
   #make the df of years and grades to iterate over  
-  post2006_years <- c(2006:2013)
+  post2006_years <- c(2006:2014)
   post2006_grades <- c(3:8, 11)
   
   pre2006_years <- c(2004, 2005)

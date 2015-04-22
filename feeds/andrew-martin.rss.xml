@@ -232,7 +232,7 @@
 &lt;div class="highlight"&gt;&lt;pre&gt;fetch_all_nj &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
 
   &lt;span class="c1"&gt;#make the df of years and grades to iterate over  &lt;/span&gt;
-  post2006_years &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2006&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;2013&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  post2006_years &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2006&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;2014&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
   post2006_grades &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;11&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
   pre2006_years &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2004&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;2005&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -297,11 +297,22 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## [1] &amp;quot;nj2013gr3&amp;quot;
+&lt;div class="highlight"&gt;&lt;pre&gt;## [1] &amp;quot;nj2014gr3&amp;quot;
+## [1] &amp;quot;nj2014gr4&amp;quot;
+## [1] &amp;quot;nj2014gr5&amp;quot;
+## [1] &amp;quot;nj2014gr6&amp;quot;
+## [1] &amp;quot;nj2014gr7&amp;quot;
+## [1] &amp;quot;nj2014gr8&amp;quot;
+## [1] &amp;quot;nj2014gr11&amp;quot;
+## [1] &amp;quot;nj2013gr3&amp;quot;
 ## [1] &amp;quot;nj2013gr4&amp;quot;
 ## [1] &amp;quot;nj2013gr5&amp;quot;
 ## [1] &amp;quot;nj2013gr6&amp;quot;
 ## [1] &amp;quot;nj2013gr7&amp;quot;
+## 
+|                                                                                |   0%           
+|==========================================                                     |  53%    1 MB
+|===============================================================================|  99%    3 MB
 ## [1] &amp;quot;nj2013gr8&amp;quot;
 ## [1] &amp;quot;nj2013gr11&amp;quot;
 ## [1] &amp;quot;nj2012gr3&amp;quot;
@@ -368,7 +379,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## [1] 64
+&lt;div class="highlight"&gt;&lt;pre&gt;## [1] 71
 &lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew Martin</dc:creator><pubDate>Tue, 21 Apr 2015 00:00:00 -0400</pubDate><guid>tag:almart.in,2015-04-21:reading-nj-assess-data-4.html</guid><category>NJ</category><category>assessment</category><category>NJASK</category><category>HSPA</category><category>data_management</category><category>tutorial</category></item><item><title>Getting NJ assessment data into R: part 3 in a series.</title><link>http://almart.in/reading-nj-assess-data-3.html</link><description>&lt;p&gt;In my &lt;a href="http://almart.in/reading-nj-assess-data-3.html"&gt;last post&lt;/a&gt;, I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA), and to the old Grade Eight Proficiency Assessment (GEPA).  With functions that can access each of those data sources, we'll be ready to write a general wrapper that simplifies access to relevant state assessment data.&lt;/p&gt;
 &lt;h1&gt;HSPA&lt;/h1&gt;
 &lt;p&gt;Much like the NJASK data in posts &lt;a href="http://almart.in/reading-nj-assess-data-1.html"&gt;1&lt;/a&gt; and &lt;a href="http://almart.in/reading-nj-assess-data-2.html"&gt;2&lt;/a&gt;, we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some post-processing.  I also &lt;a href="http://almart.in/pages/hspa-layout.html"&gt;wrote up&lt;/a&gt; how to process the HSPA metadata, if data processing is your thing.&lt;/p&gt;
