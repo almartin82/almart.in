@@ -5,6 +5,7 @@ Slug: sample-rmd
 Author: Andrew Martin
 
 ```{r, echo=FALSE}
+library(knitr)
 hook_plot <- knit_hooks$get('plot')
 
 knit_hooks$set(plot=function(x, options) {
@@ -26,11 +27,3 @@ When you click the **Knit** button a document will be generated that includes bo
 ```{r}
 summary(cars)
 ```
-
-You can also embed plots, for example:
-
-```{r, echo=FALSE}
-plot(cars)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

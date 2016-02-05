@@ -42,7 +42,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="http://almart.in/categories.html"><i class="fa fa-archive"></i> categories</a></li>
 					<li><a href="http://almart.in/tags.html"><i class="fa fa-tags"></i> tags</a></li>
-					<li><a href="http://almart.in/feeds/all_atom.xml"><i class="fa fa-rss"></i> rss</a></li>
+					<li><a href="http://almart.infeeds/all.atom.xml"><i class="fa fa-rss"></i> rss</a></li>
 				</ul>
 			</div>
 		</div>
@@ -100,11 +100,6 @@ knitr<span class="o">::</span>knit<span class="p">(</span><span class="s">&#39;0
 </pre></div>
 
 
-<div class="highlight"><pre>## processing file: 08a_longform-data-prep.rmd
-## output file: 08a_longform-data-prep.R
-</pre></div>
-
-
 <div class="highlight"><pre>## [1] &quot;08a_longform-data-prep.R&quot;
 </pre></div>
 
@@ -113,8 +108,11 @@ knitr<span class="o">::</span>knit<span class="p">(</span><span class="s">&#39;0
 </pre></div>
 
 
-<div class="highlight"><pre>## Joining by: &quot;year_posted&quot;
-## Joining by: &quot;year_posted&quot;
+<div class="highlight"><pre>## Warning: 1 failed to parse.
+</pre></div>
+
+
+<div class="highlight"><pre>## Error: Unknown name
 </pre></div>
 
 
@@ -188,8 +186,14 @@ top_2010 <span class="o">&lt;-</span> lf_pub_disp <span class="o">%&gt;%</span>
     desc<span class="p">(</span>rank_pub<span class="p">)</span>
   <span class="p">)</span> <span class="o">%&gt;%</span> 
   <span class="kp">as.data.frame</span><span class="p">()</span>
+</pre></div>
 
-<span class="c1">#bring in esquire zero year</span>
+
+<div class="highlight"><pre>## Error in eval(expr, envir, enclos): object &#39;rank_pub&#39; not found
+</pre></div>
+
+
+<div class="highlight"><pre><span class="c1">#bring in esquire zero year</span>
 lf_pub_disp <span class="o">&lt;-</span> <span class="kp">rbind</span><span class="p">(</span>
   lf_pub_disp<span class="p">,</span>
   <span class="kt">data.frame</span><span class="p">(</span>
@@ -201,14 +205,20 @@ lf_pub_disp <span class="o">&lt;-</span> <span class="kp">rbind</span><span clas
     <span class="s">&#39;pct_year_total&#39;</span><span class="o">=</span><span class="m">0</span>
   <span class="p">)</span>
 <span class="p">)</span>
+</pre></div>
 
-lf_pub_disp <span class="o">&lt;-</span> dplyr<span class="o">::</span>left_join<span class="p">(</span>
+
+<div class="highlight"><pre>## Error in rbind(deparse.level, ...): numbers of columns of arguments do not match
+</pre></div>
+
+
+<div class="highlight"><pre>lf_pub_disp <span class="o">&lt;-</span> dplyr<span class="o">::</span>left_join<span class="p">(</span>
   lf_pub_disp<span class="p">,</span> top_2010<span class="p">[,</span> <span class="kt">c</span><span class="p">(</span><span class="s">&#39;publication&#39;</span><span class="p">,</span> <span class="s">&#39;rank_2010&#39;</span><span class="p">)]</span>  
 <span class="p">)</span>
 </pre></div>
 
 
-<div class="highlight"><pre>## Joining by: &quot;publication&quot;
+<div class="highlight"><pre>## Error in tbl_vars(y): object &#39;top_2010&#39; not found
 </pre></div>
 
 
@@ -216,10 +226,22 @@ lf_pub_disp <span class="o">&lt;-</span> dplyr<span class="o">::</span>left_join
   arrange<span class="p">(</span>
     rank_2010<span class="p">,</span> publication<span class="p">,</span> year_posted  
   <span class="p">)</span>
+</pre></div>
 
-top_N <span class="o">&lt;-</span> top_2010<span class="p">[</span>top_2010<span class="o">$</span>rank_2010 <span class="o">&lt;=</span> <span class="m">10</span><span class="p">,</span> <span class="s">&#39;publication&#39;</span><span class="p">]</span>
 
-ggplot<span class="p">(</span>
+<div class="highlight"><pre>## Error in eval(expr, envir, enclos): object &#39;rank_2010&#39; not found
+</pre></div>
+
+
+<div class="highlight"><pre>top_N <span class="o">&lt;-</span> top_2010<span class="p">[</span>top_2010<span class="o">$</span>rank_2010 <span class="o">&lt;=</span> <span class="m">10</span><span class="p">,</span> <span class="s">&#39;publication&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in eval(expr, envir, enclos): object &#39;top_2010&#39; not found
+</pre></div>
+
+
+<div class="highlight"><pre>ggplot<span class="p">(</span>
   data<span class="o">=</span>lf_pub_disp<span class="p">[</span>lf_pub_disp<span class="o">$</span>publication <span class="o">%in%</span> top_N <span class="o">&amp;</span>
     lf_pub_disp<span class="o">$</span>year_posted <span class="o">&lt;</span> <span class="m">2015</span><span class="p">,</span> <span class="p">],</span> 
   aes<span class="p">(</span>
@@ -237,31 +259,40 @@ theme_bw<span class="p">()</span>
 </pre></div>
 
 
-<p><img alt="plot of chunk unnamed-chunk-1" src="figure/unnamed-chunk-1-1.png" /> </p>
+<div class="highlight"><pre>## Error in match(x, table, nomatch = 0L): object &#39;top_N&#39; not found
+</pre></div>
+
+
 <h1>other directions?</h1>
 <p>We have author, publication, publication date, post date, title, and a summary for each of those 7,000-odd links.  Here's what the raw data looks like:</p>
 <div class="highlight"><pre>sample_n<span class="p">(</span>lf<span class="p">,</span> <span class="m">5</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="highlight"><pre>##         X               author  posted_at         publication pub_date
-## 2966 3119     J. R. Moehringer 2012-08-29                ESPN   Aug-12
-## 4518 5140           Gary Smith 2013-08-15  Sports Illustrated   Feb-91
-## 2451 2547        Nathan Heller 2012-04-09          New Yorker   Apr-12
-## 6262 7319 Robert James Russell 2014-10-21 Bull: Men&#39;s Fiction   Oct-14
-## 4129 4646      Lisa Margonelli 2013-05-14    Pacific Standard   Apr-13
-##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               summary
-## 2966                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 A sport in flux.
-## 4518                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Basketball on a Crow reservation and a player named Jonathan Takes Enemy trying to escape.
-## 2451                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             On living alone, which more people are doing today than ever before.
-## 6262 A mini epic of murder, theft, and nature in the Old West.&quot;He trotted down the steep slope and across the range, passing monuments of salt cedar and sagebrush and croppings of bouldered limestone and sandstone.  Everett marched on, glancing back to the pass like clockwork.  His vision began to blur and he mistook shadows of dashing clouds overhead as armies of villains bent on doing him harm.  He crept on as his headache worsened and soon he forgot his sentried errand.  He kept low to the ground and stopped himself twice from collapsing completely, bracing himself on passing man-made edifices of rock and earth.  His limp had worsened and he stumbled upon wreckage of some wrecked wagonette and used a long timber from the wagon-bed as a crutch until it snapped in half ten minutes later.  The sun was hot and without his hat or coat he felt the full effects of it on the nape of his neck.&quot;
-## 4129                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Rethinking mobile homes as senior housing.
-##                                       title year_posted
-## 2966  Football Is Dead. Long Live Football.        2012
-## 4518                     Shadow of a Nation        2013
-## 2451      Why Are So Many Americans Single?        2012
-## 6262                  Recompensate, He Said        2014
-## 4129 How the Trailer Park Could Save Us All        2013
+<div class="highlight"><pre>##         X           author  posted_at       publication pub_date
+## 3228 3408  Megan McCloskey 2012-11-15 Stars and Stripes   Nov-12
+## 6937 8181   Kathryn Schulz 2015-04-08        New Yorker   Apr-15
+## 6085 7103 Jay Caspian Kang 2014-09-10          Harper&#39;s   Sep-14
+## 6200 7242       Alex Perry 2014-10-06          Newsweek   Oct-14
+## 4012 4452          Ed Yong 2013-03-27             Wired   Mar-13
+##                                                                                    summary
+## 3228 Army Spc. Erik Schei was shot in the head in Iraq. This is the story of his recovery.
+## 6937                                                           The allure of invisibility.
+## 6085                             On the president’s campaign to crack down on campus rape.
+## 6200                              How celebrity-led humanitarian aid exacerbated a crisis.
+## 4012                                            On the new science of collective behavior.
+##                                                                       title
+## 3228                  Forever After: A Warrior Wounded, a Family Challenged
+## 6937                                                           Sight Unseen
+## 6085                                          Ending College Sexual Assault
+## 6200 George Clooney, South Sudan and How the World&#39;s Newest Nation Imploded
+## 4012                                                    The Power of Swarms
+##      year_posted
+## 3228        2012
+## 6937        2015
+## 6085        2014
+## 6200        2014
+## 4012        2013
 </pre></div>
 
 

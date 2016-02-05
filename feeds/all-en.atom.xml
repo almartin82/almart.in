@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>almart.in</title><link href="http://almart.in/" rel="alternate"></link><link href="http://almart.in/feeds%5Call-en.atom.xml" rel="self"></link><id>http://almart.in/</id><updated>2015-04-21T00:00:00-04:00</updated><entry><title>Getting NJ assessment data into R: part 4 in a series.</title><link href="http://almart.in/reading-nj-assess-data-4.html" rel="alternate"></link><updated>2015-04-21T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-21:reading-nj-assess-data-4.html</id><summary type="html">&lt;p&gt;In my &lt;a href="http://almart.in/reading-nj-assess-data-3.html"&gt;last post&lt;/a&gt;, I showed how to extend the functions I developed for NJASK data to other state assessments.  In this post, I'll tie eveything together, and write some general functions that bring a wide variety of NJ state assessment data into R.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>almart.in</title><link href="http://almart.in/" rel="alternate"></link><link href="http://almart.in/feeds/all-en.atom.xml" rel="self"></link><id>http://almart.in/</id><updated>2015-04-21T00:00:00-04:00</updated><entry><title>Getting NJ assessment data into R: part 4 in a series.</title><link href="http://almart.in/reading-nj-assess-data-4.html" rel="alternate"></link><updated>2015-04-21T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-21:reading-nj-assess-data-4.html</id><summary type="html">&lt;p&gt;In my &lt;a href="http://almart.in/reading-nj-assess-data-3.html"&gt;last post&lt;/a&gt;, I showed how to extend the functions I developed for NJASK data to other state assessments.  In this post, I'll tie eveything together, and write some general functions that bring a wide variety of NJ state assessment data into R.&lt;/p&gt;
 &lt;p&gt;Roughly speaking, we're tying to write a function that will return data given a &lt;code&gt;year&lt;/code&gt; and a &lt;code&gt;grade&lt;/code&gt;.  Here are the big things that need to happen:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -27,24 +27,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Loading required package: readr
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: package &amp;#39;readr&amp;#39; was built under R version 3.1.3
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## 
-## Attaching package: &amp;#39;dplyr&amp;#39;
-## 
-## The following object is masked from &amp;#39;package:stats&amp;#39;:
-## 
-##     filter
-## 
-## The following objects are masked from &amp;#39;package:base&amp;#39;:
-## 
-##     intersect, setdiff, setequal, union
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;## Error in names(sel)[unnamed] &amp;lt;- sel[unnamed]: NAs are not allowed in subscripted assignments&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -57,6 +40,18 @@
 
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;source&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;06_njask-data-3.R&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 742 parsing failures.
+## row                                                            col expected actual
+##   1 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
+##   2 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
+##   3 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
+##   4 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
+##   5 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
+## ... .............................................................. ........ ......
+## .See problems(...) for more details.
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -147,83 +142,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code/DFG/Aggregation_Code District_Code School_Code
-## 1        ST                               ST            NA          NA
-## 2        SN                               SN            NA          NA
-## 3         A                                A            NA          NA
-## 4    250100                               25           100          NA
-## 5 250100040                               25           100          40
-## 6 010110050                               01           110          50
-##   County_Name District_Name        School_Name DFG Special_Needs
-## 1                                                               
-## 2                                                               
-## 3                                                               
-## 4    MONMOUTH   ASBURY PARK                      A             Y
-## 5    MONMOUTH   ASBURY PARK BRADLEY ELEMENTARY   A             Y
-## 6    ATLANTIC ATLANTIC CITY    CHELSEA HEIGHTS   A              
-##   TOTAL_POPULATION_Number_Enrolled_ELA
-## 1                               102513
-## 2                                19683
-## 3                                16949
-## 4                                  121
-## 5                                   NA
-## 6                                   27
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                               212
-## 2                                                52
-## 3                                                41
-## 4                                                 0
-## 5                                                NA
-## 6                                                 0
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
-## 1                                            494
-## 2                                            139
-## 3                                            114
-## 4                                              4
-## 5                                             NA
-## 6                                              1
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_APA
-## 1                                      1016
-## 2                                       248
-## 3                                       215
-## 4                                         0
-## 5                                        NA
-## 6                                         0
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                      100791
-## 2                                                       19244
-## 3                                                       16579
-## 4                                                         117
-## 5                                                          NA
-## 6                                                          26
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                           33.0
-## 2                                                           60.3
-## 3                                                           61.4
-## 4                                                           87.2
-## 5                                                             NA
-## 6                                                            7.7
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                 58.1
-## 2                                                 38.2
-## 3                                                 37.3
-## 4                                                 12.8
-## 5                                                   NA
-## 6                                                 92.3
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
-## 1                                                           8.8
-## 2                                                           1.5
-## 3                                                           1.3
-## 4                                                           0.0
-## 5                                                            NA
-## 6                                                           0.0
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                           211.2
-## 2                                           193.2
-## 3                                           192.3
-## 4                                           175.4
-## 5                                              NA
-## 6                                           215.8
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;## Error in names(sel)[unnamed] &amp;lt;- sel[unnamed]: NAs are not allowed in subscripted assignments&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -298,80 +217,10 @@
 
 
 &lt;div class="highlight"&gt;&lt;pre&gt;## [1] &amp;quot;nj2014gr3&amp;quot;
-## [1] &amp;quot;nj2014gr4&amp;quot;
-## [1] &amp;quot;nj2014gr5&amp;quot;
-## [1] &amp;quot;nj2014gr6&amp;quot;
-## [1] &amp;quot;nj2014gr7&amp;quot;
-## [1] &amp;quot;nj2014gr8&amp;quot;
-## [1] &amp;quot;nj2014gr11&amp;quot;
-## [1] &amp;quot;nj2013gr3&amp;quot;
-## [1] &amp;quot;nj2013gr4&amp;quot;
-## [1] &amp;quot;nj2013gr5&amp;quot;
-## [1] &amp;quot;nj2013gr6&amp;quot;
-## [1] &amp;quot;nj2013gr7&amp;quot;
-## 
-|                                                                                |   0%           
-|==========================================                                     |  53%    1 MB
-|===============================================================================|  99%    3 MB
-## [1] &amp;quot;nj2013gr8&amp;quot;
-## [1] &amp;quot;nj2013gr11&amp;quot;
-## [1] &amp;quot;nj2012gr3&amp;quot;
-## [1] &amp;quot;nj2012gr4&amp;quot;
-## [1] &amp;quot;nj2012gr5&amp;quot;
-## [1] &amp;quot;nj2012gr6&amp;quot;
-## [1] &amp;quot;nj2012gr7&amp;quot;
-## [1] &amp;quot;nj2012gr8&amp;quot;
-## [1] &amp;quot;nj2012gr11&amp;quot;
-## [1] &amp;quot;nj2011gr3&amp;quot;
-## [1] &amp;quot;nj2011gr4&amp;quot;
-## [1] &amp;quot;nj2011gr5&amp;quot;
-## [1] &amp;quot;nj2011gr6&amp;quot;
-## [1] &amp;quot;nj2011gr7&amp;quot;
-## [1] &amp;quot;nj2011gr8&amp;quot;
-## [1] &amp;quot;nj2011gr11&amp;quot;
-## [1] &amp;quot;nj2010gr3&amp;quot;
-## [1] &amp;quot;nj2010gr4&amp;quot;
-## [1] &amp;quot;nj2010gr5&amp;quot;
-## [1] &amp;quot;nj2010gr6&amp;quot;
-## [1] &amp;quot;nj2010gr7&amp;quot;
-## [1] &amp;quot;nj2010gr8&amp;quot;
-## [1] &amp;quot;nj2010gr11&amp;quot;
-## [1] &amp;quot;nj2009gr3&amp;quot;
-## [1] &amp;quot;nj2009gr4&amp;quot;
-## [1] &amp;quot;nj2009gr5&amp;quot;
-## [1] &amp;quot;nj2009gr6&amp;quot;
-## [1] &amp;quot;nj2009gr7&amp;quot;
-## [1] &amp;quot;nj2009gr8&amp;quot;
-## [1] &amp;quot;nj2009gr11&amp;quot;
-## [1] &amp;quot;nj2008gr3&amp;quot;
-## [1] &amp;quot;nj2008gr4&amp;quot;
-## [1] &amp;quot;nj2008gr5&amp;quot;
-## [1] &amp;quot;nj2008gr6&amp;quot;
-## [1] &amp;quot;nj2008gr7&amp;quot;
-## [1] &amp;quot;nj2008gr8&amp;quot;
-## [1] &amp;quot;nj2008gr11&amp;quot;
-## [1] &amp;quot;nj2007gr3&amp;quot;
-## [1] &amp;quot;nj2007gr4&amp;quot;
-## [1] &amp;quot;nj2007gr5&amp;quot;
-## [1] &amp;quot;nj2007gr6&amp;quot;
-## [1] &amp;quot;nj2007gr7&amp;quot;
-## [1] &amp;quot;nj2007gr8&amp;quot;
-## [1] &amp;quot;nj2007gr11&amp;quot;
-## [1] &amp;quot;nj2006gr3&amp;quot;
-## [1] &amp;quot;nj2006gr4&amp;quot;
-## [1] &amp;quot;nj2006gr5&amp;quot;
-## [1] &amp;quot;nj2006gr6&amp;quot;
-## [1] &amp;quot;nj2006gr7&amp;quot;
-## [1] &amp;quot;nj2006gr8&amp;quot;
-## [1] &amp;quot;nj2006gr11&amp;quot;
-## [1] &amp;quot;nj2005gr3&amp;quot;
-## [1] &amp;quot;nj2005gr4&amp;quot;
-## [1] &amp;quot;nj2005gr8&amp;quot;
-## [1] &amp;quot;nj2005gr11&amp;quot;
-## [1] &amp;quot;nj2004gr3&amp;quot;
-## [1] &amp;quot;nj2004gr4&amp;quot;
-## [1] &amp;quot;nj2004gr8&amp;quot;
-## [1] &amp;quot;nj2004gr11&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;## Error in names(sel)[unnamed] &amp;lt;- sel[unnamed]: NAs are not allowed in subscripted assignments&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -379,7 +228,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## [1] 71
+&lt;div class="highlight"&gt;&lt;pre&gt;## Error in eval(expr, envir, enclos): object &amp;#39;all_nj&amp;#39; not found
 &lt;/pre&gt;&lt;/div&gt;</summary><category term="NJ"></category><category term="assessment"></category><category term="NJASK"></category><category term="HSPA"></category><category term="data_management"></category><category term="tutorial"></category></entry><entry><title>Getting NJ assessment data into R: part 3 in a series.</title><link href="http://almart.in/reading-nj-assess-data-3.html" rel="alternate"></link><updated>2015-04-16T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-16:reading-nj-assess-data-3.html</id><summary type="html">&lt;p&gt;In my &lt;a href="http://almart.in/reading-nj-assess-data-3.html"&gt;last post&lt;/a&gt;, I talked about how to programmatically process and cleanup NJASK data.  In this post, we'll extend the NJASK functions to the High School Proficiency Assessment (HSPA), and to the old Grade Eight Proficiency Assessment (GEPA).  With functions that can access each of those data sources, we'll be ready to write a general wrapper that simplifies access to relevant state assessment data.&lt;/p&gt;
 &lt;h1&gt;HSPA&lt;/h1&gt;
 &lt;p&gt;Much like the NJASK data in posts &lt;a href="http://almart.in/reading-nj-assess-data-1.html"&gt;1&lt;/a&gt; and &lt;a href="http://almart.in/reading-nj-assess-data-2.html"&gt;2&lt;/a&gt;, we're going to read from a fixed width file on the state website, use a layout file to name the variables, and do some post-processing.  I also &lt;a href="http://almart.in/pages/hspa-layout.html"&gt;wrote up&lt;/a&gt; how to process the HSPA metadata, if data processing is your thing.&lt;/p&gt;
@@ -410,13 +259,13 @@
 &lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt; &lt;span class="nt"&gt;District&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt; &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
 &lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;   &lt;span class="nt"&gt;School&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;              &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
 &lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;   &lt;span class="nt"&gt;County&lt;/span&gt; &lt;span class="nt"&gt;Name&lt;/span&gt;                                                      
-&lt;span class="err"&gt;##&lt;/span&gt;                                                                                                                                                                                            &lt;span class="nt"&gt;valid_values&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                                                                                                                                                                                                      
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt; &lt;span class="nt"&gt;CDS&lt;/span&gt; &lt;span class="nt"&gt;codes&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;schools&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;districts&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="nt"&gt;nTHE&lt;/span&gt; &lt;span class="nt"&gt;FIRST&lt;/span&gt; &lt;span class="nt"&gt;TWO&lt;/span&gt; &lt;span class="nt"&gt;POSITIONS&lt;/span&gt; &lt;span class="nt"&gt;WILL&lt;/span&gt; &lt;span class="nt"&gt;INCLUDE&lt;/span&gt; &lt;span class="nt"&gt;THE&lt;/span&gt; &lt;span class="nt"&gt;FOLLOWING&lt;/span&gt; &lt;span class="nt"&gt;AGGREGATION&lt;/span&gt; &lt;span class="nt"&gt;CODES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;NS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Non-Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;SN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;ST&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;State&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="err"&gt;…&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                                                                                                    &lt;span class="nt"&gt;01&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;03&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;05&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;07&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;09&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;11&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;13&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;15&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;17&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;19&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;21&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;23&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;25&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;27&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;29&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;31&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;33&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;35&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;37&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;39&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;41&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;43&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;45&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;47&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;80&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                                                                                                                                                                                   &lt;span class="nt"&gt;0100&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;9999&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                                                                                                                                                                                     &lt;span class="nt"&gt;001&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;999&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                                                                                                                                  &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;Z&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt;                                                                                                                                                                                               &lt;span class="nt"&gt;valid_values&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                                                                                                                                                                                                         
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt; &lt;span class="nt"&gt;CDS&lt;/span&gt; &lt;span class="nt"&gt;codes&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;schools&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;districts&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="nt"&gt;nTHE&lt;/span&gt; &lt;span class="nt"&gt;FIRST&lt;/span&gt; &lt;span class="nt"&gt;TWO&lt;/span&gt; &lt;span class="nt"&gt;POSITIONS&lt;/span&gt; &lt;span class="nt"&gt;WILL&lt;/span&gt; &lt;span class="nt"&gt;INCLUDE&lt;/span&gt; &lt;span class="nt"&gt;THE&lt;/span&gt; &lt;span class="nt"&gt;FOLLOWING&lt;/span&gt; &lt;span class="nt"&gt;AGGREGATION&lt;/span&gt; &lt;span class="nt"&gt;CODES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;NS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Non-Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;SN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;ST&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;State&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="nt"&gt;x85&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                                                                                                       &lt;span class="nt"&gt;01&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;03&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;05&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;07&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;09&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;11&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;13&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;15&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;17&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;19&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;21&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;23&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;25&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;27&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;29&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;31&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;33&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;35&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;37&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;39&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;41&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;43&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;45&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;47&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;80&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                                                                                                                                                                                      &lt;span class="nt"&gt;0100&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;9999&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                                                                                                                                                                                        &lt;span class="nt"&gt;001&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;999&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                                                                                                                                     &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;Z&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
 &lt;span class="err"&gt;##&lt;/span&gt;   &lt;span class="nt"&gt;spanner1&lt;/span&gt; &lt;span class="nt"&gt;spanner2&lt;/span&gt;    &lt;span class="nt"&gt;final_name&lt;/span&gt;
 &lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                      &lt;span class="nt"&gt;RECORD_KEY&lt;/span&gt;
 &lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;                        &lt;span class="nt"&gt;CDS_Code&lt;/span&gt;
@@ -439,81 +288,95 @@ hspa_ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;
   &lt;span class="p"&gt;),&lt;/span&gt;
   na &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;*&amp;quot;&lt;/span&gt;
 &lt;span class="p"&gt;)&lt;/span&gt;
-
-hspa_ex &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##   CDS_Code County_Code District_Code School_Code County_Name
-## 1       ST          ST            NA          NA            
-## 2       SN          SN            NA          NA            
-## 3   250100          25           100          NA    MONMOUTH
-## 4   010110          01           110          NA    ATLANTIC
-## 5   110540          11           540          NA  CUMBERLAND
-## 6   010590          01           590          NA    ATLANTIC
-##    District_Name School_Name DFG Special_Needs
-## 1                                             
-## 2                                             
-## 3    ASBURY PARK               A             Y
-## 4  ATLANTIC CITY               A              
-## 5      BRIDGETON               A             Y
-## 6 BUENA REGIONAL               A              
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 742 parsing failures.
+## row                                                            col expected actual
+##   1 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
+##   2 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
+##   3 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
+##   4 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
+##   5 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
+## ... .............................................................. ........ ......
+## .See problems(...) for more details.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;hspa_ex &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
+## 1        ST          ST                                      
+## 2        NS          NS                                      
+## 3        SN          SN                                      
+## 4         A           A                                      
+## 5    250100          25          0100                MONMOUTH
+## 6 250100010          25          0100         010    MONMOUTH
+##   District_Name      School_Name DFG Special_Needs
+## 1                                                 
+## 2                                                 
+## 3                                                 
+## 4                                                 
+## 5   ASBURY PARK                    A             Y
+## 6   ASBURY PARK ASBURY PARK H.S.   A             Y
 ##   TOTAL_POPULATION_Number_Enrolled_LAL
 ## 1                                98240
-## 2                                14584
-## 3                                   73
-## 4                                  377
-## 5                                  268
-## 6                                  173
+## 2                                83656
+## 3                                14584
+## 4                                11988
+## 5                                   73
+## 6                                   73
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
 ## 1                                               507
-## 2                                               165
-## 3                                                 1
-## 4                                                 7
-## 5                                                 6
-## 6                                                 0
+## 2                                               342
+## 3                                               165
+## 4                                               150
+## 5                                                 1
+## 6                                                 1
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
 ## 1                                            148
-## 2                                             28
-## 3                                              1
-## 4                                              0
-## 5                                              0
+## 2                                            120
+## 3                                             28
+## 4                                             29
+## 5                                              1
 ## 6                                              1
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
 ## 1                                                       97091
-## 2                                                       14315
-## 3                                                          71
-## 4                                                         370
-## 5                                                         262
-## 6                                                         172
+## 2                                                       82776
+## 3                                                       14315
+## 4                                                       11750
+## 5                                                          71
+## 6                                                          71
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
 ## 1                                                             67
-## 2                                                            190
-## 3                                                            366
-## 4                                                            176
-## 5                                                            149
-## 6                                                             41
+## 2                                                             46
+## 3                                                            190
+## 4                                                            203
+## 5                                                            366
+## 6                                                            366
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
 ## 1                                                  604
-## 2                                                  708
-## 3                                                  634
-## 4                                                  630
-## 5                                                  802
-## 6                                                  802
+## 2                                                  586
+## 3                                                  708
+## 4                                                  708
+## 5                                                  634
+## 6                                                  634
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
 ## 1                                                           328
-## 2                                                           103
-## 3                                                             0
-## 4                                                           195
-## 5                                                            50
-## 6                                                           157
+## 2                                                           367
+## 3                                                           103
+## 4                                                            88
+## 5                                                            00
+## 6                                                            00
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
 ## 1                                            2368
-## 2                                            2201
-## 3                                            2039
-## 4                                            2254
-## 5                                            2207
-## 6                                            2320
+## 2                                            2396
+## 3                                            2201
+## 4                                            2187
+## 5                                            2039
+## 6                                            2039
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -562,76 +425,76 @@ process_nj_assess&lt;span class="p"&gt;(&lt;/span&gt;hspa_ex&lt;span class="p"&g
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##   CDS_Code County_Code District_Code School_Code County_Name
-## 1       ST          ST            NA          NA            
-## 2       SN          SN            NA          NA            
-## 3   250100          25           100          NA    MONMOUTH
-## 4   010110          01           110          NA    ATLANTIC
-## 5   110540          11           540          NA  CUMBERLAND
-## 6   010590          01           590          NA    ATLANTIC
-##    District_Name School_Name DFG Special_Needs
-## 1                                             
-## 2                                             
-## 3    ASBURY PARK               A             Y
-## 4  ATLANTIC CITY               A              
-## 5      BRIDGETON               A             Y
-## 6 BUENA REGIONAL               A              
+&lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
+## 1        ST          ST                                      
+## 2        NS          NS                                      
+## 3        SN          SN                                      
+## 4         A           A                                      
+## 5    250100          25          0100                MONMOUTH
+## 6 250100010          25          0100         010    MONMOUTH
+##   District_Name      School_Name DFG Special_Needs
+## 1                                                 
+## 2                                                 
+## 3                                                 
+## 4                                                 
+## 5   ASBURY PARK                    A             Y
+## 6   ASBURY PARK ASBURY PARK H.S.   A             Y
 ##   TOTAL_POPULATION_Number_Enrolled_LAL
 ## 1                                98240
-## 2                                14584
-## 3                                   73
-## 4                                  377
-## 5                                  268
-## 6                                  173
+## 2                                83656
+## 3                                14584
+## 4                                11988
+## 5                                   73
+## 6                                   73
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
 ## 1                                               507
-## 2                                               165
-## 3                                                 1
-## 4                                                 7
-## 5                                                 6
-## 6                                                 0
+## 2                                               342
+## 3                                               165
+## 4                                               150
+## 5                                                 1
+## 6                                                 1
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
 ## 1                                            148
-## 2                                             28
-## 3                                              1
-## 4                                              0
-## 5                                              0
+## 2                                            120
+## 3                                             28
+## 4                                             29
+## 5                                              1
 ## 6                                              1
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
 ## 1                                                       97091
-## 2                                                       14315
-## 3                                                          71
-## 4                                                         370
-## 5                                                         262
-## 6                                                         172
+## 2                                                       82776
+## 3                                                       14315
+## 4                                                       11750
+## 5                                                          71
+## 6                                                          71
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
 ## 1                                                            6.7
-## 2                                                           19.0
-## 3                                                           36.6
-## 4                                                           17.6
-## 5                                                           14.9
-## 6                                                            4.1
+## 2                                                            4.6
+## 3                                                           19.0
+## 4                                                           20.3
+## 5                                                           36.6
+## 6                                                           36.6
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
 ## 1                                                 60.4
-## 2                                                 70.8
-## 3                                                 63.4
-## 4                                                 63.0
-## 5                                                 80.2
-## 6                                                 80.2
+## 2                                                 58.6
+## 3                                                 70.8
+## 4                                                 70.8
+## 5                                                 63.4
+## 6                                                 63.4
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
 ## 1                                                          32.8
-## 2                                                          10.3
-## 3                                                           0.0
-## 4                                                          19.5
-## 5                                                           5.0
-## 6                                                          15.7
+## 2                                                          36.7
+## 3                                                          10.3
+## 4                                                           8.8
+## 5                                                           0.0
+## 6                                                           0.0
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
 ## 1                                           236.8
-## 2                                           220.1
-## 3                                           203.9
-## 4                                           225.4
-## 5                                           220.7
-## 6                                           232.0
+## 2                                           239.6
+## 3                                           220.1
+## 4                                           218.7
+## 5                                           203.9
+## 6                                           203.9
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -693,12 +556,12 @@ fetch_hspa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2010&lt;/spa
 
 
 &lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
-## 1        ST          ST            NA          NA            
-## 2        NS          NS            NA          NA            
-## 3        SN          SN            NA          NA            
-## 4         A           A            NA          NA            
-## 5    250100          25           100          NA    MONMOUTH
-## 6 250100010          25           100          10    MONMOUTH
+## 1        ST          ST                                      
+## 2        NS          NS                                      
+## 3        SN          SN                                      
+## 4         A           A                                      
+## 5    250100          25          0100                MONMOUTH
+## 6 250100010          25          0100         010    MONMOUTH
 ##   District_Name      School_Name DFG Special_Needs
 ## 1                                                 
 ## 2                                                 
@@ -789,13 +652,13 @@ fetch_hspa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2010&lt;/spa
 &lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;   &lt;span class="nt"&gt;School&lt;/span&gt; &lt;span class="nt"&gt;Code&lt;/span&gt;         
 &lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;   &lt;span class="nt"&gt;County&lt;/span&gt; &lt;span class="nt"&gt;Name&lt;/span&gt;         
 &lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt; &lt;span class="nt"&gt;District&lt;/span&gt; &lt;span class="nt"&gt;Name&lt;/span&gt;         
-&lt;span class="err"&gt;##&lt;/span&gt;                                                                                                                                                                                            &lt;span class="nt"&gt;valid_values&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt; &lt;span class="nt"&gt;CDS&lt;/span&gt; &lt;span class="nt"&gt;codes&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;schools&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;districts&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="nt"&gt;nTHE&lt;/span&gt; &lt;span class="nt"&gt;FIRST&lt;/span&gt; &lt;span class="nt"&gt;TWO&lt;/span&gt; &lt;span class="nt"&gt;POSITIONS&lt;/span&gt; &lt;span class="nt"&gt;WILL&lt;/span&gt; &lt;span class="nt"&gt;INCLUDE&lt;/span&gt; &lt;span class="nt"&gt;THE&lt;/span&gt; &lt;span class="nt"&gt;FOLLOWING&lt;/span&gt; &lt;span class="nt"&gt;AGGREGATION&lt;/span&gt; &lt;span class="nt"&gt;CODES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;NS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Non-Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;SN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;ST&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;State&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="err"&gt;…&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;                                                                     &lt;span class="nt"&gt;01&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;03&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;05&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;07&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;09&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;11&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;13&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;15&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;17&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;19&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;21&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;23&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;25&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;27&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;29&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;31&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;33&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;35&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;37&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;39&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;41&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;80&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;ST&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;DE&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;FG&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;GH&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;I&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;J&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;R&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;NS&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;SN&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                                                                                                                                   &lt;span class="nt"&gt;0100&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;9999&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                                                                                                                                                  &lt;span class="nt"&gt;001&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;999&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                                                                                                                                  &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;Z&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
-&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                                                                                                                                  &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;Z&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt;                                                                                                                                                                                               &lt;span class="nt"&gt;valid_values&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt; &lt;span class="nt"&gt;CDS&lt;/span&gt; &lt;span class="nt"&gt;codes&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;schools&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;districts&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="nt"&gt;nTHE&lt;/span&gt; &lt;span class="nt"&gt;FIRST&lt;/span&gt; &lt;span class="nt"&gt;TWO&lt;/span&gt; &lt;span class="nt"&gt;POSITIONS&lt;/span&gt; &lt;span class="nt"&gt;WILL&lt;/span&gt; &lt;span class="nt"&gt;INCLUDE&lt;/span&gt; &lt;span class="nt"&gt;THE&lt;/span&gt; &lt;span class="nt"&gt;FOLLOWING&lt;/span&gt; &lt;span class="nt"&gt;AGGREGATION&lt;/span&gt; &lt;span class="nt"&gt;CODES&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;NS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Non-Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;SN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;Special&lt;/span&gt; &lt;span class="nt"&gt;Needs&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;ST&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;State&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;DFG&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="nt"&gt;x85&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;                                                                        &lt;span class="nt"&gt;01&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;03&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;05&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;07&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;09&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;11&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;13&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;15&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;17&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;19&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;21&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;23&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;25&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;27&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;29&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;31&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;33&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;35&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;37&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;39&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;41&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;80&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;ST&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;B&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;CD&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;DE&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;FG&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;GH&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;I&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;J&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;R&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;NS&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;SN&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;                                                                                                                                      &lt;span class="nt"&gt;0100&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;9999&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;                                                                                                                                                     &lt;span class="nt"&gt;001&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;999&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;                                                                                                                                     &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;Z&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
+&lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;                                                                                                                                     &lt;span class="nt"&gt;A&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;Z&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;  &lt;span class="nt"&gt;Applicable&lt;/span&gt; &lt;span class="nt"&gt;only&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;district&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;school&lt;/span&gt; &lt;span class="nt"&gt;aggregations&lt;/span&gt;
 &lt;span class="err"&gt;##&lt;/span&gt;   &lt;span class="nt"&gt;spanner1&lt;/span&gt; &lt;span class="nt"&gt;spanner2&lt;/span&gt;    &lt;span class="nt"&gt;final_name&lt;/span&gt;
 &lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;                        &lt;span class="nt"&gt;CDS_Code&lt;/span&gt;
 &lt;span class="err"&gt;##&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;                     &lt;span class="nt"&gt;County_Code&lt;/span&gt;
@@ -851,12 +714,12 @@ gepa_ex &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.
 
 
 &lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
-## 1        ST          ST            NA          NA            
-## 2        NS          NS            NA          NA            
-## 3        SN          SN            NA          NA            
-## 4         A           A            NA          NA            
-## 5 250100000          25           100           0    MONMOUTH
-## 6 250100070          25           100          70    MONMOUTH
+## 1        ST          ST                                      
+## 2        NS          NS                                      
+## 3        SN          SN                                      
+## 4         A           A                                      
+## 5 250100000          25          0100         000    MONMOUTH
+## 6 250100070          25          0100         070    MONMOUTH
 ##   District_Name      School_Name DFG_Flag
 ## 1                                        
 ## 2                                        
@@ -866,60 +729,60 @@ gepa_ex &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.
 ## 6   ASBURY PARK ASBURY PARK M.S.        A
 ##   Special_Needs_(Abbott)_district_flag TOTAL_POPULATION_Number_Enrolled
 ## 1                                                                108474
-## 2                                                                 87774
-## 3                                                                 20700
-## 4                                                                 17401
-## 5                                    Y                               NA
-## 6                                    Y                               NA
+## 2                                                                087774
+## 3                                                                020700
+## 4                                                                017401
+## 5                                    Y                             &amp;lt;NA&amp;gt;
+## 6                                    Y                             &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                               667
-## 2                                               371
-## 3                                               296
-## 4                                               264
-## 5                                                NA
-## 6                                                NA
+## 1                                            000667
+## 2                                            000371
+## 3                                            000296
+## 4                                            000264
+## 5                                              &amp;lt;NA&amp;gt;
+## 6                                              &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
-## 1                                           1262
-## 2                                            668
-## 3                                            594
-## 4                                            509
-## 5                                             NA
-## 6                                             NA
+## 1                                         001262
+## 2                                         000668
+## 3                                         000594
+## 4                                         000509
+## 5                                           &amp;lt;NA&amp;gt;
+## 6                                           &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_APA
-## 1                                          680
-## 2                                          545
-## 3                                          135
-## 4                                          102
-## 5                                           NA
-## 6                                           NA
+## 1                                       000680
+## 2                                       000545
+## 3                                       000135
+## 4                                       000102
+## 5                                         &amp;lt;NA&amp;gt;
+## 6                                         &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
 ## 1                                                      105865
-## 2                                                       86190
-## 3                                                       19675
-## 4                                                       16526
-## 5                                                          NA
-## 6                                                          NA
+## 2                                                      086190
+## 3                                                      019675
+## 4                                                      016526
+## 5                                                        &amp;lt;NA&amp;gt;
+## 6                                                        &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                            264
-## 2                                                            205
-## 3                                                            522
-## 4                                                            531
-## 5                                                            715
-## 6                                                            715
+## 1                                                           0264
+## 2                                                           0205
+## 3                                                           0522
+## 4                                                           0531
+## 5                                                           0715
+## 6                                                           0715
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                  624
-## 2                                                  663
-## 3                                                  450
-## 4                                                  442
-## 5                                                  278
-## 6                                                  278
+## 1                                                 0624
+## 2                                                 0663
+## 3                                                 0450
+## 4                                                 0442
+## 5                                                 0278
+## 6                                                 0278
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
-## 1                                                           113
-## 2                                                           132
-## 3                                                            28
-## 4                                                            27
-## 5                                                             7
-## 6                                                             7
+## 1                                                          0113
+## 2                                                          0132
+## 3                                                          0028
+## 4                                                          0027
+## 5                                                          0007
+## 6                                                          0007
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
 ## 1                                            2149
 ## 2                                            2193
@@ -936,12 +799,12 @@ gepa_ex &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.
 
 
 &lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
-## 1        ST          ST            NA          NA            
-## 2        NS          NS            NA          NA            
-## 3        SN          SN            NA          NA            
-## 4         A           A            NA          NA            
-## 5 250100000          25           100           0    MONMOUTH
-## 6 250100070          25           100          70    MONMOUTH
+## 1        ST          ST                                      
+## 2        NS          NS                                      
+## 3        SN          SN                                      
+## 4         A           A                                      
+## 5 250100000          25          0100         000    MONMOUTH
+## 6 250100070          25          0100         070    MONMOUTH
 ##   District_Name      School_Name DFG_Flag
 ## 1                                        
 ## 2                                        
@@ -951,39 +814,39 @@ gepa_ex &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.
 ## 6   ASBURY PARK ASBURY PARK M.S.        A
 ##   Special_Needs_(Abbott)_district_flag TOTAL_POPULATION_Number_Enrolled
 ## 1                                                                108474
-## 2                                                                 87774
-## 3                                                                 20700
-## 4                                                                 17401
-## 5                                    Y                               NA
-## 6                                    Y                               NA
+## 2                                                                087774
+## 3                                                                020700
+## 4                                                                017401
+## 5                                    Y                             &amp;lt;NA&amp;gt;
+## 6                                    Y                             &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                               667
-## 2                                               371
-## 3                                               296
-## 4                                               264
-## 5                                                NA
-## 6                                                NA
+## 1                                            000667
+## 2                                            000371
+## 3                                            000296
+## 4                                            000264
+## 5                                              &amp;lt;NA&amp;gt;
+## 6                                              &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
-## 1                                           1262
-## 2                                            668
-## 3                                            594
-## 4                                            509
-## 5                                             NA
-## 6                                             NA
+## 1                                         001262
+## 2                                         000668
+## 3                                         000594
+## 4                                         000509
+## 5                                           &amp;lt;NA&amp;gt;
+## 6                                           &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_APA
-## 1                                          680
-## 2                                          545
-## 3                                          135
-## 4                                          102
-## 5                                           NA
-## 6                                           NA
+## 1                                       000680
+## 2                                       000545
+## 3                                       000135
+## 4                                       000102
+## 5                                         &amp;lt;NA&amp;gt;
+## 6                                         &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
 ## 1                                                      105865
-## 2                                                       86190
-## 3                                                       19675
-## 4                                                       16526
-## 5                                                          NA
-## 6                                                          NA
+## 2                                                      086190
+## 3                                                      019675
+## 4                                                      016526
+## 5                                                        &amp;lt;NA&amp;gt;
+## 6                                                        &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
 ## 1                                                           26.4
 ## 2                                                           20.5
@@ -1028,12 +891,12 @@ fetch_gepa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2007&lt;/spa
 
 
 &lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
-## 1        ST          ST            NA          NA            
-## 2        NS          NS            NA          NA            
-## 3        SN          SN            NA          NA            
-## 4         A           A            NA          NA            
-## 5 250100000          25           100           0    MONMOUTH
-## 6 250100070          25           100          70    MONMOUTH
+## 1        ST          ST                                      
+## 2        NS          NS                                      
+## 3        SN          SN                                      
+## 4         A           A                                      
+## 5 250100000          25          0100         000    MONMOUTH
+## 6 250100070          25          0100         070    MONMOUTH
 ##   District_Name      School_Name DFG_Flag
 ## 1                                        
 ## 2                                        
@@ -1043,39 +906,39 @@ fetch_gepa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2007&lt;/spa
 ## 6   ASBURY PARK ASBURY PARK M.S.        A
 ##   Special_Needs_(Abbott)_district_flag TOTAL_POPULATION_Number_Enrolled
 ## 1                                                                108474
-## 2                                                                 87774
-## 3                                                                 20700
-## 4                                                                 17401
-## 5                                    Y                               NA
-## 6                                    Y                               NA
+## 2                                                                087774
+## 3                                                                020700
+## 4                                                                017401
+## 5                                    Y                             &amp;lt;NA&amp;gt;
+## 6                                    Y                             &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                               667
-## 2                                               371
-## 3                                               296
-## 4                                               264
-## 5                                                NA
-## 6                                                NA
+## 1                                            000667
+## 2                                            000371
+## 3                                            000296
+## 4                                            000264
+## 5                                              &amp;lt;NA&amp;gt;
+## 6                                              &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
-## 1                                           1262
-## 2                                            668
-## 3                                            594
-## 4                                            509
-## 5                                             NA
-## 6                                             NA
+## 1                                         001262
+## 2                                         000668
+## 3                                         000594
+## 4                                         000509
+## 5                                           &amp;lt;NA&amp;gt;
+## 6                                           &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_APA
-## 1                                          680
-## 2                                          545
-## 3                                          135
-## 4                                          102
-## 5                                           NA
-## 6                                           NA
+## 1                                       000680
+## 2                                       000545
+## 3                                       000135
+## 4                                       000102
+## 5                                         &amp;lt;NA&amp;gt;
+## 6                                         &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
 ## 1                                                      105865
-## 2                                                       86190
-## 3                                                       19675
-## 4                                                       16526
-## 5                                                          NA
-## 6                                                          NA
+## 2                                                      086190
+## 3                                                      019675
+## 4                                                      016526
+## 5                                                        &amp;lt;NA&amp;gt;
+## 6                                                        &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
 ## 1                                                           26.4
 ## 2                                                           20.5
@@ -1143,7 +1006,7 @@ fetch_gepa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2007&lt;/spa
 ## 5                                                                                                                                                                                     Applicable only for district and school records.
 ## 6                                                                                                                                                                                     Applicable only for district and school records.
 ##                                                                                                                                                                                               valid_values
-## 1                                                                                                                                                                                                         
+## 1                                                                                                                                                                                                     &amp;lt;NA&amp;gt;
 ## 2 County Code = 01, 03, 05, 07, 09, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 80\nDFG = A, B, CD, DE, FG, GH, I, J, R, V\nST = Statewide, NS = Non-Special Needs, SN = Special Needs
 ## 3                                                                                                                                                                                      0100 to 9999, blank
 ## 4                                                                                                                                                                                        001 to 999, blank
@@ -1247,120 +1110,121 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;magrittr&lt;span class="p"&gt;)&lt;/span&gt;
 
 ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2014&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;6&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+dplyr&lt;span class="o"&gt;::&lt;/span&gt;sample_n&lt;span class="p"&gt;(&lt;/span&gt;ex&lt;span class="p"&gt;[,&lt;/span&gt; &lt;span class="kp"&gt;sample&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;551&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)],&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Loading required package: readr
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: package &amp;#39;readr&amp;#39; was built under R version 3.1.3
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;dplyr&lt;span class="o"&gt;::&lt;/span&gt;sample_n&lt;span class="p"&gt;(&lt;/span&gt;ex&lt;span class="p"&gt;[,&lt;/span&gt; &lt;span class="kp"&gt;sample&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;551&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)],&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;##    MIGRANT_MATHEMATICS_Partially_Proficient_Percentage
-## 1                                                   NA
-## 2                                                   NA
-## 3                                                   NA
-## 4                                                   NA
-## 5                                                   NA
-## 6                                                   NA
-## 7                                                   NA
-## 8                                                   NA
-## 9                                                   NA
-## 10                                                  NA
-##    CURRENT_LIMITED_ENGLISH_PROFICIENT_Number_Enrolled_ELA
-## 1                                                       0
-## 2                                                       0
-## 3                                                      NA
-## 4                                                      NA
-## 5                                                      NA
-## 6                                                       0
-## 7                                                      NA
-## 8                                                       0
-## 9                                                       0
-## 10                                                      0
-##    OTHER_SCIENCE_Number_of_Voids
-## 1                             NA
-## 2                             NA
-## 3                             NA
-## 4                             NA
-## 5                             NA
-## 6                             NA
-## 7                             NA
-## 8                             NA
-## 9                             NA
-## 10                            NA
-##    GENERAL_EDUCATION_MATHEMATICS_Number_of_Voids BLACK_SCIENCE_Number_APA
-## 1                                              0                       NA
-## 2                                              0                       NA
-## 3                                              0                       NA
-## 4                                              0                       NA
-## 5                                              1                       NA
-## 6                                              0                       NA
-## 7                                              0                       NA
-## 8                                              0                       NA
-## 9                                              0                       NA
-## 10                                             0                       NA
-##    ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Proficient_Percentage
-## 1                                                            NA
-## 2                                                            NA
-## 3                                                           452
-## 4                                                           585
-## 5                                                           528
-## 6                                                           500
-## 7                                                           444
-## 8                                                            NA
-## 9                                                           750
-## 10                                                           NA
-##    ASIAN_MATHEMATICS_Advanced_Proficient_Percentage
+&lt;div class="highlight"&gt;&lt;pre&gt;##    ASIAN_MATHEMATICS_Advanced_Proficient_Percentage
 ## 1                                                NA
 ## 2                                                NA
 ## 3                                                NA
 ## 4                                                NA
-## 5                                                NA
+## 5                                               750
 ## 6                                                NA
 ## 7                                                NA
 ## 8                                                NA
 ## 9                                                NA
 ## 10                                               NA
-##    FORMER_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_of_Voids
-## 1                                                             NA
-## 2                                                             NA
-## 3                                                             NA
-## 4                                                             NA
-## 5                                                              0
-## 6                                                             NA
-## 7                                                             NA
-## 8                                                             NA
-## 9                                                             NA
-## 10                                                            NA
-##    AMERICAN_INDIAN_MATHEMATICS_Partially_Proficient_Percentage
+##    CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_APA
 ## 1                                                           NA
 ## 2                                                           NA
 ## 3                                                           NA
-## 4                                                           NA
+## 4                                                            0
 ## 5                                                           NA
 ## 6                                                           NA
 ## 7                                                           NA
 ## 8                                                           NA
 ## 9                                                           NA
 ## 10                                                          NA
-##    GENERAL_EDUCATION_SCIENCE_Number_APA
-## 1                                    NA
-## 2                                    NA
-## 3                                    NA
-## 4                                    NA
-## 5                                    NA
-## 6                                    NA
-## 7                                    NA
-## 8                                    NA
-## 9                                    NA
-## 10                                   NA
+##    TOTAL_POPULATION_SCIENCE_Number_Enrolled_Science
+## 1                                                  
+## 2                                                  
+## 3                                                  
+## 4                                                  
+## 5                                                  
+## 6                                                  
+## 7                                                  
+## 8                                                  
+## 9                                                  
+## 10                                                 
+##    ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_APA
+## 1                                               
+## 2                                               
+## 3                                               
+## 4                                               
+## 5                                               
+## 6                                               
+## 7                                               
+## 8                                               
+## 9                                               
+## 10                                              
+##    PACIFIC_ISLANDER_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                              NA
+## 2                                                              NA
+## 3                                                              NA
+## 4                                                              NA
+## 5                                                              NA
+## 6                                                              NA
+## 7                                                              NA
+## 8                                                              NA
+## 9                                                              NA
+## 10                                                             NA
+##    MALE_Number_Enrolled_ELA
+## 1                        47
+## 2                        47
+## 3                       110
+## 4                       148
+## 5                        72
+## 6                        NA
+## 7                        NA
+## 8                        NA
+## 9                        15
+## 10                       33
+##    SPECIAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                                  NA
+## 2                                                  NA
+## 3                                                  NA
+## 4                                                   0
+## 5                                                  NA
+## 6                                                  NA
+## 7                                                  NA
+## 8                                                  NA
+## 9                                                  NA
+## 10                                                 NA
+##                  School_Name
+## 1              HIGH MOUNTAIN
+## 2                           
+## 3                           
+## 4  RICHARD C CROCKETT MIDDLE
+## 5                           
+## 6                FOREST HILL
+## 7   MAC FARLAND INTERMEDIATE
+## 8     ALBERT BEAN ELEMENTARY
+## 9              OAKLYN SCHOOL
+## 10                  NUMBER 2
+##    CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_of_Voids
+## 1                                                              NA
+## 2                                                              NA
+## 3                                                              NA
+## 4                                                               0
+## 5                                                              NA
+## 6                                                              NA
+## 7                                                              NA
+## 8                                                              NA
+## 9                                                              NA
+## 10                                                             NA
+##    GENERAL_EDUCATION_SCIENCE_Number_of_Voids
+## 1                                           
+## 2                                           
+## 3                                           
+## 4                                           
+## 5                                           
+## 6                                           
+## 7                                           
+## 8                                           
+## 9                                           
+## 10
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1368,23 +1232,8 @@ ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&
 &lt;p&gt;For each of those columns, we want to apply a function to each column.  Hadley's &lt;code&gt;dplyr&lt;/code&gt; has a nice utility for doing this - &lt;code&gt;mutate_each&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;We'll also need to make sure that we only mutate the columns that are tagged with 'One implied decimal.'&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;dplyr&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
 
-
-&lt;div class="highlight"&gt;&lt;pre&gt;## 
-## Attaching package: &amp;#39;dplyr&amp;#39;
-## 
-## The following object is masked from &amp;#39;package:stats&amp;#39;:
-## 
-##     filter
-## 
-## The following objects are masked from &amp;#39;package:base&amp;#39;:
-## 
-##     intersect, setdiff, setequal, union
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;process_njask &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;,&lt;/span&gt; mask&lt;span class="o"&gt;=&lt;/span&gt;layout_njask&lt;span class="o"&gt;$&lt;/span&gt;comments&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+process_njask &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;,&lt;/span&gt; mask&lt;span class="o"&gt;=&lt;/span&gt;layout_njask&lt;span class="o"&gt;$&lt;/span&gt;comments&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="c1"&gt;#keep the names to put back in the same order&lt;/span&gt;
   all_names &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;names&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;df&lt;span class="p"&gt;)&lt;/span&gt;
 
@@ -1412,67 +1261,18 @@ ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&
 &lt;span class="p"&gt;}&lt;/span&gt;
 
 ex_process &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; process_njask&lt;span class="p"&gt;(&lt;/span&gt;ex&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;ex_process&lt;span class="p"&gt;[,&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;15&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code/DFG/Aggregation_Code District_Code School_Code
-## 1        ST                               ST            NA          NA
-## 2        SN                               SN            NA          NA
-## 3         A                                A            NA          NA
-## 4    250100                               25           100          NA
-## 5 250100040                               25           100          40
-## 6 010110050                               01           110          50
-##   County_Name District_Name        School_Name DFG Special_Needs
-## 1                                                               
-## 2                                                               
-## 3                                                               
-## 4    MONMOUTH   ASBURY PARK                      A             Y
-## 5    MONMOUTH   ASBURY PARK BRADLEY ELEMENTARY   A             Y
-## 6    ATLANTIC ATLANTIC CITY    CHELSEA HEIGHTS   A              
-##   TOTAL_POPULATION_Number_Enrolled_ELA
-## 1                               102513
-## 2                                19683
-## 3                                16949
-## 4                                  121
-## 5                                   NA
-## 6                                   27
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                               212
-## 2                                                52
-## 3                                                41
-## 4                                                 0
-## 5                                                NA
-## 6                                                 0
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
-## 1                                            494
-## 2                                            139
-## 3                                            114
-## 4                                              4
-## 5                                             NA
-## 6                                              1
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_APA
-## 1                                      1016
-## 2                                       248
-## 3                                       215
-## 4                                         0
-## 5                                        NA
-## 6                                         0
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                      100791
-## 2                                                       19244
-## 3                                                       16579
-## 4                                                         117
-## 5                                                          NA
-## 6                                                          26
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                           33.0
-## 2                                                           60.3
-## 3                                                           61.4
-## 4                                                           87.2
-## 5                                                             NA
-## 6                                                            7.7
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;## Error in names(sel)[unnamed] &amp;lt;- sel[unnamed]: NAs are not allowed in subscripted assignments&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;ex_process&lt;span class="p"&gt;[,&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;15&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Error in head(ex_process[, 1:15]): object &amp;#39;ex_process&amp;#39; not found
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1510,83 +1310,7 @@ fetch_njask&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2014&lt;/sp
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code/DFG/Aggregation_Code District_Code School_Code
-## 1        ST                               ST            NA          NA
-## 2        SN                               SN            NA          NA
-## 3         A                                A            NA          NA
-## 4    250100                               25           100          NA
-## 5 250100040                               25           100          40
-## 6 010110050                               01           110          50
-##   County_Name District_Name        School_Name DFG Special_Needs
-## 1                                                               
-## 2                                                               
-## 3                                                               
-## 4    MONMOUTH   ASBURY PARK                      A             Y
-## 5    MONMOUTH   ASBURY PARK BRADLEY ELEMENTARY   A             Y
-## 6    ATLANTIC ATLANTIC CITY    CHELSEA HEIGHTS   A              
-##   TOTAL_POPULATION_Number_Enrolled_ELA
-## 1                               102513
-## 2                                19683
-## 3                                16949
-## 4                                  121
-## 5                                   NA
-## 6                                   27
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                               212
-## 2                                                52
-## 3                                                41
-## 4                                                 0
-## 5                                                NA
-## 6                                                 0
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
-## 1                                            494
-## 2                                            139
-## 3                                            114
-## 4                                              4
-## 5                                             NA
-## 6                                              1
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_APA
-## 1                                      1016
-## 2                                       248
-## 3                                       215
-## 4                                         0
-## 5                                        NA
-## 6                                         0
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                      100791
-## 2                                                       19244
-## 3                                                       16579
-## 4                                                         117
-## 5                                                          NA
-## 6                                                          26
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                           33.0
-## 2                                                           60.3
-## 3                                                           61.4
-## 4                                                           87.2
-## 5                                                             NA
-## 6                                                            7.7
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                 58.1
-## 2                                                 38.2
-## 3                                                 37.3
-## 4                                                 12.8
-## 5                                                   NA
-## 6                                                 92.3
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
-## 1                                                           8.8
-## 2                                                           1.5
-## 3                                                           1.3
-## 4                                                           0.0
-## 5                                                            NA
-## 6                                                           0.0
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                           211.2
-## 2                                           193.2
-## 3                                           192.3
-## 4                                           175.4
-## 5                                              NA
-## 6                                           215.8
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;## Error in names(sel)[unnamed] &amp;lt;- sel[unnamed]: NAs are not allowed in subscripted assignments&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1620,18 +1344,18 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##                   X1            X2                        X3 X4       X5
-## 1                 ST                                              104616
-## 2                 NS                                               85260
-## 3                 SN                                               19356
-## 4                  A                                               16599
-## 5  250100   MONMOUTH   ASBURY PARK                            A  Y   129
-## 6  250100070MONMOUTH   ASBURY PARK ASBURY PARK MIDDLE SCHOOL  A  Y   128
-## 7  250100100MONMOUTH   ASBURY PARK THURGOOD MARSHALL PRIMARY  A Y*     *
-## 8  010110   ATLANTIC ATLANTIC CITY                            A      462
-## 9  010110300ATLANTIC ATLANTIC CITY    BRIGHTON AVENUE SCHOOL  A  *     *
-## 10 010110050ATLANTIC ATLANTIC CITY           CHELSEA HEIGHTS  A       26
-## 11 010110140ATLANTIC ATLANTIC CITY   DR M L KING JR SCH COMP  A       47
+&lt;div class="highlight"&gt;&lt;pre&gt;##                   X1            X2                        X3   X4       X5
+## 1                 ST          &amp;lt;NA&amp;gt;                      &amp;lt;NA&amp;gt; &amp;lt;NA&amp;gt;   104616
+## 2                 NS          &amp;lt;NA&amp;gt;                      &amp;lt;NA&amp;gt; &amp;lt;NA&amp;gt;    85260
+## 3                 SN          &amp;lt;NA&amp;gt;                      &amp;lt;NA&amp;gt; &amp;lt;NA&amp;gt;    19356
+## 4                  A          &amp;lt;NA&amp;gt;                      &amp;lt;NA&amp;gt; &amp;lt;NA&amp;gt;    16599
+## 5  250100   MONMOUTH   ASBURY PARK                      &amp;lt;NA&amp;gt;    A  Y   129
+## 6  250100070MONMOUTH   ASBURY PARK ASBURY PARK MIDDLE SCHOOL    A  Y   128
+## 7  250100100MONMOUTH   ASBURY PARK THURGOOD MARSHALL PRIMARY    A Y*     *
+## 8  010110   ATLANTIC ATLANTIC CITY                      &amp;lt;NA&amp;gt;    A      462
+## 9  010110300ATLANTIC ATLANTIC CITY    BRIGHTON AVENUE SCHOOL    A  *     *
+## 10 010110050ATLANTIC ATLANTIC CITY           CHELSEA HEIGHTS    A       26
+## 11 010110140ATLANTIC ATLANTIC CITY   DR M L KING JR SCH COMP    A       47
 ##     X6  X7                              X8  X9 X10
 ## 1  308 473 877102958 202 672 1262201104616 396 292
 ## 2  218 343 683 84016 151 701 1482239 85260 259 237
@@ -1656,18 +1380,18 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
 ## 9    *     *   *   *   *   *     *   *   *    *     *   *   *   *        0
 ## 10   0    26 269 423 3082247    26   0   0   0    26 115 577 3082338    20
 ## 11   0    44 386 432 1822065    47   0   2   0    45 511 422  672013    39
-##    X15
-## 1  185
-## 2  133
-## 3   52
-## 4   42
-## 5    1
-## 6    1
-## 7     
-## 8    3
-## 9     
-## 10   0
-## 11   0
+##     X15
+## 1   185
+## 2   133
+## 3    52
+## 4    42
+## 5     1
+## 6     1
+## 7  &amp;lt;NA&amp;gt;
+## 8     3
+## 9  &amp;lt;NA&amp;gt;
+## 10    0
+## 11    0
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1685,6 +1409,7 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
 &lt;div class="highlight"&gt;&lt;pre&gt;## Source: local data frame [6 x 8]
 ## 
 ##   field_start_position field_end_position field_length data_type
+##                  (int)              (int)        (int)     (chr)
 ## 1                    1                  9            9      Text
 ## 2                    1                  2            2      Text
 ## 3                    3                  6            4      Text
@@ -1692,7 +1417,7 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
 ## 5                   10                 59           50      Text
 ## 6                   60                109           50      Text
 ## Variables not shown: description (chr), comments (chr), valid_values
-##   (chr), structural (lgl)
+##   (chr), structural (lgl).
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1709,6 +1434,7 @@ keepers &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; dplyr&lt;span class="o"&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;## Source: local data frame [6 x 8]
 ## 
 ##   field_start_position field_end_position field_length         data_type
+##                  (int)              (int)        (int)             (chr)
 ## 1                  163                300          138  TOTAL POPULATION
 ## 2                  169                208           40     LANGUAGE ARTS
 ## 3                  209                254           46       MATHEMATICS
@@ -1716,7 +1442,7 @@ keepers &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; dplyr&lt;span class="o"&gt;
 ## 5                  301                438          138 GENERAL EDUCATION
 ## 6                  307                346           40     LANGUAGE ARTS
 ## Variables not shown: description (chr), comments (chr), valid_values
-##   (chr), structural (lgl)
+##   (chr), structural (lgl).
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1763,7 +1489,7 @@ keepers &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; dplyr&lt;span class="o"&gt;
 ## 19                  193                196            4   Decimal
 ## 20                  193                196            4   Decimal
 ##                         description structural          spanner
-## 1                         CDS Code       FALSE             &amp;lt;NA&amp;gt;
+## 1                          CDS Code      FALSE             &amp;lt;NA&amp;gt;
 ## 2  County Code/DFG/Aggregation Code      FALSE             &amp;lt;NA&amp;gt;
 ## 3                     District Code      FALSE             &amp;lt;NA&amp;gt;
 ## 4                       School Code      FALSE             &amp;lt;NA&amp;gt;
@@ -1838,21 +1564,21 @@ with_rn&lt;span class="o"&gt;$&lt;/span&gt;spanner &lt;span class="o"&gt;&amp;lt
 ## 5                   10                 59           50      Text
 ## 6                   60                109           50      Text
 ##                        description
-## 1                        CDS Code 
+## 1                         CDS Code
 ## 2 County Code/DFG/Aggregation Code
 ## 3                    District Code
 ## 4                      School Code
 ## 5                      County Name
 ## 6                    District Name
 ##                                                                                                                                                                                                                               comments
-## 1                                                                                                                                               For district and school records the first three fields combine to form the CDS code.  
+## 1                                                                                                                                                 For district and school records the first three fields combine to form the CDS code.
 ## 2 For district and school records this field contains a two-digit county code.  For DFG records, this field contains the DFG code.  For Statewide, Special Needs and Non-Special Needs records, it contains a two-letter abbreviation.
-## 3                                                                                                                                                                                  Applicable only for district and school records.   
-## 4                                                                                                                                                                                  Applicable only for district and school records.   
-## 5                                                                                                                                                                                  Applicable only for district and school records.   
-## 6                                                                                                                                                                                  Applicable only for district and school records.   
+## 3                                                                                                                                                                                     Applicable only for district and school records.
+## 4                                                                                                                                                                                     Applicable only for district and school records.
+## 5                                                                                                                                                                                     Applicable only for district and school records.
+## 6                                                                                                                                                                                     Applicable only for district and school records.
 ##                                                                                                                                                                                               valid_values
-## 1                                                                                                                                                                                                         
+## 1                                                                                                                                                                                                     &amp;lt;NA&amp;gt;
 ## 2 County Code = 01, 03, 05, 07, 09, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 80\nDFG = A, B, CD, DE, FG, GH, I, J, R, V\nST = Statewide, NS = Non-Special Needs, SN = Special Needs
 ## 3                                                                                                                                                                                      0100 to 9999, blank
 ## 4                                                                                                                                                                                        001 to 999, blank
@@ -1905,7 +1631,7 @@ layout_njask&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span
 ## 19                  209                214            6   Integer
 ## 20                  215                220            6   Integer
 ##                         description
-## 1                         CDS Code 
+## 1                          CDS Code
 ## 2  County Code/DFG/Aggregation Code
 ## 3                     District Code
 ## 4                       School Code
@@ -1926,28 +1652,28 @@ layout_njask&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span
 ## 19             Number Enrolled Math
 ## 20               Number Not Present
 ##                                                                                                                                                                                                                                comments
-## 1                                                                                                                                                For district and school records the first three fields combine to form the CDS code.  
+## 1                                                                                                                                                  For district and school records the first three fields combine to form the CDS code.
 ## 2  For district and school records this field contains a two-digit county code.  For DFG records, this field contains the DFG code.  For Statewide, Special Needs and Non-Special Needs records, it contains a two-letter abbreviation.
-## 3                                                                                                                                                                                   Applicable only for district and school records.   
-## 4                                                                                                                                                                                   Applicable only for district and school records.   
-## 5                                                                                                                                                                                   Applicable only for district and school records.   
-## 6                                                                                                                                                                                   Applicable only for district and school records.   
-## 7                                                                                                                                                                                   Applicable only for district and school records.   
-## 8                                                                              Applicable only for district and school records.  For the DFG records, the DFG is only shown once, in the County Code field, and not in this DFG field  
-## 9                                                                                                                                                                                   Applicable only for district and school records.   
-## 10                                                                                                                                    In NJ ASK, the number of enrolled students is the same for a population across all content areas 
-## 11                                                                                                                                                                                                                                     
-## 12                                                                                                                                                                                                                                     
-## 13                                                                                                                                                                                                                                     
-## 14                                                                                                                                                                                                                                     
+## 3                                                                                                                                                                                      Applicable only for district and school records.
+## 4                                                                                                                                                                                      Applicable only for district and school records.
+## 5                                                                                                                                                                                      Applicable only for district and school records.
+## 6                                                                                                                                                                                      Applicable only for district and school records.
+## 7                                                                                                                                                                                      Applicable only for district and school records.
+## 8                                                                                Applicable only for district and school records.  For the DFG records, the DFG is only shown once, in the County Code field, and not in this DFG field
+## 9                                                                                                                                                                                      Applicable only for district and school records.
+## 10                                                                                                                                     In NJ ASK, the number of enrolled students is the same for a population across all content areas
+## 11                                                                                                                                                                                                                                 &amp;lt;NA&amp;gt;
+## 12                                                                                                                                                                                                                                 &amp;lt;NA&amp;gt;
+## 13                                                                                                                                                                                                                                 &amp;lt;NA&amp;gt;
+## 14                                                                                                                                                                                                                                 &amp;lt;NA&amp;gt;
 ## 15                                                                                                                                                                                                                  One implied decimal
 ## 16                                                                                                                                                                                                                  One implied decimal
 ## 17                                                                                                                                                                                                                  One implied decimal
 ## 18                                                                                                                                                                                                                  One implied decimal
-## 19                                                                                                                                    In NJ ASK, the number of enrolled students is the same for a population across all content areas 
-## 20                                                                                                                                                                                                                                     
+## 19                                                                                                                                     In NJ ASK, the number of enrolled students is the same for a population across all content areas
+## 20                                                                                                                                                                                                                                 &amp;lt;NA&amp;gt;
 ##                                                                                                                                                                                                valid_values
-## 1                                                                                                                                                                                                          
+## 1                                                                                                                                                                                                      &amp;lt;NA&amp;gt;
 ## 2  County Code = 01, 03, 05, 07, 09, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 80\nDFG = A, B, CD, DE, FG, GH, I, J, R, V\nST = Statewide, NS = Non-Special Needs, SN = Special Needs
 ## 3                                                                                                                                                                                       0100 to 9999, blank
 ## 4                                                                                                                                                                                         001 to 999, blank
@@ -1956,7 +1682,7 @@ layout_njask&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span
 ## 7                                                                                                                                                                                             A to Z, blank
 ## 8                                                                                                                                                                          A, B, CD, DE, FG, GH, I, J, R, V
 ## 9                                                                                                                                                                          Y=special need; Otherwise blank.
-## 10                                                                                                                                        0 or greater for spreadsheet and 000000 or greater for text file 
+## 10                                                                                                                                         0 or greater for spreadsheet and 000000 or greater for text file
 ## 11                                                                                                           0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0
 ## 12                                                                                                           0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0
 ## 13                                                                                                           0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0
@@ -1965,7 +1691,7 @@ layout_njask&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span
 ## 16                                                                       0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.
 ## 17                                                                       0.0 to 100.0 for spreadsheet and 0000 to 1000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.
 ## 18                                                                     100.0 to 300.0 for spreadsheet and 1000 to 3000 for text file.  Blank if Number Enrolled = 0 or if Number of Valid Scale Scores = 0.
-## 19                                                                                                                                        0 or greater for spreadsheet and 000000 or greater for text file 
+## 19                                                                                                                                         0 or greater for spreadsheet and 000000 or greater for text file
 ## 20                                                                                                           0 or greater for spreadsheet and 000000 or greater for text file. Blank if Number Enrolled = 0
 ##            spanner1      spanner2
 ## 1                                
@@ -2039,7 +1765,7 @@ layout_njask&lt;span class="o"&gt;$&lt;/span&gt;valid_values &lt;span class="o"&
 ## 5                                                                                                                                                                                     Applicable only for district and school records.
 ## 6                                                                                                                                                                                     Applicable only for district and school records.
 ##                                                                                                                                                                                               valid_values
-## 1                                                                                                                                                                                                         
+## 1                                                                                                                                                                                                     &amp;lt;NA&amp;gt;
 ## 2 County Code = 01, 03, 05, 07, 09, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 80\nDFG = A, B, CD, DE, FG, GH, I, J, R, V\nST = Statewide, NS = Non-Special Needs, SN = Special Needs
 ## 3                                                                                                                                                                                      0100 to 9999, blank
 ## 4                                                                                                                                                                                        001 to 999, blank
@@ -2076,116 +1802,116 @@ let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    MIGRANT_MATHEMATICS_Number_Enrolled_Math
-## 1                                         0
-## 2                                         0
-## 3                                         0
-## 4                                         0
-## 5                                         0
-## 6                                         0
-## 7                                         0
-## 8                                         0
-## 9                                         0
-## 10                                        0
-##    ASIAN_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                        565
-## 2                                        429
-## 3                                        580
-## 4                                         NA
-## 5                                         NA
-## 6                                         NA
-## 7                                         NA
-## 8                                         NA
-## 9                                         NA
-## 10                                        NA
-##    LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_Enrolled_Science
+&lt;div class="highlight"&gt;&lt;pre&gt;##    CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
 ## 1                                                                             NA
 ## 2                                                                             NA
 ## 3                                                                             NA
 ## 4                                                                             NA
 ## 5                                                                             NA
-## 6                                                                             14
+## 6                                                                             NA
 ## 7                                                                             NA
-## 8                                                                              0
-## 9                                                                              0
+## 8                                                                             NA
+## 9                                                                             NA
 ## 10                                                                            NA
-##    NON-ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                                 658
-## 2                                                                 681
-## 3                                                                 740
-## 4                                                                 775
-## 5                                                                 750
-## 6                                                                 800
-## 7                                                                  NA
-## 8                                                                 771
-## 9                                                                 636
-## 10                                                                704
-##    LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_Enrolled_Math
-## 1                                                                              NA
-## 2                                                                              NA
-## 3                                                                              NA
-## 4                                                                              NA
-## 5                                                                              NA
-## 6                                                                              14
-## 7                                                                              NA
-## 8                                                                               0
-## 9                                                                               0
-## 10                                                                             NA
-##    WHITE_MATHEMATICS_Partially_Proficient_Percentage
-## 1                                                100
-## 2                                                306
-## 3                                                159
-## 4                                                212
-## 5                                                164
-## 6                                                 NA
-## 7                                                 NA
-## 8                                                208
-## 9                                                 NA
-## 10                                               193
-##    ASIAN_MATHEMATICS_Advanced_Proficient_Percentage
-## 1                                               696
-## 2                                               679
-## 3                                               780
-## 4                                                NA
-## 5                                                NA
-## 6                                                NA
-## 7                                                NA
-## 8                                                NA
-## 9                                                NA
-## 10                                               NA
-##    SPECIAL_EDUCATION_SCIENCE_Number_Enrolled_Science
-## 1                                                 38
-## 2                                                 NA
-## 3                                                 NA
+##    PACIFIC_ISLANDER_LANGUAGE_ARTS_Number_of_Voids
+## 1                                              NA
+## 2                                              NA
+## 3                                              NA
+## 4                                              NA
+## 5                                              NA
+## 6                                              NA
+## 7                                              NA
+## 8                                              NA
+## 9                                              NA
+## 10                                             NA
+##    OTHER_LANGUAGE_ARTS_Number_of_Voids
+## 1                                   NA
+## 2                                   NA
+## 3                                   NA
+## 4                                   NA
+## 5                                   NA
+## 6                                   NA
+## 7                                   NA
+## 8                                   NA
+## 9                                   NA
+## 10                                  NA
+##    NON-MIGRANT_SCIENCE_Advanced_Proficient_Percentage
+## 1                                                  76
+## 2                                                  93
+## 3                                                 241
+## 4                                                 698
+## 5                                                 514
+## 6                                                  30
+## 7                                                 310
+## 8                                                  71
+## 9                                                &amp;lt;NA&amp;gt;
+## 10                                                676
+##    HISPANIC_SCIENCE_Number_of_Valid_Scale_Scores
+## 1                                             29
+## 2                                             39
+## 3                                             42
+## 4                                             NA
+## 5                                             11
+## 6                                             42
+## 7                                             14
+## 8                                             NA
+## 9                                             NA
+## 10                                            NA
+##    MALE_SCIENCE_Number_of_Valid_Scale_Scores
+## 1                                        109
+## 2                                        114
+## 3                                         66
+## 4                                         61
+## 5                                        114
+## 6                                         54
+## 7                                         46
+## 8                                         25
+## 9                                         NA
+## 10                                        33
+##    FORMER_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                                                     NA
+## 2                                                                     NA
+## 3                                                                     NA
+## 4                                                                     NA
+## 5                                                                     NA
+## 6                                                                     NA
+## 7                                                                     NA
+## 8                                                                     NA
+## 9                                                                     NA
+## 10                                                                    NA
+##    ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_APA
+## 1                                                  2
+## 2                                                  7
+## 3                                                  2
 ## 4                                                 NA
 ## 5                                                 NA
-## 6                                                 NA
-## 7                                                 NA
-## 8                                                 13
-## 9                                                 17
-## 10                                                NA
-##    TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                                  0
-## 2                                                  0
-## 3                                                  0
-## 4                                                  0
-## 5                                                  1
-## 6                                                  0
+## 6                                                  2
 ## 7                                                  0
 ## 8                                                  0
-## 9                                                  0
-## 10                                                 1
-##    NON-MIGRANT_SCIENCE_Scale_Score_Mean
-## 1                                  2455
-## 2                                  2280
-## 3                                  2418
-## 4                                  2451
-## 5                                  2376
-## 6                                  2049
-## 7                                  2126
-## 8                                  2193
-## 9                                  2088
-## 10                                 2306
+## 9                                                 NA
+## 10                                                NA
+##    MIGRANT_LANGUAGE_ARTS_Scale_Score_Mean
+## 1                                      NA
+## 2                                      NA
+## 3                                      NA
+## 4                                      NA
+## 5                                      NA
+## 6                                      NA
+## 7                                      NA
+## 8                                      NA
+## 9                                      NA
+## 10                                     NA
+##    NON-ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Partially_Proficient_Percentage
+## 1                                                                         350
+## 2                                                                         411
+## 3                                                                         221
+## 4                                                                          53
+## 5                                                                          93
+## 6                                                                        &amp;lt;NA&amp;gt;
+## 7                                                                         167
+## 8                                                                         462
+## 9                                                                        &amp;lt;NA&amp;gt;
+## 10                                                                        104
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -2780,7 +2506,7 @@ let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
 &lt;h2&gt;an out-of-the-box sample RStudio RMD, to test &lt;a href="https://github.com/getpelican/pelican-plugins/tree/master/rmd_reader"&gt;&lt;code&gt;rmd_reader&lt;/code&gt;&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see &lt;a href="http://rmarkdown.rstudio.com"&gt;http://rmarkdown.rstudio.com&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;When you click the &lt;strong&gt;Knit&lt;/strong&gt; button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;summary&lt;span class="p"&gt;(&lt;/span&gt;cars&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;summary&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;cars&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -2791,10 +2517,5 @@ let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
 ##  Mean   :15.4   Mean   : 42.98  
 ##  3rd Qu.:19.0   3rd Qu.: 56.00  
 ##  Max.   :25.0   Max.   :120.00
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;You can also embed plots, for example:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="plot of chunk unnamed-chunk-3" src="http://almart.in/figure/unnamed-chunk-3-1.svg" /&gt; &lt;/p&gt;
-&lt;p&gt;Note that the &lt;code&gt;echo = FALSE&lt;/code&gt; parameter was added to the code chunk to prevent printing of the R code that generated the plot.&lt;/p&gt;</summary></entry><entry><title>test post</title><link href="http://almart.in/will-it-blend.html" rel="alternate"></link><updated>2015-04-10T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-10:will-it-blend.html</id><summary type="html">&lt;p&gt;just a test post to see if pelican works...
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>test post</title><link href="http://almart.in/will-it-blend.html" rel="alternate"></link><updated>2015-04-10T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-10:will-it-blend.html</id><summary type="html">&lt;p&gt;just a test post to see if pelican works...
 &lt;img src="https://d2x83fpq8bsx3q.cloudfront.net/wp-content/uploads/2012/11/Tom-on-WIB-Set-Promo-Pics-Small-Jun14-12-21.jpg"&gt;&lt;/p&gt;</summary></entry></feed>

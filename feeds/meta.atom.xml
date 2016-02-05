@@ -29,7 +29,7 @@
 &lt;h2&gt;an out-of-the-box sample RStudio RMD, to test &lt;a href="https://github.com/getpelican/pelican-plugins/tree/master/rmd_reader"&gt;&lt;code&gt;rmd_reader&lt;/code&gt;&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see &lt;a href="http://rmarkdown.rstudio.com"&gt;http://rmarkdown.rstudio.com&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;When you click the &lt;strong&gt;Knit&lt;/strong&gt; button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;summary&lt;span class="p"&gt;(&lt;/span&gt;cars&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;summary&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;cars&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -40,10 +40,5 @@
 ##  Mean   :15.4   Mean   : 42.98  
 ##  3rd Qu.:19.0   3rd Qu.: 56.00  
 ##  Max.   :25.0   Max.   :120.00
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;You can also embed plots, for example:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="plot of chunk unnamed-chunk-3" src="http://almart.in/figure/unnamed-chunk-3-1.svg" /&gt; &lt;/p&gt;
-&lt;p&gt;Note that the &lt;code&gt;echo = FALSE&lt;/code&gt; parameter was added to the code chunk to prevent printing of the R code that generated the plot.&lt;/p&gt;</summary></entry><entry><title>test post</title><link href="http://almart.in/will-it-blend.html" rel="alternate"></link><updated>2015-04-10T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-10:will-it-blend.html</id><summary type="html">&lt;p&gt;just a test post to see if pelican works...
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>test post</title><link href="http://almart.in/will-it-blend.html" rel="alternate"></link><updated>2015-04-10T00:00:00-04:00</updated><author><name>Andrew Martin</name></author><id>tag:almart.in,2015-04-10:will-it-blend.html</id><summary type="html">&lt;p&gt;just a test post to see if pelican works...
 &lt;img src="https://d2x83fpq8bsx3q.cloudfront.net/wp-content/uploads/2012/11/Tom-on-WIB-Set-Promo-Pics-Small-Jun14-12-21.jpg"&gt;&lt;/p&gt;</summary></entry></feed>

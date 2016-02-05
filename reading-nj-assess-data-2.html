@@ -42,7 +42,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="http://almart.in/categories.html"><i class="fa fa-archive"></i> categories</a></li>
 					<li><a href="http://almart.in/tags.html"><i class="fa fa-tags"></i> tags</a></li>
-					<li><a href="http://almart.in/feeds/all_atom.xml"><i class="fa fa-rss"></i> rss</a></li>
+					<li><a href="http://almart.infeeds/all.atom.xml"><i class="fa fa-rss"></i> rss</a></li>
 				</ul>
 			</div>
 		</div>
@@ -130,7 +130,7 @@
 ## 5                                                                                                                                                                                     Applicable only for district and school records.
 ## 6                                                                                                                                                                                     Applicable only for district and school records.
 ##                                                                                                                                                                                               valid_values
-## 1                                                                                                                                                                                                         
+## 1                                                                                                                                                                                                     &lt;NA&gt;
 ## 2 County Code = 01, 03, 05, 07, 09, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 80\nDFG = A, B, CD, DE, FG, GH, I, J, R, V\nST = Statewide, NS = Non-Special Needs, SN = Special Needs
 ## 3                                                                                                                                                                                      0100 to 9999, blank
 ## 4                                                                                                                                                                                        001 to 999, blank
@@ -234,120 +234,121 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>magrittr<span class="p">)</span>
 
 ex <span class="o">&lt;-</span> get_raw_njask<span class="p">(</span><span class="m">2014</span><span class="p">,</span> <span class="m">6</span><span class="p">)</span>
+
+dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">[,</span> <span class="kp">sample</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">551</span><span class="p">),</span> <span class="m">10</span><span class="p">)],</span> <span class="m">10</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span>
 </pre></div>
 
 
-<div class="highlight"><pre>## Loading required package: readr
-</pre></div>
-
-
-<div class="highlight"><pre>## Warning: package &#39;readr&#39; was built under R version 3.1.3
-</pre></div>
-
-
-<div class="highlight"><pre>dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">[,</span> <span class="kp">sample</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">551</span><span class="p">),</span> <span class="m">10</span><span class="p">)],</span> <span class="m">10</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span>
-</pre></div>
-
-
-<div class="highlight"><pre>##    MIGRANT_MATHEMATICS_Partially_Proficient_Percentage
-## 1                                                   NA
-## 2                                                   NA
-## 3                                                   NA
-## 4                                                   NA
-## 5                                                   NA
-## 6                                                   NA
-## 7                                                   NA
-## 8                                                   NA
-## 9                                                   NA
-## 10                                                  NA
-##    CURRENT_LIMITED_ENGLISH_PROFICIENT_Number_Enrolled_ELA
-## 1                                                       0
-## 2                                                       0
-## 3                                                      NA
-## 4                                                      NA
-## 5                                                      NA
-## 6                                                       0
-## 7                                                      NA
-## 8                                                       0
-## 9                                                       0
-## 10                                                      0
-##    OTHER_SCIENCE_Number_of_Voids
-## 1                             NA
-## 2                             NA
-## 3                             NA
-## 4                             NA
-## 5                             NA
-## 6                             NA
-## 7                             NA
-## 8                             NA
-## 9                             NA
-## 10                            NA
-##    GENERAL_EDUCATION_MATHEMATICS_Number_of_Voids BLACK_SCIENCE_Number_APA
-## 1                                              0                       NA
-## 2                                              0                       NA
-## 3                                              0                       NA
-## 4                                              0                       NA
-## 5                                              1                       NA
-## 6                                              0                       NA
-## 7                                              0                       NA
-## 8                                              0                       NA
-## 9                                              0                       NA
-## 10                                             0                       NA
-##    ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Proficient_Percentage
-## 1                                                            NA
-## 2                                                            NA
-## 3                                                           452
-## 4                                                           585
-## 5                                                           528
-## 6                                                           500
-## 7                                                           444
-## 8                                                            NA
-## 9                                                           750
-## 10                                                           NA
-##    ASIAN_MATHEMATICS_Advanced_Proficient_Percentage
+<div class="highlight"><pre>##    ASIAN_MATHEMATICS_Advanced_Proficient_Percentage
 ## 1                                                NA
 ## 2                                                NA
 ## 3                                                NA
 ## 4                                                NA
-## 5                                                NA
+## 5                                               750
 ## 6                                                NA
 ## 7                                                NA
 ## 8                                                NA
 ## 9                                                NA
 ## 10                                               NA
-##    FORMER_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_of_Voids
-## 1                                                             NA
-## 2                                                             NA
-## 3                                                             NA
-## 4                                                             NA
-## 5                                                              0
-## 6                                                             NA
-## 7                                                             NA
-## 8                                                             NA
-## 9                                                             NA
-## 10                                                            NA
-##    AMERICAN_INDIAN_MATHEMATICS_Partially_Proficient_Percentage
+##    CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_APA
 ## 1                                                           NA
 ## 2                                                           NA
 ## 3                                                           NA
-## 4                                                           NA
+## 4                                                            0
 ## 5                                                           NA
 ## 6                                                           NA
 ## 7                                                           NA
 ## 8                                                           NA
 ## 9                                                           NA
 ## 10                                                          NA
-##    GENERAL_EDUCATION_SCIENCE_Number_APA
-## 1                                    NA
-## 2                                    NA
-## 3                                    NA
-## 4                                    NA
-## 5                                    NA
-## 6                                    NA
-## 7                                    NA
-## 8                                    NA
-## 9                                    NA
-## 10                                   NA
+##    TOTAL_POPULATION_SCIENCE_Number_Enrolled_Science
+## 1                                                  
+## 2                                                  
+## 3                                                  
+## 4                                                  
+## 5                                                  
+## 6                                                  
+## 7                                                  
+## 8                                                  
+## 9                                                  
+## 10                                                 
+##    ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_APA
+## 1                                               
+## 2                                               
+## 3                                               
+## 4                                               
+## 5                                               
+## 6                                               
+## 7                                               
+## 8                                               
+## 9                                               
+## 10                                              
+##    PACIFIC_ISLANDER_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                              NA
+## 2                                                              NA
+## 3                                                              NA
+## 4                                                              NA
+## 5                                                              NA
+## 6                                                              NA
+## 7                                                              NA
+## 8                                                              NA
+## 9                                                              NA
+## 10                                                             NA
+##    MALE_Number_Enrolled_ELA
+## 1                        47
+## 2                        47
+## 3                       110
+## 4                       148
+## 5                        72
+## 6                        NA
+## 7                        NA
+## 8                        NA
+## 9                        15
+## 10                       33
+##    SPECIAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                                  NA
+## 2                                                  NA
+## 3                                                  NA
+## 4                                                   0
+## 5                                                  NA
+## 6                                                  NA
+## 7                                                  NA
+## 8                                                  NA
+## 9                                                  NA
+## 10                                                 NA
+##                  School_Name
+## 1              HIGH MOUNTAIN
+## 2                           
+## 3                           
+## 4  RICHARD C CROCKETT MIDDLE
+## 5                           
+## 6                FOREST HILL
+## 7   MAC FARLAND INTERMEDIATE
+## 8     ALBERT BEAN ELEMENTARY
+## 9              OAKLYN SCHOOL
+## 10                  NUMBER 2
+##    CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_of_Voids
+## 1                                                              NA
+## 2                                                              NA
+## 3                                                              NA
+## 4                                                               0
+## 5                                                              NA
+## 6                                                              NA
+## 7                                                              NA
+## 8                                                              NA
+## 9                                                              NA
+## 10                                                             NA
+##    GENERAL_EDUCATION_SCIENCE_Number_of_Voids
+## 1                                           
+## 2                                           
+## 3                                           
+## 4                                           
+## 5                                           
+## 6                                           
+## 7                                           
+## 8                                           
+## 9                                           
+## 10
 </pre></div>
 
 
@@ -355,23 +356,8 @@ ex <span class="o">&lt;-</span> get_raw_njask<span class="p">(</span><span class
 <p>For each of those columns, we want to apply a function to each column.  Hadley's <code>dplyr</code> has a nice utility for doing this - <code>mutate_each</code>.</p>
 <p>We'll also need to make sure that we only mutate the columns that are tagged with 'One implied decimal.'</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
-</pre></div>
 
-
-<div class="highlight"><pre>## 
-## Attaching package: &#39;dplyr&#39;
-## 
-## The following object is masked from &#39;package:stats&#39;:
-## 
-##     filter
-## 
-## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union
-</pre></div>
-
-
-<div class="highlight"><pre>process_njask <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>df<span class="p">,</span> mask<span class="o">=</span>layout_njask<span class="o">$</span>comments<span class="p">)</span> <span class="p">{</span>
+process_njask <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>df<span class="p">,</span> mask<span class="o">=</span>layout_njask<span class="o">$</span>comments<span class="p">)</span> <span class="p">{</span>
   <span class="c1">#keep the names to put back in the same order</span>
   all_names <span class="o">&lt;-</span> <span class="kp">names</span><span class="p">(</span>df<span class="p">)</span>
 
@@ -399,67 +385,18 @@ ex <span class="o">&lt;-</span> get_raw_njask<span class="p">(</span><span class
 <span class="p">}</span>
 
 ex_process <span class="o">&lt;-</span> process_njask<span class="p">(</span>ex<span class="p">)</span>
-
-<span class="kp">head</span><span class="p">(</span>ex_process<span class="p">[,</span> <span class="m">1</span><span class="o">:</span><span class="m">15</span><span class="p">])</span>
 </pre></div>
 
 
-<div class="highlight"><pre>##    CDS_Code County_Code/DFG/Aggregation_Code District_Code School_Code
-## 1        ST                               ST            NA          NA
-## 2        SN                               SN            NA          NA
-## 3         A                                A            NA          NA
-## 4    250100                               25           100          NA
-## 5 250100040                               25           100          40
-## 6 010110050                               01           110          50
-##   County_Name District_Name        School_Name DFG Special_Needs
-## 1                                                               
-## 2                                                               
-## 3                                                               
-## 4    MONMOUTH   ASBURY PARK                      A             Y
-## 5    MONMOUTH   ASBURY PARK BRADLEY ELEMENTARY   A             Y
-## 6    ATLANTIC ATLANTIC CITY    CHELSEA HEIGHTS   A              
-##   TOTAL_POPULATION_Number_Enrolled_ELA
-## 1                               102513
-## 2                                19683
-## 3                                16949
-## 4                                  121
-## 5                                   NA
-## 6                                   27
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                               212
-## 2                                                52
-## 3                                                41
-## 4                                                 0
-## 5                                                NA
-## 6                                                 0
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
-## 1                                            494
-## 2                                            139
-## 3                                            114
-## 4                                              4
-## 5                                             NA
-## 6                                              1
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_APA
-## 1                                      1016
-## 2                                       248
-## 3                                       215
-## 4                                         0
-## 5                                        NA
-## 6                                         0
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                      100791
-## 2                                                       19244
-## 3                                                       16579
-## 4                                                         117
-## 5                                                          NA
-## 6                                                          26
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                           33.0
-## 2                                                           60.3
-## 3                                                           61.4
-## 4                                                           87.2
-## 5                                                             NA
-## 6                                                            7.7
+<div class="highlight"><pre><span class="c1">## Error in names(sel)[unnamed] &lt;- sel[unnamed]: NAs are not allowed in subscripted assignments</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">head</span><span class="p">(</span>ex_process<span class="p">[,</span> <span class="m">1</span><span class="o">:</span><span class="m">15</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in head(ex_process[, 1:15]): object &#39;ex_process&#39; not found
 </pre></div>
 
 
@@ -497,83 +434,7 @@ fetch_njask<span class="p">(</span><span class="m">2014</span><span class="p">,<
 </pre></div>
 
 
-<div class="highlight"><pre>##    CDS_Code County_Code/DFG/Aggregation_Code District_Code School_Code
-## 1        ST                               ST            NA          NA
-## 2        SN                               SN            NA          NA
-## 3         A                                A            NA          NA
-## 4    250100                               25           100          NA
-## 5 250100040                               25           100          40
-## 6 010110050                               01           110          50
-##   County_Name District_Name        School_Name DFG Special_Needs
-## 1                                                               
-## 2                                                               
-## 3                                                               
-## 4    MONMOUTH   ASBURY PARK                      A             Y
-## 5    MONMOUTH   ASBURY PARK BRADLEY ELEMENTARY   A             Y
-## 6    ATLANTIC ATLANTIC CITY    CHELSEA HEIGHTS   A              
-##   TOTAL_POPULATION_Number_Enrolled_ELA
-## 1                               102513
-## 2                                19683
-## 3                                16949
-## 4                                  121
-## 5                                   NA
-## 6                                   27
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                               212
-## 2                                                52
-## 3                                                41
-## 4                                                 0
-## 5                                                NA
-## 6                                                 0
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
-## 1                                            494
-## 2                                            139
-## 3                                            114
-## 4                                              4
-## 5                                             NA
-## 6                                              1
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_APA
-## 1                                      1016
-## 2                                       248
-## 3                                       215
-## 4                                         0
-## 5                                        NA
-## 6                                         0
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                      100791
-## 2                                                       19244
-## 3                                                       16579
-## 4                                                         117
-## 5                                                          NA
-## 6                                                          26
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                           33.0
-## 2                                                           60.3
-## 3                                                           61.4
-## 4                                                           87.2
-## 5                                                             NA
-## 6                                                            7.7
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                 58.1
-## 2                                                 38.2
-## 3                                                 37.3
-## 4                                                 12.8
-## 5                                                   NA
-## 6                                                 92.3
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
-## 1                                                           8.8
-## 2                                                           1.5
-## 3                                                           1.3
-## 4                                                           0.0
-## 5                                                            NA
-## 6                                                           0.0
-##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                           211.2
-## 2                                           193.2
-## 3                                           192.3
-## 4                                           175.4
-## 5                                              NA
-## 6                                           215.8
+<div class="highlight"><pre><span class="c1">## Error in names(sel)[unnamed] &lt;- sel[unnamed]: NAs are not allowed in subscripted assignments</span>
 </pre></div>
 
 

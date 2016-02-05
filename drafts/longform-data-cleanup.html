@@ -42,7 +42,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="http://almart.in/categories.html"><i class="fa fa-archive"></i> categories</a></li>
 					<li><a href="http://almart.in/tags.html"><i class="fa fa-tags"></i> tags</a></li>
-					<li><a href="http://almart.in/feeds/all_atom.xml"><i class="fa fa-rss"></i> rss</a></li>
+					<li><a href="http://almart.infeeds/all.atom.xml"><i class="fa fa-rss"></i> rss</a></li>
 				</ul>
 			</div>
 		</div>
@@ -89,18 +89,18 @@ lf<span class="o">$</span>publication <span class="o">&lt;-</span> <span class="
 ## 4 4       Sheri Fink     1-Apr-10 New York Times   Aug-09
 ## 5 5       Kevin Gray     2-Apr-10        Details   Feb-09
 ## 6 6 Jeffrey Goldberg     2-Apr-10     New Yorker   Apr-10
-##                                                                                                                                                                                                           summary
-## 1                                   The secret history of the Wildensteins, the art worldâ€™s richest and most powerful family, whose legendary vaults likely include counterfeits and works stolen by the Nazis.
-## 2 Swept out to sea by a riptide, a father and his 12-year-old autistic son struggle to stay alive. As night falls, the dad comes to a devastating realization: If they remain together, theyâ€™ll drown together.
-## 3                                               As labels big and small attempt to gain traction in the worldâ€™s largest market, theyâ€™re learning that selling pop is never simple in the epicenter of piracy.
-## 4          Katrinaâ€™s floodwaters had knocked out the power. Evacuation of the sickest patients seemed impossible. So the doctors at Memorial did what they thought was right, even if they knew it was a crime.
-## 5     When Nazi-sympathizing politician Jorg Haider died in a crash, his 27-year-old protÃ©gÃ© Stefan Petzner was left to lead the Austrian far rightâ€”and to mourn the boss who he revealed was also his lover.
-## 6                                                                                                                          The inside story of how an ABC nature shoot in Africa end up producingÂ  a snuff film.
+##                                                                                                                                                                                                         summary
+## 1                                   The secret history of the Wildensteins, the art world’s richest and most powerful family, whose legendary vaults likely include counterfeits and works stolen by the Nazis.
+## 2 Swept out to sea by a riptide, a father and his 12-year-old autistic son struggle to stay alive. As night falls, the dad comes to a devastating realization: If they remain together, they’ll drown together.
+## 3                                                 As labels big and small attempt to gain traction in the world’s largest market, they’re learning that selling pop is never simple in the epicenter of piracy.
+## 4          Katrina’s floodwaters had knocked out the power. Evacuation of the sickest patients seemed impossible. So the doctors at Memorial did what they thought was right, even if they knew it was a crime.
+## 5       When Nazi-sympathizing politician Jorg Haider died in a crash, his 27-year-old protégé Stefan Petzner was left to lead the Austrian far right—and to mourn the boss who he revealed was also his lover.
+## 6                                                                                                                         The inside story of how an ABC nature shoot in Africa end up producing  a snuff film.
 ##                                title
 ## 1                      Bitter Spoils
 ## 2                  Lost in the Waves
 ## 3 Inside the music business in China
-## 4       A Hospitalâ€™s Deadly Choice
+## 4         A Hospital’s Deadly Choice
 ## 5           The fascist who loved me
 ## 6                         The Hunted
 </pre></div>
@@ -139,6 +139,10 @@ lf<span class="o">$</span>posted_at <span class="o">&lt;-</span> lubridate<span 
 </pre></div>
 
 
+<div class="highlight"><pre>## Warning: 1 failed to parse.
+</pre></div>
+
+
 <p>Filter out bad records:</p>
 <div class="highlight"><pre>lf <span class="o">&lt;-</span> lf <span class="o">%&gt;%</span>
   dplyr<span class="o">::</span>filter<span class="p">(</span>
@@ -149,27 +153,8 @@ lf<span class="o">$</span>posted_at <span class="o">&lt;-</span> lubridate<span 
 
 <p>Percentage share by year:</p>
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
-</pre></div>
 
-
-<div class="highlight"><pre>## 
-## Attaching package: &#39;dplyr&#39;
-## 
-## The following objects are masked from &#39;package:lubridate&#39;:
-## 
-##     intersect, setdiff, union
-## 
-## The following object is masked from &#39;package:stats&#39;:
-## 
-##     filter
-## 
-## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union
-</pre></div>
-
-
-<div class="highlight"><pre>lf<span class="o">$</span>year_posted <span class="o">&lt;-</span> lubridate<span class="o">::</span>year<span class="p">(</span>lf<span class="o">$</span>posted_at<span class="p">)</span>
+lf<span class="o">$</span>year_posted <span class="o">&lt;-</span> lubridate<span class="o">::</span>year<span class="p">(</span>lf<span class="o">$</span>posted_at<span class="p">)</span>
 
 lf_yr <span class="o">&lt;-</span> lf <span class="o">%&gt;%</span>
   group_by<span class="p">(</span>year_posted<span class="p">)</span> <span class="o">%&gt;%</span>
@@ -188,8 +173,14 @@ lf_pub_yr <span class="o">&lt;-</span> lf <span class="o">%&gt;%</span>
 lf_pub_disp <span class="o">&lt;-</span> lf_pub_yr
 lf_pub_disp<span class="o">$</span>publication <span class="o">&lt;-</span> <span class="kp">ifelse</span><span class="p">(</span>
   <span class="p">(</span>lf_pub_disp<span class="o">$</span>year <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">2011</span><span class="p">,</span> <span class="m">2012</span><span class="p">,</span> <span class="m">2013</span><span class="p">,</span> <span class="m">2014</span><span class="p">)</span> <span class="o">&amp;</span> lf_pub_disp<span class="o">$</span>n <span class="o">&lt;</span> <span class="m">5</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span>lf_pub_disp<span class="o">$</span>year <span class="o">%in%</span> <span class="kt">c</span><span class="p">(</span><span class="m">2010</span><span class="p">,</span> <span class="m">2015</span><span class="p">)</span> <span class="o">&amp;</span> lf_pub_disp<span class="o">$</span>n <span class="o">&lt;</span> <span class="m">3</span><span class="p">),</span> <span class="s">&#39;Other&#39;</span><span class="p">,</span> lf_pub_disp<span class="o">$</span>publication<span class="p">)</span>
+</pre></div>
 
-lf_pub_disp <span class="o">&lt;-</span> lf_pub_disp <span class="o">%&gt;%</span>
+
+<div class="highlight"><pre>## Error: Unknown name
+</pre></div>
+
+
+<div class="highlight"><pre>lf_pub_disp <span class="o">&lt;-</span> lf_pub_disp <span class="o">%&gt;%</span>
   group_by<span class="p">(</span>publication<span class="p">,</span> year_posted<span class="p">)</span> <span class="o">%&gt;%</span>
   summarize<span class="p">(</span>
     n_pub <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>n_pub<span class="p">)</span>
@@ -232,15 +223,16 @@ lf_pub_disp<span class="o">$</span>pct_year_total <span class="o">&lt;-</span> <
 
 
 <div class="highlight"><pre>## Source: local data frame [6 x 5]
-## Groups: publication
+## Groups: publication [4]
 ## 
-##   year_posted   publication n_pub yr_total pct_year_total
-## 1        2011             -     1     1384     0.07225434
-## 2        2012     360hiphop     1     1468     0.06811989
-## 3        2011 3:AM Magazine     1     1384     0.07225434
-## 4        2013 3:AM Magazine     2     1403     0.14255167
-## 5        2014 3:AM Magazine     1     1545     0.06472492
-## 6        2010  3quarksdaily     1      754     0.13262599
+##     publication year_posted n_pub yr_total pct_year_total
+##           (chr)       (dbl) (int)    (int)          (dbl)
+## 1             -        2011     1     1384     0.07225434
+## 2 3:AM Magazine        2011     1     1384     0.07225434
+## 3 3:AM Magazine        2013     2     1403     0.14255167
+## 4 3:AM Magazine        2014     1     1545     0.06472492
+## 5     360hiphop        2012     1     1468     0.06811989
+## 6  3quarksdaily        2010     1      754     0.13262599
 </pre></div>
 
 
@@ -249,15 +241,16 @@ lf_pub_disp<span class="o">$</span>pct_year_total <span class="o">&lt;-</span> <
 
 
 <div class="highlight"><pre>## Source: local data frame [6 x 6]
-## Groups: year_posted
+## Groups: year_posted [5]
 ## 
-##   year_posted       publication n_pub rank_pub yr_total pct_year_total
-## 1        2012              5280     6       41     1468      0.4087193
-## 2        2010           AV Club     3       40      754      0.3978780
-## 3        2011           AV Club     5       47     1384      0.3612717
-## 4        2013              Aeon    12       26     1403      0.8553100
-## 5        2014              Aeon    14       21     1545      0.9061489
-## 6        2013 American Prospect     6       45     1403      0.4276550
+##     publication year_posted n_pub rank_pub yr_total pct_year_total
+##           (chr)       (dbl) (int)    (int)    (int)          (dbl)
+## 1             -        2011     1      124     1384     0.07225434
+## 2 3:AM Magazine        2011     1      125     1384     0.07225434
+## 3 3:AM Magazine        2013     2      117     1403     0.14255167
+## 4 3:AM Magazine        2014     1      184     1545     0.06472492
+## 5     360hiphop        2012     1      162     1468     0.06811989
+## 6  3quarksdaily        2010     1       76      754     0.13262599
 </pre></div></div>
 	<hr>
 
