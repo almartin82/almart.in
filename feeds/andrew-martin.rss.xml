@@ -27,7 +27,92 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;## Error in names(sel)[unnamed] &amp;lt;- sel[unnamed]: NAs are not allowed in subscripted assignments&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   TOTAL_POPULATION_Number_Enrolled_ELA = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Number_Enrolled_Science = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Number_Enrolled_Science = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Number_Not_Present = col_integer()
+##   # ... with 240 more columns
+## )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 2578 parsing failures.
+## row                                                            col    expected      actual
+##   1 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   1 NA                                                             551 columns 549 columns
+##   2 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   2 NA                                                             551 columns 549 columns
+##   3 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     2          
+## ... .............................................................. ........... ...........
+## See problems(...) for more details.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   TOTAL_POPULATION_Number_Enrolled_ELA = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   SPECIAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   SPECIAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   SPECIAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   SPECIAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   SPECIAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   SPECIAL_EDUCATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   LIMITED_ENGLISH_PROFICIENT_current_and_former_Number_Enrolled_ELA = col_integer()
+##   # ... with 147 more columns
+## )
+## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 3010 parsing failures.
+## row                                                            col    expected      actual
+##   1 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   1 NA                                                             551 columns 549 columns
+##   2 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   2 NA                                                             551 columns 549 columns
+##   3 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     2          
+## ... .............................................................. ........... ...........
+## See problems(...) for more details.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Error: NA column indexes not supported
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -43,15 +128,128 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 742 parsing failures.
-## row                                                            col expected actual
-##   1 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
-##   2 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
-##   3 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
-##   4 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
-##   5 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
-## ... .............................................................. ........ ......
-## .See problems(...) for more details.
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   DFG = col_integer(),
+##   Special_Needs = col_integer(),
+##   TOTAL_POPULATION_Number_Enrolled_LAL = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_of_Valid_Scale_Scores = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Number_of_Valid_Scale_Scores = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_LAL = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_of_Valid_Scale_Scores = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Number_of_Valid_Scale_Scores = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Partially_Proficient_Percentage = col_integer()
+##   # ... with 202 more columns
+## )
+## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 1484 parsing failures.
+## row                                                                        col    expected      actual
+##   1 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Number_of_Valid_Scale_Scores 6 chars     0          
+##   1 NA                                                                         559 columns 555 columns
+##   2 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Number_of_Valid_Scale_Scores 6 chars     0          
+##   2 NA                                                                         559 columns 555 columns
+##   3 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Number_of_Valid_Scale_Scores 6 chars     0          
+## ... .......................................................................... ........... ...........
+## See problems(...) for more details.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   DFG = col_integer(),
+##   Special_Needs = col_integer(),
+##   TOTAL_POPULATION_Number_Enrolled_LAL = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_of_Valid_Scale_Scores = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Number_of_Valid_Scale_Scores = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_LAL = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_of_Valid_Scale_Scores = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Number_of_Valid_Scale_Scores = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Partially_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Proficient_Percentage = col_integer()
+##   # ... with 189 more columns
+## )
+## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   `Special_Needs_(Abbott)_district_flag` = col_integer(),
+##   MALE_SCIENCE_Scale_Score_Mean = col_integer(),
+##   MIGRANT_MATHEMATICS_Number_of_Valid_Scale_Scores = col_integer(),
+##   MIGRANT_SCIENCE_Number_of_Valid_Scale_Scores = col_integer(),
+##   PACIFIC_ISLANDER_LANGUAGE_ARTS_Proficient_Percentage = col_integer(),
+##   `NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean` = col_integer()
+## )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 2448 parsing failures.
+## row                                                              col    expected      actual
+##   1 NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean 4 chars     1          
+##   1 NA                                                               486 columns 484 columns
+##   2 NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean 4 chars     1          
+##   2 NA                                                               486 columns 484 columns
+##   3 NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean 4 chars     1          
+## ... ................................................................ ........... ...........
+## See problems(...) for more details.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   `Special_Needs_(Abbott)_district_flag` = col_integer(),
+##   MALE_SCIENCE_Scale_Score_Mean = col_integer(),
+##   MIGRANT_MATHEMATICS_Number_of_Valid_Scale_Scores = col_integer(),
+##   MIGRANT_SCIENCE_Number_of_Valid_Scale_Scores = col_integer(),
+##   PACIFIC_ISLANDER_LANGUAGE_ARTS_Proficient_Percentage = col_integer(),
+##   `NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean` = col_integer()
+## )
+## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 2448 parsing failures.
+## row                                                              col    expected      actual
+##   1 NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean 4 chars     1          
+##   1 NA                                                               486 columns 484 columns
+##   2 NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean 4 chars     1          
+##   2 NA                                                               486 columns 484 columns
+##   3 NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean 4 chars     1          
+## ... ................................................................ ........... ...........
+## See problems(...) for more details.
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -142,7 +340,51 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;## Error in names(sel)[unnamed] &amp;lt;- sel[unnamed]: NAs are not allowed in subscripted assignments&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   TOTAL_POPULATION_Number_Enrolled_ELA = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   SPECIAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   SPECIAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   SPECIAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   SPECIAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   SPECIAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   SPECIAL_EDUCATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   LIMITED_ENGLISH_PROFICIENT_current_and_former_Number_Enrolled_ELA = col_integer()
+##   # ... with 147 more columns
+## )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 3010 parsing failures.
+## row                                                            col    expected      actual
+##   1 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   1 NA                                                             551 columns 549 columns
+##   2 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   2 NA                                                             551 columns 549 columns
+##   3 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     2          
+## ... .............................................................. ........... ...........
+## See problems(...) for more details.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Error: NA column indexes not supported
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -220,7 +462,51 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;## Error in names(sel)[unnamed] &amp;lt;- sel[unnamed]: NAs are not allowed in subscripted assignments&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   TOTAL_POPULATION_Number_Enrolled_ELA = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   SPECIAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   SPECIAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   SPECIAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   SPECIAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   SPECIAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer()
+##   # ... with 156 more columns
+## )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 3924 parsing failures.
+## row                                                            col    expected      actual
+##   1 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   1 NA                                                             551 columns 549 columns
+##   2 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   2 NA                                                             551 columns 549 columns
+##   3 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     2          
+## ... .............................................................. ........... ...........
+## See problems(...) for more details.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Error: NA column indexes not supported
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -291,15 +577,47 @@ hspa_ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 742 parsing failures.
-## row                                                            col expected actual
-##   1 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
-##   2 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
-##   3 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
-##   4 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
-##   5 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Scale_Score_Mean  4 chars      0
-## ... .............................................................. ........ ......
-## .See problems(...) for more details.
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   DFG = col_integer(),
+##   Special_Needs = col_integer(),
+##   TOTAL_POPULATION_Number_Enrolled_LAL = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_of_Valid_Scale_Scores = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Number_of_Valid_Scale_Scores = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_LAL = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_of_Valid_Scale_Scores = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Number_of_Valid_Scale_Scores = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Partially_Proficient_Percentage = col_integer()
+##   # ... with 202 more columns
+## )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 1484 parsing failures.
+## row                                                                        col    expected      actual
+##   1 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Number_of_Valid_Scale_Scores 6 chars     0          
+##   1 NA                                                                         559 columns 555 columns
+##   2 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Number_of_Valid_Scale_Scores 6 chars     0          
+##   2 NA                                                                         559 columns 555 columns
+##   3 SCIENCE_SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_Number_of_Valid_Scale_Scores 6 chars     0          
+## ... .......................................................................... ........... ...........
+## See problems(...) for more details.
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -307,76 +625,76 @@ hspa_ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
-## 1        ST          ST                                      
-## 2        NS          NS                                      
-## 3        SN          SN                                      
-## 4         A           A                                      
-## 5    250100          25          0100                MONMOUTH
-## 6 250100010          25          0100         010    MONMOUTH
-##   District_Name      School_Name DFG Special_Needs
-## 1                                                 
-## 2                                                 
-## 3                                                 
-## 4                                                 
-## 5   ASBURY PARK                    A             Y
-## 6   ASBURY PARK ASBURY PARK H.S.   A             Y
+&lt;div class="highlight"&gt;&lt;pre&gt;##   CDS_Code County_Code District_Code School_Code County_Name
+## 1                                                           
+## 2                                                           
+## 3                                                           
+## 4                                                           
+## 5 MONMOUTH                                       ASBURY PARK
+## 6 MONMOUTH                                       ASBURY PARK
+##      District_Name     School_Name DFG Special_Needs
+## 1                      98240   507  14             8
+## 2                      83656   342  12             0
+## 3                      14584   165   2             8
+## 4                      11988   150   2             9
+## 5                  A Y    73     1  NA             1
+## 6 ASBURY PARK H.S. A Y    73     1  NA             1
 ##   TOTAL_POPULATION_Number_Enrolled_LAL
-## 1                                98240
-## 2                                83656
-## 3                                14584
-## 4                                11988
-## 5                                   73
-## 6                                   73
+## 1                                97091
+## 2                                82776
+## 3                                14315
+## 4                                11750
+## 5                                   71
+## 6                                   71
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                               507
-## 2                                               342
-## 3                                               165
-## 4                                               150
-## 5                                                 1
-## 6                                                 1
+## 1                                              67 6
+## 2                                              46 5
+## 3                                             190 7
+## 4                                             203 7
+## 5                                             366 6
+## 6                                             366 6
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
-## 1                                            148
-## 2                                            120
-## 3                                             28
-## 4                                             29
-## 5                                              1
-## 6                                              1
+## 1                                         04 328
+## 2                                         86 367
+## 3                                         08 103
+## 4                                         08  88
+## 5                                         34  00
+## 6                                         34  00
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                       97091
-## 2                                                       82776
-## 3                                                       14315
-## 4                                                       11750
-## 5                                                          71
-## 6                                                          71
+## 1                                                      2368 9
+## 2                                                      2396 8
+## 3                                                      2201 1
+## 4                                                      2187 1
+## 5                                                        2039
+## 6                                                        2039
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                             67
-## 2                                                             46
-## 3                                                            190
-## 4                                                            203
-## 5                                                            366
-## 6                                                            366
+## 1                                                           8240
+## 2                                                           3656
+## 3                                                           4584
+## 4                                                           1988
+## 5                                                             73
+## 6                                                             73
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                  604
-## 2                                                  586
-## 3                                                  708
-## 4                                                  708
-## 5                                                  634
-## 6                                                  634
+## 1                                                    6
+## 2                                                    4
+## 3                                                    2
+## 4                                                    2
+## 5                                                   NA
+## 6                                                   NA
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
-## 1                                                           328
-## 2                                                           367
-## 3                                                           103
-## 4                                                            88
-## 5                                                            00
-## 6                                                            00
+## 1                                                            63
+## 2                                                            42
+## 3                                                            21
+## 4                                                            10
+## 5                                                             1
+## 6                                                             1
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                            2368
-## 2                                            2396
-## 3                                            2201
-## 4                                            2187
-## 5                                            2039
-## 6                                            2039
+## 1                                             129
+## 2                                             110
+## 3                                              19
+## 4                                              16
+## 5                                               0
+## 6                                               0
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -425,76 +743,76 @@ process_nj_assess&lt;span class="p"&gt;(&lt;/span&gt;hspa_ex&lt;span class="p"&g
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
-## 1        ST          ST                                      
-## 2        NS          NS                                      
-## 3        SN          SN                                      
-## 4         A           A                                      
-## 5    250100          25          0100                MONMOUTH
-## 6 250100010          25          0100         010    MONMOUTH
-##   District_Name      School_Name DFG Special_Needs
-## 1                                                 
-## 2                                                 
-## 3                                                 
-## 4                                                 
-## 5   ASBURY PARK                    A             Y
-## 6   ASBURY PARK ASBURY PARK H.S.   A             Y
+&lt;div class="highlight"&gt;&lt;pre&gt;##   CDS_Code County_Code District_Code School_Code County_Name
+## 1                                                           
+## 2                                                           
+## 3                                                           
+## 4                                                           
+## 5 MONMOUTH                                       ASBURY PARK
+## 6 MONMOUTH                                       ASBURY PARK
+##      District_Name     School_Name DFG Special_Needs
+## 1                      98240   507  14             8
+## 2                      83656   342  12             0
+## 3                      14584   165   2             8
+## 4                      11988   150   2             9
+## 5                  A Y    73     1  NA             1
+## 6 ASBURY PARK H.S. A Y    73     1  NA             1
 ##   TOTAL_POPULATION_Number_Enrolled_LAL
-## 1                                98240
-## 2                                83656
-## 3                                14584
-## 4                                11988
-## 5                                   73
-## 6                                   73
+## 1                                97091
+## 2                                82776
+## 3                                14315
+## 4                                11750
+## 5                                   71
+## 6                                   71
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                               507
-## 2                                               342
-## 3                                               165
-## 4                                               150
-## 5                                                 1
-## 6                                                 1
+## 1                                              67 6
+## 2                                              46 5
+## 3                                             190 7
+## 4                                             203 7
+## 5                                             366 6
+## 6                                             366 6
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
-## 1                                            148
-## 2                                            120
-## 3                                             28
-## 4                                             29
-## 5                                              1
-## 6                                              1
+## 1                                         04 328
+## 2                                         86 367
+## 3                                         08 103
+## 4                                         08  88
+## 5                                         34  00
+## 6                                         34  00
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                       97091
-## 2                                                       82776
-## 3                                                       14315
-## 4                                                       11750
-## 5                                                          71
-## 6                                                          71
+## 1                                                      2368 9
+## 2                                                      2396 8
+## 3                                                      2201 1
+## 4                                                      2187 1
+## 5                                                        2039
+## 6                                                        2039
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                            6.7
-## 2                                                            4.6
-## 3                                                           19.0
-## 4                                                           20.3
-## 5                                                           36.6
-## 6                                                           36.6
+## 1                                                          824.0
+## 2                                                          365.6
+## 3                                                          458.4
+## 4                                                          198.8
+## 5                                                            7.3
+## 6                                                            7.3
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                 60.4
-## 2                                                 58.6
-## 3                                                 70.8
-## 4                                                 70.8
-## 5                                                 63.4
-## 6                                                 63.4
+## 1                                                  0.6
+## 2                                                  0.4
+## 3                                                  0.2
+## 4                                                  0.2
+## 5                                                   NA
+## 6                                                   NA
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
-## 1                                                          32.8
-## 2                                                          36.7
-## 3                                                          10.3
-## 4                                                           8.8
-## 5                                                           0.0
-## 6                                                           0.0
+## 1                                                           6.3
+## 2                                                           4.2
+## 3                                                           2.1
+## 4                                                           1.0
+## 5                                                           0.1
+## 6                                                           0.1
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                           236.8
-## 2                                           239.6
-## 3                                           220.1
-## 4                                           218.7
-## 5                                           203.9
-## 6                                           203.9
+## 1                                            12.9
+## 2                                            11.0
+## 3                                             1.9
+## 4                                             1.6
+## 5                                             0.0
+## 6                                             0.0
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -555,76 +873,108 @@ fetch_hspa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2010&lt;/spa
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
-## 1        ST          ST                                      
-## 2        NS          NS                                      
-## 3        SN          SN                                      
-## 4         A           A                                      
-## 5    250100          25          0100                MONMOUTH
-## 6 250100010          25          0100         010    MONMOUTH
-##   District_Name      School_Name DFG Special_Needs
-## 1                                                 
-## 2                                                 
-## 3                                                 
-## 4                                                 
-## 5   ASBURY PARK                    A             Y
-## 6   ASBURY PARK ASBURY PARK H.S.   A             Y
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   DFG = col_integer(),
+##   Special_Needs = col_integer(),
+##   TOTAL_POPULATION_Number_Enrolled_LAL = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_of_Valid_Scale_Scores = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Number_of_Valid_Scale_Scores = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_LAL = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_of_Valid_Scale_Scores = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Number_of_Valid_Scale_Scores = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Partially_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Proficient_Percentage = col_integer()
+##   # ... with 189 more columns
+## )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;##   CDS_Code County_Code District_Code School_Code County_Name
+## 1                                                           
+## 2                                                           
+## 3                                                           
+## 4                                                           
+## 5 MONMOUTH                                       ASBURY PARK
+## 6 MONMOUTH                                       ASBURY PARK
+##      District_Name     School_Name DFG Special_Needs
+## 1                      99548   551  19             9
+## 2                      85256   356  12             6
+## 3                      14292   195   7             3
+## 4                      11673   179   6             4
+## 5                  A Y   107     1  NA             0
+## 6 ASBURY PARK H.S. A Y   107     1  NA             0
 ##   TOTAL_POPULATION_Number_Enrolled_LAL
-## 1                                99548
-## 2                                85256
-## 3                                14292
-## 4                                11673
-## 5                                  107
-## 6                                  107
+## 1                                98257
+## 2                                84337
+## 3                                13920
+## 4                                11347
+## 5                                  103
+## 6                                  103
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                               551
-## 2                                               356
-## 3                                               195
-## 4                                               179
-## 5                                                 1
-## 6                                                 1
+## 1                                             129 6
+## 2                                              92 7
+## 3                                             351 6
+## 4                                             374 5
+## 5                                             524 4
+## 6                                             524 4
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
-## 1                                            199
-## 2                                            126
-## 3                                             73
-## 4                                             64
-## 5                                              0
-## 6                                              0
+## 1                                         87 184
+## 2                                         00 208
+## 3                                         06  43
+## 4                                         89  37
+## 5                                         76  00
+## 6                                         76  00
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                       98257
-## 2                                                       84337
-## 3                                                       13920
-## 4                                                       11347
-## 5                                                         103
-## 6                                                         103
+## 1                                                      2273 9
+## 2                                                      2309 8
+## 3                                                      2053 1
+## 4                                                      2035 1
+## 5                                                        1867
+## 6                                                        1867
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                           12.9
-## 2                                                            9.2
-## 3                                                           35.1
-## 4                                                           37.4
-## 5                                                           52.4
-## 6                                                           52.4
+## 1                                                          954.8
+## 2                                                          525.6
+## 3                                                          429.2
+## 4                                                          167.3
+## 5                                                           10.7
+## 6                                                           10.7
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                 68.7
-## 2                                                 70.0
-## 3                                                 60.6
-## 4                                                 58.9
-## 5                                                 47.6
-## 6                                                 47.6
+## 1                                                  0.6
+## 2                                                  0.4
+## 3                                                  0.2
+## 4                                                  0.2
+## 5                                                   NA
+## 6                                                   NA
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
-## 1                                                          18.4
-## 2                                                          20.8
-## 3                                                           4.3
-## 4                                                           3.7
-## 5                                                           0.0
-## 6                                                           0.0
+## 1                                                           7.0
+## 2                                                           0.7
+## 3                                                           6.3
+## 4                                                           3.0
+## 5                                                           0.4
+## 6                                                           0.4
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                           227.3
-## 2                                           230.9
-## 3                                           205.3
-## 4                                           203.5
-## 5                                           186.7
-## 6                                           186.7
+## 1                                            13.9
+## 2                                            11.3
+## 3                                             2.6
+## 4                                             2.2
+## 5                                             0.0
+## 6                                             0.0
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -708,88 +1058,126 @@ fetch_hspa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2010&lt;/spa
 &lt;span class="p"&gt;}&lt;/span&gt;
 
 gepa_ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_gepa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2007&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
-gepa_ex &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   `Special_Needs_(Abbott)_district_flag` = col_integer(),
+##   MALE_SCIENCE_Scale_Score_Mean = col_integer(),
+##   MIGRANT_MATHEMATICS_Number_of_Valid_Scale_Scores = col_integer(),
+##   MIGRANT_SCIENCE_Number_of_Valid_Scale_Scores = col_integer(),
+##   PACIFIC_ISLANDER_LANGUAGE_ARTS_Proficient_Percentage = col_integer(),
+##   `NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean` = col_integer()
+## )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 2448 parsing failures.
+## row                                                              col    expected      actual
+##   1 NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean 4 chars     1          
+##   1 NA                                                               486 columns 484 columns
+##   2 NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean 4 chars     1          
+##   2 NA                                                               486 columns 484 columns
+##   3 NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean 4 chars     1          
+## ... ................................................................ ........... ...........
+## See problems(...) for more details.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;gepa_ex &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;CDS_Code&lt;span class="o"&gt;:&lt;/span&gt;TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
-## 1        ST          ST                                      
-## 2        NS          NS                                      
-## 3        SN          SN                                      
-## 4         A           A                                      
-## 5 250100000          25          0100         000    MONMOUTH
-## 6 250100070          25          0100         070    MONMOUTH
-##   District_Name      School_Name DFG_Flag
-## 1                                        
-## 2                                        
-## 3                                        
-## 4                                        
-## 5   ASBURY PARK                         A
-## 6   ASBURY PARK ASBURY PARK M.S.        A
+## 1        ST                                                  
+## 2        NS                                                  
+## 3        SN                                                  
+## 4         A                                                  
+## 5 250100000          MO          NMOU          TH   ASBURY PA
+## 6 250100070          MO          NMOU          TH   ASBURY PA
+##                                        District_Name
+## 1                                                   
+## 2                                                   
+## 3                                                   
+## 4                                                   
+## 5                                                 RK
+## 6 RK                                       ASBURY PA
+##                                      School_Name DFG_Flag
+## 1                                         108474       00
+## 2                                         087774       00
+## 3                                         020700       00
+## 4                                         017401       00
+## 5                                          A Y *     &amp;lt;NA&amp;gt;
+## 6 RK M.S.                                  A Y *     &amp;lt;NA&amp;gt;
 ##   Special_Needs_(Abbott)_district_flag TOTAL_POPULATION_Number_Enrolled
-## 1                                                                108474
-## 2                                                                087774
-## 3                                                                020700
-## 4                                                                017401
-## 5                                    Y                             &amp;lt;NA&amp;gt;
-## 6                                    Y                             &amp;lt;NA&amp;gt;
+## 1                                    0                           667001
+## 2                                    0                           371000
+## 3                                    0                           296000
+## 4                                    0                           264000
+## 5                                   NA                             &amp;lt;NA&amp;gt;
+## 6                                   NA                             &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                            000667
-## 2                                            000371
-## 3                                            000296
-## 4                                            000264
+## 1                                            262000
+## 2                                            668000
+## 3                                            594000
+## 4                                            509000
 ## 5                                              &amp;lt;NA&amp;gt;
 ## 6                                              &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
-## 1                                         001262
-## 2                                         000668
-## 3                                         000594
-## 4                                         000509
+## 1                                         680105
+## 2                                         545086
+## 3                                         135019
+## 4                                         102016
 ## 5                                           &amp;lt;NA&amp;gt;
 ## 6                                           &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_APA
-## 1                                       000680
-## 2                                       000545
-## 3                                       000135
-## 4                                       000102
-## 5                                         &amp;lt;NA&amp;gt;
-## 6                                         &amp;lt;NA&amp;gt;
+## 1                                       865026
+## 2                                       190020
+## 3                                       675052
+## 4                                       526053
+## 5                                          071
+## 6                                          071
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                      105865
-## 2                                                      086190
-## 3                                                      019675
-## 4                                                      016526
-## 5                                                        &amp;lt;NA&amp;gt;
-## 6                                                        &amp;lt;NA&amp;gt;
+## 1                                                      406240
+## 2                                                      506630
+## 3                                                      204500
+## 4                                                      104420
+## 5                                                      502780
+## 6                                                      502780
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                           0264
-## 2                                                           0205
-## 3                                                           0522
-## 4                                                           0531
-## 5                                                           0715
-## 6                                                           0715
+## 1                                                           1132
+## 2                                                           1322
+## 3                                                           0281
+## 4                                                           0271
+## 5                                                           0071
+## 6                                                           0071
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                 0624
-## 2                                                 0663
-## 3                                                 0450
-## 4                                                 0442
-## 5                                                 0278
-## 6                                                 0278
+## 1                                                 1490
+## 2                                                 1930
+## 3                                                 9530
+## 4                                                 9460
+## 5                                                  842
+## 6                                                  842
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
-## 1                                                          0113
-## 2                                                          0132
-## 3                                                          0028
-## 4                                                          0027
-## 5                                                          0007
-## 6                                                          0007
+## 1                                                          0066
+## 2                                                          0038
+## 3                                                          0027
+## 4                                                          0024
+## 5                                                          &amp;lt;NA&amp;gt;
+## 6                                                          &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                            2149
-## 2                                            2193
-## 3                                            1953
-## 4                                            1946
-## 5                                            1842
-## 6                                            1842
+## 1                                            1000
+## 2                                            5000
+## 3                                            6000
+## 4                                            5000
+## 5                                            &amp;lt;NA&amp;gt;
+## 6                                            &amp;lt;NA&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -799,82 +1187,89 @@ gepa_ex &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.
 
 
 &lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
-## 1        ST          ST                                      
-## 2        NS          NS                                      
-## 3        SN          SN                                      
-## 4         A           A                                      
-## 5 250100000          25          0100         000    MONMOUTH
-## 6 250100070          25          0100         070    MONMOUTH
-##   District_Name      School_Name DFG_Flag
-## 1                                        
-## 2                                        
-## 3                                        
-## 4                                        
-## 5   ASBURY PARK                         A
-## 6   ASBURY PARK ASBURY PARK M.S.        A
+## 1        ST                                                  
+## 2        NS                                                  
+## 3        SN                                                  
+## 4         A                                                  
+## 5 250100000          MO          NMOU          TH   ASBURY PA
+## 6 250100070          MO          NMOU          TH   ASBURY PA
+##                                        District_Name
+## 1                                                   
+## 2                                                   
+## 3                                                   
+## 4                                                   
+## 5                                                 RK
+## 6 RK                                       ASBURY PA
+##                                      School_Name DFG_Flag
+## 1                                         108474       00
+## 2                                         087774       00
+## 3                                         020700       00
+## 4                                         017401       00
+## 5                                          A Y *     &amp;lt;NA&amp;gt;
+## 6 RK M.S.                                  A Y *     &amp;lt;NA&amp;gt;
 ##   Special_Needs_(Abbott)_district_flag TOTAL_POPULATION_Number_Enrolled
-## 1                                                                108474
-## 2                                                                087774
-## 3                                                                020700
-## 4                                                                017401
-## 5                                    Y                             &amp;lt;NA&amp;gt;
-## 6                                    Y                             &amp;lt;NA&amp;gt;
+## 1                                    0                           667001
+## 2                                    0                           371000
+## 3                                    0                           296000
+## 4                                    0                           264000
+## 5                                   NA                             &amp;lt;NA&amp;gt;
+## 6                                   NA                             &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                            000667
-## 2                                            000371
-## 3                                            000296
-## 4                                            000264
+## 1                                            262000
+## 2                                            668000
+## 3                                            594000
+## 4                                            509000
 ## 5                                              &amp;lt;NA&amp;gt;
 ## 6                                              &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
-## 1                                         001262
-## 2                                         000668
-## 3                                         000594
-## 4                                         000509
+## 1                                         680105
+## 2                                         545086
+## 3                                         135019
+## 4                                         102016
 ## 5                                           &amp;lt;NA&amp;gt;
 ## 6                                           &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_APA
-## 1                                       000680
-## 2                                       000545
-## 3                                       000135
-## 4                                       000102
-## 5                                         &amp;lt;NA&amp;gt;
-## 6                                         &amp;lt;NA&amp;gt;
+## 1                                       865026
+## 2                                       190020
+## 3                                       675052
+## 4                                       526053
+## 5                                          071
+## 6                                          071
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                      105865
-## 2                                                      086190
-## 3                                                      019675
-## 4                                                      016526
-## 5                                                        &amp;lt;NA&amp;gt;
-## 6                                                        &amp;lt;NA&amp;gt;
+## 1                                                      406240
+## 2                                                      506630
+## 3                                                      204500
+## 4                                                      104420
+## 5                                                      502780
+## 6                                                      502780
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                           26.4
-## 2                                                           20.5
-## 3                                                           52.2
-## 4                                                           53.1
-## 5                                                           71.5
-## 6                                                           71.5
+## 1                                                          113.2
+## 2                                                          132.2
+## 3                                                           28.1
+## 4                                                           27.1
+## 5                                                            7.1
+## 6                                                            7.1
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                 62.4
-## 2                                                 66.3
-## 3                                                 45.0
-## 4                                                 44.2
-## 5                                                 27.8
-## 6                                                 27.8
+## 1                                                149.0
+## 2                                                193.0
+## 3                                                953.0
+## 4                                                946.0
+## 5                                                 84.2
+## 6                                                 84.2
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
-## 1                                                          11.3
-## 2                                                          13.2
-## 3                                                           2.8
-## 4                                                           2.7
-## 5                                                           0.7
-## 6                                                           0.7
+## 1                                                           6.6
+## 2                                                           3.8
+## 3                                                           2.7
+## 4                                                           2.4
+## 5                                                            NA
+## 6                                                            NA
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                           214.9
-## 2                                           219.3
-## 3                                           195.3
-## 4                                           194.6
-## 5                                           184.2
-## 6                                           184.2
+## 1                                             100
+## 2                                             500
+## 3                                             600
+## 4                                             500
+## 5                                              NA
+## 6                                              NA
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -890,83 +1285,119 @@ fetch_gepa&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2007&lt;/spa
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   `Special_Needs_(Abbott)_district_flag` = col_integer(),
+##   MALE_SCIENCE_Scale_Score_Mean = col_integer(),
+##   MIGRANT_MATHEMATICS_Number_of_Valid_Scale_Scores = col_integer(),
+##   MIGRANT_SCIENCE_Number_of_Valid_Scale_Scores = col_integer(),
+##   PACIFIC_ISLANDER_LANGUAGE_ARTS_Proficient_Percentage = col_integer(),
+##   `NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean` = col_integer()
+## )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 2448 parsing failures.
+## row                                                              col    expected      actual
+##   1 NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean 4 chars     1          
+##   1 NA                                                               486 columns 484 columns
+##   2 NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean 4 chars     1          
+##   2 NA                                                               486 columns 484 columns
+##   3 NON-ECONOMICALLY_DISADVANTAGED_Non-Econ_SCIENCE_Scale_Score_Mean 4 chars     1          
+## ... ................................................................ ........... ...........
+## See problems(...) for more details.
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;div class="highlight"&gt;&lt;pre&gt;##    CDS_Code County_Code District_Code School_Code County_Name
-## 1        ST          ST                                      
-## 2        NS          NS                                      
-## 3        SN          SN                                      
-## 4         A           A                                      
-## 5 250100000          25          0100         000    MONMOUTH
-## 6 250100070          25          0100         070    MONMOUTH
-##   District_Name      School_Name DFG_Flag
-## 1                                        
-## 2                                        
-## 3                                        
-## 4                                        
-## 5   ASBURY PARK                         A
-## 6   ASBURY PARK ASBURY PARK M.S.        A
+## 1        ST                                                  
+## 2        NS                                                  
+## 3        SN                                                  
+## 4         A                                                  
+## 5 250100000          MO          NMOU          TH   ASBURY PA
+## 6 250100070          MO          NMOU          TH   ASBURY PA
+##                                        District_Name
+## 1                                                   
+## 2                                                   
+## 3                                                   
+## 4                                                   
+## 5                                                 RK
+## 6 RK                                       ASBURY PA
+##                                      School_Name DFG_Flag
+## 1                                         108474       00
+## 2                                         087774       00
+## 3                                         020700       00
+## 4                                         017401       00
+## 5                                          A Y *     &amp;lt;NA&amp;gt;
+## 6 RK M.S.                                  A Y *     &amp;lt;NA&amp;gt;
 ##   Special_Needs_(Abbott)_district_flag TOTAL_POPULATION_Number_Enrolled
-## 1                                                                108474
-## 2                                                                087774
-## 3                                                                020700
-## 4                                                                017401
-## 5                                    Y                             &amp;lt;NA&amp;gt;
-## 6                                    Y                             &amp;lt;NA&amp;gt;
+## 1                                    0                           667001
+## 2                                    0                           371000
+## 3                                    0                           296000
+## 4                                    0                           264000
+## 5                                   NA                             &amp;lt;NA&amp;gt;
+## 6                                   NA                             &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                            000667
-## 2                                            000371
-## 3                                            000296
-## 4                                            000264
+## 1                                            262000
+## 2                                            668000
+## 3                                            594000
+## 4                                            509000
 ## 5                                              &amp;lt;NA&amp;gt;
 ## 6                                              &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Voids
-## 1                                         001262
-## 2                                         000668
-## 3                                         000594
-## 4                                         000509
+## 1                                         680105
+## 2                                         545086
+## 3                                         135019
+## 4                                         102016
 ## 5                                           &amp;lt;NA&amp;gt;
 ## 6                                           &amp;lt;NA&amp;gt;
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_APA
-## 1                                       000680
-## 2                                       000545
-## 3                                       000135
-## 4                                       000102
-## 5                                         &amp;lt;NA&amp;gt;
-## 6                                         &amp;lt;NA&amp;gt;
+## 1                                       865026
+## 2                                       190020
+## 3                                       675052
+## 4                                       526053
+## 5                                          071
+## 6                                          071
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                      105865
-## 2                                                      086190
-## 3                                                      019675
-## 4                                                      016526
-## 5                                                        &amp;lt;NA&amp;gt;
-## 6                                                        &amp;lt;NA&amp;gt;
+## 1                                                      406240
+## 2                                                      506630
+## 3                                                      204500
+## 4                                                      104420
+## 5                                                      502780
+## 6                                                      502780
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                           26.4
-## 2                                                           20.5
-## 3                                                           52.2
-## 4                                                           53.1
-## 5                                                           71.5
-## 6                                                           71.5
+## 1                                                          113.2
+## 2                                                          132.2
+## 3                                                           28.1
+## 4                                                           27.1
+## 5                                                            7.1
+## 6                                                            7.1
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                 62.4
-## 2                                                 66.3
-## 3                                                 45.0
-## 4                                                 44.2
-## 5                                                 27.8
-## 6                                                 27.8
+## 1                                                149.0
+## 2                                                193.0
+## 3                                                953.0
+## 4                                                946.0
+## 5                                                 84.2
+## 6                                                 84.2
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
-## 1                                                          11.3
-## 2                                                          13.2
-## 3                                                           2.8
-## 4                                                           2.7
-## 5                                                           0.7
-## 6                                                           0.7
+## 1                                                           6.6
+## 2                                                           3.8
+## 3                                                           2.7
+## 4                                                           2.4
+## 5                                                            NA
+## 6                                                            NA
 ##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                           214.9
-## 2                                           219.3
-## 3                                           195.3
-## 4                                           194.6
-## 5                                           184.2
-## 6                                           184.2
+## 1                                             100
+## 2                                             500
+## 3                                             600
+## 4                                             500
+## 5                                              NA
+## 6                                              NA
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1034,6 +1465,50 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
   &lt;span class="p"&gt;),&lt;/span&gt;
   na &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;*&amp;quot;&lt;/span&gt;
 &lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   TOTAL_POPULATION_Number_Enrolled_ELA = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Number_Enrolled_Science = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Number_Enrolled_Science = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Number_Not_Present = col_integer()
+##   # ... with 240 more columns
+## )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 2578 parsing failures.
+## row                                                            col    expected      actual
+##   1 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   1 NA                                                             551 columns 549 columns
+##   2 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   2 NA                                                             551 columns 549 columns
+##   3 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     2          
+## ... .............................................................. ........... ...........
+## See problems(...) for more details.
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1110,121 +1585,167 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;magrittr&lt;span class="p"&gt;)&lt;/span&gt;
 
 ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2014&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;6&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-dplyr&lt;span class="o"&gt;::&lt;/span&gt;sample_n&lt;span class="p"&gt;(&lt;/span&gt;ex&lt;span class="p"&gt;[,&lt;/span&gt; &lt;span class="kp"&gt;sample&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;551&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)],&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    ASIAN_MATHEMATICS_Advanced_Proficient_Percentage
-## 1                                                NA
-## 2                                                NA
-## 3                                                NA
-## 4                                                NA
-## 5                                               750
-## 6                                                NA
-## 7                                                NA
-## 8                                                NA
-## 9                                                NA
-## 10                                               NA
-##    CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_APA
-## 1                                                           NA
-## 2                                                           NA
-## 3                                                           NA
-## 4                                                            0
-## 5                                                           NA
-## 6                                                           NA
-## 7                                                           NA
-## 8                                                           NA
-## 9                                                           NA
-## 10                                                          NA
-##    TOTAL_POPULATION_SCIENCE_Number_Enrolled_Science
-## 1                                                  
-## 2                                                  
-## 3                                                  
-## 4                                                  
-## 5                                                  
-## 6                                                  
-## 7                                                  
-## 8                                                  
-## 9                                                  
-## 10                                                 
-##    ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_APA
-## 1                                               
-## 2                                               
-## 3                                               
-## 4                                               
-## 5                                               
-## 6                                               
-## 7                                               
-## 8                                               
-## 9                                               
-## 10                                              
-##    PACIFIC_ISLANDER_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                              NA
-## 2                                                              NA
-## 3                                                              NA
-## 4                                                              NA
-## 5                                                              NA
-## 6                                                              NA
-## 7                                                              NA
-## 8                                                              NA
-## 9                                                              NA
-## 10                                                             NA
-##    MALE_Number_Enrolled_ELA
-## 1                        47
-## 2                        47
-## 3                       110
-## 4                       148
-## 5                        72
-## 6                        NA
-## 7                        NA
-## 8                        NA
-## 9                        15
-## 10                       33
-##    SPECIAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                                  NA
-## 2                                                  NA
-## 3                                                  NA
-## 4                                                   0
-## 5                                                  NA
-## 6                                                  NA
-## 7                                                  NA
-## 8                                                  NA
-## 9                                                  NA
-## 10                                                 NA
-##                  School_Name
-## 1              HIGH MOUNTAIN
-## 2                           
-## 3                           
-## 4  RICHARD C CROCKETT MIDDLE
-## 5                           
-## 6                FOREST HILL
-## 7   MAC FARLAND INTERMEDIATE
-## 8     ALBERT BEAN ELEMENTARY
-## 9              OAKLYN SCHOOL
-## 10                  NUMBER 2
-##    CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_of_Voids
-## 1                                                              NA
-## 2                                                              NA
-## 3                                                              NA
-## 4                                                               0
-## 5                                                              NA
-## 6                                                              NA
-## 7                                                              NA
-## 8                                                              NA
-## 9                                                              NA
-## 10                                                             NA
-##    GENERAL_EDUCATION_SCIENCE_Number_of_Voids
-## 1                                           
-## 2                                           
-## 3                                           
-## 4                                           
-## 5                                           
-## 6                                           
-## 7                                           
-## 8                                           
-## 9                                           
-## 10
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   TOTAL_POPULATION_Number_Enrolled_ELA = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   SPECIAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   SPECIAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   SPECIAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   SPECIAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   SPECIAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   SPECIAL_EDUCATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   LIMITED_ENGLISH_PROFICIENT_current_and_former_Number_Enrolled_ELA = col_integer()
+##   # ... with 147 more columns
+## )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 3010 parsing failures.
+## row                                                            col    expected      actual
+##   1 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   1 NA                                                             551 columns 549 columns
+##   2 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   2 NA                                                             551 columns 549 columns
+##   3 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     2          
+## ... .............................................................. ........... ...........
+## See problems(...) for more details.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;dplyr&lt;span class="o"&gt;::&lt;/span&gt;sample_n&lt;span class="p"&gt;(&lt;/span&gt;ex&lt;span class="p"&gt;[,&lt;/span&gt; &lt;span class="kp"&gt;sample&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;551&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)],&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;##    WHITE_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                     
+## 2                                                 1272
+## 3                                                  001
+## 4                                                  002
+## 5                                                  932
+## 6                                                 &amp;lt;NA&amp;gt;
+## 7                                                 1152
+## 8                                                  672
+## 9                                                 1382
+## 10                                                 562
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_APA
+## 1                                                                  
+## 2                                                                  
+## 3                                                                  
+## 4                                                                  
+## 5                                                                  
+## 6                                                                  
+## 7                                                                  
+## 8                                                                  
+## 9                                                                  
+## 10                                                                 
+##    MIGRANT_MATHEMATICS_Number_Not_Present
+## 1                                      NA
+## 2                                      NA
+## 3                                      NA
+## 4                                      NA
+## 5                                      NA
+## 6                                      NA
+## 7                                      NA
+## 8                                      NA
+## 9                                      NA
+## 10                                     NA
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_Enrolled_Science
+## 1                                                                               
+## 2                                                                               
+## 3                                                                               
+## 4                                                                               
+## 5                                                                               
+## 6                                                                               
+## 7                                                                               
+## 8                                                                               
+## 9                                                                               
+## 10                                                                              
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Proficient_Percentage
+## 1                                                                             
+## 2                                                                         &amp;lt;NA&amp;gt;
+## 3                                                                         &amp;lt;NA&amp;gt;
+## 4                                                                             
+## 5                                                                             
+## 6                                                                         &amp;lt;NA&amp;gt;
+## 7                                                                         &amp;lt;NA&amp;gt;
+## 8                                                                         &amp;lt;NA&amp;gt;
+## 9                                                                         &amp;lt;NA&amp;gt;
+## 10                                                                        &amp;lt;NA&amp;gt;
+##    OTHER_SCIENCE_Number_Not_Present
+## 1                                  
+## 2                                  
+## 3                                  
+## 4                                  
+## 5                                  
+## 6                                  
+## 7                                  
+## 8                                  
+## 9                                  
+## 10                                 
+##    FEMALE_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                        &amp;lt;NA&amp;gt;
+## 2                                         272
+## 3                                         021
+## 4                                         107
+## 5                                         266
+## 6                                         299
+## 7                                         296
+## 8                                         132
+## 9                                        &amp;lt;NA&amp;gt;
+## 10                                        177
+##    PACIFIC_ISLANDER_SCIENCE_Advanced_Proficient_Percentage
+## 1                                                       NA
+## 2                                                       NA
+## 3                                                        3
+## 4                                                       NA
+## 5                                                        1
+## 6                                                       NA
+## 7                                                       NA
+## 8                                                        2
+## 9                                                       NA
+## 10                                                      NA
+##    NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_of_Valid_Scale_Scores
+## 1                                                                     
+## 2                                                                     
+## 3                                                                     
+## 4                                                                     
+## 5                                                                     
+## 6                                                                     
+## 7                                                                     
+## 8                                                                     
+## 9                                                                     
+## 10                                                                    
+##    WHITE_Number_Enrolled_ELA
+## 1                         NA
+## 2                          0
+## 3                          0
+## 4                          0
+## 5                          0
+## 6                         NA
+## 7                          0
+## 8                          0
+## 9                          0
+## 10                         0
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1264,7 +1785,7 @@ ex_process &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; process_njask&lt;span cl
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;## Error in names(sel)[unnamed] &amp;lt;- sel[unnamed]: NAs are not allowed in subscripted assignments&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;## Error: NA column indexes not supported
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1310,7 +1831,51 @@ fetch_njask&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2014&lt;/sp
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;## Error in names(sel)[unnamed] &amp;lt;- sel[unnamed]: NAs are not allowed in subscripted assignments&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   TOTAL_POPULATION_Number_Enrolled_ELA = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   SPECIAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   SPECIAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   SPECIAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   SPECIAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   SPECIAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   SPECIAL_EDUCATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   LIMITED_ENGLISH_PROFICIENT_current_and_former_Number_Enrolled_ELA = col_integer()
+##   # ... with 147 more columns
+## )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 3010 parsing failures.
+## row                                                            col    expected      actual
+##   1 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   1 NA                                                             551 columns 549 columns
+##   2 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   2 NA                                                             551 columns 549 columns
+##   3 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     2          
+## ... .............................................................. ........... ...........
+## See problems(...) for more details.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Error: NA column indexes not supported
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1340,7 +1905,34 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
   file &lt;span class="o"&gt;=&lt;/span&gt; sample_file&lt;span class="p"&gt;,&lt;/span&gt;
   col_positions &lt;span class="o"&gt;=&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;fwf_empty&lt;span class="p"&gt;(&lt;/span&gt;file&lt;span class="o"&gt;=&lt;/span&gt;sample_file&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;njask14_gr8&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;11&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;15&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   X232 = col_integer(),
+##   X233 = col_integer(),
+##   X234 = col_integer(),
+##   X235 = col_integer(),
+##   X236 = col_integer(),
+##   X237 = col_integer(),
+##   X238 = col_integer(),
+##   X239 = col_integer(),
+##   X240 = col_integer(),
+##   X241 = col_integer(),
+##   X242 = col_integer(),
+##   X243 = col_integer(),
+##   X244 = col_integer()
+## )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;njask14_gr8&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;11&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;15&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1401,23 +1993,39 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
 &lt;p&gt;&lt;img src="static_images/04_njask_layout.png"&gt;&lt;/p&gt;
 &lt;p&gt;I think we can do some dplyr tricks and recover the nested aspects of this data.  First, read the excel file in as a data frame:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;layout &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"&gt;::&lt;/span&gt;read_csv&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;datasets/njask_layout.csv&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="kp"&gt;names&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;tolower&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kp"&gt;names&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   `Field Start Position` = col_integer(),
+##   `Field End Position` = col_integer(),
+##   `Field Length` = col_integer(),
+##   `Data Type` = col_character(),
+##   Description = col_character(),
+##   Comments = col_character(),
+##   `Valid Values` = col_character(),
+##   structural = col_logical()
+## )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;names&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;tolower&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kp"&gt;names&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)))&lt;/span&gt;
 &lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;layout&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Source: local data frame [6 x 8]
-## 
+&lt;div class="highlight"&gt;&lt;pre&gt;## # A tibble: 6 x 8
 ##   field_start_position field_end_position field_length data_type
-##                  (int)              (int)        (int)     (chr)
+##                  &amp;lt;int&amp;gt;              &amp;lt;int&amp;gt;        &amp;lt;int&amp;gt;     &amp;lt;chr&amp;gt;
 ## 1                    1                  9            9      Text
 ## 2                    1                  2            2      Text
 ## 3                    3                  6            4      Text
 ## 4                    7                  9            3      Text
 ## 5                   10                 59           50      Text
 ## 6                   60                109           50      Text
-## Variables not shown: description (chr), comments (chr), valid_values
-##   (chr), structural (lgl).
+## # ... with 4 more variables: description &amp;lt;chr&amp;gt;, comments &amp;lt;chr&amp;gt;,
+## #   valid_values &amp;lt;chr&amp;gt;, structural &amp;lt;lgl&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1431,18 +2039,17 @@ keepers &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; dplyr&lt;span class="o"&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;## Source: local data frame [6 x 8]
-## 
+&lt;div class="highlight"&gt;&lt;pre&gt;## # A tibble: 6 x 8
 ##   field_start_position field_end_position field_length         data_type
-##                  (int)              (int)        (int)             (chr)
+##                  &amp;lt;int&amp;gt;              &amp;lt;int&amp;gt;        &amp;lt;int&amp;gt;             &amp;lt;chr&amp;gt;
 ## 1                  163                300          138  TOTAL POPULATION
 ## 2                  169                208           40     LANGUAGE ARTS
 ## 3                  209                254           46       MATHEMATICS
 ## 4                  255                300           46           SCIENCE
 ## 5                  301                438          138 GENERAL EDUCATION
 ## 6                  307                346           40     LANGUAGE ARTS
-## Variables not shown: description (chr), comments (chr), valid_values
-##   (chr), structural (lgl).
+## # ... with 4 more variables: description &amp;lt;chr&amp;gt;, comments &amp;lt;chr&amp;gt;,
+## #   valid_values &amp;lt;chr&amp;gt;, structural &amp;lt;lgl&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1796,122 +2403,155 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;div class="highlight"&gt;&lt;pre&gt;## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   TOTAL_POPULATION_Number_Enrolled_ELA = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Number_Enrolled_Science = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Number_Enrolled_Science = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Number_Not_Present = col_integer()
+##   # ... with 240 more columns
+## )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## See spec(...) for full column specifications.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 2578 parsing failures.
+## row                                                            col    expected      actual
+##   1 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   1 NA                                                             551 columns 549 columns
+##   2 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   2 NA                                                             551 columns 549 columns
+##   3 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     2          
+## ... .............................................................. ........... ...........
+## See problems(...) for more details.
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;success!
 let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;dplyr&lt;span class="o"&gt;::&lt;/span&gt;sample_n&lt;span class="p"&gt;(&lt;/span&gt;njask14_gr8&lt;span class="p"&gt;[,&lt;/span&gt; &lt;span class="kp"&gt;sample&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="m"&gt;551&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)],&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt; &lt;span class="kp"&gt;as.data.frame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                                             NA
-## 2                                                                             NA
-## 3                                                                             NA
-## 4                                                                             NA
-## 5                                                                             NA
-## 6                                                                             NA
-## 7                                                                             NA
-## 8                                                                             NA
-## 9                                                                             NA
-## 10                                                                            NA
-##    PACIFIC_ISLANDER_LANGUAGE_ARTS_Number_of_Voids
-## 1                                              NA
-## 2                                              NA
-## 3                                              NA
-## 4                                              NA
-## 5                                              NA
-## 6                                              NA
-## 7                                              NA
-## 8                                              NA
-## 9                                              NA
-## 10                                             NA
-##    OTHER_LANGUAGE_ARTS_Number_of_Voids
-## 1                                   NA
-## 2                                   NA
-## 3                                   NA
-## 4                                   NA
-## 5                                   NA
-## 6                                   NA
-## 7                                   NA
+&lt;div class="highlight"&gt;&lt;pre&gt;##    SPECIAL_EDUCATION_SCIENCE_Number_of_Voids
+## 1                                       &amp;lt;NA&amp;gt;
+## 2                                       &amp;lt;NA&amp;gt;
+## 3                                          0
+## 4                                          0
+## 5                                       &amp;lt;NA&amp;gt;
+## 6                                          2
+## 7                                       &amp;lt;NA&amp;gt;
+## 8                                       &amp;lt;NA&amp;gt;
+## 9                                          1
+## 10                                      &amp;lt;NA&amp;gt;
+##    PACIFIC_ISLANDER_Number_Enrolled_ELA
+## 1                                    NA
+## 2                                    NA
+## 3                                    NA
+## 4                                    NA
+## 5                                    NA
+## 6                                    NA
+## 7                                    NA
+## 8                                    NA
+## 9                                    NA
+## 10                                   NA
+##    MALE_MATHEMATICS_Number_Not_Present
+## 1                                    0
+## 2                                    0
+## 3                                    1
+## 4                                    0
+## 5                                    0
+## 6                                    0
+## 7                                    0
 ## 8                                   NA
-## 9                                   NA
-## 10                                  NA
-##    NON-MIGRANT_SCIENCE_Advanced_Proficient_Percentage
-## 1                                                  76
-## 2                                                  93
-## 3                                                 241
-## 4                                                 698
-## 5                                                 514
-## 6                                                  30
-## 7                                                 310
-## 8                                                  71
-## 9                                                &amp;lt;NA&amp;gt;
-## 10                                                676
-##    HISPANIC_SCIENCE_Number_of_Valid_Scale_Scores
-## 1                                             29
-## 2                                             39
-## 3                                             42
-## 4                                             NA
-## 5                                             11
-## 6                                             42
-## 7                                             14
-## 8                                             NA
-## 9                                             NA
-## 10                                            NA
-##    MALE_SCIENCE_Number_of_Valid_Scale_Scores
-## 1                                        109
-## 2                                        114
-## 3                                         66
-## 4                                         61
-## 5                                        114
-## 6                                         54
-## 7                                         46
-## 8                                         25
-## 9                                         NA
-## 10                                        33
-##    FORMER_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                                     NA
-## 2                                                                     NA
-## 3                                                                     NA
-## 4                                                                     NA
-## 5                                                                     NA
-## 6                                                                     NA
-## 7                                                                     NA
-## 8                                                                     NA
-## 9                                                                     NA
-## 10                                                                    NA
-##    ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_APA
-## 1                                                  2
-## 2                                                  7
-## 3                                                  2
-## 4                                                 NA
-## 5                                                 NA
-## 6                                                  2
-## 7                                                  0
-## 8                                                  0
-## 9                                                 NA
-## 10                                                NA
-##    MIGRANT_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                      NA
-## 2                                      NA
-## 3                                      NA
-## 4                                      NA
-## 5                                      NA
-## 6                                      NA
-## 7                                      NA
-## 8                                      NA
-## 9                                      NA
-## 10                                     NA
-##    NON-ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Partially_Proficient_Percentage
-## 1                                                                         350
-## 2                                                                         411
-## 3                                                                         221
-## 4                                                                          53
-## 5                                                                          93
-## 6                                                                        &amp;lt;NA&amp;gt;
-## 7                                                                         167
-## 8                                                                         462
-## 9                                                                        &amp;lt;NA&amp;gt;
-## 10                                                                        104
+## 9                                    0
+## 10                                   0
+##    SPECIAL_EDUCATION_SCIENCE_Scale_Score_Mean School_Code
+## 1                                          NA         R S
+## 2                                          NA          ET
+## 3                                           0            
+## 4                                           0            
+## 5                                          NA            
+## 6                                          NA            
+## 7                                          NA         LAN
+## 8                                          NA            
+## 9                                          NA            
+## 10                                          0         DON
+##    HISPANIC_MATHEMATICS_Advanced_Proficient_Percentage
+## 1                                                    1
+## 2                                                   NA
+## 3                                                   NA
+## 4                                                    2
+## 5                                                    1
+## 6                                                    3
+## 7                                                    1
+## 8                                                   NA
+## 9                                                    1
+## 10                                                  NA
+##    MALE_LANGUAGE_ARTS_Number_APA
+## 1                          19 42
+## 2                          34 14
+## 3                          44 54
+## 4                         112  8
+## 5                          49 24
+## 6                          25 60
+## 7                          16 62
+## 8                           &amp;lt;NA&amp;gt;
+## 9                          58 24
+## 10                         28  7
+##    HISPANIC_SCIENCE_Advanced_Proficient_Percentage
+## 1                                               NA
+## 2                                               NA
+## 3                                               NA
+## 4                                               NA
+## 5                                               NA
+## 6                                               NA
+## 7                                               NA
+## 8                                               NA
+## 9                                               NA
+## 10                                              NA
+##    ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Number_Not_Present
+## 1                                                            0
+## 2                                                           NA
+## 3                                                            1
+## 4                                                            0
+## 5                                                            1
+## 6                                                            0
+## 7                                                            0
+## 8                                                           NA
+## 9                                                            0
+## 10                                                          NA
+##    OTHER_Number_Enrolled_ELA
+## 1                         NA
+## 2                         NA
+## 3                         NA
+## 4                         NA
+## 5                         NA
+## 6                         NA
+## 7                         NA
+## 8                         NA
+## 9                         NA
+## 10                        NA
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -2501,21 +3141,5 @@ let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
 &lt;p&gt;3) Graphics drivers were a pain point.  Drivers that were working in RStudio (png, svg) were not working when called via the rpy2 interface.  Not totally sure what the story is here, but I ended up throwing &lt;code&gt;opts_chunk$set(dev='Cairo_svg')&lt;/code&gt; into my rmd_reader block -- take a look at the &lt;a href="https://raw.githubusercontent.com/almartin82/almart.in-source/849d26d53631523b10c18bb77c08135ed0d7d6b1/content/sample-rmd.Rmd"&gt;example&lt;/a&gt; if you want to see it in action.&lt;/p&gt;
 &lt;p&gt;Overall, though, I have to say that I'm thrilled about having a straightforward .Rmd publishing tool.  &lt;a href="https://rpubs.com/"&gt;rpubs&lt;/a&gt; is great, but having the ability to publish .Rmds to my own site is exciting.&lt;/p&gt;
 &lt;h1&gt;enhancement ideas&lt;/h1&gt;
-&lt;p&gt;One thing that would be helpful would be a pelican_rmd template, following the &lt;a href="(http://rmarkdown.rstudio.com/developer_document_templates.html)"&gt;tutorials&lt;/a&gt; for creating custom knitr templates on RStudio.  That would fix the metadata problem, and it could have a nice block with all the &lt;code&gt;hook_content&lt;/code&gt; stuff all ready to go.  If I find some time while this is still fresh, I'd like to add some of this back to Wilson's readme for rmd_reader.  &lt;strong&gt;Shiny&lt;/strong&gt; support is also something to look into.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew Martin</dc:creator><pubDate>Fri, 10 Apr 2015 00:00:00 -0400</pubDate><guid>tag:almart.in,2015-04-10:pelican-with-rmd.html</guid></item><item><title>just a sample rmd</title><link>http://almart.in/sample-rmd.html</link><description>&lt;!-- PELICAN_END_SUMMARY --&gt;
-
-&lt;h2&gt;an out-of-the-box sample RStudio RMD, to test &lt;a href="https://github.com/getpelican/pelican-plugins/tree/master/rmd_reader"&gt;&lt;code&gt;rmd_reader&lt;/code&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see &lt;a href="http://rmarkdown.rstudio.com"&gt;http://rmarkdown.rstudio.com&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;When you click the &lt;strong&gt;Knit&lt;/strong&gt; button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kp"&gt;summary&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;cars&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="highlight"&gt;&lt;pre&gt;##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew Martin</dc:creator><pubDate>Fri, 10 Apr 2015 00:00:00 -0400</pubDate><guid>tag:almart.in,2015-04-10:sample-rmd.html</guid></item><item><title>test post</title><link>http://almart.in/will-it-blend.html</link><description>&lt;p&gt;just a test post to see if pelican works...
+&lt;p&gt;One thing that would be helpful would be a pelican_rmd template, following the &lt;a href="(http://rmarkdown.rstudio.com/developer_document_templates.html)"&gt;tutorials&lt;/a&gt; for creating custom knitr templates on RStudio.  That would fix the metadata problem, and it could have a nice block with all the &lt;code&gt;hook_content&lt;/code&gt; stuff all ready to go.  If I find some time while this is still fresh, I'd like to add some of this back to Wilson's readme for rmd_reader.  &lt;strong&gt;Shiny&lt;/strong&gt; support is also something to look into.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew Martin</dc:creator><pubDate>Fri, 10 Apr 2015 00:00:00 -0400</pubDate><guid>tag:almart.in,2015-04-10:pelican-with-rmd.html</guid></item><item><title>test post</title><link>http://almart.in/will-it-blend.html</link><description>&lt;p&gt;just a test post to see if pelican works...
 &lt;img src="https://d2x83fpq8bsx3q.cloudfront.net/wp-content/uploads/2012/11/Tom-on-WIB-Set-Promo-Pics-Small-Jun14-12-21.jpg"&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew Martin</dc:creator><pubDate>Fri, 10 Apr 2015 00:00:00 -0400</pubDate><guid>tag:almart.in,2015-04-10:will-it-blend.html</guid></item></channel></rss>

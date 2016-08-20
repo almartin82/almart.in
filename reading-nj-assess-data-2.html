@@ -161,6 +161,50 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
 </pre></div>
 
 
+<div class="highlight"><pre>## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   TOTAL_POPULATION_Number_Enrolled_ELA = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Number_Enrolled_Science = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Number_Enrolled_Science = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Number_Not_Present = col_integer()
+##   # ... with 240 more columns
+## )
+</pre></div>
+
+
+<div class="highlight"><pre>## See spec(...) for full column specifications.
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: 2578 parsing failures.
+## row                                                            col    expected      actual
+##   1 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   1 NA                                                             551 columns 549 columns
+##   2 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   2 NA                                                             551 columns 549 columns
+##   3 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     2          
+## ... .............................................................. ........... ...........
+## See problems(...) for more details.
+</pre></div>
+
+
 <p>A script that has a bunch of copy/paste versions of that call would probably get the job done, but we're writing for our <a href="https://xkcd.com/1421/">future selves</a> here, and those url paths are easy to build.  The function should:</p>
 <p>1) build the target url</p>
 <p>2) use hadley's <code>readr</code> to fetch the fixed with file, using the provided field definitions.</p>
@@ -234,121 +278,167 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
 <div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>magrittr<span class="p">)</span>
 
 ex <span class="o">&lt;-</span> get_raw_njask<span class="p">(</span><span class="m">2014</span><span class="p">,</span> <span class="m">6</span><span class="p">)</span>
-
-dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">[,</span> <span class="kp">sample</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">551</span><span class="p">),</span> <span class="m">10</span><span class="p">)],</span> <span class="m">10</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span>
 </pre></div>
 
 
-<div class="highlight"><pre>##    ASIAN_MATHEMATICS_Advanced_Proficient_Percentage
-## 1                                                NA
-## 2                                                NA
-## 3                                                NA
-## 4                                                NA
-## 5                                               750
-## 6                                                NA
-## 7                                                NA
-## 8                                                NA
-## 9                                                NA
-## 10                                               NA
-##    CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_APA
-## 1                                                           NA
-## 2                                                           NA
-## 3                                                           NA
-## 4                                                            0
-## 5                                                           NA
-## 6                                                           NA
-## 7                                                           NA
-## 8                                                           NA
-## 9                                                           NA
-## 10                                                          NA
-##    TOTAL_POPULATION_SCIENCE_Number_Enrolled_Science
-## 1                                                  
-## 2                                                  
-## 3                                                  
-## 4                                                  
-## 5                                                  
-## 6                                                  
-## 7                                                  
-## 8                                                  
-## 9                                                  
-## 10                                                 
-##    ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_APA
-## 1                                               
-## 2                                               
-## 3                                               
-## 4                                               
-## 5                                               
-## 6                                               
-## 7                                               
-## 8                                               
-## 9                                               
-## 10                                              
-##    PACIFIC_ISLANDER_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                              NA
-## 2                                                              NA
-## 3                                                              NA
-## 4                                                              NA
-## 5                                                              NA
-## 6                                                              NA
-## 7                                                              NA
-## 8                                                              NA
-## 9                                                              NA
-## 10                                                             NA
-##    MALE_Number_Enrolled_ELA
-## 1                        47
-## 2                        47
-## 3                       110
-## 4                       148
-## 5                        72
-## 6                        NA
-## 7                        NA
-## 8                        NA
-## 9                        15
-## 10                       33
-##    SPECIAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present
-## 1                                                  NA
-## 2                                                  NA
-## 3                                                  NA
-## 4                                                   0
-## 5                                                  NA
-## 6                                                  NA
-## 7                                                  NA
-## 8                                                  NA
-## 9                                                  NA
-## 10                                                 NA
-##                  School_Name
-## 1              HIGH MOUNTAIN
-## 2                           
-## 3                           
-## 4  RICHARD C CROCKETT MIDDLE
-## 5                           
-## 6                FOREST HILL
-## 7   MAC FARLAND INTERMEDIATE
-## 8     ALBERT BEAN ELEMENTARY
-## 9              OAKLYN SCHOOL
-## 10                  NUMBER 2
-##    CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Number_of_Voids
-## 1                                                              NA
-## 2                                                              NA
-## 3                                                              NA
-## 4                                                               0
-## 5                                                              NA
-## 6                                                              NA
-## 7                                                              NA
-## 8                                                              NA
-## 9                                                              NA
-## 10                                                             NA
-##    GENERAL_EDUCATION_SCIENCE_Number_of_Voids
-## 1                                           
-## 2                                           
-## 3                                           
-## 4                                           
-## 5                                           
-## 6                                           
-## 7                                           
-## 8                                           
-## 9                                           
-## 10
+<div class="highlight"><pre>## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   TOTAL_POPULATION_Number_Enrolled_ELA = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   SPECIAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   SPECIAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   SPECIAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   SPECIAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   SPECIAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   SPECIAL_EDUCATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   LIMITED_ENGLISH_PROFICIENT_current_and_former_Number_Enrolled_ELA = col_integer()
+##   # ... with 147 more columns
+## )
+</pre></div>
+
+
+<div class="highlight"><pre>## See spec(...) for full column specifications.
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: 3010 parsing failures.
+## row                                                            col    expected      actual
+##   1 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   1 NA                                                             551 columns 549 columns
+##   2 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   2 NA                                                             551 columns 549 columns
+##   3 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     2          
+## ... .............................................................. ........... ...........
+## See problems(...) for more details.
+</pre></div>
+
+
+<div class="highlight"><pre>dplyr<span class="o">::</span>sample_n<span class="p">(</span>ex<span class="p">[,</span> <span class="kp">sample</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">551</span><span class="p">),</span> <span class="m">10</span><span class="p">)],</span> <span class="m">10</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre>##    WHITE_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                     
+## 2                                                 1272
+## 3                                                  001
+## 4                                                  002
+## 5                                                  932
+## 6                                                 &lt;NA&gt;
+## 7                                                 1152
+## 8                                                  672
+## 9                                                 1382
+## 10                                                 562
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_APA
+## 1                                                                  
+## 2                                                                  
+## 3                                                                  
+## 4                                                                  
+## 5                                                                  
+## 6                                                                  
+## 7                                                                  
+## 8                                                                  
+## 9                                                                  
+## 10                                                                 
+##    MIGRANT_MATHEMATICS_Number_Not_Present
+## 1                                      NA
+## 2                                      NA
+## 3                                      NA
+## 4                                      NA
+## 5                                      NA
+## 6                                      NA
+## 7                                      NA
+## 8                                      NA
+## 9                                      NA
+## 10                                     NA
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_Enrolled_Science
+## 1                                                                               
+## 2                                                                               
+## 3                                                                               
+## 4                                                                               
+## 5                                                                               
+## 6                                                                               
+## 7                                                                               
+## 8                                                                               
+## 9                                                                               
+## 10                                                                              
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Proficient_Percentage
+## 1                                                                             
+## 2                                                                         &lt;NA&gt;
+## 3                                                                         &lt;NA&gt;
+## 4                                                                             
+## 5                                                                             
+## 6                                                                         &lt;NA&gt;
+## 7                                                                         &lt;NA&gt;
+## 8                                                                         &lt;NA&gt;
+## 9                                                                         &lt;NA&gt;
+## 10                                                                        &lt;NA&gt;
+##    OTHER_SCIENCE_Number_Not_Present
+## 1                                  
+## 2                                  
+## 3                                  
+## 4                                  
+## 5                                  
+## 6                                  
+## 7                                  
+## 8                                  
+## 9                                  
+## 10                                 
+##    FEMALE_LANGUAGE_ARTS_Proficient_Percentage
+## 1                                        &lt;NA&gt;
+## 2                                         272
+## 3                                         021
+## 4                                         107
+## 5                                         266
+## 6                                         299
+## 7                                         296
+## 8                                         132
+## 9                                        &lt;NA&gt;
+## 10                                        177
+##    PACIFIC_ISLANDER_SCIENCE_Advanced_Proficient_Percentage
+## 1                                                       NA
+## 2                                                       NA
+## 3                                                        3
+## 4                                                       NA
+## 5                                                        1
+## 6                                                       NA
+## 7                                                       NA
+## 8                                                        2
+## 9                                                       NA
+## 10                                                      NA
+##    NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_of_Valid_Scale_Scores
+## 1                                                                     
+## 2                                                                     
+## 3                                                                     
+## 4                                                                     
+## 5                                                                     
+## 6                                                                     
+## 7                                                                     
+## 8                                                                     
+## 9                                                                     
+## 10                                                                    
+##    WHITE_Number_Enrolled_ELA
+## 1                         NA
+## 2                          0
+## 3                          0
+## 4                          0
+## 5                          0
+## 6                         NA
+## 7                          0
+## 8                          0
+## 9                          0
+## 10                         0
 </pre></div>
 
 
@@ -388,7 +478,7 @@ ex_process <span class="o">&lt;-</span> process_njask<span class="p">(</span>ex<
 </pre></div>
 
 
-<div class="highlight"><pre><span class="c1">## Error in names(sel)[unnamed] &lt;- sel[unnamed]: NAs are not allowed in subscripted assignments</span>
+<div class="highlight"><pre>## Error: NA column indexes not supported
 </pre></div>
 
 
@@ -434,7 +524,51 @@ fetch_njask<span class="p">(</span><span class="m">2014</span><span class="p">,<
 </pre></div>
 
 
-<div class="highlight"><pre><span class="c1">## Error in names(sel)[unnamed] &lt;- sel[unnamed]: NAs are not allowed in subscripted assignments</span>
+<div class="highlight"><pre>## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   TOTAL_POPULATION_Number_Enrolled_ELA = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   SPECIAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   SPECIAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   SPECIAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   SPECIAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   SPECIAL_EDUCATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   SPECIAL_EDUCATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   LIMITED_ENGLISH_PROFICIENT_current_and_former_Number_Enrolled_ELA = col_integer()
+##   # ... with 147 more columns
+## )
+</pre></div>
+
+
+<div class="highlight"><pre>## See spec(...) for full column specifications.
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: 3010 parsing failures.
+## row                                                            col    expected      actual
+##   1 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   1 NA                                                             551 columns 549 columns
+##   2 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   2 NA                                                             551 columns 549 columns
+##   3 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     2          
+## ... .............................................................. ........... ...........
+## See problems(...) for more details.
+</pre></div>
+
+
+<div class="highlight"><pre>## Error: NA column indexes not supported
 </pre></div>
 
 

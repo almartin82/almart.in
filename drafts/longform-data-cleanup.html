@@ -176,7 +176,23 @@ lf_pub_disp<span class="o">$</span>publication <span class="o">&lt;-</span> <spa
 </pre></div>
 
 
-<div class="highlight"><pre>## Error: Unknown name
+<div class="highlight"><pre>## Warning: Unknown column &#39;year&#39;
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: Unknown column &#39;n&#39;
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: Unknown column &#39;year&#39;
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: Unknown column &#39;n&#39;
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in `$&lt;-.data.frame`(`*tmp*`, &quot;publication&quot;, value = logical(0)): replacement has 0 rows, data has 1792
 </pre></div>
 
 
@@ -200,7 +216,7 @@ lf_pub_yr <span class="o">&lt;-</span> dplyr<span class="o">::</span>left_join<s
 </pre></div>
 
 
-<div class="highlight"><pre>## Joining by: &quot;year_posted&quot;
+<div class="highlight"><pre>## Joining, by = &quot;year_posted&quot;
 </pre></div>
 
 
@@ -211,7 +227,7 @@ lf_pub_disp <span class="o">&lt;-</span> dplyr<span class="o">::</span>left_join
 </pre></div>
 
 
-<div class="highlight"><pre>## Joining by: &quot;year_posted&quot;
+<div class="highlight"><pre>## Joining, by = &quot;year_posted&quot;
 </pre></div>
 
 
@@ -226,7 +242,7 @@ lf_pub_disp<span class="o">$</span>pct_year_total <span class="o">&lt;-</span> <
 ## Groups: publication [4]
 ## 
 ##     publication year_posted n_pub yr_total pct_year_total
-##           (chr)       (dbl) (int)    (int)          (dbl)
+##           &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt;    &lt;int&gt;          &lt;dbl&gt;
 ## 1             -        2011     1     1384     0.07225434
 ## 2 3:AM Magazine        2011     1     1384     0.07225434
 ## 3 3:AM Magazine        2013     2     1403     0.14255167
@@ -244,7 +260,7 @@ lf_pub_disp<span class="o">$</span>pct_year_total <span class="o">&lt;-</span> <
 ## Groups: year_posted [5]
 ## 
 ##     publication year_posted n_pub rank_pub yr_total pct_year_total
-##           (chr)       (dbl) (int)    (int)    (int)          (dbl)
+##           &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt;    &lt;int&gt;    &lt;int&gt;          &lt;dbl&gt;
 ## 1             -        2011     1      124     1384     0.07225434
 ## 2 3:AM Magazine        2011     1      125     1384     0.07225434
 ## 3 3:AM Magazine        2013     2      117     1403     0.14255167

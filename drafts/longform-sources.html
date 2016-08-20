@@ -112,7 +112,23 @@ knitr<span class="o">::</span>knit<span class="p">(</span><span class="s">&#39;0
 </pre></div>
 
 
-<div class="highlight"><pre>## Error: Unknown name
+<div class="highlight"><pre>## Warning: Unknown column &#39;year&#39;
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: Unknown column &#39;n&#39;
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: Unknown column &#39;year&#39;
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: Unknown column &#39;n&#39;
+</pre></div>
+
+
+<div class="highlight"><pre>## Error in `$&lt;-.data.frame`(`*tmp*`, &quot;publication&quot;, value = logical(0)): replacement has 0 rows, data has 1792
 </pre></div>
 
 
@@ -205,20 +221,14 @@ lf_pub_disp <span class="o">&lt;-</span> <span class="kp">rbind</span><span clas
     <span class="s">&#39;pct_year_total&#39;</span><span class="o">=</span><span class="m">0</span>
   <span class="p">)</span>
 <span class="p">)</span>
-</pre></div>
 
-
-<div class="highlight"><pre>## Error in rbind(deparse.level, ...): numbers of columns of arguments do not match
-</pre></div>
-
-
-<div class="highlight"><pre>lf_pub_disp <span class="o">&lt;-</span> dplyr<span class="o">::</span>left_join<span class="p">(</span>
+lf_pub_disp <span class="o">&lt;-</span> dplyr<span class="o">::</span>left_join<span class="p">(</span>
   lf_pub_disp<span class="p">,</span> top_2010<span class="p">[,</span> <span class="kt">c</span><span class="p">(</span><span class="s">&#39;publication&#39;</span><span class="p">,</span> <span class="s">&#39;rank_2010&#39;</span><span class="p">)]</span>  
 <span class="p">)</span>
 </pre></div>
 
 
-<div class="highlight"><pre>## Error in tbl_vars(y): object &#39;top_2010&#39; not found
+<div class="highlight"><pre>## Error in UseMethod(&quot;left_join&quot;): no applicable method for &#39;left_join&#39; applied to an object of class &quot;c(&#39;matrix&#39;, &#39;list&#39;)&quot;
 </pre></div>
 
 
@@ -229,7 +239,7 @@ lf_pub_disp <span class="o">&lt;-</span> <span class="kp">rbind</span><span clas
 </pre></div>
 
 
-<div class="highlight"><pre>## Error in eval(expr, envir, enclos): object &#39;rank_2010&#39; not found
+<div class="highlight"><pre>## Error in UseMethod(&quot;arrange_&quot;): no applicable method for &#39;arrange_&#39; applied to an object of class &quot;c(&#39;matrix&#39;, &#39;list&#39;)&quot;
 </pre></div>
 
 
@@ -269,30 +279,24 @@ theme_bw<span class="p">()</span>
 </pre></div>
 
 
-<div class="highlight"><pre>##         X           author  posted_at       publication pub_date
-## 3228 3408  Megan McCloskey 2012-11-15 Stars and Stripes   Nov-12
-## 6937 8181   Kathryn Schulz 2015-04-08        New Yorker   Apr-15
-## 6085 7103 Jay Caspian Kang 2014-09-10          Harper&#39;s   Sep-14
-## 6200 7242       Alex Perry 2014-10-06          Newsweek   Oct-14
-## 4012 4452          Ed Yong 2013-03-27             Wired   Mar-13
-##                                                                                    summary
-## 3228 Army Spc. Erik Schei was shot in the head in Iraq. This is the story of his recovery.
-## 6937                                                           The allure of invisibility.
-## 6085                             On the president’s campaign to crack down on campus rape.
-## 6200                              How celebrity-led humanitarian aid exacerbated a crisis.
-## 4012                                            On the new science of collective behavior.
-##                                                                       title
-## 3228                  Forever After: A Warrior Wounded, a Family Challenged
-## 6937                                                           Sight Unseen
-## 6085                                          Ending College Sexual Assault
-## 6200 George Clooney, South Sudan and How the World&#39;s Newest Nation Imploded
-## 4012                                                    The Power of Swarms
-##      year_posted
-## 3228        2012
-## 6937        2015
-## 6085        2014
-## 6200        2014
-## 4012        2013
+<div class="highlight"><pre>##         X          author  posted_at              publication pub_date
+## 6433 7535      Zach Baron 2014-12-04                       GQ   Dec-14
+## 2366 2453   Duff McDonald 2012-03-17             Businessweek   May-11
+## 3543 3784 Daniel Woodrell 2011-10-20                  Esquire     2011
+## 6094 7114     Meghan Daum 2014-09-15 New York Times Magazine    Sep-14
+## 1642 1697       Ted Gioia 2011-08-20           Alibi Magazine   Aug-11
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                            summary
+## 6433                                                                                                                                                                                                                                                                                                                                                                                                                                                On the actress’s stellar year.
+## 2366                                                                                                                                                                                                                                                                                                                               A profile of Red Bull’s Dietrich Mateschitz, who wants to make his drink a lifestyle. Mateschitz’s co-founder, Chaleo Yoovidhya, died March 17.
+## 3543                                                                      The new owner of the Twin Forks Store and Campground encounters some trouble.&quot;The sheriff had said, &#39;You probably should&#39;ve shot him while you could do it legal and get it over with. He might be back for you, or you might not ever see him again, who knows with meth heads. But you surely will want to be ready if ever he does come around for you, and that could be at any time from now on.&#39;&quot; 
+## 6094                                                                                                                                                                                                                                                                                                                                                                                                                                  On the writer’s new book and tell-all style.
+## 1642 Another look at a popular myth. For the longest time blues fans didn’t even know what their hero looked like—in 1971, a music magazine even hired a forensic artist to make a composite sketch based on various first-hand accounts—until two photos of Robert Johnson finally came to light.  The dapper young man pictured in the most famous photo, dressed in a stylish suit and smiling affably at the camera, hardly looks like a man who has sold his soul to Lucifer.
+##                                               title year_posted
+## 6433         Tilda Swinton Is in a World of Her Own        2014
+## 2366                  Red Bull&#39;s Billionaire Maniac        2012
+## 3543                                     Twin Forks        2011
+## 6094             Lena Dunham is Not Done Confessing        2014
+## 1642 Did Robert Johnson Sell His Soul to the Devil?        2011
 </pre></div>
 
 

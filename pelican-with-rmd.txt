@@ -43,14 +43,3 @@ Overall, though, I have to say that I'm thrilled about having a straightforward 
 # enhancement ideas
 
 One thing that would be helpful would be a pelican_rmd template, following the [tutorials]((http://rmarkdown.rstudio.com/developer_document_templates.html)) for creating custom knitr templates on RStudio.  That would fix the metadata problem, and it could have a nice block with all the `hook_content` stuff all ready to go.  If I find some time while this is still fresh, I'd like to add some of this back to Wilson's readme for rmd_reader.  **Shiny** support is also something to look into.
-
-
-
-
-
-
-
-
-
-
-

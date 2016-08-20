@@ -120,7 +120,34 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
   file <span class="o">=</span> sample_file<span class="p">,</span>
   col_positions <span class="o">=</span> readr<span class="o">::</span>fwf_empty<span class="p">(</span>file<span class="o">=</span>sample_file<span class="p">)</span>
 <span class="p">)</span>
-<span class="kp">as.data.frame</span><span class="p">(</span>njask14_gr8<span class="p">)[</span><span class="m">1</span><span class="o">:</span><span class="m">11</span><span class="p">,</span><span class="m">1</span><span class="o">:</span><span class="m">15</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   X232 = col_integer(),
+##   X233 = col_integer(),
+##   X234 = col_integer(),
+##   X235 = col_integer(),
+##   X236 = col_integer(),
+##   X237 = col_integer(),
+##   X238 = col_integer(),
+##   X239 = col_integer(),
+##   X240 = col_integer(),
+##   X241 = col_integer(),
+##   X242 = col_integer(),
+##   X243 = col_integer(),
+##   X244 = col_integer()
+## )
+</pre></div>
+
+
+<div class="highlight"><pre>## See spec(...) for full column specifications.
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">as.data.frame</span><span class="p">(</span>njask14_gr8<span class="p">)[</span><span class="m">1</span><span class="o">:</span><span class="m">11</span><span class="p">,</span><span class="m">1</span><span class="o">:</span><span class="m">15</span><span class="p">]</span>
 </pre></div>
 
 
@@ -181,23 +208,39 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
 <p><img src="static_images/04_njask_layout.png"></p>
 <p>I think we can do some dplyr tricks and recover the nested aspects of this data.  First, read the excel file in as a data frame:</p>
 <div class="highlight"><pre>layout <span class="o">&lt;-</span> readr<span class="o">::</span>read_csv<span class="p">(</span><span class="s">&quot;datasets/njask_layout.csv&quot;</span><span class="p">)</span>
-<span class="kp">names</span><span class="p">(</span>layout<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>layout<span class="p">)))</span>
+</pre></div>
+
+
+<div class="highlight"><pre>## Parsed with column specification:
+## cols(
+##   `Field Start Position` = col_integer(),
+##   `Field End Position` = col_integer(),
+##   `Field Length` = col_integer(),
+##   `Data Type` = col_character(),
+##   Description = col_character(),
+##   Comments = col_character(),
+##   `Valid Values` = col_character(),
+##   structural = col_logical()
+## )
+</pre></div>
+
+
+<div class="highlight"><pre><span class="kp">names</span><span class="p">(</span>layout<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span><span class="kp">gsub</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="kp">names</span><span class="p">(</span>layout<span class="p">)))</span>
 <span class="kp">head</span><span class="p">(</span>layout<span class="p">)</span>
 </pre></div>
 
 
-<div class="highlight"><pre>## Source: local data frame [6 x 8]
-## 
+<div class="highlight"><pre>## # A tibble: 6 x 8
 ##   field_start_position field_end_position field_length data_type
-##                  (int)              (int)        (int)     (chr)
+##                  &lt;int&gt;              &lt;int&gt;        &lt;int&gt;     &lt;chr&gt;
 ## 1                    1                  9            9      Text
 ## 2                    1                  2            2      Text
 ## 3                    3                  6            4      Text
 ## 4                    7                  9            3      Text
 ## 5                   10                 59           50      Text
 ## 6                   60                109           50      Text
-## Variables not shown: description (chr), comments (chr), valid_values
-##   (chr), structural (lgl).
+## # ... with 4 more variables: description &lt;chr&gt;, comments &lt;chr&gt;,
+## #   valid_values &lt;chr&gt;, structural &lt;lgl&gt;
 </pre></div>
 
 
@@ -211,18 +254,17 @@ keepers <span class="o">&lt;-</span> dplyr<span class="o">::</span>filter<span c
 </pre></div>
 
 
-<div class="highlight"><pre>## Source: local data frame [6 x 8]
-## 
+<div class="highlight"><pre>## # A tibble: 6 x 8
 ##   field_start_position field_end_position field_length         data_type
-##                  (int)              (int)        (int)             (chr)
+##                  &lt;int&gt;              &lt;int&gt;        &lt;int&gt;             &lt;chr&gt;
 ## 1                  163                300          138  TOTAL POPULATION
 ## 2                  169                208           40     LANGUAGE ARTS
 ## 3                  209                254           46       MATHEMATICS
 ## 4                  255                300           46           SCIENCE
 ## 5                  301                438          138 GENERAL EDUCATION
 ## 6                  307                346           40     LANGUAGE ARTS
-## Variables not shown: description (chr), comments (chr), valid_values
-##   (chr), structural (lgl).
+## # ... with 4 more variables: description &lt;chr&gt;, comments &lt;chr&gt;,
+## #   valid_values &lt;chr&gt;, structural &lt;lgl&gt;
 </pre></div>
 
 
@@ -576,122 +618,155 @@ njask14_gr8 <span class="o">&lt;-</span> readr<span class="o">::</span>read_fwf<
 </pre></div>
 
 
+<div class="highlight"><pre>## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   TOTAL_POPULATION_Number_Enrolled_ELA = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_MATHEMATICS_Scale_Score_Mean = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Number_Enrolled_Science = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Number_Not_Present = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Advanced_Proficient_Percentage = col_integer(),
+##   TOTAL_POPULATION_SCIENCE_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_Number_Enrolled_ELA = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_LANGUAGE_ARTS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Enrolled_Math = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Advanced_Proficient_Percentage = col_integer(),
+##   GENERAL_EDUCATION_MATHEMATICS_Scale_Score_Mean = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Number_Enrolled_Science = col_integer(),
+##   GENERAL_EDUCATION_SCIENCE_Number_Not_Present = col_integer()
+##   # ... with 240 more columns
+## )
+</pre></div>
+
+
+<div class="highlight"><pre>## See spec(...) for full column specifications.
+</pre></div>
+
+
+<div class="highlight"><pre>## Warning: 2578 parsing failures.
+## row                                                            col    expected      actual
+##   1 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   1 NA                                                             551 columns 549 columns
+##   2 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
+##   2 NA                                                             551 columns 549 columns
+##   3 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     2          
+## ... .............................................................. ........... ...........
+## See problems(...) for more details.
+</pre></div>
+
+
 <p>success!
 let's look at just a sample of 10 rows and 10 columns from that:</p>
 <div class="highlight"><pre>dplyr<span class="o">::</span>sample_n<span class="p">(</span>njask14_gr8<span class="p">[,</span> <span class="kp">sample</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">551</span><span class="p">),</span> <span class="m">10</span><span class="p">)],</span> <span class="m">10</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">as.data.frame</span><span class="p">()</span>
 </pre></div>
 
 
-<div class="highlight"><pre>##    CURRENT_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Number_of_Valid_Scale_Scores
-## 1                                                                             NA
-## 2                                                                             NA
-## 3                                                                             NA
-## 4                                                                             NA
-## 5                                                                             NA
-## 6                                                                             NA
-## 7                                                                             NA
-## 8                                                                             NA
-## 9                                                                             NA
-## 10                                                                            NA
-##    PACIFIC_ISLANDER_LANGUAGE_ARTS_Number_of_Voids
-## 1                                              NA
-## 2                                              NA
-## 3                                              NA
-## 4                                              NA
-## 5                                              NA
-## 6                                              NA
-## 7                                              NA
-## 8                                              NA
-## 9                                              NA
-## 10                                             NA
-##    OTHER_LANGUAGE_ARTS_Number_of_Voids
-## 1                                   NA
-## 2                                   NA
-## 3                                   NA
-## 4                                   NA
-## 5                                   NA
-## 6                                   NA
-## 7                                   NA
+<div class="highlight"><pre>##    SPECIAL_EDUCATION_SCIENCE_Number_of_Voids
+## 1                                       &lt;NA&gt;
+## 2                                       &lt;NA&gt;
+## 3                                          0
+## 4                                          0
+## 5                                       &lt;NA&gt;
+## 6                                          2
+## 7                                       &lt;NA&gt;
+## 8                                       &lt;NA&gt;
+## 9                                          1
+## 10                                      &lt;NA&gt;
+##    PACIFIC_ISLANDER_Number_Enrolled_ELA
+## 1                                    NA
+## 2                                    NA
+## 3                                    NA
+## 4                                    NA
+## 5                                    NA
+## 6                                    NA
+## 7                                    NA
+## 8                                    NA
+## 9                                    NA
+## 10                                   NA
+##    MALE_MATHEMATICS_Number_Not_Present
+## 1                                    0
+## 2                                    0
+## 3                                    1
+## 4                                    0
+## 5                                    0
+## 6                                    0
+## 7                                    0
 ## 8                                   NA
-## 9                                   NA
-## 10                                  NA
-##    NON-MIGRANT_SCIENCE_Advanced_Proficient_Percentage
-## 1                                                  76
-## 2                                                  93
-## 3                                                 241
-## 4                                                 698
-## 5                                                 514
-## 6                                                  30
-## 7                                                 310
-## 8                                                  71
-## 9                                                &lt;NA&gt;
-## 10                                                676
-##    HISPANIC_SCIENCE_Number_of_Valid_Scale_Scores
-## 1                                             29
-## 2                                             39
-## 3                                             42
-## 4                                             NA
-## 5                                             11
-## 6                                             42
-## 7                                             14
-## 8                                             NA
-## 9                                             NA
-## 10                                            NA
-##    MALE_SCIENCE_Number_of_Valid_Scale_Scores
-## 1                                        109
-## 2                                        114
-## 3                                         66
-## 4                                         61
-## 5                                        114
-## 6                                         54
-## 7                                         46
-## 8                                         25
-## 9                                         NA
-## 10                                        33
-##    FORMER_LIMITED_ENGLISH_PROFICIENT_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                                                     NA
-## 2                                                                     NA
-## 3                                                                     NA
-## 4                                                                     NA
-## 5                                                                     NA
-## 6                                                                     NA
-## 7                                                                     NA
-## 8                                                                     NA
-## 9                                                                     NA
-## 10                                                                    NA
-##    ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Number_APA
-## 1                                                  2
-## 2                                                  7
-## 3                                                  2
-## 4                                                 NA
-## 5                                                 NA
-## 6                                                  2
-## 7                                                  0
-## 8                                                  0
-## 9                                                 NA
-## 10                                                NA
-##    MIGRANT_LANGUAGE_ARTS_Scale_Score_Mean
-## 1                                      NA
-## 2                                      NA
-## 3                                      NA
-## 4                                      NA
-## 5                                      NA
-## 6                                      NA
-## 7                                      NA
-## 8                                      NA
-## 9                                      NA
-## 10                                     NA
-##    NON-ECONOMICALLY_DISADVANTAGED_MATHEMATICS_Partially_Proficient_Percentage
-## 1                                                                         350
-## 2                                                                         411
-## 3                                                                         221
-## 4                                                                          53
-## 5                                                                          93
-## 6                                                                        &lt;NA&gt;
-## 7                                                                         167
-## 8                                                                         462
-## 9                                                                        &lt;NA&gt;
-## 10                                                                        104
+## 9                                    0
+## 10                                   0
+##    SPECIAL_EDUCATION_SCIENCE_Scale_Score_Mean School_Code
+## 1                                          NA         R S
+## 2                                          NA          ET
+## 3                                           0            
+## 4                                           0            
+## 5                                          NA            
+## 6                                          NA            
+## 7                                          NA         LAN
+## 8                                          NA            
+## 9                                          NA            
+## 10                                          0         DON
+##    HISPANIC_MATHEMATICS_Advanced_Proficient_Percentage
+## 1                                                    1
+## 2                                                   NA
+## 3                                                   NA
+## 4                                                    2
+## 5                                                    1
+## 6                                                    3
+## 7                                                    1
+## 8                                                   NA
+## 9                                                    1
+## 10                                                  NA
+##    MALE_LANGUAGE_ARTS_Number_APA
+## 1                          19 42
+## 2                          34 14
+## 3                          44 54
+## 4                         112  8
+## 5                          49 24
+## 6                          25 60
+## 7                          16 62
+## 8                           &lt;NA&gt;
+## 9                          58 24
+## 10                         28  7
+##    HISPANIC_SCIENCE_Advanced_Proficient_Percentage
+## 1                                               NA
+## 2                                               NA
+## 3                                               NA
+## 4                                               NA
+## 5                                               NA
+## 6                                               NA
+## 7                                               NA
+## 8                                               NA
+## 9                                               NA
+## 10                                              NA
+##    ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Number_Not_Present
+## 1                                                            0
+## 2                                                           NA
+## 3                                                            1
+## 4                                                            0
+## 5                                                            1
+## 6                                                            0
+## 7                                                            0
+## 8                                                           NA
+## 9                                                            0
+## 10                                                          NA
+##    OTHER_Number_Enrolled_ELA
+## 1                         NA
+## 2                         NA
+## 3                         NA
+## 4                         NA
+## 5                         NA
+## 6                         NA
+## 7                         NA
+## 8                         NA
+## 9                         NA
+## 10                        NA
 </pre></div>
 
 
