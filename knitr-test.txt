@@ -1,7 +1,6 @@
 Title: knitr test with images.
 Date: 2016-08-21
 Category: meta
-Tags: NJ, assessment, NJASK, HSPA, data_management, tutorial
 Slug: knitr-test
 Author: Andrew Martin
 
