@@ -1636,62 +1636,18 @@ ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    WHITE_LANGUAGE_ARTS_Partially_Proficient_Percentage
-## 1                                                     
-## 2                                                 1272
-## 3                                                  001
-## 4                                                  002
-## 5                                                  932
-## 6                                                 &amp;lt;NA&amp;gt;
-## 7                                                 1152
-## 8                                                  672
-## 9                                                 1382
-## 10                                                 562
-##    LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_APA
-## 1                                                                  
-## 2                                                                  
-## 3                                                                  
-## 4                                                                  
-## 5                                                                  
-## 6                                                                  
-## 7                                                                  
-## 8                                                                  
-## 9                                                                  
-## 10                                                                 
-##    MIGRANT_MATHEMATICS_Number_Not_Present
-## 1                                      NA
-## 2                                      NA
-## 3                                      NA
-## 4                                      NA
-## 5                                      NA
-## 6                                      NA
-## 7                                      NA
-## 8                                      NA
-## 9                                      NA
-## 10                                     NA
-##    LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Number_Enrolled_Science
-## 1                                                                               
-## 2                                                                               
-## 3                                                                               
-## 4                                                                               
-## 5                                                                               
-## 6                                                                               
-## 7                                                                               
-## 8                                                                               
-## 9                                                                               
-## 10                                                                              
-##    LIMITED_ENGLISH_PROFICIENT_current_and_former_SCIENCE_Proficient_Percentage
-## 1                                                                             
-## 2                                                                         &amp;lt;NA&amp;gt;
-## 3                                                                         &amp;lt;NA&amp;gt;
-## 4                                                                             
-## 5                                                                             
-## 6                                                                         &amp;lt;NA&amp;gt;
-## 7                                                                         &amp;lt;NA&amp;gt;
-## 8                                                                         &amp;lt;NA&amp;gt;
-## 9                                                                         &amp;lt;NA&amp;gt;
-## 10                                                                        &amp;lt;NA&amp;gt;
-##    OTHER_SCIENCE_Number_Not_Present
+&lt;div class="highlight"&gt;&lt;pre&gt;##    TOTAL_POPULATION_MATHEMATICS_Scale_Score_Mean
+## 1                                               
+## 2                                               
+## 3                                               
+## 4                                               
+## 5                                               
+## 6                                               
+## 7                                               
+## 8                                               
+## 9                                               
+## 10                                              
+##    HISPANIC_SCIENCE_Number_of_Voids
 ## 1                                  
 ## 2                                  
 ## 3                                  
@@ -1702,50 +1658,83 @@ ex &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; get_raw_njask&lt;span class="p"&
 ## 8                                  
 ## 9                                  
 ## 10                                 
-##    FEMALE_LANGUAGE_ARTS_Proficient_Percentage
-## 1                                        &amp;lt;NA&amp;gt;
-## 2                                         272
-## 3                                         021
-## 4                                         107
-## 5                                         266
-## 6                                         299
-## 7                                         296
-## 8                                         132
-## 9                                        &amp;lt;NA&amp;gt;
-## 10                                        177
-##    PACIFIC_ISLANDER_SCIENCE_Advanced_Proficient_Percentage
-## 1                                                       NA
-## 2                                                       NA
-## 3                                                        3
-## 4                                                       NA
-## 5                                                        1
-## 6                                                       NA
-## 7                                                       NA
-## 8                                                        2
-## 9                                                       NA
-## 10                                                      NA
-##    NON-ECONOMICALLY_DISADVANTAGED_SCIENCE_Number_of_Valid_Scale_Scores
-## 1                                                                     
-## 2                                                                     
-## 3                                                                     
-## 4                                                                     
-## 5                                                                     
-## 6                                                                     
-## 7                                                                     
-## 8                                                                     
-## 9                                                                     
-## 10                                                                    
-##    WHITE_Number_Enrolled_ELA
-## 1                         NA
-## 2                          0
-## 3                          0
-## 4                          0
-## 5                          0
-## 6                         NA
-## 7                          0
-## 8                          0
-## 9                          0
-## 10                         0
+##    MIGRANT_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                       
+## 2                                                       
+## 3                                                       
+## 4                                                       
+## 5                                                       
+## 6                                                       
+## 7                                                       
+## 8                                                       
+## 9                                                       
+## 10                                                      
+##    ASIAN_MATHEMATICS_Proficient_Percentage
+## 1                                       NA
+## 2                                       NA
+## 3                                       NA
+## 4                                      692
+## 5                                       NA
+## 6                                       NA
+## 7                                      727
+## 8                                       NA
+## 9                                       NA
+## 10                                     295
+##    AMERICAN_INDIAN_LANGUAGE_ARTS_Number_APA
+## 1                                          
+## 2                                      &amp;lt;NA&amp;gt;
+## 3                                      &amp;lt;NA&amp;gt;
+## 4                                          
+## 5                                          
+## 6                                      &amp;lt;NA&amp;gt;
+## 7                                          
+## 8                                      &amp;lt;NA&amp;gt;
+## 9                                          
+## 10                                     &amp;lt;NA&amp;gt;
+##    SPECIAL_EDUCATION_LANGUAGE_ARTS_Advanced_Proficient_Percentage
+## 1                                                               3
+## 2                                                               1
+## 3                                                              NA
+## 4                                                               4
+## 5                                                              NA
+## 6                                                               1
+## 7                                                              NA
+## 8                                                              NA
+## 9                                                              NA
+## 10                                                              5
+##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Number_APA District_Code
+## 1                                                                    RGEN
+## 2                                                                    LANT
+## 3                                                                    ARTE
+## 4                                                                    DDLE
+## 5                                                                     SEX
+## 6                                                                    SSAI
+## 7                                                                    RGEN
+## 8                                                                    SSAI
+## 9                                                                    SSAI
+## 10                                                                   DSON
+##    CURRENT_LIMITED_ENGLISH_PROFICIENT_MATHEMATICS_Advanced_Proficient_Percentage
+## 1                                                                               
+## 2                                                                               
+## 3                                                                               
+## 4                                                                               
+## 5                                                                               
+## 6                                                                               
+## 7                                                                               
+## 8                                                                               
+## 9                                                                               
+## 10                                                                              
+##    SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Number_Enrolled_Science
+## 1                                                                       
+## 2                                                                       
+## 3                                                                       
+## 4                                                                       
+## 5                                                                       
+## 6                                                                       
+## 7                                                                       
+## 8                                                                       
+## 9                                                                       
+## 10
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -2435,6 +2424,73 @@ njask14_gr8 &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; readr&lt;span class="o"
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;div class="highlight"&gt;&lt;pre&gt;## 
+|==========                                                                     |  12%           
+|===========                                                                    |  14%           
+|============                                                                   |  15%           
+|=============                                                                  |  16%           
+|==============                                                                 |  18%           
+|===============                                                                |  19%           
+|================                                                               |  21%           
+|==================                                                             |  22%           
+|===================                                                            |  24%           
+|====================                                                           |  25%           
+|=====================                                                          |  26%           
+|======================                                                         |  28%    1 MB
+|=======================                                                        |  29%    1 MB
+|========================                                                       |  31%    1 MB
+|==========================                                                     |  32%    1 MB
+|===========================                                                    |  33%    1 MB
+|============================                                                   |  35%    1 MB
+|=============================                                                  |  36%    1 MB
+|==============================                                                 |  38%    1 MB
+|===============================                                                |  39%    1 MB
+|================================                                               |  41%    1 MB
+|=================================                                              |  42%    1 MB
+|===================================                                            |  43%    1 MB
+|====================================                                           |  45%    1 MB
+|=====================================                                          |  46%    1 MB
+|======================================                                         |  48%    1 MB
+|=======================================                                        |  49%    1 MB
+|========================================                                       |  50%    1 MB
+|=========================================                                      |  52%    1 MB
+|==========================================                                     |  53%    1 MB
+|============================================                                   |  55%    1 MB
+|=============================================                                  |  56%    2 MB
+|==============================================                                 |  57%    2 MB
+|===============================================                                |  59%    2 MB
+|================================================                               |  60%    2 MB
+|=================================================                              |  62%    2 MB
+|==================================================                             |  63%    2 MB
+|====================================================                           |  65%    2 MB
+|=====================================================                          |  66%    2 MB
+|======================================================                         |  67%    2 MB
+|=======================================================                        |  69%    2 MB
+|========================================================                       |  70%    2 MB
+|=========================================================                      |  72%    2 MB
+|==========================================================                     |  73%    2 MB
+|===========================================================                    |  74%    2 MB
+|=============================================================                  |  76%    2 MB
+|==============================================================                 |  77%    2 MB
+|===============================================================                |  79%    2 MB
+|================================================================               |  80%    2 MB
+|=================================================================              |  82%    2 MB
+|==================================================================             |  83%    3 MB
+|===================================================================            |  84%    3 MB
+|=====================================================================          |  86%    3 MB
+|======================================================================         |  87%    3 MB
+|=======================================================================        |  89%    3 MB
+|========================================================================       |  90%    3 MB
+|=========================================================================      |  91%    3 MB
+|==========================================================================     |  93%    3 MB
+|===========================================================================    |  94%    3 MB
+|============================================================================   |  96%    3 MB
+|============================================================================== |  97%    3 MB
+|===============================================================================|  98%    3 MB
+|================================================================================| 100%    3 MB
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;div class="highlight"&gt;&lt;pre&gt;## Warning: 2578 parsing failures.
 ## row                                                            col    expected      actual
 ##   1 SPECIAL_EDUCATION_WITH_ACCOMMODATIONS_SCIENCE_Scale_Score_Mean 4 chars     0          
@@ -2453,98 +2509,43 @@ let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;##    SPECIAL_EDUCATION_SCIENCE_Number_of_Voids
-## 1                                       &amp;lt;NA&amp;gt;
-## 2                                       &amp;lt;NA&amp;gt;
-## 3                                          0
-## 4                                          0
-## 5                                       &amp;lt;NA&amp;gt;
-## 6                                          2
-## 7                                       &amp;lt;NA&amp;gt;
-## 8                                       &amp;lt;NA&amp;gt;
-## 9                                          1
-## 10                                      &amp;lt;NA&amp;gt;
-##    PACIFIC_ISLANDER_Number_Enrolled_ELA
-## 1                                    NA
-## 2                                    NA
-## 3                                    NA
-## 4                                    NA
-## 5                                    NA
-## 6                                    NA
-## 7                                    NA
-## 8                                    NA
-## 9                                    NA
-## 10                                   NA
-##    MALE_MATHEMATICS_Number_Not_Present
-## 1                                    0
-## 2                                    0
-## 3                                    1
-## 4                                    0
-## 5                                    0
-## 6                                    0
-## 7                                    0
-## 8                                   NA
-## 9                                    0
-## 10                                   0
-##    SPECIAL_EDUCATION_SCIENCE_Scale_Score_Mean School_Code
-## 1                                          NA         R S
-## 2                                          NA          ET
-## 3                                           0            
-## 4                                           0            
-## 5                                          NA            
-## 6                                          NA            
-## 7                                          NA         LAN
-## 8                                          NA            
-## 9                                          NA            
-## 10                                          0         DON
-##    HISPANIC_MATHEMATICS_Advanced_Proficient_Percentage
-## 1                                                    1
-## 2                                                   NA
-## 3                                                   NA
-## 4                                                    2
-## 5                                                    1
-## 6                                                    3
-## 7                                                    1
-## 8                                                   NA
-## 9                                                    1
-## 10                                                  NA
-##    MALE_LANGUAGE_ARTS_Number_APA
-## 1                          19 42
-## 2                          34 14
-## 3                          44 54
-## 4                         112  8
-## 5                          49 24
-## 6                          25 60
-## 7                          16 62
-## 8                           &amp;lt;NA&amp;gt;
-## 9                          58 24
-## 10                         28  7
-##    HISPANIC_SCIENCE_Advanced_Proficient_Percentage
-## 1                                               NA
-## 2                                               NA
-## 3                                               NA
-## 4                                               NA
-## 5                                               NA
-## 6                                               NA
-## 7                                               NA
-## 8                                               NA
-## 9                                               NA
-## 10                                              NA
-##    ECONOMICALLY_DISADVANTAGED_LANGUAGE_ARTS_Number_Not_Present
-## 1                                                            0
-## 2                                                           NA
-## 3                                                            1
-## 4                                                            0
-## 5                                                            1
-## 6                                                            0
-## 7                                                            0
-## 8                                                           NA
-## 9                                                            0
-## 10                                                          NA
+&lt;div class="highlight"&gt;&lt;pre&gt;##    HISPANIC_MATHEMATICS_Proficient_Percentage
+## 1                                         829
+## 2                                         131
+## 3                                         333
+## 4                                        &amp;lt;NA&amp;gt;
+## 5                                        &amp;lt;NA&amp;gt;
+## 6                                        &amp;lt;NA&amp;gt;
+## 7                                        &amp;lt;NA&amp;gt;
+## 8                                         062
+## 9                                        &amp;lt;NA&amp;gt;
+## 10                                        294
+##    TOTAL_POPULATION_LANGUAGE_ARTS_Number_Not_Present
+## 1                                                  0
+## 2                                                  0
+## 3                                                  0
+## 4                                                  0
+## 5                                                  0
+## 6                                                  0
+## 7                                                  0
+## 8                                                  0
+## 9                                                  1
+## 10                                                 1
+##    GENERAL_EDUCATION_MATHEMATICS_Number_Not_Present Testing_Year
+## 1                                                 0         &amp;lt;NA&amp;gt;
+## 2                                                 0         &amp;lt;NA&amp;gt;
+## 3                                                 0         &amp;lt;NA&amp;gt;
+## 4                                                 0         &amp;lt;NA&amp;gt;
+## 5                                                 0         &amp;lt;NA&amp;gt;
+## 6                                                 0         &amp;lt;NA&amp;gt;
+## 7                                                 0         &amp;lt;NA&amp;gt;
+## 8                                                 0         &amp;lt;NA&amp;gt;
+## 9                                                 1         &amp;lt;NA&amp;gt;
+## 10                                                1         &amp;lt;NA&amp;gt;
 ##    OTHER_Number_Enrolled_ELA
 ## 1                         NA
 ## 2                         NA
-## 3                         NA
+## 3                          0
 ## 4                         NA
 ## 5                         NA
 ## 6                         NA
@@ -2552,6 +2553,61 @@ let's look at just a sample of 10 rows and 10 columns from that:&lt;/p&gt;
 ## 8                         NA
 ## 9                         NA
 ## 10                        NA
+##    HISPANIC_MATHEMATICS_Number_of_Valid_Scale_Scores
+## 1                                              6 364
+## 2                                              4 571
+## 3                                              1 545
+## 4                                              *   *
+## 5                                              *   *
+## 6                                              *   *
+## 7                                              *   *
+## 8                                              8 494
+## 9                                              *   *
+## 10                                             2 412
+##    NON-MIGRANT_SCIENCE_Advanced_Proficient_Percentage
+## 1                                                  NA
+## 2                                                  NA
+## 3                                                  11
+## 4                                                   6
+## 5                                                   3
+## 6                                                   4
+## 7                                                   8
+## 8                                                  20
+## 9                                                   9
+## 10                                                  2
+##    WHITE_LANGUAGE_ARTS_Partially_Proficient_Percentage
+## 1                                                     
+## 2                                                     
+## 3                                                 2142
+## 4                                                  162
+## 5                                                 1672
+## 6                                                 4472
+## 7                                                  622
+## 8                                                 1152
+## 9                                                 4002
+## 10                                                1602
+##    FEMALE_MATHEMATICS_Number_APA
+## 1                          23 69
+## 2                          91 34
+## 3                         110 10
+## 4                          33 60
+## 5                          19 15
+## 6                          33 12
+## 7                          52 28
+## 8                         205 21
+## 9                          48  6
+## 10                        116 23
+##    LIMITED_ENGLISH_PROFICIENT_current_and_former_MATHEMATICS_Number_Not_Present
+## 1                                                                            NA
+## 2                                                                            NA
+## 3                                                                            NA
+## 4                                                                            NA
+## 5                                                                            NA
+## 6                                                                            NA
+## 7                                                                            NA
+## 8                                                                            NA
+## 9                                                                            NA
+## 10                                                                            0
 &lt;/pre&gt;&lt;/div&gt;
 
 
